@@ -1,0 +1,83 @@
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .example {background: red;}
+  }
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    .example {background: green;}
+
+    .header-divider {
+        display: none;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .header-divider {
+        display: none;
+    }
+  } 
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .example {background: blue;}
+  } 
+
+
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .example {background: orange;}
+
+    .header-divider {
+        /* position: absolute; */
+        /* right: 5%; */
+        /* right: 23vmax; */
+        /* right: 23.5vmin; */
+        /* bottom: -10%; */
+        /* top: -25%; */
+        /* margin: 0; */
+        /* z-index: 4; */
+    }
+  } 
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+
+  @media only screen and (min-width: 1024px) { 
+    .header-divider {
+
+    }
+  }
+
+  @media only screen and (min-width: 3000px) {
+    .example {background: pink;}
+
+    .header-divider {
+        /* position: absolute; */
+        /* right: 23.5%; */
+        /* right: 23vmax; */
+        /* right: 23.5vmin; */
+        /* bottom: -15%; */
+        /* top: -25%; */
+        /* margin: 0; */
+        /* z-index: 4; */
+    }
+    
+    .stripe {
+        /* width: 12.5rem; */
+        width: 200px;
+        height: 900px;
+        color: white;
+        rotate: 19deg;
+        background: repeating-linear-gradient(
+            90deg, 
+            transparent,
+            transparent 5%,
+            #5215FC 5%,
+            #5215FC 5% 33.3333333%
+        );
+
+        position: relative;
+        left: 34.5%;
+    }
+  }
