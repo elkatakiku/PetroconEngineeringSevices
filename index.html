@@ -14,82 +14,77 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/media_query.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/media-query.css">
 
     <title>Petrocon</title>
   </head>
-  <body>
+  <body data-spy="scroll" data-target="#navbar-petrocon" data-offset="200">
 
-    <!-- Title Section -->
-    <section class="white-section" id="title">
+    <!-- Navbar -->
+    <nav id="navbar-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="#">
+        <img src="images/petrocon-icon-2.png" class="d-inline-block align-top" alt="Petrocon Logo">
+        <span class="brand-name">Petrocon Engineering Services</span>
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#header">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#whyUs">Services</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#aboutUs">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contactUs">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-      <div class="col-md-6 col-sm-12 header-image-container">
-          <img src="images/header-iamge1.jpg" alt="Petrocon header image">
+    <!-- Header Section -->
+    <section class="white-section" id="header">  
+
+      <!-- Background Image -->
+      <!-- Header Divider -->
+      <div class="row header-design-container">
+        <img src="images/header-image-1.jpg" alt="Petrocon header image">
+        <div class="stripe"></div>
+        <div class="triangle"></div>
       </div>
 
+      <!-- Content -->
       <div class="header-content">
-
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-primary">
-          <nav class="navbar navbar-light">
-            <a class="navbar-brand" href="#">
-              <img src="images/petrocon-icon2.png" class="d-inline-block align-top" alt="Petrocon Logo">
-              <span class="brand-name">Petrocon Engineering Services</span>
-            </a>
-          </nav>
-          
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Services</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="#">Projects</a>
-                </li>
-            </ul>
-          </div>
-        </nav>
-        
-        <!-- Content -->
-        <div class="header">
-          <h1 class="header-heading">
-            Do you need assistance? 
-            <br>
-            Call us today.
-          </h1>
-          <p class="header-subtitle">
-            Accident precaution is our intention, 
-            <br>
-            For every project, we provide quality construction.
-          </p>
-          <!-- <button type="button" class="btn btn-primary btn-lg cta-button bg-primary">Get in touch</button> -->
-          <!-- <button type="button" class="btn btn-outline-primary btn-lg cta-button">Log in</button> -->
-          <button type="button" class="btn btn-lg cta-button primary-btn">Get in touch</button>
-          <button type="button" class="btn btn-lg cta-button outline-primary-btn">Log in</button>
-        </div>
-        
+        <h1 class="big-heading header-heading">
+          Do you need assistance? 
+          <br>
+          Call us today.
+        </h1>
+        <p class="subtitle">
+          Accident precaution is our intention, 
+          <br>
+          For every project, we provide quality construction.
+        </p>
+        <button type="button" class="btn btn-lg cta-button primary-btn">Get in touch</button>
+        <button type="button" class="btn btn-lg cta-button outline-primary-btn">Log in</button>
       </div>
-
-      <div class="row header-divider">
-          <div class="stripe"></div>
-          <div class="triangle"></div>
-      </div>
+    
     </section>
 
     <!-- Background 1 -->
     <div class="bg-float1">
-      <object class="bg-float" data="images/bg-float_1.svg" type="image/svg+xml"></object>
+      <object class="bg-float" data="images/bg-float-1.svg" type="image/svg+xml"></object>
     </div>
 
     <!-- Why Us Section -->
@@ -178,7 +173,7 @@
     <!-- About Us Section -->
     <section class="white-section" id="aboutUs">
         <div class="row">
-          <img class="col-lg-5 col-md-4 col-12 about-img" src="images/aboutUs1.jpg" alt="">
+          <img class="col-lg-5 col-md-4 col-12 about-img" src="images/about-us-1.jpg" alt="">
 
           <div class="col-lg-6 col-md-7 col-12 about-us-content">
             <header>
@@ -228,28 +223,28 @@
           <div id="project-carousel" class="carousel slide row" data-ride="carousel">
               <div class="carousel-inner row w-100 mx-auto" role="listbox">
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
-                      <img src="images/aboutUs1.jpg" class="img-fluid mx-auto d-block" alt="img1">
+                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img1">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/aboutUs1.jpg" class="img-fluid mx-auto d-block" alt="img2">
+                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img2">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/aboutUs1.jpg" class="img-fluid mx-auto d-block" alt="img3">
+                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img3">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/aboutUs1.jpg" class="img-fluid mx-auto d-block" alt="img4">
+                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img4">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/aboutUs1.jpg" class="img-fluid mx-auto d-block" alt="img5">
+                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img5">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/header-iamge1.jpg" class="img-fluid mx-auto d-block" alt="img6">
+                      <img src="images/header-image-1.jpg" class="img-fluid mx-auto d-block" alt="img6">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/aboutUs1.jpg" class="img-fluid mx-auto d-block" alt="img7">
+                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img7">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/aboutUs1.jpg" class="img-fluid mx-auto d-block" alt="img8">
+                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img8">
                   </div>
               </div>
               <a class="carousel-control-prev" href="#project-carousel" role="button" data-slide="prev">
@@ -352,14 +347,14 @@
     <!-- Footer Section -->
     <section class="colored-section text-center" id="footer">
       <div class="footer-bg">
-        <!-- <img class="" src="images/footer_bg.png" alt="footer background"> -->
-        <!-- <img class="" src="images/footer_bg.png" alt="footer background"> -->
+        <img class="footer-bg-1" src="images/footer-bg.png" alt="footer background">
+        <img class="footer-bg-2" src="images/footer-bg.png" alt="footer background">
       </div>
 
       <div class="footer-content">
         <header class="section-header">  
-          <h2 class="display-2">Get Started Today</h2>
-          <p>“Start where you are. Use what you have. Do what you can.” – Arthur Ashe</p>
+          <h2 class="big-heading">Get Started Today</h2>
+          <p>Dreams are meant to come true. We’ll make it happen for you.</p>
         </header>
           
         <button type="button" class="btn btn-lg cta-button btn-light">Log in</button>
@@ -385,6 +380,6 @@
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
     
     <!-- External JS -->
-    <script src="js/index.js"></script>
+    <script src="scripts/index.js"></script>
   </body>
 </html>
