@@ -26,3 +26,15 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
         }
     }
 });
+
+// $("#createAccountBtn").click(function (e) { 
+//     // e.preventDefault();
+//     console.log(e);
+//     $(".form-login").slideUp();
+// });
+
+$("#createAccountBtn").click(function(){
+        // $(".form-login").hide();
+    $(".form-login").css("left", "100%").fadeOut();
+    
+  });

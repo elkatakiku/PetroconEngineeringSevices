@@ -36,9 +36,9 @@ input, textarea {
     background-color: var(--input-field) !important;
 }
 
-input:focus, textarea:focus {
+/* input:focus, textarea:focus {
     background-color: var(--input-field-focus) !important;
-}
+} */
 
 p {
     font-size: 1rem;
@@ -72,7 +72,8 @@ p {
 }
 
 .primary-btn:hover {
- background-color: #3D1C9B;
+    background-color: #3D1C9B;
+    color: white;
 }
 
 .outline-primary-btn {
@@ -120,9 +121,24 @@ p {
 
 
 /* Components */
-.small-icon {
+/* Brand */
+.brand {
+    
+}
+
+.brand .brand-icon {
     width: 50px;
     height: 50px;
+}
+
+.brand .brand-name {
+    display: inline-block;
+    margin-left: 20px;
+    max-width: 200px;
+    font-size: .9rem;
+    font-weight: 700;
+    white-space: normal;
+    text-transform: uppercase;
 }
 
 /* Flowting Items in Background */
@@ -175,21 +191,12 @@ p {
     background-color: var(--primary);
 }
 
-.navbar-brand .brand-name, .nav-link {
-    text-transform: uppercase;
-}
-
-.navbar-brand .brand-name {
-    display: inline-block;
-    margin-left: 20px;
-    max-width: 200px;
-    font-size: .9rem;
-    font-weight: 700;
-    white-space: normal;
-}
-
 .nav-item {
     padding: 0 18px;
+}
+
+.nav-link {
+    text-transform: uppercase;
 }
 
 /* Header Background Image and Divider */
@@ -388,6 +395,7 @@ p {
 .form-label-group > label,
 .form-label-group > textarea {
   padding: var(--input-padding-y) var(--input-padding-x);
+  cursor: text;
 }
 
 .form-label-group > label {
@@ -402,6 +410,7 @@ p {
   border: 1px solid transparent;
   border-radius: .25rem;
   transition: all .1s ease-in-out;
+  pointer-events: none;
 }
 
 .form-label-group input::-webkit-input-placeholder,
@@ -455,7 +464,7 @@ p {
 }
 
 /* Footer */
-#footer {
+#login {
     position: relative;
 }
 
@@ -504,4 +513,57 @@ p {
     display: inline-block;
     margin: 10px;
     color: white;
+}
+
+/* Login */
+.login-background {
+    width: 100%;
+    height: 100%;
+    background: white url('../images/header-image.jpg') no-repeat;
+    background-size: cover;
+}
+
+.login-container {
+    width: 100%;
+    margin: auto;
+    padding: 5% 10%;
+    background-color: rgba(56, 56, 56, 0.56);
+    color: white;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    overflow: hidden;
+    transition: .5s all linear;
+}    
+
+
+.login-header-content {
+    padding: 10% 0;
+}
+
+.form-login-container {
+}
+
+.form-login, .form-signup {
+    padding: 3rem 2rem 10%;
+    color: var(--primary-text);
+    background-color: white;
+}
+
+.form-login {
+    padding: 3rem 2rem 10%;
+    color: var(--primary-text);
+    background-color: white;
+    box-shadow: 10px 10px 5px rgba(26, 22, 38, 0.3);
+    position: relative;
+    left: 0;
+
+    transition: .2s all linear;
+}
+
+.form-login .primary-btn {
+    margin-top: 2.5rem;
+}
+
+.form-login .login-options {
+    padding: 5% 0 12%;
 }

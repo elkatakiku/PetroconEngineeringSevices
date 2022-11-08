@@ -62,6 +62,11 @@
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
   .example {background: orange;}
+
+  .login-container {
+    padding: 5% 8%;
+  }
+  
 } 
 
 
