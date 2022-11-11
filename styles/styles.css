@@ -1,10 +1,14 @@
 :root {
-
     /* Colors */
     --primary: #5215FC;
+    --purple: #FF00FF;
+    --light-blue: #F2F2FF;
+
+    --border-rgba-color: rgba(112, 112, 221, .2);
 
     --primary-text: #161616;
     --complementary-text: #FFFF00;
+    --inactive-text: #E2D1FF;
 
     --input-field: #E6E3DD;
     --input-field-focus: #fff;
@@ -105,6 +109,9 @@ p {
     background-color: #FFBAD7;
 }
 
+.disappear {
+    display: none !important;
+}
 
 /* Containers */
 .white-section {
@@ -183,21 +190,101 @@ p {
 }
 
 /* Nav Bar */
-.navbar {
+/* Client Navbar */
+#navbar-client-petrocon.navbar {
     position: sticky;
-    /* z-index: 100; */
     width: 100%;
     padding: .5rem 5%;
     background-color: var(--primary);
 }
 
-.nav-item {
+#navbar-client-petrocon .navbar .nav-item {
     padding: 0 18px;
 }
 
-.nav-link {
+#navbar-client-petrocon .navbar .nav-link {
     text-transform: uppercase;
 }
+
+/* Admin Navbar */
+#navbar-app-petrocon.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    background-color: var(--primary);
+    color: white;
+}
+
+#navbar-app-petrocon.sidebar #sidebarButton {
+    padding: 1rem;
+}
+
+#navbar-app-petrocon.sidebar .brand-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    background-color: #E1D124;
+    border: 1px solid var(--purple);
+}
+
+#navbar-app-petrocon.sidebar  .sidebar-nav > .nav-item {
+    color: var(--inactive-text);
+    padding: .5rem 1rem;
+    transition: .2s background-color linear;
+}
+ 
+#navbar-app-petrocon .nav-item .material-icons {
+    color: inherit;
+    padding: .5rem 0;
+}
+
+#navbar-app-petrocon .nav-item .nav-link {
+    color: inherit;
+    padding: .5rem 0 .5rem .5rems;
+    width: 100%;
+    overflow: hidden;
+}
+
+#navbar-app-petrocon.sidebar .active {
+    color: white !important;
+    background-color: rgba(231, 233, 236, .2);
+    border-left: 1px solid var(--purple);
+}
+
+#navbar-app-petrocon .nav-item:hover {
+    background-color: rgba(231, 233, 236, .2);
+}
+
+/* Nav Dropdown Item */
+.item-dropdown .dropdown-tile {
+    position: relative;
+}
+
+.item-dropdown > ul .nav-item {
+    padding: .2rem .5rem;
+}
+
+.item-dropdown > ul .nav-item .nav-link {
+    padding: 0;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+}
+
+#navbar-app-petrocon.sidebar .bottom-nav {
+    border-top: 1px solid var(--border-color);
+}
+
+.bottom-nav .sidebar-nav {
+    margin-bottom: 0;
+}
+
 
 /* Header Background Image and Divider */
 .header-design-container {
@@ -365,8 +452,7 @@ p {
     margin-top: 20px;
 }
 
-/* Projects */
-#projects .subtitle {
+/* Projects */projects .subtitle {
     color: var(--complementary-text);
     margin-top: 20px;
 }
@@ -566,4 +652,33 @@ p {
 
 .form-login .login-options {
     padding: 5% 0 12%;
+}
+
+
+
+
+/* Application */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.wrapper-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    display: flex;
+    background-color: var(--light-blue);
+    border-bottom: 1px solid var(--border-rgba-color);
+    padding: 1rem;
+    /* align-self: center; */
+    align-items: center;
+}
+
+.top-bar h1 {
+    font-size: 1rem;
+    align-self: center;
 }

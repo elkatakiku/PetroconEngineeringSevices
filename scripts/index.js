@@ -27,14 +27,23 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
     }
 });
 
-// $("#createAccountBtn").click(function (e) { 
-//     // e.preventDefault();
-//     console.log(e);
-//     $(".form-login").slideUp();
-// });
-
 $("#createAccountBtn").click(function(){
         // $(".form-login").hide();
     $(".form-login").css("left", "100%").fadeOut();
+
+});
+
+$("#sidebarButton").click(function (e) { 
+    e.preventDefault();
+    console.log("is working");
+    console.log($(".material-icons")[0]);
+    // console.log($(".sidebar .material-icons").length);
+    // $(".sidebar-collapsible").css("width", "0");]
+    $(".sidebar-collapsible").toggleClass("disappear");
+    // $(".navbar-brand").fadeToggle();
+    // setTimeout(() => {
+    //     $(".navbar-brand").toggleClass("remove");
+    // }, 200);
     
-  });
+    // $(".material-icons").after('<a class="nav-link sidebar-collapsible" href="#">Messages</a>');
+});
