@@ -278,7 +278,7 @@ p {
 }
 
 #navbar-app-petrocon.sidebar .bottom-nav {
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-rgba-color);
 }
 
 .bottom-nav .sidebar-nav {
