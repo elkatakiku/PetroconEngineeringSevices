@@ -33,17 +33,29 @@ $("#createAccountBtn").click(function(){
 
 });
 
-$("#sidebarButton").click(function (e) { 
-    e.preventDefault();
-    console.log("is working");
-    console.log($(".material-icons")[0]);
-    // console.log($(".sidebar .material-icons").length);
-    // $(".sidebar-collapsible").css("width", "0");]
-    $(".sidebar-collapsible").toggleClass("disappear");
-    // $(".navbar-brand").fadeToggle();
-    // setTimeout(() => {
-    //     $(".navbar-brand").toggleClass("remove");
-    // }, 200);
-    
-    // $(".material-icons").after('<a class="nav-link sidebar-collapsible" href="#">Messages</a>');
-});
+// Sidebar
+function expand() { 
+    $('#sidebar').toggleClass('inactive');
+    $('.sub-menu.show').collapse('hide');
+}
+
+// Sidebar Buttons Listener
+$('#sidebarExpandToggler').on('click', expand);
+$('#sidebarCollapseToggler').on('click', expand);
+
+    // if ($(window).width() < 768) {
+    //     console.log('Less than 768');
+    //  }
+    //  else {
+    //     $("#sidebar").mouseover(function() {
+    //         if ($(window).width() > 768) {
+    //             if(!setExpand) {
+    //                 $('#sidebar').removeClass('inactive');
+    //             }
+    //         }
+    //     }).mouseleave(function () { 
+    //         if(!setExpand) {
+    //             $('#sidebar').addClass('inactive');
+    //         }
+    //     });
+    //  }
