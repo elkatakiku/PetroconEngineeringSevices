@@ -48,6 +48,7 @@
 
   #sidebarCollapseToggler {
     display: block;
+    margin-right: 10px;
   }
 
   #sidebar .sidebar-header .brand .brand-name {
@@ -64,10 +65,11 @@
   }
 
   #sidebar.inactive .brand,
-  #sidebar.inactive .collapsible,
-  #sidebar.inactive .dropdown-toggle::after {
-    opacity: 0;
+  #sidebar.inactive .collapsible, #sidebar.inactive .dropdown-toggle::after {
     display: none;
+    /* opacity: 0; */
+    /* transform: scaleX(0); */
+    /* transform-origin:left center; */
     transition: all .3s;
   }
 

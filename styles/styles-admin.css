@@ -63,10 +63,12 @@ p {
 .wrapper {
     display: flex;
     min-height: 100vh;
+    overflow: hidden;
     transition: all 0.3s;
 }
 
 #sidebar {
+    flex-shrink: 0;
     min-width: 250px;
     max-width: 250px;
     background-color: var(--primary-color);
@@ -88,18 +90,32 @@ p {
     color: var(--inactive-text);
 }
 
+#sidebar .sidebar-header {
+    position: relative;
+    display: flex;
+    align-content: center;
+}
+
+#sidebar .brand,
+#sidebar .collapsible, 
+#sidebar .dropdown-toggle::after {
+    transform-origin: left center;
+}
+
 #sidebar .sidebar-header .brand .brand-icon {
     width: 30px;
     height: 30px;
-    margin-left: 5px;
     background-color: #E1D124;
     border: 1px solid var(--purple);
+
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
 }
 
 #sidebar .sidebar-header .brand .brand-name {
-    display: inline-block;
-    margin-left: 0px;
-    margin-right: 40px;
+    margin-left: 10px; 
     font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -119,8 +135,11 @@ p {
 #sidebar ul li a .material-icons {
     color: inherit;
     font-size: 20px;
-    margin-right: 10px;
     line-height: 1.4;
+}
+
+#sidebar ul li a .collapsible {
+    margin-left: 20px;
 }
 
 #sidebar ul li a:hover {
@@ -197,17 +216,36 @@ a[data-toggle = "collapse"] {
   padding: 20px;
 }
 
-/* .top-bar {
-    display: flex;
-    background-color: var(--light-blue);
-    border-bottom: 1px solid var(--border-rgba-color);
-    padding: 1rem;
-    align-items: center;
-    gap: 50px;
+/* Test */
+
+/* .slide-in {
+  display: block;
+  animation: slide-in 1s;
 }
 
-.top-bar h1,
-.top-bar h2  {
-    font-size: 1rem;
-    align-self: center;
+.slide-out {
+  display: block;
+  animation: slide-out 1s;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  to {
+    opacity: 0;
+    transform: scaleX(0);
+  }
 } */

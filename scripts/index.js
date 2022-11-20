@@ -42,20 +42,21 @@ function expand() {
 // Sidebar Buttons Listener
 $('#sidebarExpandToggler').on('click', expand);
 $('#sidebarCollapseToggler').on('click', expand);
+$('.sub-menu').on('show.bs.collapse' , () => {
+    if ($(window).width() > 768) {
+        $('#sidebar').removeClass('inactive');
+    }
+});
 
-    // if ($(window).width() < 768) {
-    //     console.log('Less than 768');
-    //  }
-    //  else {
-    //     $("#sidebar").mouseover(function() {
-    //         if ($(window).width() > 768) {
-    //             if(!setExpand) {
-    //                 $('#sidebar').removeClass('inactive');
-    //             }
-    //         }
-    //     }).mouseleave(function () { 
-    //         if(!setExpand) {
-    //             $('#sidebar').addClass('inactive');
-    //         }
-    //     });
-    //  }
+if ($(window).width() > 768) {
+    console.log("greater than 768");
+} else {
+    console.log("less than 768");
+}
+
+// var collapsible = "#sidebar .brand, #sidebar .collapsible, #sidebar .dropdown-toggle::after";
+
+
+// $('#sidebarExpandToggler').on('click', () => {
+//     $('#sidebar').toggleClass('inactive');
+// });
