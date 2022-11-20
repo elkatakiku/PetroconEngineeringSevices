@@ -1,2 +1,2 @@
 # PetroconEngineeringSevices
-Client side of petrocon web app.
+Web app for Petrocon Engineering Services.
