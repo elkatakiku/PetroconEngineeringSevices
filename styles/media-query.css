@@ -60,6 +60,8 @@
 /* MD */
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+
+  /* Admin */
   #sidebar.inactive {
     min-width: 0;
   }
@@ -72,9 +74,7 @@
     /* transform-origin:left center; */
     transition: all .3s;
   }
-
-
-} 
+}
 
 @media only screen and (max-width: 992px) {
   .about-img {
@@ -126,7 +126,7 @@
     z-index: -1;
     display: block;
     visibility: visible;
-}
+  }
 }
 @media (min-width: 576px) and (max-width: 768px) {
 /* Show 3rd slide on sm if col-sm-6*/
@@ -137,7 +137,7 @@
     z-index: -1;
     display: block;
     visibility: visible;
-}
+  }
 }
 @media (min-width: 576px) {
 .carousel-item {

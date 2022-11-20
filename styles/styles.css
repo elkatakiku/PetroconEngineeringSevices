@@ -1,18 +1,23 @@
 :root {
     /* Colors */
     --primary: #5215FC;
+    --secondary: #7070DD;
     --purple: #FF00FF;
     --light-blue: #F2F2FF;
+    --action: #5050FF;
+    --in-progress: #FFE172;
 
     --border-rgba-color: rgba(112, 112, 221, .2);
     --shadow-rbga-color: rgba(49, 8, 123, .3);
 
     --primary-text: #161616;
+    --secondary-text: #EBE3FF;
     --complementary-text: #FFFF00;
     --inactive-text: #E2D1FF;
 
     --input-field: #E6E3DD;
     --input-field-focus: #fff;
+
 
     /* Texts Size */
     --input-padding-x: .5rem;
@@ -21,7 +26,9 @@
     --small-text: .75rem;
     --normal-text: 1rem;
 }
-  
+
+
+/* || General styles */
 body {
     background-color: #f4f4f4;
     color: var(--primary-text);
@@ -49,46 +56,7 @@ p {
 }
 
 
-/* Text */
-.big-heading {
-    font-size: 3.5rem;
-    line-height: 1.3;
-}
-
-.section-header {
-    margin-bottom: 50px;
-}
-
-.subtitle {
-    font-size: 20px;
-    line-height: 1.38;
-}
-
-
-/* Utilities */
-.primary-btn {
-    background-color: var(--primary); 
-    color: white;
-    transition: all .25s;
-}
-
-.primary-btn:hover {
-    background-color: #3D1C9B;
-    color: white;
-}
-
-.outline-primary-btn {
-    background-color: transparent;
-    color: var(--primary);
-    border-color: var(--primary);
-    transition: all .25s;
-}
-
-.outline-primary-btn:hover {
-    background-color: var(--primary);
-    color: white;
-}
-
+/* || Utilities */
 .primary-bg {
     background-color: var(--primary);
     color: white;
@@ -106,6 +74,23 @@ p {
     background-color: #FFBAD7;
 }
 
+/* || Text */
+.big-heading {
+    font-size: 3.5rem;
+    line-height: 1.3;
+}
+
+.section-header {
+    margin-bottom: 50px;
+}
+
+.subtitle {
+    font-size: 20px;
+    line-height: 1.38;
+}
+
+
+/* || SITEWIDE  */
 
 
 /* Containers */
@@ -118,273 +103,61 @@ p {
     color: white;
 }
 
+.colored-section p {
+    color: var(--secondary-text);
+}
+
 .white-section .container-fluid,
 .colored-section .container-fluid {
     padding: 5% 10%;
 }
 
 
-/* Components */
-/* Brand */
-.brand .brand-icon {
-    width: 50px;
-    height: 50px;
+/* Buttons */
+.btn .btn-icon {
+    margin-right: 10px;
 }
 
-.brand .brand-name {
-    display: inline-block;
-    margin-left: 20px;
-    max-width: 200px;
-    font-size: .9rem;
-    font-weight: 700;
-    white-space: normal;
-    text-transform: uppercase;
+.primary-btn, .outline-primary-btn:hover {
+    background-color: var(--primary); 
+    color: white;   
 }
 
-/* Flowting Items in Background */
-.bg-float1, .bg-float2 {
-    position: absolute;
-    overflow: hidden;
-    padding: 10%;
-    width: 60%;
+.action-btn, .outline-action-btn:hover {
+    background-color: var(--action); 
+    color: white;   
 }
 
-.bg-float {
-    position: relative;
-    width: 550px;
+.outline-primary-btn, .outline-action-btn {
+    background-color: transparent;
 }
 
-.bg-float1 {
-    left: 0;
-    top: 7.5%;
+.action-btn:has(.btn-icon)::after, .outline-action-btn:has(.btn-icon)::after {
+    content: '';
+    margin-right: 10px;
 }
 
-.bg-float1 > object {
-    rotate: -134deg;
-    left: -68%;
-}
-
-.bg-float2 {
-    right: 0;
-    top: 23.8%;
-}
-
-.bg-float2 > object {
-    rotate: 55deg;
-    right: -63%;
-}
-
-/* Header */
-#header {
-    position: relative;
-    width: 100%;
-    margin: 0;
-    overflow: hidden;
-}
-
-/* Nav Bar */
-/* Client Navbar */
-#navbar-client-petrocon.navbar {
-    position: sticky;
-    width: 100%;
-    padding: .5rem 5%;
-    background-color: var(--primary);
-}
-
-#navbar-client-petrocon .navbar .nav-item {
-    padding: 0 18px;
-}
-
-#navbar-client-petrocon .navbar .nav-link {
-    text-transform: uppercase;
-}
-
-/* Header Background Image and Divider */
-.header-design-container {
-    width: 50%;
-    height: 750px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    margin: 0;
-}
-
-.stripe {
-    width: 20%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        90deg, 
-        var(--primary),
-        var(--primary) 25%,
-        transparent,
-        transparent 33.3333333%
-    );
-    transform: skewX(-22deg);
-
-    position: relative;
-    left: 150px;
-    z-index: 10;
-}
-
-.triangle {
-    width: 80%;
-    height: 100%;
-    background-color: var(--primary);
-    clip-path: polygon(
-        0 100%, 
-        100% 100%, 
-        100% 0%, 
-        305px 0
-    );
-
-    position: relative;
-    z-index: 5;
-}
-
-.header-design-container img {
-    width: 100%;
-    height: 100%;
-    clip-path: polygon(
-        45% 100%, 
-        100% 100%, 
-        100% 0, 
-        5% 0
-    );
-
-    object-fit: cover;
-    filter: brightness(75%);
-
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 10;
-}
-
-/* Header Content */
-.header-content {
-    padding: 12% 40% 12% 5%;
-    position: relative;
-    z-index: 100;
-}
-
-.header-heading {
-    color: var(--primary);
-}
-
-.header .subtitle {
-    margin-top: 15px;
-}
-
-.cta-button {
-    font-size: 1rem;
-    margin-top: 20px;
-    margin-right: 25px;
-    min-width: 200px;
-}
-
-/* WHY US */
-.colored-section#whyUs > .container-fluid {
-    padding: 80px 10%;
-    position: relative;
-    z-index: 100;
-}
-
-.ws-cards-container {
-    display: flex;
-    align-items: stretch;
-    height: 100px;
-    justify-content: space-around;
-}
-
-.ws-card {
-    margin: 5% 5%;
-    padding-bottom: 3%;
-    background-color: white;
-    color: #231F20;
-    filter: opacity(90%);
-    box-shadow: 8px 8px 5px rgba(49, 8, 123, .3);
-}
-
-.ws-card-img {
-    box-sizing: border-box;
-    width: 125px;
-    height: 125px;
-    margin: 25px auto 0;
-    display: flex;
-    border-radius: 100px;
-    background-color: #5566FF;
-    transition: .5s background-color ease;
-}
-
-.ws-card:hover .ws-card-img {
-    background-color: var(--primary);
-}
-
-.ws-card-img i {
-    align-self: center;
-    margin: auto;
+.primary-btn:hover {
+    background-color: #3D1C9B;
     color: white;
 }
 
-.ws-card-title {
-    color: #0067FF;
-    font-weight: 400;
-    font-size: 16px;
+.action-btn:hover {
+    background-color: #3E3EBB;
 }
 
-.ws-data {
+.outline-primary-btn {
     color: var(--primary);
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-weight: 700;
+    border-color: var(--primary);
 }
 
-/* About Us */
-.white-section#aboutUs {
-    padding: 104px 0;
-    box-sizing: border-box;
+.outline-action-btn {
+    color: var(--action);
+    border-color: var(--action);
 }
 
-.white-section#aboutUs > .row {
-    margin: 0 0 0 -15px;
-}
 
-.about-img {
-    width: 100%;
-    height: 525px;
-    object-fit: cover;
-    filter: saturate(110%) contrast(110%);
-    transition: .5s height linear;
-}
-
-.about-us-content {
-    padding: 37px 7%;
-}
-
-.about-us-content .subtitle {
-    color: var(--primary);
-    margin-top: 20px;
-}
-
-/* Projects */projects .subtitle {
-    color: var(--complementary-text);
-    margin-top: 20px;
-}
-
-.colored-section#projects > .container-fluid{
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-
-/* Contact Us */
-.form-contact-container {
-    border-radius: 10px;
-    box-shadow: 5px 5px 3px rgba(49, 8, 123, .3);
-}
-
-.form-contact > * {
-    padding: 0 5px;
-}
-
+/* Form Label and Input */
 .form-label-group {
     position: relative;
     margin-bottom: 1rem;
@@ -451,117 +224,3 @@ p {
   font-size: 12px;
   color: #777;
 }
-
-.form-contact-submit {
-    min-width: 100px;
-    border-radius: 100px;
-    color: var(--primary);
-    font-size: var(--small-text);
-    font-weight: 700;
-    text-transform: uppercase;
-    box-shadow: 0 3px 3px #47289d, 5px 5px 5px #ece3ff inset;
-}
-
-/* Footer */
-#login {
-    position: relative;
-}
-
-.footer-bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom: 0;
-    z-index: 10;
-}
-
-.footer-bg-1, .footer-bg-2 {
-    width: 45%;
-    position: absolute;
-    bottom: 0;
-}
-
-.footer-bg-1 {
-    transform: scaleX(-1);   
-    right: 0;
-}
-
-.footer-bg-2 {
-    left: 0;
-}
-
-.footer-content {
-    padding: 100px 10% 2%;
-    position: relative;
-    z-index: 100;
-}
-
-.footer-content .section-header {
-    margin-bottom: 25px;
-}
-
-.footer-content .cta-button {
-    padding: 10px;
-}
-
-.footer-links {
-    margin-top: 100px;
-}
-
-.footer-link {
-    display: inline-block;
-    margin: 10px;
-    color: white;
-}
-
-/* Login */
-.login-background {
-    width: 100%;
-    height: 100%;
-    background: white url('../images/header-image.jpg') no-repeat;
-    background-size: cover;
-    /* box-shadow: none; */
-}
-
-.login-container {
-    width: 100%;
-    margin: auto;
-    padding: 5% 10%;
-    background-color: rgba(56, 56, 56, 0.56);
-    color: white;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    overflow: hidden;
-    transition: .5s all linear;
-}    
-
-
-.login-header-content {
-    padding: 10% 0;
-}
-
-.form-login, .form-signup {
-    padding: 3rem 2rem 10%;
-    color: var(--primary-text);
-    background-color: white;
-}
-
-.form-login {
-    padding: 3rem 2rem 10%;
-    color: var(--primary-text);
-    background-color: white;
-    box-shadow: 10px 10px 5px rgba(26, 22, 38, 0.3);
-    position: relative;
-    left: 0;
-
-    transition: .2s all linear;
-}
-
-.form-login .primary-btn {
-    margin-top: 2.5rem;
-}
-
-.form-login .login-options {
-    padding: 5% 0 12%;
-}
-
