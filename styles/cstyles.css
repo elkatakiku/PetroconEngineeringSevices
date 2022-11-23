@@ -254,10 +254,7 @@
 .form-contact-container {
     border-radius: 10px;
     box-shadow: 5px 5px 3px var(--shadow-rbga-color);
-}
-
-.form-contact > * {
-    padding: 0 5px;
+    transition: all .3s;
 }
 
 .form-contact-submit {
@@ -277,7 +274,6 @@
 
 .footer-bg {
     width: 100%;
-    height: 100%;
     position: absolute;
     bottom: 0;
     z-index: 10;

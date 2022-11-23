@@ -166,7 +166,30 @@ a[data-toggle = "collapse"] {
   line-height: .5;
 }
 
+#content .nav.nav-tabs {
+  padding: 15px 10px 0 10px;
+}
+
+
+#content .nav.nav-tabs .nav-link {
+  color: var(--primary-text);
+  font-weight: 200;
+}
+
+#content .nav.nav-tabs .nav-link:not(.active):hover {
+  color: var(--action);
+  font-weight: 400;
+}
+
+#content .nav.nav-tabs .active {
+  color: var(--action);
+  font-weight: 600;
+}
+
+
 #content main {
+  height: 100%;
+  background-color: white;
   padding: 20px;
 }
 

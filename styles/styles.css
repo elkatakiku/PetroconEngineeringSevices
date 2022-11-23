@@ -156,6 +156,35 @@ p {
     border-color: var(--action);
 }
 
+/* || FORM */
+
+/* Form Input Group */
+.form-control.top {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.form-control.middle {
+    border-radius: 0;
+}
+
+.form-control.bottom {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+form .row .left {
+    padding: 0 5px 0 0;
+}
+
+form .row .middle {
+    padding: 0 5px 0 5px;
+}
+
+form .row .right {
+    padding: 0 0 0 5px;
+}
+
 
 /* Form Label and Input */
 .form-label-group {
@@ -223,4 +252,37 @@ p {
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
   color: #777;
+}
+
+
+/* Sliding next and previous */
+.slide-wrapper {
+    display: flex;
+    overflow: hidden;
+}
+
+.modal-body #prevSlide {
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+#firstFormSlide, #secondFormSlide {
+    min-width: 100%;
+    margin-left: 0;
+    transition: all .3s;
+}
+
+.slideLeft {
+    margin-left: -100% !important;
+}
+
+/* || MEDIA QUERIES */
+/* SM */
+/* Extra small devices (phones, 576px and down) */
+@media only screen and (max-width: 576px) {
+    form .row .left,
+    form .row .middle,
+    form .row .right {
+        padding: 0;
+    }
 }
