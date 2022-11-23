@@ -263,46 +263,54 @@
           <div class="col-lg-6 col-12 primary-bg form-contact-container">
 
             <div class="container-fluid">
-              <form class="row form-contact" action="/contact" method="post">
-                
-                <h2 class="col-12 mb-4">Leave Us a Message</h2>
+              <form class="form-contact" action="/contact" method="post">
 
-                <div class="col-sm-6 col-12">
-                  <div class="form-label-group">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
-                    <label for="inputFirstName">First Name</label>
+                <div class="container">
+                  <div class="row">
+                    <h2 class="col-12 mb-4">Leave Us a Message</h2>
+                    
+                    <div class="col-sm-6 col-12 left">
+                      <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
+                        <label for="inputFirstName">First Name</label>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-12 right">
+                      <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
+                        <label for="inputLastName">Last Name</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="col-sm-6 col-12">
-                  <div class="form-label-group">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
-                    <label for="inputLastName">Last Name</label>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-6 col-12 left">
+                      <div class="form-label-group">
+                        <input type="number" class="form-control" id="inputContactNo" placeholder="Contact no." required>
+                        <label for="inputContactNo">Contact no.</label>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-12 right">
+                      <div class="form-label-group">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                        <label for="inputEmail">Email</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="col-sm-6 col-12">
-                  <div class="form-label-group">
-                    <input type="number" class="form-control" id="inputContactNo" placeholder="Contact no." required>
-                    <label for="inputContactNo">Contact no.</label>
-                  </div>
-                </div>
-
-                <div class="col-sm-6 col-12">
-                  <div class="form-label-group">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
-                    <label for="inputEmail">Email</label>
-                  </div>
-                </div>
-
-                <div class="col-12">
+                <div class="">
                   <div class="form-label-group">
                     <input type="text" class="form-control" id="inputAddress" placeholder="Address" required>
                     <label for="inputAddress">Address</label>
                   </div>
                 </div>
               
-                <div class="col-12">
+                <div class="">
                   <div class="form-label-group">
                     <textarea name="" id="inputMessage" rows="5" class="form-control"  placeholder="Message" required></textarea>
                     <label for="inputMessage" class="">Message</label>
@@ -313,6 +321,7 @@
                   <button class="btn btn-light form-contact-submit" type="submit">Submit</button>
                   <small class="form-text font-weight-light">Thanks for submitting!</small>
                 </div>
+                
               </form>
 
             </div>
