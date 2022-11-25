@@ -18,6 +18,8 @@
     --border-rgba-color: rgba(112, 112, 221, .2);
     --shadow-rbga-color: rgba(49, 8, 123, .3);
 
+    --backdrop: rgba(56, 56, 56, 0.56);
+
     --primary-text: #161616;
     --secondary-text: #EBE3FF;
     --complementary-text: #FFFF00;
@@ -90,6 +92,10 @@ p, label {
 .linear-center-h {
     width: 100%;
     justify-content: center;
+}
+
+.column {
+    flex-direction: column;
 }
 
 .pad-4 {

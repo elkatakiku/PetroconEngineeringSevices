@@ -21,15 +21,13 @@
     <link rel="stylesheet" href="../../styles/cstyles.css">
   </head>
 
-  <body>
-
-   <!-- Navbar -->
-   <nav id="navbar-client-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark">
+  <body class="white-section">
+    <!-- Navbar -->
+    <nav id="navbar-client-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark">
     <a class="navbar-brand brand" href="#">
       <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
       <span class="brand-name">Petrocon Engineering Services</span>
     </a>
-   
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -38,16 +36,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#headerC">HOME <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#header">HOME <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#aboutUsC">ABOUT US</a>
+          <a class="nav-link" href="#aboutUs">ABOUT US</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#servicesC">SERVICES</a>
+            <a class="nav-link" href="#services">SERVICES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#projectsC">PROJECTS</a>
+          <a class="nav-link" href="#projects">PROJECTS</a>
         </li>
 
         <li>
@@ -64,116 +62,93 @@
 
       </ul>
     </div>
-  </nav>
+    </nav>
 
     <!-- Background 1 -->
-    <div class="bg-float2">
+    <!-- <div class="bg-float2">
       <object class="bg-float" data="../../images/bg-float-1.svg" type="image/svg+xml"></object>
-    </div>
+    </div> -->
 
     <!-- Header Section -->
-    <section class="white-section" id="headerC">
+    <section class="" id="header">
 
-    <!-- Slideshow container -->
-    <div class="slideshow-container">
+      <!-- Slideshow container -->
+      <div class="image-overlay" data-image="header-image-3.jpg" data-height="350">
+        <header class="content">
+          <h1 class="">Welcome, Client!</h1>
+          <p class="subtitle">
+            We are inspired by the long and winding path that starts with raw materials and ends with a quality good. We believe that knowing where your products come from will bring greater meaning to them.
+          </p>
 
-      <!-- Full-width images -->
-      <div class="headerSlides">
-        <img src="../../images/header-image-1.jpg" width="100%">
+          <button class="btn action-btn cta-button round">View projects</button>
+        </header>
       </div>
-
-      <div class="headerSlides">
-        <img src="../../images/header-image-2.jpg" width="100%">
-      </div>
-
-      <div class="headerSlides">
-        <img src="../../images/header-image-3.jpg" width="100%">
-      </div>
-
-      <!-- Next and previous buttons -->
-      <a class="prev-img" onclick="plusSlides(-1)">&#10094;</a>
-      <a class="next-img" onclick="plusSlides(1)">&#10095;</a>
-    </div>
-    <br>
-
-    <!-- The dots/circles -->
-    <div style="text-align:center">
-      <span class="dot" onclick="currentSlide(1)"></span>
-      <span class="dot" onclick="currentSlide(2)"></span>
-      <span class="dot" onclick="currentSlide(3)"></span>
-    </div>
-
-    <!-- Content -->
-    <div class="headerC-content">
-      <h1>Welcome, Client!</h1>
-      <p class="subtitle">
-        We are inspired by the long and winding path that starts with raw materials and ends with a quality good.  
-        <br>
-        We believe that knowing where your products come from will bring greater meaning to them.
-      </p>
-    </div>
     </section>  
 
     <!-- About UsC / MEET OUR TEAM Section -->
-    <section class="white-section" id="aboutUsC">
-      <div class="container-fluid">
+    <section class="" id="aboutUs">
+      <div class="">
           
         <header>
-          <h2 style="margin-top: 40px; text-align: center;">MEET OUR TEAM</h2>
+          <h2 class="section-header">MEET OUR TEAM</h2>
         </header>
         
-        <div class="row">
-          <div class="columnMeet">
-            <div class="card">
-              <img src="../../images/meet-our-team-1.jpg" alt="" style="width: 100%">
-              <div class="container">
-                <h2>Kitkat</h2>
-                <p class="title">CEO</p>
-                <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+        <div class="container"> 
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/meet-our-team-1.jpg" alt="" style="width: 100%">
+                <div class="container">
+                  <h2>Kitkat</h2>
+                  <p class="title">CEO</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                </div>
               </div>
             </div>
-          </div>
-        
-          <div class="columnMeet">
-            <div class="card">
-              <img src="../../images/meet-our-team-2.png" alt="" style="width: 100%">
-              <div class="container">
-                <h2>Ginger</h2>
-                <p class="title">Secretary</p>
-                <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-              </div>
-            </div>
-          </div>
           
-          <div class="columnMeet">
-            <div class="card">
-              <img src="../../images/meet-our-team-3.png" alt="" style="width:100%">
-              <div class="container">
-                <h2>Kitty</h2>
-                <p class="title">Twerker</p>
-                <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/meet-our-team-2.png" alt="" style="width: 100%">
+                <div class="container">
+                  <h2>Ginger</h2>
+                  <p class="title">Secretary</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/meet-our-team-3.png" alt="" style="width:100%">
+                <div class="container">
+                  <h2>Kitty</h2>
+                  <p class="title">Twerker</p>
+                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
         
       </div>
+        
+  </section>
+
+  <section>
+    <div class="container">
       <div class="row">
-        <img class="col-lg-5 col-md-4 col-12 about-img" src="../../images/about-us-1.jpg" alt="">
+        <img class="col-lg-6 col-md-4 col-12 about-img" src="../../images/about-us-1.jpg" alt="">
 
         <div class="col-lg-6 col-md-7 col-12 about-us-content">
           <header>
             <h2>About Petrocon Engineering Services</h2>
+            <p class="subtitle">Petrocon Engineering offers a variety of services and operations including:</p>
           </header>
 
-          <p style="margin-top: 50px;">
-            Petrocon Engineering offers a variety of services and operations including:
-            <br>
-            <br>
-            Petrocon Engineering Services, is a construction company that is founded by Valentino B. Albaciete who is also a CEO of the company. Strikeville, Vizcarra Compound, Molino 3, Bacoor City, Cavite is where the company was founded in 2009. 
-          </p>
+          <p>Petrocon Engineering Services, is a construction company that is founded by Valentino B. Albaciete who is also a CEO of the company. Strikeville, Vizcarra Compound, Molino 3, Bacoor City, Cavite is where the company was founded in 2009. </p>
         </div>
-      </div>  
+      </div> 
+    </div>
   </section>
 
   
@@ -212,9 +187,9 @@
     <!-- Projects Section -->
     <section class="white-section" id="projectsC">
 
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead class="thead-light">
+      <div class="">
+        <table class="mesa">
+          <thead class="mesa-head">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Project</th>
@@ -260,7 +235,7 @@
 
     </section>
 
-<script>
+<!-- <script>
   let slideIndex = 1;
   showSlides(slideIndex);
   
@@ -287,9 +262,9 @@
     slides[slideIndex-1].style.display = "block";  
     dots[slideIndex-1].className += " active";
   }
-  </script>
+  </script> -->
 
-<script>
+<!-- <script>
   // Get the modal
   var modal = document.getElementById("myModal");
   
@@ -310,7 +285,7 @@
   span.onclick = function() { 
     modal.style.display = "none";
   }
-  </script>
+  </script> -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -322,6 +297,12 @@
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
 
     <!-- External JS -->
-    <script src="../scripts/index.js"></script>
+    <script src="../../scripts/index.js"></script>
+
+    <script>
+
+      $(".image-overlay").css("backgroundImage", "url(../../images/" + $(".image-overlay").attr("data-image") + ")" );
+      $(".image-overlay").css("height", $(".image-overlay").attr("data-height"));
+    </script>
 </body>
 </html>
