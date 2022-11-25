@@ -4,7 +4,7 @@
     position: sticky;
     width: 100%;
     padding: .5rem 5%;
-    background-color: rgb(125, 130, 177);
+    background-color: var(--primary);
 }
 
 #navbar-client-petrocon .navbar .nav-item {
@@ -30,7 +30,6 @@
     font-weight: 700;
     white-space: normal;
     text-transform: uppercase;
-    color: #ece3ff;
 }
 
 /* Flowting Items in Background */
@@ -230,7 +229,6 @@
     object-fit: cover;
     filter: saturate(110%) contrast(110%);
     transition: .5s height linear;
-    margin: auto;
 }
 
 .about-us-content {
@@ -669,6 +667,7 @@
         visibility: visible;
     }
 }
+<<<<<<< HEAD
   /* Services */
   
   .columnMeet {
@@ -683,3 +682,6 @@
       display: block;
     }
   }
+=======
+  
+>>>>>>> 0da5b423ac296aabf125bffcfd8c89698e8de95c
