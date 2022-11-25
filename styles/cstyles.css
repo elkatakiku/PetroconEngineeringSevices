@@ -332,7 +332,7 @@
     width: 100%;
     margin: auto;
     padding: 5% 10%;
-    background-color: rgba(56, 56, 56, 0.56);
+    background-color: var(--backdrop);
     color: white;
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
@@ -370,7 +370,9 @@
     padding: 5% 0 12%;
 }
 
+/* || Home */
 
+<<<<<<< HEAD
 * {box-sizing:border-box}
 
 /* effffffffffffffffferrrrrrrrrrrrrrrrrrrrrrrrrrrrrr */
@@ -379,44 +381,46 @@
   position: relative; 
   margin: auto;
   height: auto;
+=======
+.chome-padding {
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
+>>>>>>> 3503e427c54b8f10e205db1c2f31ac30b5f88f78
 }
 
-/* Next & previous buttons */
-.prev-img, .next-img {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  padding: 16px;
-  color: white;
+.image-overlay {
+    height: 350px;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
 }
 
-/* Position the "next button" to the right */
-.next-img {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+.image-overlay .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 3rem;
+    background-color: var(--backdrop);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev-img:hover, .next-img:hover {
-  background-color: rgba(135, 126, 179, 0.8);
+#header .image-overlay .content .subtitle{
+    width: 90%;
 }
 
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
+#header .image-overlay .content .action-btn.cta-button {
+    max-width: 200px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
 }
 
-.active, .dot:hover {
-  background-color: #717171;
-}
+/*
 
+<<<<<<< HEAD
 
 
 .headerC-content{
@@ -425,6 +429,8 @@
 
 
   
+=======
+>>>>>>> 3503e427c54b8f10e205db1c2f31ac30b5f88f78
   .columnMeet {
     float: left;
     width: 33.3%;
@@ -471,15 +477,15 @@
   
   .button:hover {
     background-color: #555;
-  }
+  } */
 
 
   /* 100% Image Width on Smaller Screens */
-  @media only screen and (max-width: 700px){
+  /* @media only screen and (max-width: 700px){
     .modal-content {
       width: 100%;
     }
-  }
+  } */
 
 /* || MEDIA QUERIES */
 /* SM */

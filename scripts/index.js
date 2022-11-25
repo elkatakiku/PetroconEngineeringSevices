@@ -37,22 +37,37 @@ $("#createAccountBtn").click(function(){
 function expand() { 
     $('#sidebar').toggleClass('inactive');
     $('.sub-menu.show').collapse('hide');
+
+    // console.log($(this).attr("id"));
+    // switch ($(this).attr("id")) {
+    //     case "sidebarExpandToggler": 
+    //     if ($("#sidebar").hasClass("inactive")) {
+    //         console.log("inactive");
+    //         console.log($("#sidebar").width() + 10);
+    //     } else {
+    //         console.log("active");
+    //         $("#projectModal .mcontainer").css("margin-left", $("#sidebar").width() + 50);
+    //     }
+    //     break;
+    //     case "sidebarCollapseToggler":
+
+    //     break;
+    // }
 }
 
 // Sidebar Buttons Listener
-$('#sidebarExpandToggler').on('click', expand);
-$('#sidebarCollapseToggler').on('click', expand);
+$('#sidebarExpandToggler, #sidebarCollapseToggler').on('click', expand);
 $('.sub-menu').on('show.bs.collapse' , () => {
     if ($(window).width() > 768) {
         $('#sidebar').removeClass('inactive');
     }
 });
 
-if ($(window).width() > 768) {
-    console.log("greater than 768");
-} else {
-    console.log("less than 768");
-}
+// if ($(window).width() > 768) {
+//     console.log("greater than 768");
+// } else {
+//     console.log("less than 768");
+// }
 
 // var collapsible = "#sidebar .brand, #sidebar .collapsible, #sidebar .dropdown-toggle::after";
 
