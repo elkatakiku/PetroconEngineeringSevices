@@ -1,0 +1,116 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: arial;
+}
+
+/*.header{
+	min-height: 100vh;
+	width: 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	position: relative;
+}
+*/
+body{
+	width: 100%;
+	min-height: 100vh;
+	background: #5215fc;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	position: relative;
+}
+
+/*---SERVICES OFFERED---*/
+.services{
+
+	min-width: 98%;
+	min-height: 100vh;
+	text-align: center;
+	padding-top: 3%;
+	padding-left: 30px;
+	padding-bottom: 50px;
+	position: center;
+	/*background-color: #E4F4F3;
+	height: 320vh;*/
+	
+}
+.services h1{
+	font-family: Arial;
+	margin-top: 60px;
+	font-size: 60px;
+	font-weight: 600;
+	color: #fff;
+}
+.services p{
+	color: #777;
+	font-size: 20px;
+	font-weight: 100;
+	line-height: 25px;
+	padding: 10px;
+	text-align: justify;
+	margin-top: 25px;
+	font-family: Arial;
+
+}
+
+.row{
+
+	margin-top: 10%;
+	display: flex;
+	justify-content: space-between;
+	min-width: 1350px;
+	min-height: 700px;
+	text-indent: 20px;
+	word-spacing: 2px;
+	margin-left: 50px;
+
+}
+
+.services-col{
+	flex-basis: 40%;
+	min-width: 20%;
+	min-height: auto;
+	background: #fff;
+	border-radius: 5px;
+	margin-bottom: 2%;
+	margin-right: 5%;
+	padding: 30px 20px;
+	box-sizing: border-box;
+	transition: 0.5s;
+	opacity: 90%;
+
+}
+.services h4{
+	font-size: 20px;
+	text-align: center;
+	color: white;
+	font-weight: 5px;
+	font-family: century gothic;
+}
+.services h2{
+	font-size: 35px;
+	font-weight: 500px;
+	text-align: center;
+	color: #5215fc;
+	padding-bottom: 20px;
+	padding-top: 25px;
+	font-family: century gothic;
+
+}
+
+
+.services-col:hover{
+	box-shadow: whitesmoke;
+}
+@media only screen and (max-width: 767px){
+	.single-service{
+		margin-top: 30px;
+	}
+	.service-bg h2{
+		font-size: 13px;
+	}
