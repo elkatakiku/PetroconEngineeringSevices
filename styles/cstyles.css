@@ -369,9 +369,18 @@
     padding: 5% 0 12%;
 }
 
+/* || VERIFY ACCOUNT */
+.verify-container{
+    background-color: white;
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 700px;
 
+}
 
-
+.verify{
+margin: 0 auto;
+}
 /* || MEDIA QUERIES */
 /* SM */
 /* Small devices (portrait tablets and large phones, 576px and up) */
@@ -559,3 +568,4 @@
     }
 }
   
+.h5
