@@ -168,6 +168,10 @@ p, label {
     font-family: 'Open Sans', sans-serif;
 }
 
+.btn :hover{
+    color: whitesmoke ;
+}
+
 .slim-btn {
     height: 2rem;
     font-size: .8rem;
