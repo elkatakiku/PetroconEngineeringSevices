@@ -276,6 +276,11 @@ form .row .right {
     margin-left: -100% !important;
 }
 
+/* Icon */
+.fa-solid {
+    color: darkblue;
+}
+
 /* || MEDIA QUERIES */
 /* SM */
 /* Extra small devices (phones, 576px and down) */
