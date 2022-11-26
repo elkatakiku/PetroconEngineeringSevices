@@ -163,6 +163,7 @@
 
 
 
+
 /* Why Us */
 .colored-section#whyUs > .container-fluid {
     padding: 80px 10%;
@@ -416,6 +417,12 @@
     max-width: 200px;
     padding-top: .5rem;
     padding-bottom: .5rem;
+}
+
+/* Services */
+#servicesC .about-us-content .card:hover{
+    background-color: var(--primary); 
+    color: whitesmoke;   
 }
 
 
