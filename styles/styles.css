@@ -467,7 +467,7 @@ form .row .right {
     color: white;
 }
 
-/* Popup */
+/* || Popup */
 .popup-open {
     overflow: hidden;
 }
@@ -518,6 +518,7 @@ form .row .right {
     border-bottom: 1px solid var(--border-rgba-color);
     border-top-left-radius: var(--default-border-radius);
     border-top-right-radius: var(--default-border-radius);
+    position: relative;
 }
 
 .ptitle {
@@ -545,6 +546,40 @@ form .row .right {
     border-bottom-left-radius: var(--default-border-radius);
 }
 
+/* Popup Components */
+.pheader button[data-dismiss] {
+    position: absolute;
+    top: 50%;
+    right: 1.75rem;
+    transform: translateY(-50%);
+}
+
+.popup .pcontent .pbody label {
+    font-weight: 300;
+}
+
+.popup .pcontent .pbody input, .popup .pcontent .pbody .input-options {
+    border: 1px solid var(--input-popup-border-color);
+    background-color: white !important;
+}
+
+.popup .pcontent .pbody input::placeholder, .popup .pcontent .pbody small {
+    color: var(--placeholder-text);
+}
+
+.popup-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: .5;
+}
+
+/* Popup Animations */
+
 .popup.popup-below .pcontainer {
     margin: auto;
     margin-top: 1.75rem;
@@ -560,7 +595,7 @@ form .row .right {
     padding-bottom: 1.5rem;
     padding-top: 1.5rem;
 }
-    
+
 @keyframes slide-up {
     from {
         bottom: -100%;
@@ -622,32 +657,8 @@ form .row .right {
     }
 }
 
-/* Popup Components */
-.popup .pcontent .pbody label {
-    font-weight: 300;
-}
 
-.popup .pcontent .pbody input, .popup .pcontent .pbody .input-options {
-    border: 1px solid var(--input-popup-border-color);
-    background-color: white !important;
-}
-
-.popup .pcontent .pbody input::placeholder, .popup .pcontent .pbody small {
-    color: var(--placeholder-text);
-}
-
-.popup-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1040;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    opacity: .5;
-}
-
-/* Slide popup */
+/* || Slide element */
 
 .slide {
     background-color: red;
@@ -744,6 +755,8 @@ form .row .right {
 
 .tab-content {
     display: none;
+    flex-grow: 1;
+    flex-shrink: 0;
     width: 100%;
     height: 500px;
 }

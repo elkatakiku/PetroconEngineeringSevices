@@ -47,9 +47,9 @@ const TAB = "tab";
 
 // Popup 
 function showPopup(btn) {
+    const targetElement = $(btn.data("target"));
     console.log("Target");
     console.log(targetElement);
-    const targetElement = $(btn.data("target"));
     targetElement.addClass("show");
     $("body").addClass("popup-open");
     targetElement.css("padding-right", "");
@@ -149,9 +149,10 @@ $("button[data-toggle]").on("click", function (e) {
 });
 
 $("button[data-dismiss]").on("click", function (e) {
-    const DISMISS_ELEMENT = $(this).data("dismiss");
-    console.log(DISMISS_ELEMENT);
-    switch (DISMISS_ELEMENT) {
+    const btnCLicked = $(this);
+    const dismissElement = $(this).data("dismiss");
+    console.log(dismissElement);
+    switch (dismissElement) {
         case POPUP:
             hidePopup();
             break;
