@@ -207,57 +207,9 @@ a[data-toggle = "collapse"] {
 }
 
 /* Nav Tab */
-#content .nav-tab-container {
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-}
-
-.nav-tab-container {
-  color: var(--inactive-text);
-}
-
 .main .nav-tab {
-  padding: 0;
-  margin: 10px 0;
-}
-
-.nav-tab {
-  display: flex;
-  padding: 0 20px;
-  list-style: none;
-  margin: 0;
-}
-
-.nav-tab .nav-tab-item {
-  cursor: pointer;
-}
-
-.nav-tab .nav-tab-item button {
-  padding: 5px 15px;
-  height: 100%;
-  color: inherit;
-  font-weight: inherit;
-}
-
-.nav-tab .nav-tab-item .link-btn:hover,
-.nav-tab .nav-tab-item .link-btn:focus {
-  text-decoration: none;
-}
-
-.nav-tab .nav-tab-item:not(.active) .link-btn:hover {
-  color: var(--palette4);
-  background-color: var(--palette5);
-}
-
-.nav-tab .nav-tab-item.active {
-  color: var(--palette1) !important;
-  border-bottom: 2px solid var(--palette4);
-}
-
-.nav-tab-container .material-icons-outlined,
-.nav-tab-container .material-icons {
-  color: var(--palette4);
+    padding: 0;
+    margin: 10px 0;
 }
 
 /* Project Modal */
