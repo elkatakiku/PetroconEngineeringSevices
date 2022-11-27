@@ -42,8 +42,15 @@ $('.sub-menu').on('show.bs.collapse' , () => {
 });
 
 const POPUP = "popup";
+const SLIDE = "slide";
+const TAB = "tab";
 
-function showPopup(targetElement) {
+// Popup 
+function showPopup(btn) {
+    console.log("Target");
+    console.log(targetElement);
+    const targetElement = $(btn.data("target"));
+    targetElement.addClass("show");
     $("body").addClass("popup-open");
     targetElement.css("padding-right", "");
     targetElement.css("display", "block");
@@ -87,27 +94,71 @@ function endPopup(POPUP_ELEMENT) {
     POPUP_ELEMENT.css("padding-right", "");
     POPUP_ELEMENT.css("display", "none");
     $(".popup-backdrop").remove();
-}        
+}
+
+// Tab
+function switchTab (btn) {
+    const activeNavItem = $(".nav-tab-item.active");
+    const targetNavItem = btn.parent();
+
+    const currentTab = $(".tab-content.show");
+    const currentTabId = "#" + currentTab.attr("id");
+    
+    const targetTabId = btn.data("target");
+    const targetTab = $(targetTabId);
+
+    console.log("Button: " + targetTabId);
+    console.log("Tab: " + currentTabId);
+
+    if (targetTabId !== currentTabId) {
+    // Removes active to tab button
+    activeNavItem.removeClass("active");
+
+    // Hide current open tab
+    currentTab.css("display", "none");
+    currentTab.removeClass("show");
+
+    // Set tab button to active
+    targetNavItem.addClass("active");
+
+    // Display target tab
+    targetTab.css("display", "block");
+    targetTab.addClass("show");
+    }
+}
 
 
-$("button[data-toggle], button[data-dismiss]").on("click", function (e) {
+$("button[data-toggle]").on("click", function (e) {
     console.log("Button clicked");
     console.log($(this).attr("id"));
-    const TARGET_ELEMENT = $($(this).data("target"));
 
-    if (POPUP === $(this).data("toggle")) {
-        console.log("Target");
-        console.log(TARGET_ELEMENT);
-        TARGET_ELEMENT.addClass("show");
-        showPopup(TARGET_ELEMENT);
-    }
-
-    console.log($(this).data("dismiss") === POPUP);
-
-    switch ($(this).data("dismiss")) {
+    const btnCLicked = $(this);
+    const toggleElement = btnCLicked.data("toggle");
+    
+    switch (toggleElement) {
         case POPUP:
-        hidePopup();
-        break;
+            showPopup(btnCLicked);
+            break;
+        case SLIDE:
+            console.log("Show slide");
+            break;
+        case TAB:
+            switchTab(btnCLicked);
+            break;
     }
+});
+
+$("button[data-dismiss]").on("click", function (e) {
+    const DISMISS_ELEMENT = $(this).data("dismiss");
+    console.log(DISMISS_ELEMENT);
+    switch (DISMISS_ELEMENT) {
+        case POPUP:
+            hidePopup();
+            break;
+        case SLIDE:
+            console.log("Dismiss slide");
+            break;
+    }
+
     console.log($(this).data("dismiss"));
 });

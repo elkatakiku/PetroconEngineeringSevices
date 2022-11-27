@@ -647,6 +647,43 @@ form .row .right {
     opacity: .5;
 }
 
+/* Slide popup */
+
+.slide {
+    background-color: red;
+    width: 100%;
+    height: 100%;
+}
+
+.slide-container {
+    /* float: right; */
+    background-color: rebeccapurple;
+    position: relative;
+    width: auto;
+    pointer-events: none;
+    max-width: 90%;
+    height: 100%;
+    /* margin: 1.75rem auto; */
+}
+
+.slide-content {
+    background-color: white;
+    max-width: 250px;
+}
+
+.slide-header {
+    background-color: var(--palette1);
+    display: flex;
+}
+
+.slide-body {
+    background-color: var(--palette2);
+}
+
+.slide-footer {
+    background-color: var(--palette3);
+}
+
 /* Sliding next and previous */
 .slide-wrapper {
     display: flex;
@@ -697,6 +734,22 @@ form .row .right {
     padding: .75rem;
     font-family: 'Open Sans', sans-serif;
     font-weight: 200;
+}
+
+/* Tabs */
+.tab-container {
+    display: flex;
+    position: relative;
+}
+
+.tab-content {
+    display: none;
+    width: 100%;
+    height: 500px;
+}
+
+.tab-content.show {
+    display: block;
 }
 
 /* || MEDIA QUERIES */
