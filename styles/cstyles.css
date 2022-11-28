@@ -370,14 +370,6 @@
     padding: 5% 0 12%;
 }
 
-<<<<<<< HEAD
-/* || VERIFY ACCOUNT */
-.verify-container{
-    background-color: white;
-    border-radius: 10px;
-    margin: 0 auto;
-    max-width: 700px;
-=======
 /* || Home */
 
 .chome-padding {
@@ -464,15 +456,9 @@
   .button:hover {
     background-color: #555;
   } */
->>>>>>> 59d82b3165ec11e191dd3a2e5a635bc67f920cb1
 
-}
+/* } */
 
-<<<<<<< HEAD
-.verify{
-margin: 0 auto;
-}
-=======
   /* 100% Image Width on Smaller Screens */
   /* @media only screen and (max-width: 700px){
     .modal-content {
@@ -480,7 +466,6 @@ margin: 0 auto;
     }
   } */
 
->>>>>>> 59d82b3165ec11e191dd3a2e5a635bc67f920cb1
 /* || MEDIA QUERIES */
 /* SM */
 /* Small devices (portrait tablets and large phones, 576px and up) */
@@ -667,8 +652,3 @@ margin: 0 auto;
         visibility: visible;
     }
 }
-  
-<<<<<<< HEAD
-.h5
-=======
->>>>>>> 59d82b3165ec11e191dd3a2e5a635bc67f920cb1

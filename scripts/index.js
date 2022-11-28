@@ -24,13 +24,8 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
 
 // $("#createAccountBtn").click(function(){
         // $(".form-login").hide();
-<<<<<<< HEAD
     // $(".form-login").css("left", "100%").fadeOut();
 // });
-=======
-    $(".form-login").css("left", "100%").fadeOut();
-});
->>>>>>> 59d82b3165ec11e191dd3a2e5a635bc67f920cb1
 
 // Sidebar
 function expand() { 

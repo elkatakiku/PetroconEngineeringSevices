@@ -668,11 +668,6 @@ form .row .right {
     margin-left: -100% !important;
 }
 
-<<<<<<< HEAD
-/* Icon */
-.fa-solid {
-    color: darkblue;
-=======
 
 /* || Table */
 .mesa {
@@ -702,7 +697,6 @@ form .row .right {
     padding: .75rem;
     font-family: 'Open Sans', sans-serif;
     font-weight: 200;
->>>>>>> 59d82b3165ec11e191dd3a2e5a635bc67f920cb1
 }
 
 /* || MEDIA QUERIES */
