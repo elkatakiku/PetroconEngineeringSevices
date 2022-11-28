@@ -34,18 +34,18 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto"> 
         <li class="nav-item">
-          <a class="nav-link" href="#header">HOME <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#headerC">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#aboutUs">ABOUT US</a>
+          <a class="nav-link" href="#servicesC">Services</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#services">SERVICES</a>
+            <a class="nav-link" href="#projectsC">Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#projects">PROJECTS</a>
+          <a class="nav-link" href="#aboutUsC">About Us</a>
         </li>
 
         <li>
@@ -54,8 +54,8 @@
               <span id="user-display" class="material-icons">face</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-              <a class="dropdown-item" href="#!">Action</a>
-              <a class="dropdown-item" href="#!">Another action</a>
+              <a class="dropdown-item" href="clientaccsettings.html">Account Settings</a>
+              <a class="dropdown-item" href="clientlogin&security.html">Login & Security</a>
             </div>
           </div>
         </li>
@@ -64,82 +64,183 @@
     </div>
     </nav>
 
-    <!-- Background 1 -->
-    <!-- <div class="bg-float2">
-      <object class="bg-float" data="../../images/bg-float-1.svg" type="image/svg+xml"></object>
-    </div> -->
-
     <!-- Header Section -->
-    <section class="" id="header">
-
-      <!-- Slideshow container -->
-      <div class="image-overlay" data-image="header-image-3.jpg" data-height="350">
+    <section class="colored-section" id="headerC">
+      <div class="image-overlay" data-image="header-image-1.jpg" data-height="350">
         <header class="content chome-padding">
           <h1 class="">Welcome, Client!</h1>
           <p class="subtitle">
             We are inspired by the long and winding path that starts with raw materials and ends with a quality good. We believe that knowing where your products come from will bring greater meaning to them.
           </p>
-
-          <button class="btn action-btn cta-button round">View projects</button>
+          
+          <button class="btn action-btn round"  style=align-self:flex-start;>
+          <a class="nav-link" href="#projectsC">View projects</a>
+          </button>
+         
+        
         </header>
       </div>
     </section>  
 
-    
     <!-- Services Section -->
     <section class="" id="servicesC">
       <div class="about-us-content chome-padding">
         <header>
-          <h2>We build homes with personal touch<h2>
-          <p class="subtitle"><strong>Petrocon Engineering Services can help.</strong></p>
+          <p class="subtitle" style="font-size: 28px;"><strong>Petrocon Engineering Services can help.</strong></p>
         </header>
 
-        <p>Petrocon Engineering offers a variety of services and operations including:</p>
-        <ul class="list-unstyled">
-          <li>Centralized LPG Pipeline Installation </li>
-          <li>Supply and Installation of Kitchen Fire Suppression and Gas Leak Detector </li>
-          <li>Preventive Maintenance for Autogas Commercial Industrial & Poultry LPG Installation </li>
-          <li>Tank Requalification </li>
-          <li>Fire Protection System</li>
-          <li>Technical & Project Consultant for LPG Business</li>
-        </ul>
-        
-        <div class="">
+        <p style="font-size: 20px;">Petrocon Engineering offers a variety of services and operations including:</p>
+
+        <div class="containerC"> 
           <div class="row">
-            <img class="col-4" id="servicesImg" src="../../images/about-us-4.jpg" alt="HAKDOG">
-            <img class="col-4" id="servicesImg" src="../../images/about-us-8.jpg" alt="HAKDOG">
-            <img class="col-4" id="servicesImg" src="../../images/about-us-6.jpg" alt="HAKDOG">
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/services-image-1.jpg" alt="" style="width: 300" height="300">
+                <div class="container">
+                  <br>
+                  <h3>Centralized LPG Pipeline Installation</h3>
+                  <br>
+                </div>
+              </div>
+            </div>
+          
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/services-image-2.jpg" alt="" style="width: 300" height="300">
+                <div class="container">
+                  <h3>Supply and Installation of Kitchen Fire Suppression and Gas Leak Detector</h3>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/services-image-3.jpg" alt="" style="width: 300" height="300">
+                <div class="container">
+                  <h3>Preventive Maintenance for Autogas Commercial Industrial & Poultry LPG Installation</h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/services-image-4.jpg" alt="" style="width: 300" height="300">
+                <div class="container">
+                  <br>
+                  <h3>Tank Requalification</h3>
+                  <br>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/services-image-5.jpg" alt="" style="width: 300" height="300">
+                <div class="container">
+                  <br>
+                  <h3>Fire Protection System</h3>
+                  <br>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="card">
+                <img src="../../images/about-us-8.jpg" alt="" style="width: 300" height="300">
+                <div class="container">
+                  <h3>Technical & Project Consultant for LPG Business</h3>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
+        
       </div>
-    </section>
+        
+  </section>
+  
+   <!-- Projects Section -->
+   <section class="white-section" id="projectsC">
 
-    <section>
-      <div class="container">
-        <div class="row">
-          <img class="col-lg-6 col-md-4 col-12 about-img" src="../../images/about-us-1.jpg" alt="">
-  
-          <div class="col-lg-6 col-md-7 col-12 about-us-content">
-            <header>
-              <h2>About Petrocon Engineering Services</h2>
-              <p class="subtitle">Petrocon Engineering offers a variety of services and operations including:</p>
-            </header>
-  
-            <p>Petrocon Engineering Services, is a construction company that is founded by Valentino B. Albaciete who is also a CEO of the company. Strikeville, Vizcarra Compound, Molino 3, Bacoor City, Cavite is where the company was founded in 2009. </p>
-          </div>
-        </div> 
-      </div>
+    <div class="" style="margin-top: 100px;">
+      <table class="mesa">
+        <thead class="mesa-head">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Project</th>
+            <th scope="col">Last change</th>
+            <th scope="col">Status</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <tr class="table-active"> 
+            <th scope="row">1</th>
+            <td>
+              <p>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</p>
+              <small>Robinsons Palace, Antipolo City</small>
+            </td>
+            <td>21/11/2022</td>
+            <td>Done</td>
+            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+          </tr>
+
+            <th scope="row">2</th>
+            <td>
+              <p>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</p>
+              <small>Robinsons Palace, Antipolo City</small>
+            </td>
+            <td>21/11/2022</td>
+            <td>Done</td>
+            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>
+              <p>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</p>
+              <small>Robinsons Palace, Antipolo City</small>
+            </td>
+            <td>21/11/2022</td>
+            <td>Done</td>
+            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>
+              <p>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</p>
+              <small>Robinsons Palace, Antipolo City</small>
+            </td>
+            <td>21/11/2022</td>
+            <td>Done</td>
+            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>
+              <p>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</p>
+              <small>Robinsons Palace, Antipolo City</small>
+            </td>
+            <td>21/11/2022</td>
+            <td>Done</td>
+            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     </section>
-  
 
     <!-- About UsC / MEET OUR TEAM Section -->
-    <section class="" id="aboutUs">
-      <div class="">
+    <section class="" id="aboutUsC">
+      <div class="about-us-content">
           
         <header>
-          <h2 class="section-header">MEET OUR TEAM</h2>
+          <h2 class="section-header" style="text-align: center; margin-top: 50px;">MEET OUR TEAM</h2>
         </header>
         
+
         <div class="container"> 
           <div class="row">
             <div class="col-lg-4 col-md-6 col-12">
@@ -148,14 +249,14 @@
                 <div class="container">
                   <h2>Kitkat</h2>
                   <p class="title">CEO</p>
-                  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
+                  <p000o>Some text that describes me lorem ipsum ipsum lorem.</p>
                 </div>
               </div>
             </div>
           
             <div class="col-lg-4 col-md-6 col-12">
               <div class="card">
-                <img src="../../images/meet-our-team-2.png" alt="" style="width: 100%">
+                <img src="../../images/meet-our-team-1.jpg" alt="" style="width: 100%">
                 <div class="container">
                   <h2>Ginger</h2>
                   <p class="title">Secretary</p>
@@ -166,7 +267,7 @@
             
             <div class="col-lg-4 col-md-6 col-12">
               <div class="card">
-                <img src="../../images/meet-our-team-3.png" alt="" style="width:100%">
+                <img src="../../images/meet-our-team-1.jpg" alt="" style="width:100%">
                 <div class="container">
                   <h2>Kitty</h2>
                   <p class="title">Twerker</p>
@@ -180,109 +281,22 @@
       </div>
         
   </section>
+  <section>
+    <div class="container" style="margin-top: 100px; margin-bottom: 50px;">
+      <div class="row">
+        <img class="col-lg-6 col-md-4 col-12 about-img" src="../../images/about-us-1.jpg" alt="">
 
-    <!-- Projects Section -->
-    <section class="white-section" id="projectsC">
+        <div class="col-lg-6 col-md-7 col-12 about-us-content">
+          <header>
+            <h2>About Petrocon Engineering Services</h2>
+            <p class="subtitle">Petrocon Engineering offers a variety of services and operations including:</p>
+          </header>
 
-      <div class="">
-        <table class="mesa">
-          <thead class="mesa-head">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Project</th>
-              <th scope="col">Last change</th>
-              <th scope="col">Status</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>
-                <p>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</p>
-                <small>Robinsons Palace, Antipolo City</small>
-              </td>
-              <td>21/11/2022</td>
-              <td>Done</td>
-              <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-            </tr>
-            <tr class="table-active">
-              <th scope="row">2</th>
-              <td>
-                <p>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</p>
-                <small>Robinsons Palace, Antipolo City</small>
-              </td>
-              <td>21/11/2022</td>
-              <td>Done</td>
-              <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>
-                <p>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</p>
-                <small>Robinsons Palace, Antipolo City</small>
-              </td>
-              <td>21/11/2022</td>
-              <td>Done</td>
-              <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </section>
-
-<!-- <script>
-  let slideIndex = 1;
-  showSlides(slideIndex);
-  
-  function plusSlides(n) {
-    showSlides(slideIndex += n);
-  }
-  
-  function currentSlide(n) {
-    showSlides(slideIndex = n);
-  }
-  
-  function showSlides(n) {
-    let i;
-    let slides = document.getElementsByClassName("headerSlides");
-    let dots = document.getElementsByClassName("dot");
-    if (n > slides.length) {slideIndex = 1}    
-    if (n < 1) {slideIndex = slides.length}
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
-    }
-    for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex-1].style.display = "block";  
-    dots[slideIndex-1].className += " active";
-  }
-  </script> -->
-
-<!-- <script>
-  // Get the modal
-  var modal = document.getElementById("myModal");
-  
-  // Get the image and insert it inside the modal - use its "alt" text as a caption
-  var img = document.getElementById("servicesImg");
-  var modalImg = document.getElementById("img01");
-  var captionText = document.getElementById("caption");
-  img.onclick = function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
-  }
-  
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-  
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() { 
-    modal.style.display = "none";
-  }
-  </script> -->
+          <p>Petrocon Engineering Services, is a construction company that is founded by Valentino B. Albaciete who is also a CEO of the company. Strikeville, Vizcarra Compound, Molino 3, Bacoor City, Cavite is where the company was founded in 2009. </p>
+        </div>
+      </div> 
+    </div>
+  </section>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
