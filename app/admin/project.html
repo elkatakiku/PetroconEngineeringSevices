@@ -155,13 +155,13 @@
         <nav class="nav-tab-container border-bottom">
             <ul class="nav-tab">
                 <li class="nav-tab-item active">
-                  <button class="link-btn">Gantt Chart</button>
+                  <button class="link-btn" data-toggle="tab" data-target="#projectGanttChart">Gantt Chart</button>
                 </li>
                 <li class="nav-tab-item">
-                  <button class="link-btn">Resources</button>
+                  <button class="link-btn" data-toggle="tab" data-target="#projectResources">Resources</button>
                 </li>
                 <li class="nav-tab-item">
-                  <button class="link-btn">People</button>
+                  <button class="link-btn" data-toggle="tab" data-target="#projectPeople">People</button>
                 </li>
             </ul>
 
@@ -276,297 +276,299 @@
 
         </style>
 
-        <div class="gantt-chart">
-            <div class="chart">
-                <div class="chart-row chart-period">
-                    <div class="chart-row-item"></div>
-                    <span>January</span>
-                    <span>February</span>
-                    <span>March</span>
-                    <span>April</span>
-                    <span>May</span>
-                    <span>June</span>
-                    <span>July</span>
-                    <span>August</span>
-                    <span>September</span>
-                    <span>October</span>
-                    <span>November</span>
-                    <span>December</span>
-                </div>
-
-                <div class="chart-row chart-lines"> 
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                <div class="chart-row">
-                    <div class="chart-row-item">1</div>
-                    <ul class="chart-row-bars">
-                        <li class="chart-li-one">Planning</li>
-                    </ul>
-                </div>
-                <div class="chart-row">
-                    <div class="chart-row-item">2</div>
-                    <ul class="chart-row-bars">
-                        <li class="chart-li-two-a">Meeting</li>
-                        <li class="chart-li-two-b">Analysis</li>          
-                    </ul>
-                </div>
-                <div class="chart-row">
-                    <div class="chart-row-item">3</div>
-                    <ul class="chart-row-bars">
-                        <li class="chart-li-three">Design</li>
-                    </ul>
-                </div>
-                <div class="chart-row">
-                    <div class="chart-row-item">4</div>
-                    <ul class="chart-row-bars">
-                        <li class="chart-li-four">Development</li>
-                    </ul>
-                </div>
-                <div class="chart-row">
-                    <div class="chart-row-item">5</div>
-                    <ul class="chart-row-bars">
-                        <li class="chart-li-five">Testing</li>
-                    </ul>
-                </div>
-                <div class="chart-row">
-                    <div class="chart-row-item">6</div>
-                    <ul class="chart-row-bars">
-                        <li class="chart-li-six">Maintenance</li>
-                    </ul>
-                </div>
-                <div class="chart-row">
-                    <div class="chart-row-item">7</div>
-                    <ul class="chart-row-bars">
-                        <li class="chart-li-seven">Meeting</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div id="projectResources" class="flex-column-container">
-            <header>
-                <h2>Resources</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis neque quam. Vivamus scelerisque dui ac orci consequat pretium. Quisque ac vestibulum lacus. Aenean ut semper lorem. Aliquam justo quam, volutpat id elit eget, scelerisque auctor libero. </p>
-            </header>
-
-            <!-- Resources Table -->
-            <table class="mesa">
-                <thead class="mesa-head">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price per item (PHP)</th>
-                        <th scope="col">Total Amount</th>
-                        <th scope="col">Notes</th>
-                        <th scope="col" class="table-action-col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <button type="button" class="btn action-btn align-self-start">
-                <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
-                Add resource
-            </button>
-        </div>
-
-        <div id="projectPeople" class="flex-column-container">
-            <header>
-                <h2>People</h2>
-                <p>Here you manage all your project members. You can also invite new members by email or SMS, or you can choose from the already invited team members. Depending on the rights granted, members can get different roles.</p>
-            </header>
-
-            <div class="linear">
-                <!-- <form action="" class=""> -->
-                    <div class="input-container">
-                      <input type="text" placeholder="Enter an email address or number of a person you want to invite.">
-                      <div class="input-append">
-                        <button type="button" class="btn action-btn">Invite person</button>
-                      </div>
+        <div class="tab-container">
+            <div id="projectGanttChart" class="tab-content show gantt-chart">
+                <div class="chart">
+                    <div class="chart-row chart-period">
+                        <div class="chart-row-item"></div>
+                        <span>January</span>
+                        <span>February</span>
+                        <span>March</span>
+                        <span>April</span>
+                        <span>May</span>
+                        <span>June</span>
+                        <span>July</span>
+                        <span>August</span>
+                        <span>September</span>
+                        <span>October</span>
+                        <span>November</span>
+                        <span>December</span>
                     </div>
 
-                    <span class="align-self-center">or</span>
+                    <div class="chart-row chart-lines"> 
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
 
-                    <button class="btn action-btn">Choose from Team</button>
-                  <!-- </form> -->
+                    <div class="chart-row">
+                        <div class="chart-row-item">1</div>
+                        <ul class="chart-row-bars">
+                            <li class="chart-li-one">Planning</li>
+                        </ul>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-row-item">2</div>
+                        <ul class="chart-row-bars">
+                            <li class="chart-li-two-a">Meeting</li>
+                            <li class="chart-li-two-b">Analysis</li>          
+                        </ul>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-row-item">3</div>
+                        <ul class="chart-row-bars">
+                            <li class="chart-li-three">Design</li>
+                        </ul>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-row-item">4</div>
+                        <ul class="chart-row-bars">
+                            <li class="chart-li-four">Development</li>
+                        </ul>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-row-item">5</div>
+                        <ul class="chart-row-bars">
+                            <li class="chart-li-five">Testing</li>
+                        </ul>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-row-item">6</div>
+                        <ul class="chart-row-bars">
+                            <li class="chart-li-six">Maintenance</li>
+                        </ul>
+                    </div>
+                    <div class="chart-row">
+                        <div class="chart-row-item">7</div>
+                        <ul class="chart-row-bars">
+                            <li class="chart-li-seven">Meeting</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <!-- Resources Table -->
-            <table class="mesa">
-                <thead class="mesa-head">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Item Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price per item (PHP)</th>
-                        <th scope="col">Total Amount</th>
-                        <th scope="col">Notes</th>
-                        <th scope="col" class="table-action-col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Patatas</td>
-                        <td>8</td>
-                        <td>300</td>
-                        <td>2,400</td>
-                        <td>Mahal lods</td>
-                        <td>
-                            <div>
-                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="projectResources" class="tab-content flex-column-container">
+                <header>
+                    <h2>Resources</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis neque quam. Vivamus scelerisque dui ac orci consequat pretium. Quisque ac vestibulum lacus. Aenean ut semper lorem. Aliquam justo quam, volutpat id elit eget, scelerisque auctor libero. </p>
+                </header>
 
-            <button type="button" class="btn action-btn align-self-start">
-                <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
-                Add resource
-            </button>
+                <!-- Resources Table -->
+                <table class="mesa">
+                    <thead class="mesa-head">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price per item (PHP)</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Notes</th>
+                            <th scope="col" class="table-action-col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" class="btn action-btn align-self-start">
+                    <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                    Add resource
+                </button>
+            </div>
+
+            <div id="projectPeople" class="tab-content flex-column-container">
+                <header>
+                    <h2>People</h2>
+                    <p>Here you manage all your project members. You can also invite new members by email or SMS, or you can choose from the already invited team members. Depending on the rights granted, members can get different roles.</p>
+                </header>
+
+                <div class="linear">
+                    <!-- <form action="" class=""> -->
+                        <div class="input-container">
+                        <input type="text" placeholder="Enter an email address or number of a person you want to invite.">
+                        <div class="input-append">
+                            <button type="button" class="btn action-btn">Invite person</button>
+                        </div>
+                        </div>
+
+                        <span class="align-self-center">or</span>
+
+                        <button class="btn action-btn">Choose from Team</button>
+                    <!-- </form> -->
+                </div>
+
+                <!-- Resources Table -->
+                <table class="mesa">
+                    <thead class="mesa-head">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price per item (PHP)</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Notes</th>
+                            <th scope="col" class="table-action-col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Patatas</td>
+                            <td>8</td>
+                            <td>300</td>
+                            <td>2,400</td>
+                            <td>Mahal lods</td>
+                            <td>
+                                <div>
+                                    <i class="fa fa-trash" aria-hidden="true"></i>        
+                                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="button" class="btn action-btn align-self-start">
+                    <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                    Add resource
+                </button>
+            </div>
         </div>
         <!-- End of content -->
       </main>
