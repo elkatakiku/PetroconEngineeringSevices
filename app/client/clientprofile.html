@@ -1,7 +1,6 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Account Settings</title>
+<head>
+    <!-- Change the 'Page' to current page  -->
+    <title>Petrocon | Client Profile</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,18 +8,22 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <!-- External CSS -->
+    <!-- Change paths of href depending on the location of the file -->
     <link rel="stylesheet" href="../../styles/styles.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
-    <link rel="stylesheet" href="../../styles/cstyles.css">
- 
-  </head>
-  <body>  
+</head>
 
-
+<body>
     <div id="sidebar">
       <nav>
         <header class="sidebar-header">
@@ -50,39 +53,37 @@
             </svg>
           </a>
         </header>
-        <ul class="list-unstyled components">
-          <li class="active">
-            <a class="d-flex align-content-start" href="#">
-              <span class="material-icons">settings</span>
-              <span class="collapsible">Account Settings</span>
-              <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="">
-            <a class="d-flex align-content-start" href="clientlogin&security.html">
-              <span class="material-icons">face</span>
-              <span class="collapsible">Login & Security</span>
-            </a>
-          </li>
 
-          <hr>
-          <li class="">
-            <a class="d-flex align-content-start" href="#">
-              <span class="material-icons">logout</span>
-              <span class="collapsible">Logout</span>
-            </a>
-          </li>
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a class="d-flex align-content-start" href="clientprofile.html">
+                  <span class="material-icons">person</span>
+                  <span class="collapsible">Profile</span>
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="">
+                <a class="d-flex align-content-start" href="#">
+                  <span class="material-icons">logout</span>
+                  <span class="collapsible">Logout</span>
+                </a>
+              </li>
         </ul>
       </nav>
     </div>
 
     <div id="content">
-      <nav class="navbar navbar-expand-md navbar-light">
+      <nav class="navbar navbar-expand-md">
         <button id="sidebarCollapseToggler" type="button" class="btn">
             <i class="fa fa-bars" aria-hidden="true"></i>
-        </button>        
-        <a class="navbar-brand flex-grow-1" href="#">Account Settings</a>
+        </button>
+
+
+          <div class="container-fluid">
+            <h5>Account Settings</h5>  
             
+          </div>
+     
         <span class="material-icons">circle_notifications</span>
 
         <span class="user-info">
@@ -94,23 +95,28 @@
 
       <main class="main">
         <!-- Content -->
-        <!-- Change content here -->
+
+
+
 
         <!-- End of content -->
       </main>
     </div>
-      
-    
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
 
-    <!-- External JS -->
-    <script src="../scripts/index.js"></script>
-  </body>
-</html>
+
+</body>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
+
+<!-- External JS -->
+<!-- Change paths of src depending on the location of the file -->
+<script src="../../scripts/index.js"></script>
