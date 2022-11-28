@@ -482,6 +482,8 @@ form .row .right {
     overflow-y: auto;
 }
 
+
+
 .popup {
     position: fixed;
     top: 0;
@@ -492,6 +494,7 @@ form .row .right {
     height: 100%;
     overflow: hidden;
     outline: 0;
+    
 }
 
 .pcontainer {
@@ -514,6 +517,7 @@ form .row .right {
     outline: 0;
     position: relative;
 }
+
 
 .pheader {
     display: flex;
