@@ -154,6 +154,11 @@ p, label {
     font-family: 'Open Sans', sans-serif;
 }
 
+/* Commented: will affect all the buttons
+.btn :hover{
+    color: whitesmoke ;
+} */
+
 .slim-btn {
     height: 2rem;
     font-size: .8rem;

@@ -1,0 +1,112 @@
+/* CSS */
+
+a: focus { outline: 0 solid}
+img {
+	max-width: 100%
+	height: auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+	margin: 0 0 15px;
+	font-weight: 700;
+}
+html, body {
+	background: #FFF8EA;
+	font-family: arial;
+	height: 100%
+}
+a {
+	-moz-transition: 0.3s;
+	-o-transition: 0.3s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+	color: #333;
+}
+a:hover { text-decoration: none }
+
+/* Custom */
+.section-header{
+	text-align: center;
+	margin-bottom: 30px;
+	margin-top: 15px;
+}
+.section-header p{
+	font-size: 18px;
+}
+.single-service{
+	border: 1px solid #ebebeb;
+	text-align: center;
+	background: #fff;
+}
+.service-bg{
+	height: 200px;
+	position: relative;
+}
+.service-bg-1{
+	background: url("petrocon1.jpg");
+	/* -webkit-background-size: cover; */
+	background-size: cover;
+	background-position: center;
+}
+.service-bg-2{
+	background: url("petrocon2.jpg");
+	-webkit-background-size: cover; 
+	background-size: cover;
+	background-position: center;
+}
+.service-bg-3{
+	background: url("petrocon3.jpg");
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center;
+}
+.service-bg h2{
+	color: #fff;
+	background: tomato;
+	boarder: 1px solid tomato;
+	font-size: 17px;
+	text-align: center;
+	font-weight: 700;
+	padding: 15px;
+	position: absolute;
+	left: 8%;
+	width: 84%;
+	margin: 0;
+	bottom: -25px;
+	border-radius: 50px;
+	letter-spacing: 2px;
+}
+.single-service:hover .service-bg h2{
+	background: #fff;
+	transition: .9s;
+	color: tomato;
+}
+.service-text{
+	padding: 50px 30px 20px;
+	font-size: 15px;
+	font-weight: 400;
+}
+.service-text p:last-child{
+	margin: 0;
+	line-height: 1.8;
+}
+.btn-area{
+	display: inline-block;
+	color: #333;
+	font-size: 17px;
+	font-weight: 700;
+	margin-top: 30px;
+	text-transform: capitalize;
+}
+@media only screen and (max-width: 767px){
+	.single-service{
+		margin-top: 30px;
+	}
+	.service-bg h2{
+		font-size: 13px;
+	}
+}
