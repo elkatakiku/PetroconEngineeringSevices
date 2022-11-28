@@ -235,6 +235,12 @@ p, label {
     opacity: .5;
 }
 
+.icon-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 /* || Containers */
 .white-section {
@@ -264,6 +270,55 @@ p, label {
 
 
 /* || FORM */
+
+/* Custom Form Input Group */
+.form-input-group {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.form-input-group.display p,
+.form-input-group:not(.display) input,
+.form-input-group:not(.display) textarea {
+    display: block;
+}
+
+.form-input-group:not(.display) p, 
+.form-input-group.display input, 
+.form-input-group.display textarea {
+    display: none;
+}
+
+.form-input-group label {
+    display: block;
+    margin: 0;
+    font-size: .75rem;
+}
+
+.form-input-group p,
+.form-input-group input, 
+.form-input-group textarea {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    background-color: white !important;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    resize: none;
+}
+
+.form-input-group input, .form-input-group textarea {
+    border-bottom: 1px solid rgba(37, 37, 132, 0.402);
+}
+
+.form-input-group input:focus, .form-input-group textarea:focus {
+    /* background-color:  rgba(240, 240, 255, 0.402) !important; */
+    box-shadow: 0 5px 5px -4px rgba(103, 103, 255, 0.402);
+} 
 
 /* Form Input Group */
 .form-control.top {
@@ -478,6 +533,7 @@ form .row .right {
 }
 
 .popup {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -487,6 +543,11 @@ form .row .right {
     height: 100%;
     overflow: hidden;
     outline: 0;
+}
+
+.popup.show {
+    display: block;
+    padding-right: 0;
 }
 
 .pcontainer {
@@ -661,41 +722,93 @@ form .row .right {
 /* || Slide element */
 
 .slide {
-    background-color: red;
+    display: none;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    position: absolute;
+}
+
+.slide.active {
+    display: block;
 }
 
 .slide-container {
     /* float: right; */
-    background-color: rebeccapurple;
-    position: relative;
     width: auto;
-    pointer-events: none;
-    max-width: 90%;
-    /* height: 100%; */
-    /* margin: 1.75rem auto; */
+    min-width: 500px;
+    max-width: 500px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    animation: slide-in-right .3s ease-out;
+    transition: all .3s;
+}
+
+@keyframes slide-in-right {
+    from {
+        right: -50%;
+    }
+    to {
+        right: 0;
+    }
+}
+
+.slide-container.slide-out-right {
+    animation: slide-out-right .3s ease-out;
+}
+
+@keyframes slide-out-right {
+    from {
+        right: 0;
+    }
+    to {
+        right: -50%;
+    }
 }
 
 .slide-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: white;
-    max-width: 250px;
+    border: 1px solid var(--border-rgba-color);
 }
 
 .slide-header {
-    background-color: var(--palette1);
+    background-color:  rgba(0,0,0,.03);
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border-rgba-color);
 }
 
 .slide-body {
-    background-color: var(--palette2);
+    background-color: white;
+    flex-grow: 1;
+    width: 100%;
+    padding: 1rem;
 }
 
 .slide-footer {
-    background-color: var(--palette3);
+    width: 100%;
+    background-color:  rgba(0,0,0,.03);
+    border-top: 1px solid var(--border-rgba-color);
+    padding: 1rem;
 }
 
-/* Sliding next and previous */
+/* Slide Componenets */
+.slide-title {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* || Sliding next and previous */
 .slide-wrapper {
     display: flex;
     overflow: hidden;
@@ -751,8 +864,8 @@ form .row .right {
 .nav-tab-container {
     display: flex;
     justify-content: space-between;
-    z-index: 1050;
     background-color: white;
+    z-index: 1050;
 }
 
 .nav-tab-container {
@@ -803,7 +916,7 @@ form .row .right {
     position: relative;
 }
 
-.tab-content {
+.tab-content:not(.show) {
     display: none;
     flex-grow: 1;
     flex-shrink: 0;
@@ -854,6 +967,12 @@ form .row .right {
 /* MD */
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+
+    /* Navigation tabs sticks to top */
+    .nav-tab-container {
+        position: sticky; 
+        top: 0;
+    }
 
 }
 

@@ -38,7 +38,7 @@
               </li>
           </ul>
 
-          <button type="button" class="btn link-btn align-self-center" data-toggle="slide" data-target="#">
+          <button type="button" class="btn link-btn" data-toggle="slide" data-target="#projectInfo">
               <span class="material-icons-outlined">info</span>
           </button>
       </nav>
@@ -53,7 +53,7 @@
         .tab-content {
           display: none;
           width: 100%;
-          height: 500px;
+          min-height: 100vh;
         }
 
         .tab-content.show {
@@ -75,57 +75,110 @@
 
       <div class="tab-container">
         <div class="tab-content show" id="tab1">
-          tab 1 content
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus tortor sed tortor gravida congue. Nam porta justo tellus, eget aliquet nunc cursus eu. Fusce sit amet fermentum dui, a pellentesque leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin congue volutpat euismod. Pellentesque ex diam, posuere vel aliquet ut, imperdiet at lacus. Sed id dui in ex viverra tincidunt. Donec lacus diam, tincidunt at rhoncus lacinia, bibendum sed enim. Nunc pharetra mauris hendrerit tortor hendrerit, id dignissim purus porttitor. Aenean tortor elit, lacinia vel lacinia eget, maximus ac sapien. In hac habitasse platea dictumst. Ut eu fringilla felis, vitae luctus est.
         </div>
 
         <div class="tab-content" id="tab2">
-          tab 2 content
+          Suspendisse sed vestibulum ante. Aliquam pharetra, tortor nec sollicitudin accumsan, libero est varius ex, vitae suscipit enim mauris in ex. Aenean varius molestie nisi, in tristique mi sollicitudin eu. Etiam ornare dignissim malesuada. Ut maximus felis nec urna semper, at interdum diam ultricies. Phasellus vel magna nulla. Nam molestie risus est, sit amet viverra nisi congue ultrices. Sed diam urna, viverra ut orci in, semper condimentum lacus. Donec a tellus sem. Aliquam eget ipsum posuere, ultrices dolor nec, porta nisi. Nam at tellus ex. Vestibulum finibus lacus id rutrum ultrices. Nulla vitae lorem sit amet odio condimentum placerat consequat ac urna.
         </div>
 
         <div class="tab-content" id="tab3">
-          tab 3 content
-        </div>        
-      </div>
-
-      <!-- Details Slide -->
-      <button class="btn link-btn">Slide here</button>
-      <div class="slide">
-        <!-- slide -->
-        <div class="slide-container">
-          dialogue
-            <div class="slide-content">
-                content
-                <div class="slide-header">
-                  <span class="material-icons">
-                    navigate_next
-                  </span>
-                  <h2>Details</h2>
-                  <span class="material-icons">
-                    edit_note
-                  </span>
-                </div>
-
-                <div class="slide-body">
-                    body
-                    <form action="">
-                      
-                    </form>
-                </div>
-
-                <div class="slide-footer">
-                    footer
-                </div>
-            </div>
+          Nulla imperdiet risus neque, elementum faucibus ante condimentum in. Nunc ornare malesuada est quis volutpat. Fusce nec auctor nisi. Sed laoreet interdum nisi, vitae placerat lacus fermentum et. Proin malesuada quam ac est efficitur malesuada. Suspendisse potenti. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla ac pulvinar odio, quis mollis quam. In et ullamcorper nisl. In hac habitasse platea dictumst. Donec sagittis tincidunt turpis, sed efficitur leo vehicula nec. Vestibulum ante dui, blandit at ullamcorper nec, facilisis ut dui. Phasellus metus est, malesuada et facilisis ac, rhoncus ut augue. Nam eget venenatis neque, eget maximus arcu. Nulla sollicitudin lectus eu consequat egestas.
         </div>
+
+        <!-- Details Slide -->
+        <!-- <button class="btn action-btn">Slide here</button> -->
+        <div class="slide" id="projectInfo" data-side="right">
+          <!-- slide -->
+          <div class="slide-container">
+            <div class="slide-content">
+              <div class="slide-header">
+                <div>
+                  <button class="btn icon-btn" data-dismiss="slide">
+                    <span class="material-icons">navigate_next</span>
+                  </button>
+                  <button class="btn link-btn" data-dismiss="edit-form" data-target="#projectDetailForm">
+                    Cancel
+                  </button>
+                </div>
+                <h2 class="slide-title">Details</h2>
+                <div>
+                  <button class="btn link-btn" data-toggle="edit-form" data-target="#projectDetailForm">
+                    Edit
+                  </button>
+                  <button class="btn link-btn" type="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
+                    Save
+                  </button>
+                </div>
+              </div>
+
+              <div class="slide-body">
+                <form action="" id="projectDetailForm">
+
+                  <h3>General</h3>
+
+                  <div class="form-input-group display">
+                    <label for="">Name of Client</label>
+                    <p>Yvana Eunice Magno</p>
+                    <input type="text" value="Yvana Eunice Magno" autofocus>
+                  </div>
+
+                  <div class="form-input-group display">
+                    <label for="">Building no.</label>
+                    <p>Building 1, 2, 3</p>
+                    <input type="text" value="Building 1, 2, 3">
+                  </div>
+
+                  <div class="form-input-group display">
+                    <label for="">Work Description</label>
+                    <p>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</p>
+                    <textarea name="" id="">Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
+                  </div>
+
+                  <h3>Project</h3>
+
+                  <div class="form-input-group display">
+                    <label for="">Purchase Order #</label>
+                    <p>20221526</p>
+                    <input type="number" value="20221526">
+                  </div>
+
+                  <div class="form-input-group display">
+                    <label for="">Date of Award</label>
+                    <p>11/26/2022</p>
+                    <input type="date" value="11/26/2022">
+                  </div>
+
+                  <div class="form-input-group display">
+                    <label for="">Location</label>
+                    <p>Rosario, Batangas</p>
+                    <input type="text" value="Rosario, Batangas">
+                  </div>
+
+                </form>
+              </div>
+
+              <div class="slide-footer">
+                  footer
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
       <!-- End of content -->
     </main>
-    </div>
 
     <!-- Timeline Slide -->
 
-    
+    <!-- <div id="div">use devtools to change the <code>background-color</code> property of this node to <code>red</code></div>
+    <p id="p">status...</p> -->
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -141,9 +194,61 @@
     <script>
       // Try scripts here
 
-      console.log($(window).height() - 10);
+      console.log("Window height");
+      console.log($(window).height());
+      console.log("Nav tab height");
+      console.log($(".nav-tab-container").height());
+      console.log(($(window).height() - $(".nav-tab-container").height()) + "px");
 
-      $(".slide-container").css("height", $(window).height() - 10 + "px");
+      $(window).on("resize", () => {
+        $(".slide-container").css("height", $(window).height() - $(".nav-tab-container").height() + "px");
+      });
+
+      $(".slide-container").on("animationend", function (e) {
+        console.log(e.originalEvent.animationName);
+
+        if (e.originalEvent.animationName === "slide-out-right") { 
+          console.log("Closing slide");
+          $(".slide-container").removeClass("slide-out-right");
+          $(".slide").removeClass("active");
+          $("body").removeClass("slide-open");
+        }
+      });
+
+      $("button[data-toggle]").on("click", function (e) {
+        console.log(this);
+        console.log("Try debug");
+
+        const btnCLicked = $(this);
+        console.log(btnCLicked);
+        const toggleElement = btnCLicked.data("toggle");
+        
+        switch (toggleElement) {
+            case "slide":
+              console.log("Slide clicked");
+
+              if ($("body").hasClass("slide-open")) {
+                $(".slide-container").addClass("slide-out-right");
+              } else {  
+                console.log("Show slide");
+                $(".slide").addClass("active");
+                $("body").addClass("slide-open");
+              }
+              break;
+            case "edit-form":
+              console.log("Edit form");
+              $(btnCLicked.data("target") + " .form-input-group").toggleClass("display");
+              break;
+        }
+      });
+
+      $("textarea").on("input", function() {
+        this.style.minHeight = "1rem";
+        this.style.height = "auto";
+        this.style.height = (this.scrollHeight) + "px";
+        this.style.overflowY = "hidden";
+      });
+
     </script>
   </body>
 </html>

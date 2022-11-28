@@ -302,12 +302,6 @@ a[data-toggle = "collapse"] {
     display: none;
     transition: all .3s;
   }
-
-  /* Projects stick actions */
-  .nav-tab-container {
-    position: sticky; 
-    top: 0;
-  }
 }
 
 /* Medium devices (landscape tablets, 992px and up) */
