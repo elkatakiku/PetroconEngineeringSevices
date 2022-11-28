@@ -155,13 +155,13 @@
         <nav class="nav-tab-container border-bottom">
             <ul class="nav-tab">
                 <li class="nav-tab-item active">
-                  <button class="link-btn" data-toggle="tab" data-target="#projectGanttChart">Gantt Chart</button>
+                  <button class="link-btn" data-toggle="custom-tab" data-target="#projectGanttChart">Gantt Chart</button>
                 </li>
                 <li class="nav-tab-item">
-                  <button class="link-btn" data-toggle="tab" data-target="#projectResources">Resources</button>
+                  <button class="link-btn" data-toggle="custom-tab" data-target="#projectResources">Resources</button>
                 </li>
                 <li class="nav-tab-item">
-                  <button class="link-btn" data-toggle="tab" data-target="#projectPeople">People</button>
+                  <button class="link-btn" data-toggle="custom-tab" data-target="#projectPeople">People</button>
                 </li>
             </ul>
 
@@ -276,8 +276,8 @@
 
         </style>
 
-        <div class="tab-container">
-            <div id="projectGanttChart" class="tab-content show gantt-chart">
+        <div class="custom-tab-container">
+            <div id="projectGanttChart" class="custom-tab-content show gantt-chart">
                 <div class="chart">
                     <div class="chart-row chart-period">
                         <div class="chart-row-item"></div>
@@ -357,7 +357,7 @@
                 </div>
             </div>
 
-            <div id="projectResources" class="tab-content flex-column-container">
+            <div id="projectResources" class="custom-tab-content flex-column-container">
                 <header>
                     <h2>Resources</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer quis neque quam. Vivamus scelerisque dui ac orci consequat pretium. Quisque ac vestibulum lacus. Aenean ut semper lorem. Aliquam justo quam, volutpat id elit eget, scelerisque auctor libero. </p>
@@ -456,7 +456,7 @@
                 </button>
             </div>
 
-            <div id="projectPeople" class="tab-content flex-column-container">
+            <div id="projectPeople" class="custom-tab-content flex-column-container">
                 <header>
                     <h2>People</h2>
                     <p>Here you manage all your project members. You can also invite new members by email or SMS, or you can choose from the already invited team members. Depending on the rights granted, members can get different roles.</p>

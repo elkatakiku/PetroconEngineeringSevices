@@ -44,7 +44,7 @@ $('.sub-menu').on('show.bs.collapse' , () => {
 // Toggles
 const POPUP = "popup";
 const SLIDE = "slide";
-const TAB = "tab";
+const TAB = "custom-tab";
 
 // Animation Names
 const SLIDE_OUT_TOP = "slide-out-top";
@@ -58,24 +58,41 @@ function showPopup(btn) {
 }
 
 function hidePopup() {
+    console.log("Hide popup");
     let popupElement = $(".popup.show");
 
-    if (popupElement.hasClass("fade")) {
-        popupElement.addClass(SLIDE_OUT_TOP);
-    } else if (popupElement.hasClass("popup-below")) {
-        popupElement.addClass(SLIDE_DOWN);
-    }
-
     popupElement.on("animationend", function (e) {
-        removeAnimation(e.originalEvent.animationName);
+        console.log("Animation end: " + e.originalEvent.animationName);
+        const ANIMATION_NAME = e.originalEvent.animationName;
+        // removeAnimation(e.originalEvent.animationName);
+        // console.log("Animation end: " + animationName);
+        switch (ANIMATION_NAME) {
+            case SLIDE_OUT_TOP:
+                $(".popup").removeClass(SLIDE_OUT_TOP);
+                removePopup(popupElement);
+                break;
+            case SLIDE_DOWN:
+                $(".popup").removeClass(SLIDE_DOWN);
+                removePopup(popupElement);
+                break;
+            default:
+                console.log("removeAnimation: Error! " + ANIMATION_NAME + " name not valid.");
+                break;
+        }
+
     });
 
-    $("body").removeClass("popup-open");
-    popupElement.removeClass("show");
-    $(".popup-backdrop").remove();
+    if (popupElement.hasClass("fade")) {
+        console.log("Is fade");
+        popupElement.addClass(SLIDE_OUT_TOP);
+    } else if (popupElement.hasClass("popup-below")) {
+        console.log("Is popup below");
+        popupElement.addClass(SLIDE_DOWN);
+    }
 }
 
 function removeAnimation(animationName) {
+    console.log("Animation end: " + animationName);
     switch (animationName) {
         case SLIDE_OUT_TOP:
             $(".popup").removeClass(SLIDE_OUT_TOP);
@@ -89,12 +106,18 @@ function removeAnimation(animationName) {
     }
 }
 
+function removePopup(popupElement) {
+    $("body").removeClass("popup-open");
+    popupElement.removeClass("show");
+    $(".popup-backdrop").remove();
+}
+
 // Tab
 function switchTab (btn) {
     const activeNavItem = $(".nav-tab-item.active");
     const targetNavItem = btn.parent();
 
-    const currentTab = $(".tab-content.show");
+    const currentTab = $(".custom-tab-content.show");
     const currentTabId = "#" + currentTab.attr("id");
     
     const targetTabId = btn.data("target");
@@ -105,15 +128,19 @@ function switchTab (btn) {
 
     if (targetTabId !== currentTabId) {
         // Removes active to tab button
+        console.log("removing active to tab nav");
         activeNavItem.removeClass("active");
 
         // Hide current open tab
+        console.log("removing show to tab");
         currentTab.removeClass("show");
 
         // Set tab button to active
+        console.log("adding active to tab nav");
         targetNavItem.addClass("active");
 
         // Display target tab
+        console.log("adding show to tab nav");
         targetTab.addClass("show");
     }
 }
@@ -131,9 +158,10 @@ $("button[data-toggle]").on("click", function (e) {
             showPopup(btnCLicked);
             break;
         case SLIDE:
-            console.log("Show slide");
+            console.log("index.js: Show slide");
             break;
         case TAB:
+            console.log("index.js: Show tab");
             switchTab(btnCLicked);
             break;
     }

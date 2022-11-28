@@ -28,61 +28,126 @@
       <nav class="nav-tab-container border-bottom">
           <ul class="nav-tab">
               <li class="nav-tab-item active">
-                <button class="link-btn" data-toggle="tab" data-target="#tab1">Gantt Chart</button>
+                <button class="link-btn" data-toggle="custom-tab" data-target="#tab1">Gantt Chart</button>
               </li>
               <li class="nav-tab-item">
-                <button class="link-btn" data-toggle="tab" data-target="#tab2">Resources</button>
+                <button class="link-btn" data-toggle="custom-tab" data-target="#tab2">Resources</button>
               </li>
               <li class="nav-tab-item">
-                <button class="link-btn" data-toggle="tab" data-target="#tab3">People</button>
+                <button class="link-btn" data-toggle="custom-tab" data-target="#tab3">People</button>
               </li>
           </ul>
 
-          <button type="button" class="btn link-btn" data-toggle="slide" data-target="#projectInfo">
+          <button type="button" class="btn icon-btn" data-toggle="slide" data-target="#projectInfo">
               <span class="material-icons-outlined">info</span>
           </button>
       </nav>
 
       <style>
 
-        .tab-container {
+        .custom-tab-container {
           display: flex;
           position: relative;
         }
 
-        .tab-content {
+        .custom-tab-content {
           display: none;
           width: 100%;
           min-height: 100vh;
         }
 
-        .tab-content.show {
+        .custom-tab-content.show {
           display: block;
         }
 
         #tab1 {
-          background-color: red;
+          background-color: rgb(255, 114, 114);
         }
 
         #tab2 {
-          background-color: blue;
+          background-color: rgb(70, 70, 255);
         }
 
         #tab3 {
-          background-color: rebeccapurple;
+          background-color: rgb(166, 78, 255);
         }
       </style>
 
-      <div class="tab-container">
-        <div class="tab-content show" id="tab1">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tempus tortor sed tortor gravida congue. Nam porta justo tellus, eget aliquet nunc cursus eu. Fusce sit amet fermentum dui, a pellentesque leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin congue volutpat euismod. Pellentesque ex diam, posuere vel aliquet ut, imperdiet at lacus. Sed id dui in ex viverra tincidunt. Donec lacus diam, tincidunt at rhoncus lacinia, bibendum sed enim. Nunc pharetra mauris hendrerit tortor hendrerit, id dignissim purus porttitor. Aenean tortor elit, lacinia vel lacinia eget, maximus ac sapien. In hac habitasse platea dictumst. Ut eu fringilla felis, vitae luctus est.
+      <div class="custom-tab-container">
+
+        <!-- Timeline Slide -->
+        <div class="slide" id="timeline" data-side="left">
+          <!-- slide -->
+          <div class="slide-container">
+            <div class="slide-content">
+              <table class="mesa">
+                <thead class="mesa-header">
+                  <th scope="col">#</th>
+                  <th scope="col" class="taskCell">Task</th>
+                  <th scope="col">Start</th>
+                  <th scope="col">Due</th>
+                  <th scope="col">Status</th>
+                  <th scope="col" class="action-cell">
+                    <button class="btn icon-btn" data-dismiss="slide">
+                      <span class="material-icons">navigate_before</span>
+                    </button>
+                  </th>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td class="taskCell">Procurement</td>
+                    <td>dd/mm/YYYY</td>
+                    <td>dd/mm/YYYY</td>
+                    <td>Done</td>
+                    <td class="action-cell">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">2</th>
+                    <td class="taskCell">Tool Box Meeting</td>
+                    <td>dd/mm/YYYY</td>
+                    <td>dd/mm/YYYY</td>
+                    <td>Done</td>
+                    <td class="action-cell">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">3</th>
+                    <td class="taskCell">Actual visit at site for measurementActual visit at site for measurementActual visit at site for measurementActual visit at site for measurement</td>
+                    <td>dd/mm/YYYY</td>
+                    <td>dd/mm/YYYY</td>
+                    <td>Done</td>
+                    <td class="action-cell">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                      <i class="fa-solid fa-ellipsis-vertical"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
 
-        <div class="tab-content" id="tab2">
+        <div class="custom-tab-content show" id="tab1">
+          <button type="button" class="btn icon-btn" data-toggle="slide" data-target="#timeline">
+            <span class="material-icons">timeline</span>
+          </button>
+          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tempor enim turpis, non volutpat ligula auctor nec. Proin eget sem ante. Curabitur lacinia lacus eget turpis lacinia consectetur. Etiam accumsan placerat lacus, efficitur elementum sem condimentum quis. Morbi fermentum dignissim arcu at venenatis. In sed neque imperdiet, ullamcorper odio ut, posuere arcu. Nullam sed placerat nibh, eget ornare justo. Donec dapibus vestibulum augue a semper. Ut ornare magna consequat diam lacinia, vitae fringilla neque tincidunt. In hac habitasse platea dictumst.</p>
+        </div>
+
+        <div class="custom-tab-content" id="tab2">
           Suspendisse sed vestibulum ante. Aliquam pharetra, tortor nec sollicitudin accumsan, libero est varius ex, vitae suscipit enim mauris in ex. Aenean varius molestie nisi, in tristique mi sollicitudin eu. Etiam ornare dignissim malesuada. Ut maximus felis nec urna semper, at interdum diam ultricies. Phasellus vel magna nulla. Nam molestie risus est, sit amet viverra nisi congue ultrices. Sed diam urna, viverra ut orci in, semper condimentum lacus. Donec a tellus sem. Aliquam eget ipsum posuere, ultrices dolor nec, porta nisi. Nam at tellus ex. Vestibulum finibus lacus id rutrum ultrices. Nulla vitae lorem sit amet odio condimentum placerat consequat ac urna.
         </div>
 
-        <div class="tab-content" id="tab3">
+        <div class="custom-tab-content" id="tab3">
           Nulla imperdiet risus neque, elementum faucibus ante condimentum in. Nunc ornare malesuada est quis volutpat. Fusce nec auctor nisi. Sed laoreet interdum nisi, vitae placerat lacus fermentum et. Proin malesuada quam ac est efficitur malesuada. Suspendisse potenti. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla ac pulvinar odio, quis mollis quam. In et ullamcorper nisl. In hac habitasse platea dictumst. Donec sagittis tincidunt turpis, sed efficitur leo vehicula nec. Vestibulum ante dui, blandit at ullamcorper nec, facilisis ut dui. Phasellus metus est, malesuada et facilisis ac, rhoncus ut augue. Nam eget venenatis neque, eget maximus arcu. Nulla sollicitudin lectus eu consequat egestas.
         </div>
 
@@ -93,21 +158,16 @@
           <div class="slide-container">
             <div class="slide-content">
               <div class="slide-header">
-                <div>
-                  <button class="btn icon-btn" data-dismiss="slide">
-                    <span class="material-icons">navigate_next</span>
-                  </button>
-                  <button class="btn link-btn" data-dismiss="edit-form" data-target="#projectDetailForm">
-                    Cancel
-                  </button>
-                </div>
+                <button class="btn icon-btn" data-dismiss="slide">
+                  <span class="material-icons">navigate_next</span>
+                </button>
                 <h2 class="slide-title">Details</h2>
                 <div>
-                  <button class="btn link-btn" data-toggle="edit-form" data-target="#projectDetailForm">
+                  <button class="btn link-btn show" data-toggle="form" data-action="edit" data-target="#projectDetailForm">
                     Edit
                   </button>
-                  <button class="btn link-btn" type="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
-                    Save
+                  <button class="btn link-btn" type="submit" form="#projectDetailForm" data-toggle="form" data-action="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
+                    Done
                   </button>
                 </div>
               </div>
@@ -165,19 +225,17 @@
             </div>
 
           </div>
-
         </div>
 
       </div>
-
+        
       <!-- End of content -->
     </main>
 
-    <!-- Timeline Slide -->
+    <!-- <button id="btn1">Animate height</button>
+    <button id="btn2">Reset height</button>
 
-    <!-- <div id="div">use devtools to change the <code>background-color</code> property of this node to <code>red</code></div>
-    <p id="p">status...</p> -->
-
+    <div id="box" style="background:#98bf21;height:100px;width:100px;margin:6px; z-index: 2000;"></div> -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -191,7 +249,28 @@
     <!-- External JS -->
     <script src="scripts/index.js"></script>
 
+    <!-- <style>
+      #box {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+      }
+    </style> -->
+
     <script>
+
+      // $("#btn1").click(function(){
+      //   $("#box").animate({
+      //     height: "300px",
+      //     right: $("body").css("margin-right")
+      //   });
+      // });
+      // $("#btn2").click(function(){
+      //   $("#box").animate({height: "100px"});
+      // });
+
+      // $(".slide[data-side='right'] .slide-container").css("right", $(".slide[data-side='right'] .slide-container").width());
+
       // Try scripts here
 
       console.log("Window height");
@@ -200,44 +279,149 @@
       console.log($(".nav-tab-container").height());
       console.log(($(window).height() - $(".nav-tab-container").height()) + "px");
 
+      function initializeSlide() {
+        $($(".slide")).each(function (index, element) {
+          console.log($(element));
+
+          switch ($(element).data("side")) {
+            case "left":
+              console.log("left slide found");
+              $(".slide[data-side='left'] .slide-container").css({
+                "height": $(window).height() - $(".nav-tab-container").height() + "px"
+              });
+              break;
+          
+            case "right":
+              console.log("right slide found");
+              $(".slide[data-side='right'] .slide-container").css( {
+                "height": $(window).height() - $(".nav-tab-container").height() + "px",
+                "right": $("body").css("margin-right")
+              });
+              break;
+
+            default:
+              console.log("initializeSlide: Error! Invalid side.");
+              break;
+          }
+        });
+      }
+
+      initializeSlide();
+
       $(window).on("resize", () => {
-        $(".slide-container").css("height", $(window).height() - $(".nav-tab-container").height() + "px");
+        initializeSlide();
       });
 
       $(".slide-container").on("animationend", function (e) {
         console.log(e.originalEvent.animationName);
 
-        if (e.originalEvent.animationName === "slide-out-right") { 
+        if (e.originalEvent.animationName === "slide-out-right" || 
+            e.originalEvent.animationName === "slide-out-left") { 
           console.log("Closing slide");
           $(".slide-container").removeClass("slide-out-right");
+          $(".slide-container").removeClass("slide-out-left");
           $(".slide").removeClass("active");
           $("body").removeClass("slide-open");
         }
       });
 
       $("button[data-toggle]").on("click", function (e) {
-        console.log(this);
-        console.log("Try debug");
-
+        // Button
         const btnCLicked = $(this);
-        console.log(btnCLicked);
+
+        // Toggle data
         const toggleElement = btnCLicked.data("toggle");
+
+        // Target data
+        const targetElementId = btnCLicked.data("target");
+        const targetSlide = $(targetElementId);
         
         switch (toggleElement) {
             case "slide":
-              console.log("Slide clicked");
-
               if ($("body").hasClass("slide-open")) {
-                $(".slide-container").addClass("slide-out-right");
-              } else {  
-                console.log("Show slide");
-                $(".slide").addClass("active");
+                // Hides slide
+                console.log("hide slide");
+                const slideSide = targetSlide.data("side");
+                const targetElementSelector = targetElementId + "[data-side='" + slideSide + "'] .slide-container";
+
+                if (slideSide === "right") {
+                  $(targetElementSelector).addClass("slide-out-right");
+                } else if (slideSide === "left") {
+                  $(targetElementSelector).addClass("slide-out-left");
+                }
+
+              } else {
+                // Show slide
+                console.log("show slide");
+                $(targetElementId).addClass("active");
                 $("body").addClass("slide-open");
               }
+
               break;
-            case "edit-form":
-              console.log("Edit form");
-              $(btnCLicked.data("target") + " .form-input-group").toggleClass("display");
+
+            case "form":
+
+              const form = $(btnCLicked.data("target"));
+
+              switch (btnCLicked.data("action")) {
+
+                case "edit":
+                  console.log("Edit form");
+                  console.log(btnCLicked.data("target"));
+
+                  const submitFormBtn = $("button[data-toggle='form'][data-action='submit'][data-target='" + btnCLicked.data("target") + "']");
+                  
+                  btnCLicked.addClass("hide");
+                  btnCLicked.removeClass("show");
+
+                  submitFormBtn.removeClass("hide");
+                  submitFormBtn.addClass("show");
+
+                  form.addClass("form-open");
+                  form.find(".form-input-group").removeClass("display");
+                  break;
+
+                case "submit":
+                  console.log("Save form");
+
+                  btnCLicked.removeClass("show");
+                  btnCLicked.addClass("hide");
+
+                  $("button[data-toggle='form'][data-action='edit'][data-target='" + btnCLicked.data("target") + "']").removeClass("hide");
+                  $("button[data-toggle='form'][data-action='edit'][data-target='" + btnCLicked.data("target") + "']").addClass("show");
+                  
+                  form.removeClass("form-open");
+                  form.find(".form-input-group").addClass("display");
+                  break;
+              }
+
+              
+              break;
+        }
+      });
+
+      $("button[data-dismiss]").on("click", function (e) {
+        const btnCLicked = $(this);
+        const dismissElement = $(this).data("dismiss");
+        switch (dismissElement) {
+            case SLIDE:
+              console.log("Dismiss slide");
+
+              // Active slide element
+              const activeSlide = $(".slide.active");
+
+              // Active slide side
+              const slideSide = activeSlide.data("side");
+              console.log(slideSide);
+
+              if (slideSide === "right") {
+                console.log("Adding slide out right");
+                activeSlide.find(".slide-container").addClass("slide-out-right");
+              } else if (slideSide === "left") {
+                console.log("Adding slide out left");
+                activeSlide.find(".slide-container").addClass("slide-out-left");
+              } 
+
               break;
         }
       });
