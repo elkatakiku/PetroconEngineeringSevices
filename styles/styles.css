@@ -584,6 +584,8 @@ form .row .right {
     overflow-y: auto;
 }
 
+
+
 .popup {
     display: none;
     position: fixed;
@@ -595,6 +597,7 @@ form .row .right {
     height: 100%;
     overflow: hidden;
     outline: 0;
+    
 }
 
 .popup.show {
@@ -621,6 +624,7 @@ form .row .right {
     outline: 0;
     position: relative;
 }
+
 
 .pheader {
     display: flex;
