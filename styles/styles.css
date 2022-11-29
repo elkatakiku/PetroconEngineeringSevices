@@ -52,9 +52,13 @@
     --navtab-active-text: var(--primary-text);
     --navtab-active-border: var(--action);
 
+    /* Custom Tab Content Color */
+    --custom-tab-bg: white;
+
     /* Table Color */
     --table-header-text: #797979;
     --table-header-bg: white;
+    --table-shadow: #dddde055;
 
     /* Texts Size */
     --input-padding: .375rem .75rem;
@@ -105,11 +109,11 @@ hr {
 
 /* || Utilities */
 .show {
-    display: block !important;
+    display: block;
 }
 
 .hide {
-    display: none !important;
+    display: none;
 }
 
 .unscrollable {
@@ -303,13 +307,6 @@ button[data-toggle='form']:not(.show) {
 .white-section .container-fluid,
 .colored-section .container-fluid {
     padding: 5% 10%;
-}
-
-.flex-column-container {
-    display: flex;
-    flex-direction: column;
-    align-content: flex-start;
-    gap: 20px;
 }
 
 
@@ -584,6 +581,8 @@ form .row .right {
     overflow-y: auto;
 }
 
+
+
 .popup {
     display: none;
     position: fixed;
@@ -595,6 +594,7 @@ form .row .right {
     height: 100%;
     overflow: hidden;
     outline: 0;
+    
 }
 
 .popup.show {
@@ -621,6 +621,7 @@ form .row .right {
     outline: 0;
     position: relative;
 }
+
 
 .pheader {
     display: flex;
@@ -935,18 +936,31 @@ form .row .right {
 
 
 /* || Table */
-.mesa {
+.mesa-container {
     width: 100%;
+    overflow: auto;
     border-radius: var(--default-border-radius) !important;
+    background-clip: border-box;
+}
+
+.mesa-container .mesa {
+    white-space: nowrap;
+}
+
+.mesa {
+    background-color: white;
+    display: table;
+    width: 100%;
     border-collapse: collapse;
     border-style: hidden; /* hide standard table (collapsed) border */
-    box-shadow: 0 0 10px 1px rgba(103, 103, 255, 0.402);
-    background-clip: border-box;
+    border-radius: var(--default-border-radius) !important;
 }
 
 .mesa th, .mesa td {
     padding: 0.75rem;
-    border: 1px solid var(--palette5);
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: var(--palette5);
 }
 
 .mesa tbody tr:hover {
@@ -980,7 +994,7 @@ form .row .right {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1040;
+    z-index: 100;
     background-color: var(--background-color);
 }
 
@@ -1033,12 +1047,21 @@ form .row .right {
     position: relative;
 }
 
+.custom-tab-content {
+    width: 100%;
+    background-color: var(--custom-tab-bg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    align-content: flex-start;
+}
+
 .custom-tab-content:not(.show) {
     display: none;
     flex-grow: 1;
     flex-shrink: 0;
-    width: 100%;
-    height: 500px;
 }
 
 /* .custom-tab-content.show {
@@ -1064,12 +1087,14 @@ form .row .right {
 @media only screen and (max-width: 768px) {
 
     /* Table */
-    .mesa {
+    #content .main > .mesa {
         display: block;
         position: relative;
         overflow-x: auto;
         height: calc(100vh - 30px);
     }
+
+
 
     .mesa .mesa-head {
         top: 0;

@@ -68,6 +68,10 @@
 
       <h2>Custom Table</h2>
 
+      <h5>Default table</h5>
+      <p>Should be inside an element: <br>
+        .main > #content </p>
+
       <table class="mesa">
         <thead class="mesa-head">
           <tr>
@@ -102,6 +106,132 @@
           </tr>
         </tbody>
       </table>
+
+      <hr>
+
+      <h5>Table with wrap</h5>
+      <p>Should be inside an element: <br>
+        .main > #content </p>
+      <div class="mesa-container">
+         <table class="mesa">
+          <thead class="mesa-head">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Table Header</th>
+              <th scope="col">Table Header</th>
+              <th scope="col">Table Header</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Table data</td>
+              <td>Table data</td>
+              <td>Table data</td>
+              <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+            </tr>
+            <tr class="">
+              <th scope="row">2</th>
+              <td>Table data</td>
+              <td>Table data</td>
+              <td>Table data</td>
+              <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Table data</td>
+              <td>Table data</td>
+              <td>Table data</td>
+              <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <hr>
+
+      <small><i class="fa fa-info-circle" aria-hidden="true"></i> See the difference between default and with wrap by inserting long texts in the table cell.</small>
+     
+      <hr>
+
+      <h5>Table in tab content</h5>
+      <p>Should be inside an element inside: <br>
+        .custom-tab-content > .custom-tab-container > .main > #content</p>
+
+      <div id="content">
+        <main class="main">
+          <div class="custom-tab-container">
+            <div class="custom-tab-content show">
+
+              <!-- Copy table here -->
+              <div class="mesa-container">                
+                <table class="mesa">
+                  <thead class="mesa-head">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col"><strong>Item Name</strong></th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price per item (PHP)</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Notes</th>
+                        <th scope="col" class="table-action-col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td><strong>Patatas</strong></td>
+                      <td>8</td>
+                      <td>300</td>
+                      <td>2,400</td>
+                      <td>Mahal lods</td>
+                      <td>
+                          <div>
+                              <i class="fa fa-trash" aria-hidden="true"></i>        
+                              <i class="fa-solid fa-ellipsis-vertical"></i>
+                          </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td><strong>Patatas</strong></td>
+                      <td>8</td>
+                      <td>300</td>
+                      <td>2,400</td>
+                      <td>Mahal lods</td>
+                      <td>
+                          <div>
+                              <i class="fa fa-trash" aria-hidden="true"></i>        
+                              <i class="fa-solid fa-ellipsis-vertical"></i>
+                          </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td><strong>Patatas</strong></td>
+                      <td>8</td>
+                      <td>300</td>
+                      <td>2,400</td>
+                      <td>Mahal lods</td>
+                      <td>
+                          <div>
+                              <i class="fa fa-trash" aria-hidden="true"></i>        
+                              <i class="fa-solid fa-ellipsis-vertical"></i>
+                          </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- End of copy -->
+
+            </div>
+          </div>
+
+        </main>
+
+      </div>
 
     </div>
 

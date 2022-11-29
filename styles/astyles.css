@@ -27,6 +27,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--sidebar-bg);
     min-height: 100vh;
     white-space: nowrap;
+    overflow: hidden;
     z-index: 100;
     
     transition: all 0.3s;
@@ -167,8 +168,6 @@ a[data-toggle = "collapse"] {
   border-bottom: 1px solid var(--border-rgba-color);
 }
 
-#content .navbar.navbar-light
-
 #content .navbar .material-icons {
   color: var(--topbar-icon);
   font-size: 1rem;
@@ -189,11 +188,17 @@ a[data-toggle = "collapse"] {
   overflow: hidden;
 } */
 
-#content .navbar .projectTitle h1,
-#content .navbar .projectTitle small  {
+#content .project-info {
+  width: 100%;
+  overflow: hidden;
+}
+
+#content .project-info .page-title,
+#content .project-info small  {
   margin: 0;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   /* overflow: hidden; */
 }
 
@@ -221,6 +226,7 @@ a[data-toggle = "collapse"] {
   display: flex;
   justify-content: space-between;
   margin: 24px 20px;
+  gap: 20px;
 }
 
 #content .main .page-title {
@@ -236,10 +242,10 @@ a[data-toggle = "collapse"] {
   max-width: 250px;
 }
 
-#content .main .mesa {
+#content .main > .mesa {
   margin: 15px 20px;
   width: auto;
-  background-color: white;
+  box-shadow: 0 0 10px 1px var(--table-shadow);
 }
 
 #content .main .nav-tab-container ~ hr {
@@ -249,7 +255,6 @@ a[data-toggle = "collapse"] {
 /* Nav Tab */
 .main .nav-tab {
     padding: 0;
-    /* margin: 10px 0; */
     margin: 0;
 }
 
@@ -272,12 +277,21 @@ a[data-toggle = "collapse"] {
   margin: 0;
 }
 
-/* Project Resources */
-#projectResources.flex-column-container,
-#projectPeople.flex-column-container {
-  padding: 1rem 2rem;
+/* Tab Content*/
+
+.main .custom-tab-content {
+  margin: 20px;
+  padding: 20px;
+  gap: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 1px var(--table-shadow);
 }
 
+#content .main .custom-tab-content .mesa {
+  margin: 0;
+  width: 100%;
+}
 
 /* || MEDIA QUERIES */
 
@@ -339,6 +353,10 @@ a[data-toggle = "collapse"] {
   #sidebar:not(.inactive) ~ #content {
     /* #sidebar:not(.inactive) ~ #projectPopup .mcontainer */
     margin-left: 250px;
+  }
+
+  #sidebar.inactive {
+    max-width: 75.994px;
   }
 
   #sidebar.inactive ~ #content {

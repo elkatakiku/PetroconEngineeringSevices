@@ -22,10 +22,10 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
     }
 });
 
-$("#createAccountBtn").click(function(){
+// $("#createAccountBtn").click(function(){
         // $(".form-login").hide();
-    $(".form-login").css("left", "100%").fadeOut();
-});
+    // $(".form-login").css("left", "100%").fadeOut();
+// });
 
 // Sidebar
 function expand() { 
@@ -40,6 +40,24 @@ $('.sub-menu').on('show.bs.collapse' , () => {
         $('#sidebar').removeClass('inactive');
     }
 });
+
+
+// Initialize CSS of elements
+function initializeCss() {
+    console.log("Width sidebar: " + $("#sidebar").width());
+    console.log("Margin right content: " + $("#content").css("margin-right"));
+    // $("#content").css("margin-left", $("#sidebar").width());
+}
+
+initializeCss();
+
+// Responsive to width
+$(window).on("resize", (e) => {
+    
+    // Adjust margin-right of content
+    initializeCss();
+});
+
 
 // Toggles
 const POPUP = "popup";
