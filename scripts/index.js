@@ -41,6 +41,24 @@ $('.sub-menu').on('show.bs.collapse' , () => {
     }
 });
 
+
+// Initialize CSS of elements
+function initializeCss() {
+    console.log("Width sidebar: " + $("#sidebar").width());
+    console.log("Margin right content: " + $("#content").css("margin-right"));
+    // $("#content").css("margin-left", $("#sidebar").width());
+}
+
+initializeCss();
+
+// Responsive to width
+$(window).on("resize", (e) => {
+    
+    // Adjust margin-right of content
+    initializeCss();
+});
+
+
 // Toggles
 const POPUP = "popup";
 const SLIDE = "slide";
