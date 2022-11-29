@@ -414,12 +414,26 @@
     padding-bottom: .5rem;
 }
 
-/* Services */
+/* ServicesC */
 #servicesC .about-us-content .card:hover{
     background-color: var(--primary); 
     color: whitesmoke;   
 }
 
+
+/* } */
+#servicesC .about-us-content .container{
+    margin-bottom: 30px;
+    text-align: center;
+    width: 300;
+}
+
+/* contentC eper*/
+#contentC {
+    padding-left: 30px;
+
+    text-align: right;
+}
 
 
 /* || MEDIA QUERIES */
@@ -609,4 +623,3 @@
     }
 
 }
-  

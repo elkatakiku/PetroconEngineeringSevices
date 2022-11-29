@@ -22,10 +22,10 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
     }
 });
 
-$("#createAccountBtn").click(function(){
+// $("#createAccountBtn").click(function(){
         // $(".form-login").hide();
-    $(".form-login").css("left", "100%").fadeOut();
-});
+    // $(".form-login").css("left", "100%").fadeOut();
+// });
 
 // Sidebar
 function expand() { 
