@@ -13,6 +13,7 @@
 
 #navbar-client-petrocon .navbar .nav-link {
     text-transform: uppercase;
+    color: white;;
 }
 
 
@@ -156,12 +157,6 @@
     margin-right: 25px;
     min-width: 200px;
 }
-/* btn */
-.nav-link{
-    color: white;
-}
-
-
 
 
 /* Why Us */
@@ -187,7 +182,7 @@
     box-shadow: 8px 8px 5px var(--shadow-rbga-color);
 }
 
-.ws-card-img {
+.ws-card .ws-card-img {
     box-sizing: border-box;
     width: 125px;
     height: 125px;
@@ -202,19 +197,19 @@
     background-color: var(--primary);
 }
 
-.ws-card-img i {
+.ws-card .ws-card-img i {
     align-self: center;
     margin: auto;
     color: white;
 }
 
-.ws-card-title {
+.ws-card .ws-card-title {
     color: #0067FF;
     font-weight: 400;
     font-size: 16px;
 }
 
-.ws-data {
+.ws-card .ws-data {
     color: var(--primary);
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 700;
