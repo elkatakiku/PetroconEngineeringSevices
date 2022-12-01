@@ -292,8 +292,8 @@ a[data-toggle = "collapse"] {
 
 #content .main > .mesa-container {
   flex: 2;
-  margin: 20px;
-  width: auto;
+  margin: 15px;
+  width: 100%;
   padding: 20px;
   box-shadow: 0 0 10px 1px var(--table-shadow);
 }
