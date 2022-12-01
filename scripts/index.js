@@ -163,6 +163,50 @@ function switchTab (btn) {
     }
 }
 
+// Slide
+function toggleSlide(toggle, slideElement) {
+    let side = slideElement.data("side");
+    console.log("toggle: " + toggle);
+    console.log("side: " + side);
+    switch (toggle) {
+      case "show": 
+        console.log("Opening slide");
+
+        
+        $(slideElement).addClass("active");
+        $("body").addClass("slide-open");
+
+        let leftPos = (side === "left") ? $(".slide[data-side='left']").width() + "px" : "auto";
+        let rightPos = (side === "right") ? $(".slide[data-side='right']").width() + "px" : "auto";
+
+        console.log("left: " + leftPos);
+        console.log("right: " + rightPos);
+        
+        $(".custom-tab-container .slide[data-side='" + side + "']").animate({
+          "left": leftPos,
+          "right": rightPos
+        }, 150);
+
+        break;
+
+      case "hide":
+        console.log("Closing slide");
+
+        let hidePosL = (side === "left") ? 0 : "auto";
+        let hidePosR = (side === "right") ? 0 : "auto";
+        
+        $(".custom-tab-container .slide.active[data-side='" + side + "']").animate({
+          "left" : hidePosL,
+          "right" : hidePosR
+        }, 150);
+        
+        $(".slide.active[data-side='" + side + "']").removeClass("active");
+        $("body").removeClass("slide-open");
+        break;
+    }
+    
+}
+
 
 $("button[data-toggle]").on("click", function (e) {
     console.log("Button clicked");
@@ -176,7 +220,19 @@ $("button[data-toggle]").on("click", function (e) {
             showPopup(btnCLicked);
             break;
         case SLIDE:
-            console.log("index.js: Show slide");
+            const targetElementId = btnCLicked.data("target");
+            const targetSlide = $(targetElementId);
+
+            if ($("body").hasClass("slide-open")) {
+                // Hides slide
+                console.log("hide slide");
+                toggleSlide("hide", targetSlide);
+
+              } else {
+                // Show slide
+                console.log("show slide");
+                toggleSlide("show", targetSlide);
+              }
             break;
         case TAB:
             console.log("index.js: Show tab");
@@ -195,6 +251,15 @@ $("button[data-dismiss]").on("click", function (e) {
             break;
         case SLIDE:
             console.log("Dismiss slide");
+            toggleSlide("hide", $(".slide.active"));
             break;
     }
+});
+
+
+$("textarea").on("input", function() {
+    this.style.minHeight = "1rem";
+    this.style.height = "auto";
+    this.style.height = (this.scrollHeight) + "px";
+    this.style.overflowY = "hidden";
 });
