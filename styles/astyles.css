@@ -224,19 +224,23 @@ a[data-toggle = "collapse"] {
 .overview-card-container {
   display: flex;
   flex-wrap: wrap;
-  /* gap: 5px; */
+  gap: 5px;
   margin-bottom: 20px;
+}
+
+.overview-card-container .custom-card {
+  width: calc((100% - (5px * 2)) / 3);
 }
 
 .overview-card {
   display: flex;
   align-items: center;
-  margin: 1rem 0;
+  gap: 1rem;
+  margin: 1rem 1.5rem;
 }
 
 .overview-card .icon {
   font-size: 2rem;
-  margin-right: 1rem;
 }
 
 .overview-card .info h3, .overview-card .info p{
@@ -251,6 +255,19 @@ a[data-toggle = "collapse"] {
   background-color: white;
   border-left: 1px solid var(--border-rgba-color);
   box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
+}
+
+.side-content .side-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .5rem;
+}
+
+.side-content-header h5, .side-content-header .link-btn {
+  margin: 0;
+  padding: 0;
+  font-size: .75rem;
 }
 
 #content .main .page-header {
@@ -296,15 +313,15 @@ a[data-toggle = "collapse"] {
   gap: 25px;
 }
 
-#projectPopup .form-group .linear-center-v {
+#projectPopup .form-group .linear {
   margin-bottom: .5rem;
 }
 
-#projectPopup .form-group .linear-center-v label {
+#projectPopup .form-group .linear label {
   margin-bottom: 0;
 }
 
-#projectPopup .form-group .linear-center-v hr {
+#projectPopup .form-group .linear hr {
   border-top: 1px solid var(--border-rgba-color);
   flex-grow: 1;
   margin: 0;

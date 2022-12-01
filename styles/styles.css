@@ -127,7 +127,7 @@ hr {
     border-radius: 100px !important;
 }
 
-.linear, .linear-center-v, .linear-center-h {
+.linear, .linear-center-h {
     display: flex !important;
     align-items: center !important;
     gap: 10px;
@@ -194,8 +194,17 @@ hr {
 }
 
 .header-5 {
-    font-size: 1rem;
+    font-size: .75rem;
     font-weight: 500;
+}
+
+.text-5 {
+    font-size: .75rem;
+}
+
+.dark-text {
+    color: var(--palette2);
+    font-weight: 700;
 }
 
 /* || Buttons */
@@ -1032,6 +1041,7 @@ form .row .right {
     flex-direction: column;
     background-color: white;
     border: 1px solid var(--border-rgba-color);
+    border-radius: var(--default-border-radius);
     box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
 }
 
