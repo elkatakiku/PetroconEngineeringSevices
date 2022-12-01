@@ -140,46 +140,214 @@
         <span id="user-display" class="material-icons">account_circle</span>
       </nav>
 
-      <main class="main">
-        <!-- Content -->
-        <!-- Change content here -->
-        <h2>Collapseible Sidebar using Bootstrap 4</h2>
-        <p>
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+      <main class="main dashboard">
+        <div class="main-content">
+          <div class="page-header">
+            <h1 class="page-title">Overview</h1>
+          </div>
+  
+          <style>
+            .str {
+              align-items: center;
+            }
+          </style>
+  
+          <div class="overview-card-container">
+            <div class="custom-card col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="overview-card">
+                <i class="fa fa-info-circle icon" aria-hidden="true"></i>
+                <div class="info">
+                  <h3>48</h3>
+                  <p>Total projects</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="custom-card col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="overview-card">
+                <i class="fa fa-info-circle icon" aria-hidden="true"></i>
+                <div class="info">
+                  <h3>48</h3>
+                  <p>Total projects</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="custom-card col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="overview-card">
+                <i class="fa fa-info-circle icon" aria-hidden="true"></i>
+                <div class="info">
+                  <h3>48</h3>
+                  <p>Total projects</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="custom-card col-xl-2 col-lg-3 col-md-4 col-6">
+              <div class="overview-card">
+                <i class="fa fa-info-circle icon" aria-hidden="true"></i>
+                <div class="info">
+                  <h3>48</h3>
+                  <p>Total projects</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="h5">Projects</h4>
+          <p class="h3">12,345,678</p>
+
           
-        </p>
-        <p>
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-          
-        </p>
 
-        <div class="line"></div>
-        <h3>Lorem Ipsum</h3>
+        </div>
 
-        <p>
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-          
-        </p>
+        <!-- Side contents -->
+        <div class="main-side">
 
-        <hr>
+          <h2 class="header-4">Others</h2>
 
-        <h3>Lorem Ipsum</h3>
+          <style>
+            .month {
+              width: 100%;
+              background: white;
+              text-align: center;
+              border-style: solid none;
+              border-width: 1px;
+              border-color: var(--border-rgba-color);
+            }
 
-        <p>
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-          
-        </p>
+            .month ul {
+              margin: 0;
+              padding: 0;
+            }
 
-        <hr>
+            .month ul li {
+              color: var(--primary-text);
+              font-size: 12px;
+              padding: 5px 0;
+              /* padding: 10px 0; */
+              text-transform: uppercase;
+              /* letter-spacing: 3px; */
+            }
 
-        <h3>Lorem Ipsum</h3>
+            /* .month .prev {
+              float: left;
+              padding-top: 10px;
+            }
 
-        <p>
-          It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-          
-        </p>
+            .month .next {
+              float: right;
+              padding-top: 10px;
+            } */
 
-        <!-- End of content -->
+            .weekdays {
+              margin: 0;
+              padding: 10px 0;
+              background-color: #ddd;
+            }
+
+            .weekdays li {
+              display: inline-block;
+              width: 13.6%;
+              color: #666;
+              text-align: center;
+            }
+
+            .days {
+              padding: 10px 0;
+              background: #eee;
+              margin: 0;
+            }
+
+            .days li {
+              list-style-type: none;
+              display: inline-block;
+              width: 13.6%;
+              text-align: center;
+              margin-bottom: 5px;
+              font-size:12px;
+              color: #777;
+            }
+
+            .days li .active {
+              padding: 5px;
+              background: #1abc9c;
+              color: white !important
+            }
+
+            #events ul {
+              list-style-type: none;
+            }
+
+          </style>
+
+          <div class="side-content" id="events">
+            <h4 class="header-5">Events</h4>
+            <!-- Calendar -->
+            <div class="month">      
+              <ul class="linear space-between">
+                <li class="prev">&#10094;</li>
+                <li>August 2022</li>
+                <li class="next">&#10095;</li>
+              </ul>
+            </div>
+            
+            <ul class="weekdays">
+              <li>Su</li>
+              <li>Mo</li>
+              <li>Tu</li>
+              <li>We</li>
+              <li>Th</li>
+              <li>Fr</li>
+              <li>Sa</li>
+            </ul>
+            
+            <ul class="days">  
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li><span class="active">1</span></li>
+              <li>2</li>
+              <li>3</li>
+              <li>4</li>
+              <li>5</li>
+              <li>6</li>
+              <li>7</li>
+              <li>8</li>
+              <li>9</li>
+              <li>10</li>
+              <li>11</li>
+              <li>12</li>
+              <li>13</li>
+              <li>14</li>
+              <li>15</li>
+              <li>16</li>
+              <li>17</li>
+              <li>18</li>
+              <li>19</li>
+              <li>20</li>
+              <li>21</li>
+              <li>22</li>
+              <li>23</li>
+              <li>24</li>
+              <li>25</li>
+              <li>26</li>
+              <li>27</li>
+              <li>28</li>
+              <li>29</li>
+              <li>30</li>
+              <li>31</li>
+            </ul>
+            
+          </div>
+
+          <div>
+            <h4 class="h5">Messages</h4>
+            <!-- Messages -->
+          </div>
+        </div>
+
       </main>
     </div>
       

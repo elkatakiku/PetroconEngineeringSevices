@@ -32,6 +32,9 @@
     --input-popup-border-color: #B0B0B2;
 
     --background-color: #F9F9FB;
+    --default-box-shadow-color: #dddde055;
+
+    /* Card Color */
 
     /* Sidebar Color */
     --sidebar-bg: #3D3DBB;
@@ -58,7 +61,7 @@
     /* Table Color */
     --table-header-text: #797979;
     --table-header-bg: white;
-    --table-shadow: #dddde055;
+    --table-shadow: var(--default-box-shadow-color);
 
     /* Texts Size */
     --input-padding: .375rem .75rem;
@@ -77,7 +80,7 @@
 body {
     background-color: #f4f4f4;
     color: var(--primary-text);
-    max-width: 1366px;
+    /* max-width: 1366px; */
     margin: auto;
     position: relative;
     box-shadow: 10px 0 8px -5px #e9e1ff, -10px 0 8px -5px #e9e1ff;
@@ -126,6 +129,7 @@ hr {
 
 .linear, .linear-center-v, .linear-center-h {
     display: flex !important;
+    align-items: center !important;
     gap: 10px;
 }
 
@@ -133,11 +137,8 @@ hr {
     justify-content: space-between;
 }
 
-.linear-center-v, .linear-center-h {
-    align-items: center !important;
-}
-
 .linear-center-h {
+
     width: 100%;
     justify-content: center;
 }
@@ -185,6 +186,16 @@ hr {
 .subtitle {
     font-size: 20px;
     line-height: 1.38;
+}
+
+.header-4 {
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.header-5 {
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 /* || Buttons */
@@ -291,6 +302,12 @@ button[data-toggle='form']:not(.show) {
 
 
 /* || Containers */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
 .white-section {
     background-color: white;
 }
@@ -773,93 +790,29 @@ form .row .right {
 
 /* || Slide element */
 
-.slide {
-    display: none;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    z-index: 1060;
-}
-
-.slide.active {
-    display: block;
-}
-
 .slide-container {
-    position: fixed;
-    width: auto;
+    flex: 2;
+    display: flex;
+    overflow: hidden;
+}
+
+.slide {
+    flex-shrink: 0;
+    position: relative;
+    /* width: auto; */
     min-width: 500px;
-    max-width: 500px;
-    overflow: auto;
-    /* transition: all .3s; */
-}
-
-.slide[data-side='right'] .slide-container {
-    animation: slide-in-right .3s ease-out;
-    right: 0;
-}
-
-@keyframes slide-in-right {
-    from {
-        right: -50%;
-    }
-    to {
-        right: 0;
-    }
-}
-
-.slide[data-side='right'] .slide-container.slide-out-right {
-    animation: slide-out-right .3s ease-out;
-}
-
-@keyframes slide-out-right {
-    from {
-        right: 0;
-    }
-    to {
-        right: -50%;
-    }
-}
-
-.slide[data-side='left'] .slide-container {
-    animation: slide-in-left .3s ease-out;
-}
-
-.slide .slide-container:has(table) {
-    max-width: none !important;
-}
-
-@keyframes slide-in-left {
-    from {
-        left: -75%;
-    }
-    to {
-        left: 0;
-    }
-}
-
-.slide[data-side='left'] .slide-container.slide-out-left {
-    animation: slide-out-left .3s ease-out;
-}
-
-@keyframes slide-out-left {
-    from {
-        left: 0;
-    }
-    to {
-        left: -75%;
-    }
+    /* max-width: 500px; */
+    /* overflow: auto; */
 }
 
 .slide-content {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: white;
     border: 1px solid var(--border-rgba-color);
+    background-color: white;
 }
 
 .slide-header {
@@ -906,7 +859,7 @@ form .row .right {
 }
 
 .slide .mesa .taskCell {
-    max-width: 300px;
+    max-width: 20vw;
 }
 
 .slide .mesa tbody {
@@ -940,15 +893,19 @@ form .row .right {
     width: 100%;
     overflow: auto;
     border-radius: var(--default-border-radius) !important;
+    background-color: white;
     background-clip: border-box;
 }
 
-.mesa-container .mesa {
+.mesa-container .mesa .mesa-head {
     white-space: nowrap;
 }
 
+.mesa-container .mesa th:last-child, .mesa-container .mesa td:last-child {
+    text-align: right;
+}
+
 .mesa {
-    background-color: white;
     display: table;
     width: 100%;
     border-collapse: collapse;
@@ -976,6 +933,11 @@ form .row .right {
     font-size: .75rem;
     position: sticky;
     top: 0;
+}
+
+.mesa .mesa-head .tname {
+    color: var(--action);
+    font-weight: 400;
 }
 
 .mesa-head th {
@@ -1045,6 +1007,7 @@ form .row .right {
 .custom-tab-container {
     display: flex;
     position: relative;
+    flex: 2;
 }
 
 .custom-tab-content {
@@ -1053,15 +1016,23 @@ form .row .right {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: stretch;
     align-content: flex-start;
 }
 
 .custom-tab-content:not(.show) {
     display: none;
-    flex-grow: 1;
-    flex-shrink: 0;
+    flex: 1 0;
+}
+
+/* || Card */
+.custom-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid var(--border-rgba-color);
+    box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
 }
 
 /* .custom-tab-content.show {
@@ -1093,8 +1064,6 @@ form .row .right {
         overflow-x: auto;
         height: calc(100vh - 30px);
     }
-
-
 
     .mesa .mesa-head {
         top: 0;
