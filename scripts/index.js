@@ -28,36 +28,49 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
 // });
 
 // Sidebar
-function expand() { 
-    $('#sidebar').toggleClass('inactive');
-    $('.sub-menu.show').collapse('hide');
+function expandSidebar() { 
+    if ($("#sidebar").hasClass("active")) {
+        // Collapse sidebar
+        if($(window).width() > 780) {
+            $("#sidebar.active .collapsible").animate({
+                width: "0"
+            }); 
+        }
+        $('.sub-menu.show').collapse('hide');
+    } 
+    else { 
+        // Show sidebar        
+        if($(window).width() > 780) {
+            $("#sidebar .collapsible").animate({
+                width: "250px"
+            });
+        }
+    }
+    $('#sidebar').toggleClass('active');
 }
 
 // Sidebar Buttons Listener
-$('#sidebarExpandToggler, #sidebarCollapseToggler').on('click', expand);
 $('.sub-menu').on('show.bs.collapse' , () => {
     if ($(window).width() > 768) {
-        $('#sidebar').removeClass('inactive');
+        expandSidebar();
     }
 });
 
 
-// Initialize CSS of elements
-function initializeCss() {
-    console.log("Width sidebar: " + $("#sidebar").width());
-    console.log("Margin right content: " + $("#content").css("margin-right"));
-    // $("#content").css("margin-left", $("#sidebar").width());
-}
-
-initializeCss();
-
 // Responsive to width
 $(window).on("resize", (e) => {
-    
-    // Adjust margin-right of content
-    initializeCss();
+    // Removes width property
+    if($(window).width() < 780) {
+        $("#sidebar .collapsible").css({
+          width: ""
+        });
+      }
 });
 
+$("#sidebarCollapseToggler").click((e) => {
+    expandSidebar();
+});
+y
 
 // Toggles
 const POPUP = "popup";

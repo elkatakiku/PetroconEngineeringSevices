@@ -84,6 +84,7 @@ body {
     margin: auto;
     position: relative;
     box-shadow: 10px 0 8px -5px #e9e1ff, -10px 0 8px -5px #e9e1ff;
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -313,9 +314,12 @@ button[data-toggle='form']:not(.show) {
 /* || Containers */
 .wrapper {
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
-  }
+}
+
+.main.wrapper {
+    flex-direction: column;
+}
   
 .white-section {
     background-color: white;
@@ -940,8 +944,8 @@ form .row .right {
     background-color: var(--table-header-bg);
     color: var(--table-header-text);
     font-size: .75rem;
-    position: sticky;
-    top: 0;
+    /* position: sticky; */
+    /* top: 0; */
 }
 
 .mesa .mesa-head .tname {
@@ -958,6 +962,40 @@ form .row .right {
 
 .mesa .action-cell {
     text-align: right;
+}
+
+/* || Sidebar */
+.wrapper {
+    display: flex;
+    transition: all .3s ease-out;
+}
+
+.wrapper #sidebar {
+    max-width: 250px;
+    transition: all .3s ease-out;
+}
+
+.wrapper .content {
+    flex: 2 0 75%;
+    background-color: orange;
+}
+
+.collapsible {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    transition: width .15s;
+}
+
+.collapsible > span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.wrapper #sidebar.active .collapsible {
+    width: 250px;
 }
 
 /* || Navigation */
@@ -1086,6 +1124,21 @@ form .row .right {
     .pad-lg {
         padding-left: 2rem !important;
         padding-right: 2rem !important;
+    }
+
+    /* Sidebar */
+    .collapsible {
+        width: 250px;
+    }
+
+    .wrapper:has(#sidebar.active) {
+        margin-left: 0;
+        animation: none;
+    }
+
+    .wrapper, .wrapper:has(#sidebar:not(.active)) {
+        margin-left: -250px;
+        animation: none;
     }
 }
 
