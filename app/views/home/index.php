@@ -23,7 +23,6 @@
   <link rel="stylesheet" href="styles/styles.css">
   <link rel="stylesheet" href="styles/cstyles.css">
 </head>
-  
   <body data-spy="scroll" data-target="#navbar-client-petrocon" data-offset="500">
 
     <!-- Navbar -->
