@@ -312,9 +312,18 @@ button[data-toggle='form']:not(.show) {
 
 
 /* || Containers */
+
 .wrapper {
     display: flex;
     justify-content: flex-start;
+    flex: 2 0 100%;
+    transition: all .3s ease-out;
+}
+
+.body-wrapper {
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: red;
 }
 
 .main.wrapper {
@@ -965,11 +974,6 @@ form .row .right {
 }
 
 /* || Sidebar */
-.wrapper {
-    display: flex;
-    transition: all .3s ease-out;
-}
-
 .wrapper #sidebar {
     max-width: 250px;
     transition: all .3s ease-out;
