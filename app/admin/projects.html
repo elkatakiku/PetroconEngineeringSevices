@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Petrocon | Projects</title>
+    <title>Petrocon | Project Lists</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -53,7 +53,7 @@
         </header>
         <ul class="list-unstyled components">
           <li class="">
-            <a class="d-flex align-content-start" href="#">
+            <a class="d-flex align-content-start" href="../index.html">
               <span class="material-icons">dashboard</span>
               <span class="collapsible">Dashboard</span> 
               <span class="sr-only">(current)</span>
@@ -68,7 +68,7 @@
             </div>
             <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
               <li class="">
-                <a class="" href="#">All</a>
+                <a class="" href="projects.html">All</a>
               </li>
               <li class="">
                 <a class="" href="#">Done</a>
@@ -96,15 +96,15 @@
             </div>
             <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
               <li class="">
-                <a class="" href="#">Employees</a>
+                <a class="" href="employees-admin.html">Employees</a>
               </li>
               <li class="">
-                <a class="" href="#">Workers</a>
+                <a class="" href="workers-admin.html">Workers</a>
               </li>
             </ul>
           </li>
           <li class="">
-            <a class="d-flex align-content-start" href="#">
+            <a class="d-flex align-content-start" href="users-admin.html">
               <span class="material-icons">people</span>
               <span class="collapsible">Users</span>
             </a>
@@ -120,7 +120,7 @@
             </a>
           </li>
           <li class="">
-            <a class="d-flex align-content-start" href="#">
+            <a class="d-flex align-content-start" href="../login/login.html">
               <span class="material-icons">logout</span>
               <span class="collapsible">Logout</span>
             </a>
@@ -137,36 +137,12 @@
         <strong class="user-type flex-grow-1">Petrocon</strong>
         <span class="material-icons">circle_notifications</span>
         <p class="user-name">Eli Lamzon</p>
+        <a class="d-flex align-content-start">
         <span id="user-display" class="material-icons">account_circle</span>
+        </a>
       </nav>
 
-      <!-- <nav class="navbar navbar-expand-md">
-        <button id="sidebarCollapseToggler" type="button" class="btn">
-            <i class="fa fa-bars" aria-hidden="true"></i>
-        </button>
-
-        <form action="" class="search-form">
-          <div class="input-container">
-            <div class="input-prepend">
-              <i class="fa fa-search icon" aria-hidden="true"></i>
-            </div>
-            <input type="text" name="" id="" placeholder="Search projects">
-            <div class="input-append">
-              <i class="fa fa-close icon" aria-hidden="true"></i>
-            </div>
-          </div>
-        </form>
-            
-        <span class="material-icons">circle_notifications</span>
-
-        <span class="user-info">
-          <h5>Eli Lamzon</h5>
-          <small>Admin</small>
-        </span>
-        <span id="user-display" class="material-icons">face</span>
-      </nav> -->
-
-      <main class="main">
+      <main class="main wrapper">
         <!-- Content -->
         <div class="page-header">
           <h1 class="page-title">Projects</h1>
@@ -207,13 +183,13 @@
           </div>
         </nav>
 
-        <!-- <div class="page-body"> -->
-          <!-- Project Table -->
+        <!-- Project Table -->
+        <div class="mesa-container">
           <table class="mesa">
             <thead class="mesa-head">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col" class="projectName">Project</th>
+                <th scope="col" class="tname projectName">Project</th>
                 <th scope="col">Last change</th>
                 <th scope="col">Status</th>
                 <th scope="col"></th>
@@ -322,7 +298,7 @@
               </tr>
             </tbody>
           </table>
-        <!-- </div> -->
+        </div>
 
         <!-- End of content -->
       </main>
@@ -361,7 +337,7 @@
               </div>
 
               <div class="form-group">
-                <div class="linear-center-v">
+                <div class="linear-center">
                   <label for="">Working days</label>
                   <hr>
                   <small># d</small>
@@ -399,7 +375,7 @@
               </div>
 
               <div class="form-group">
-                <div class="linear-center-v">
+                <div class="linear-center">
                   <label for="">Working hours</label>
                   <hr>
                   <small># h</small>
@@ -441,13 +417,13 @@
     <script>
       const thead = $("#content main .mesa .mesa-head");
 
-      function setNavTab() {
-        if ($(window).width() > 768) {
-          thead.css("top", $("#content main .nav-tab-container").height());
-        } else {
-          thead.css("top", "0");
-        }
-      }
+      // function setNavTab() {
+      //   if ($(window).width() > 768) {
+      //     thead.css("top", $("#content main .nav-tab-container").height());
+      //   } else {
+      //     thead.css("top", "0");
+      //   }
+      // }
 
       setNavTab();
 
