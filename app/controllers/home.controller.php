@@ -1,10 +1,12 @@
 <?php
 
-class Home extends Controller {
+class HomeController extends Controller {
+
+    public function __construct() {
+        $this->setType(Controller::CLIENT);
+    }
     
     public function index($name = '') {
-        // echo "home/index <br>";
-
         // $user = $this->model("User");
         // $user->name = $name;
 
@@ -13,11 +15,11 @@ class Home extends Controller {
     }
 
     public function login() {
-        echo "home/login<br>";
-        echo "display login here";
+        // bring to bottom of landing page
+        // header('Location: '.SITE_URL.US.'auth'.US.'login');
     }
 
     public function post() {
-        echo $_POST['samp'];
+        // echo $_POST['samp'];
     }
 }

@@ -21,11 +21,83 @@
 
     <!-- External CSS -->
     <!-- Change paths of href depending on the location of the file -->
-    <link rel="stylesheet" href="../../public/styles/styles.css">
-    <link rel="stylesheet" href="../styles/astyles.css">
-  </head>
-  <body>
+    
+    <link rel="stylesheet" href="<?=STYLES_PATH?>styles.css">
+    <?php
 
+      switch ($this->getType()) {
+        case Controller::AUTH: 
+        case Controller::CLIENT:
+          echo '<link rel="stylesheet" href="'.STYLES_PATH.'cstyles.css">';
+          break;
+        case Controller::ADMIN:
+          echo '<link rel="stylesheet" href="'.STYLES_PATH.'astyles.css">';
+          break;
+      }
+
+    ?>
+    
+  </head>
+  <body <?php if ($this->getType() == Controller::CLIENT) {
+    echo 'data-spy="scroll" data-target="#navbar-client-petrocon" data-offset="500"';
+    }
+    ?>>
+
+  <?php
+
+  switch ($this->getType()) {
+
+    case Controller::AUTH: ?>
+
+      <div class="login-background">
+        <div class="login-container">
+            <div class="row align-items-center">
+
+      <?php break;
+
+
+    case Controller::CLIENT: ?>
+    
+    <!-- Navbar -->
+    <nav id="navbar-client-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark">
+      <a class="navbar-brand brand" href="#">
+        <img src="<?=IMAGES_PATH?>petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
+        <span class="brand-name">Petrocon Engineering Services</span>
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#header">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#whyUs">Services</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#aboutUs">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contactUs">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#footer">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+      <?php break;
+
+
+    case Controller::ADMIN: ?>
+      
     <nav class="navbar navbar-expand-md navbar-light">
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
           <span class="material-icons">menu</span>
@@ -132,4 +204,8 @@
       </div>
       
       <div class="content">
-        <main class="main">
+        <main class="main <?= $data['dashboard'] ?>">
+
+      <?php break;
+  }
+  ?>

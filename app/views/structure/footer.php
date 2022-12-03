@@ -1,8 +1,29 @@
+<?php 
+
+switch ($this->getType()) {
+  case Controller::AUTH: ?>
+
+          </div>
+      </div>
+    </div>
+
+    <?php break;
+  case Controller::CLIENT: ?>
+
+
+    <?php break;
+  case Controller::ADMIN: ?>
+  
         </main>
       </div>
 
     </div>
-          
+
+    <?php break;
+}
+?>       
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -13,6 +34,6 @@
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
 
     <!-- External JS -->
-    <script src="../scripts/index.js"></script>
+    <script src="<?=SCRIPTS_PATH?>index.js"></script>
   </body>
 </html>

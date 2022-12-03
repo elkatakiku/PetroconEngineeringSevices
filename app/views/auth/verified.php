@@ -23,35 +23,31 @@
 <!-- VERIFIED -->
 
 <div class="login-background">
-        <div class="login-container">
-            <div class="row align-items-center">
-                <div class="col-lg-3 col-md-5 col-12">
-                </div> 
+    <div class="login-container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-7 col-12">
+                <form class="form-login" action="/login" method="post">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <header class="text-center mb-5">
+                        <i class="fa-solid fa-badge-check"></i>
+                        <h2>Email Verified</h2>
+                        <p class="lead">Your email was successfully verified.</p>
+                    </header>
 
+                    <div class="form-group">
+                    
+                        <input type="password" class="form-control" name="" id="" placeholder="Enter confirmation code">
+                    </div>
 
-                <div class="col-lg-6 col-md-7 col-12">
-                    <form class="form-login" action="/login" method="post">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <header class="text-center mb-5">
-                            <i class="fa-solid fa-badge-check"></i>
-                            <h2>Email Verified</h2>
-                            <p class="lead">Your email was successfully verified.</p>
-                        </header>
-
-                        <div class="form-group">
-                        
-                            <input type="password" class="form-control" name="" id="" placeholder="Enter confirmation code">
-                        </div>
-
-                        <button type="button" name="" id="" class="btn btn-lg btn-block primary-btn">Continue</button>
-                         <button type="button" class="btn outline-action-btn btn-block" data-dismiss="modal" data-target="#">Back to login</button>  
-                    </form>
-                </div>
+                    <button type="button" name="" id="" class="btn btn-lg btn-block primary-btn">Continue</button>
+                        <button type="button" class="btn outline-action-btn btn-block" data-dismiss="modal" data-target="#">Back to login</button>  
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 
     <!-- Optional JavaScript -->
