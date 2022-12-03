@@ -4,7 +4,7 @@
   <!-- Background Image -->
   <!-- Header Divider -->
   <div class="row header-design-container">
-    <img src="../images/header-image-1.jpg" alt="Petrocon header image">
+    <img src="<?=IMAGES_PATH?>header-image-1.jpg" alt="Petrocon header image">
     <div class="stripe"></div>
     <div class="triangle"></div>
   </div>
@@ -29,7 +29,7 @@
 
 <!-- Background 1 -->
 <div class="bg-float1">
-  <object class="bg-float" data="../images/bg-float-1.svg" type="image/svg+xml"></object>
+  <object class="bg-float" data="<?=IMAGES_PATH?>bg-float-1.svg" type="image/svg+xml"></object>
 </div>
 
 <!-- Why Us Section -->
@@ -85,13 +85,13 @@
 
 <!-- Background 2 -->
 <div class="bg-float2">
-  <object class="bg-float" data="../images/bg-float_2.svg" type="image/svg+xml"></object>
+  <object class="bg-float" data="<?=IMAGES_PATH?>bg-float_2.svg" type="image/svg+xml"></object>
 </div>
 
 <!-- About Us Section -->
 <section class="white-section" id="aboutUs">
     <div class="row">
-      <img class="col-lg-5 col-md-4 col-12 about-img" src="../images/about-us-1.jpg" alt="">
+      <img class="col-lg-5 col-md-4 col-12 about-img" src="<?=IMAGES_PATH?>about-us-1.jpg" alt="">
 
       <div class="col-lg-6 col-md-7 col-12 about-us-content">
         <header>
@@ -141,28 +141,28 @@
       <div id="project-carousel" class="carousel slide row" data-ride="carousel">
           <div class="carousel-inner row w-100 mx-auto" role="listbox">
               <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
-                  <img src="../images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img1">
+                  <img src="<?=IMAGES_PATH?>about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img1">
               </div>
               <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                  <img src="../images/about-us-2.jpg" class="img-fluid mx-auto d-block" alt="img2">
+                  <img src="<?=IMAGES_PATH?>about-us-2.jpg" class="img-fluid mx-auto d-block" alt="img2">
               </div>
               <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                  <img src="../images/about-us-3.jpg" class="img-fluid mx-auto d-block" alt="img3">
+                  <img src="<?=IMAGES_PATH?>about-us-3.jpg" class="img-fluid mx-auto d-block" alt="img3">
               </div>
               <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                  <img src="../images/about-us-4.jpg" class="img-fluid mx-auto d-block" alt="img4">
+                  <img src="<?=IMAGES_PATH?>about-us-4.jpg" class="img-fluid mx-auto d-block" alt="img4">
               </div>
               <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                  <img src="../images/about-us-5.jpg" class="img-fluid mx-auto d-block" alt="img5">
+                  <img src="<?=IMAGES_PATH?>about-us-5.jpg" class="img-fluid mx-auto d-block" alt="img5">
               </div>
               <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                  <img src="../images/about-us-6.jpg" class="img-fluid mx-auto d-block" alt="img6">
+                  <img src="<?=IMAGES_PATH?>about-us-6.jpg" class="img-fluid mx-auto d-block" alt="img6">
               </div>
               <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                  <img src="../images/about-us-7.jpg" class="img-fluid mx-auto d-block" alt="img7">
+                  <img src="<?=IMAGES_PATH?>about-us-7.jpg" class="img-fluid mx-auto d-block" alt="img7">
               </div>
               <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                  <img src="../images/about-us-8.jpg" class="img-fluid mx-auto d-block" alt="img8">
+                  <img src="<?=IMAGES_PATH?>about-us-8.jpg" class="img-fluid mx-auto d-block" alt="img8">
               </div>
           </div>
           <a class="carousel-control-prev" href="#project-carousel" role="button" data-slide="prev">
@@ -197,7 +197,7 @@
 
         <div>
           <!-- Google Map Copied Code -->
-          <iframe src="../https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30916.092159845426!2d120.96493879244527!3d14.397650823619955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d15fba0dad4d%3A0x9baaabd5023ee66!2sMolino%20III%2C%20Bacoor%2C%20Cavite!5e0!3m2!1sen!2sph!4v1669398928741!5m2!1sen!2sph" 
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30916.092159845426!2d120.96493879244527!3d14.397650823619955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d15fba0dad4d%3A0x9baaabd5023ee66!2sMolino%20III%2C%20Bacoor%2C%20Cavite!5e0!3m2!1sen!2sph!4v1669398928741!5m2!1sen!2sph" 
                   width="400"
                   height="300"
                   frameborder="0"
@@ -283,8 +283,8 @@
 <!-- Footer Section -->
 <section class="colored-section text-center" id="footer">
   <div class="footer-bg">
-    <img class="footer-bg-1" src="../images/footer-bg.png" alt="footer background">
-    <img class="footer-bg-2" src="../images/footer-bg.png" alt="footer background">
+    <img class="footer-bg-1" src="<?=IMAGES_PATH?>footer-bg.png" alt="footer background">
+    <img class="footer-bg-2" src="<?=IMAGES_PATH?>footer-bg.png" alt="footer background">
   </div>
 
   <div class="footer-content">
