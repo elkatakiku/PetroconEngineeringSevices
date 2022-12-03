@@ -80,7 +80,7 @@
 body {
     background-color: #f4f4f4;
     color: var(--primary-text);
-    /* max-width: 1366px; */
+    max-width: 1366px;
     margin: auto;
     position: relative;
     box-shadow: 10px 0 8px -5px #e9e1ff, -10px 0 8px -5px #e9e1ff;
@@ -171,6 +171,42 @@ hr {
 
 .bg-light-violet {
     background-color: #FFBAD7;
+}
+
+/* || Containers */
+.wrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex: 2;
+    transition: all .3s ease-out;
+}
+
+.body-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main.wrapper {
+    flex-direction: column;
+}
+  
+.white-section {
+    background-color: white;
+}
+
+.colored-section {
+    background-color: var(--primary);
+    color: white;
+}
+
+.colored-section p {
+    color: var(--secondary-text);
+}
+
+.white-section .container-fluid,
+.colored-section .container-fluid {
+    padding: 5% 10%;
 }
 
 /* || SITEWIDE  */
@@ -308,44 +344,6 @@ a.btn {
 /* Form buttons */
 button[data-toggle='form']:not(.show) {
     display: none;
-}
-
-
-/* || Containers */
-
-.wrapper {
-    display: flex;
-    justify-content: flex-start;
-    flex: 2 0 100%;
-    transition: all .3s ease-out;
-}
-
-.body-wrapper {
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: red;
-}
-
-.main.wrapper {
-    flex-direction: column;
-}
-  
-.white-section {
-    background-color: white;
-}
-
-.colored-section {
-    background-color: var(--primary);
-    color: white;
-}
-
-.colored-section p {
-    color: var(--secondary-text);
-}
-
-.white-section .container-fluid,
-.colored-section .container-fluid {
-    padding: 5% 10%;
 }
 
 
@@ -608,6 +606,26 @@ form .row .right {
 .option-box:has(input:checked) {
     background-color: var(--action);
     color: white;
+}
+
+
+/* || Topbar */
+.navbar {
+    gap: 1rem;
+    padding: .75rem 1rem;
+    align-items: center;
+    background-color: var(--topbar-bg);
+    color: var(--topbar-text);
+    border-bottom: 1px solid var(--border-rgba-color);
+}
+  
+#sidebarCollapseToggler {
+    padding: 0;
+}
+  
+.navbar .material-icons {
+    color: var(--topbar-icon);
+    font-size: 1.3rem;
 }
 
 /* || Popup */
@@ -974,16 +992,12 @@ form .row .right {
 }
 
 /* || Sidebar */
-.wrapper {
-    transition: all .3s ease-out;
-}
-
 .wrapper #sidebar {
     max-width: 250px;
     transition: all .3s ease-out;
 }
 
-.wrapper .content {
+.wrapper #content[data-fill="true"] {
     flex: 2 0 75%;
 }
 

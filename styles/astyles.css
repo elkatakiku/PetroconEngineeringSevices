@@ -114,14 +114,6 @@ a[data-toggle = "collapse"] {
   position: relative;
 }
 
-/* #sidebar .dropdown-toggle::after {
-  display: block;
-  position: absolute;
-  top: 50%;
-  right: 10%;
-  transform: translateY(-50%);
-} */
-
 #sidebar .sub-menu li a {
   padding-left: 30px;
   font-size: 0.9rem;
@@ -137,31 +129,13 @@ a[data-toggle = "collapse"] {
 
 /* || Content */
 #content {
+  flex: 2;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   background-color: var(--background-color);
   transition: all 0.3s;
 }
 
-/* || Topbar */
-.navbar {
-  gap: 1rem;
-  padding: .75rem 1rem;
-  align-items: center;
-  background-color: var(--topbar-bg);
-  color: var(--topbar-text);
-  border-bottom: 1px solid var(--border-rgba-color);
-}
-
-#sidebarCollapseToggler {
-  padding: 0;
-}
-
-.navbar .material-icons {
-  color: var(--topbar-icon);
-  font-size: 1.3rem;
-}
 
 /* Search Input */
 .search-form {
@@ -173,20 +147,6 @@ a[data-toggle = "collapse"] {
 }
 
 /* Project Title */
-
-#content .project-info {
-  width: 100%;
-  overflow: hidden;
-}
-
-#content .project-info .page-title,
-#content .project-info small  {
-  margin: 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
 .navbar .user-name {
   flex-shrink: 0;
   margin: 0;
@@ -201,6 +161,7 @@ a[data-toggle = "collapse"] {
 #content .main {
   flex: 2;
   height: 100%;
+  width: 100%;
   position: relative;
 }
 
@@ -268,8 +229,8 @@ a[data-toggle = "collapse"] {
 }
 
 #content .main .page-header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr min-content;
   margin: 24px 20px;
   gap: 20px;
 }
@@ -277,6 +238,21 @@ a[data-toggle = "collapse"] {
 .page-header .page-title {
   margin: 0;
   font-size: 24px;
+}
+
+.project-info {
+  width: 100%;
+  overflow: hidden;
+  /* width: 100%; */
+  /* max-width: 50%; */
+}
+
+#content .page-header .page-title,
+#content .page-header small  {
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 #content .main .nav-tab-container:has(.nav-tab) { 
