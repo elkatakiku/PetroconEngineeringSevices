@@ -966,7 +966,6 @@ form .row .right {
 
 /* || Sidebar */
 .wrapper {
-    display: flex;
     transition: all .3s ease-out;
 }
 
@@ -977,7 +976,6 @@ form .row .right {
 
 .wrapper .content {
     flex: 2 0 75%;
-    background-color: orange;
 }
 
 .collapsible {

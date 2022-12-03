@@ -34,7 +34,7 @@ function expandSidebar() {
         if($(window).width() > 780) {
             $("#sidebar.active .collapsible").animate({
                 width: "0"
-            }); 
+            }, 150); 
         }
         $('.sub-menu.show').collapse('hide');
     } 
@@ -43,7 +43,7 @@ function expandSidebar() {
         if($(window).width() > 780) {
             $("#sidebar .collapsible").animate({
                 width: "250px"
-            });
+            }, 150);
         }
     }
     $('#sidebar').toggleClass('active');
