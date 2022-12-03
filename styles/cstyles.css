@@ -1,38 +1,43 @@
 /* || Clients CSS Styles */
 /* Nav Bar */
-#navbar-client-petrocon.navbar {
+.navbar[data-user='client'] {
     position: sticky;
     width: 100%;
     padding: .5rem 5%;
-    background-color: var(--primary);
+    background-color: var(--navbar-client-bg);
+    color: var(--navbar-client-text);
 }
 
-#navbar-client-petrocon .navbar .nav-item {
+.navbar[data-user='client'] .navbar .nav-item {
     padding: 0 18px;
 }
 
-#navbar-client-petrocon .navbar .nav-link {
+.navbar[data-user='client'] .navbar .nav-link {
     text-transform: uppercase;
     color: white;;
 }
 
 
 /* Brand */
-.brand .brand-icon {
-    width: 50px;
-    height: 50px;
+.navbar[data-user='client'] .brand .brand-icon {
+    width: 40px;
+    height: 40px;
 }
 
-.brand .brand-name {
+.navbar[data-user='client'] .brand .brand-name {
     display: inline-block;
     margin-left: 20px;
     max-width: 200px;
-    font-size: .9rem;
+    font-size: .75rem;
     font-weight: 700;
     white-space: normal;
     text-transform: uppercase;
 }
-/* button */
+
+.navbar[data-user='client'] #user-display {
+    font-size: 1.5rem;
+}
+
 /* Flowting Items in Background */
 .bg-float1, .bg-float2 {
     position: absolute;
@@ -72,7 +77,6 @@
     width: 100%;
     margin: 0;
     overflow: hidden;
-
 }
 
 /* Header Background Image and Divider */

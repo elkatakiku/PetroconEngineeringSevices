@@ -9,7 +9,7 @@
     /* --primary: #5215FC; */
     /* --secondary: #7070DD; */
     /* --purple: #FF00FF; */
-    /* --light-blue: #F2F2FF; */
+    --light-blue: #F2F2FF;
     --complementary: #744713;
 
     --action: #5050FF;
@@ -50,6 +50,10 @@
     --topbar-text: #272727;
     --topbar-icon: var(--palette4);
 
+    /* Navbar Client Color */
+    --navbar-client-bg: var(--light-blue);
+    --navbar-client-text: var(--primary-text);
+
     /* Navigation Tab Color */
     --navtab-text-color: #797979;
     --navtab-active-text: var(--primary-text);
@@ -78,9 +82,9 @@
 
 /* || General styles */
 body {
-    background-color: #f4f4f4;
+    background-color: var(--background-color);
     color: var(--primary-text);
-    max-width: 1366px;
+    /* max-width: 1366px; */
     margin: auto;
     position: relative;
     box-shadow: 10px 0 8px -5px #e9e1ff, -10px 0 8px -5px #e9e1ff;
@@ -128,7 +132,7 @@ hr {
     border-radius: 100px !important;
 }
 
-.linear, .linear-center-h {
+.linear, .linear-center {
     display: flex !important;
     align-items: center !important;
     gap: 10px;
@@ -138,8 +142,8 @@ hr {
     justify-content: space-between;
 }
 
-.linear-center-h {
-
+.linear-center {
+    height: 100%;
     width: 100%;
     justify-content: center;
 }
@@ -185,10 +189,6 @@ hr {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
-
-.main.wrapper {
-    flex-direction: column;
 }
   
 .white-section {
@@ -628,6 +628,16 @@ form .row .right {
     font-size: 1.3rem;
 }
 
+.navbar .user-name {
+    flex-shrink: 0;
+    margin: 0;
+    font-size: .9rem;
+    margin-left: 30px;
+    padding-left: 30px;
+    padding-right: 20px;
+    border-left: 1px solid var(--border-rgba-color);
+}
+
 /* || Popup */
 .popup-open {
     overflow: hidden;
@@ -997,7 +1007,7 @@ form .row .right {
     transition: all .3s ease-out;
 }
 
-.wrapper #content[data-fill="true"] {
+.wrapper .content[data-fill="true"] {
     flex: 2 0 75%;
 }
 
@@ -1104,10 +1114,6 @@ form .row .right {
     box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
 }
 
-/* .custom-tab-content.show {
-    display: flex;
-} */
-
 /* || MEDIA QUERIES */
 /* SM */
 /* Extra small devices (phones, 576px and down) */
@@ -1127,7 +1133,7 @@ form .row .right {
 @media only screen and (max-width: 768px) {
 
     /* Table */
-    #content .main > .mesa {
+    .content > .mesa {
         display: block;
         position: relative;
         overflow-x: auto;

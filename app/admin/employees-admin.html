@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../styles/styles.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
   </head>
-  <body>
+  <body class="body-wrapper">
     
     <nav class="navbar navbar-expand-md navbar-light">
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
@@ -134,109 +134,96 @@
         </nav>
       </div>
 
-    <div id="content">
-      <nav class="navbar navbar-expand-md navbar-light">
-        <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
-            <span class="material-icons">menu</span>
-        </button>
-        <strong class="user-type flex-grow-1">Petrocon</strong>
-        <span class="material-icons">circle_notifications</span>
-        <p class="user-name">Eli Lamzon</p>
-        <span id="user-display" class="material-icons">account_circle</span>
-      </nav>  
+      <main class="content">
 
-      <main class="main">
-        <!-- Content -->
-        <div class="page-header">
-          <h1 class="page-title">Employees</h1>
-        </div>
+          <!-- Header -->
+          <div class="page-header">
+            <h1 class="page-title">Employees</h1>
+          </div>
+          
+          <nav class="nav-tab-container">
+            <!-- New Employee -->
+            <button type="button" class="btn primary-btn align-self-center" 
+                  data-toggle="popup" data-target="#projectPopup">
+              Add Employee
+            </button>
 
-            <nav class="nav-tab-container">
-              <!-- Search -->
-              <div class="search-container">
-                <form action="" class="search-form">
-                  <div class="input-container">
-                    <div class="input-prepend">
-                      <i class="fa fa-search icon" aria-hidden="true"></i>
-                    </div>
-                    <input type="text" name="" id="" placeholder="Search employee">
+            <!-- Search -->
+            <div class="search-container">
+              <form action="" class="search-form">
+                <div class="input-container">
+                  <div class="input-prepend">
+                    <i class="fa fa-search icon" aria-hidden="true"></i>
                   </div>
-                </form>
-              </div>
-
-              <!-- New Employee -->
-              <button type="button" class="btn primary-btn align-self-center" 
-                    data-toggle="popup" data-target="#projectPopup">
-                Add Employee
-              </button>
-            </nav>
-
-            <!-- Users Table -->
-            <div class="mesa-container">
-              <table class="mesa">
-                <thead class="mesa-head">
-                  <tr>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Password</th>
-                    <th scope="col">Contact</th>
-                    <th scope="col">Action</th>
-                    <th scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                  <tr>
-                      <th scope="row">Yvana Magno</th>
-                      <td>
-                        sexy@email.com
-                      </td>
-                      <td>*********</td>
-                      <td>09233272639</td>
-                      <td>Remove</td>
-                      <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                  </tr>
-
-                  <tr>
-                      <th scope="row">Effer Adaza</th>
-                      <td>
-                        effer@email.com
-                      </td>
-                      <td>*********</td>
-                      <td>09233272639</td>
-                      <td>Remove</td>
-                      <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                  </tr>
-
-                  <tr>
-                      <th scope="row">Kath Fernandez</th>
-                      <td>
-                        kath@email.com
-                      </td>
-                      <td>*********</td>
-                      <td>09233272639</td>
-                      <td>Remove</td>
-                      <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                  </tr>
-
-                  <tr>
-                      <th scope="row">Eli Lamzon</th>
-                      <td>
-                        Eli@email.com
-                      </td>
-                      <td>*********</td>
-                      <td>09233272639</td>
-                      <td>Remove</td>
-                      <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                  </tr>         
-                </tbody>
-              </table>
+                  <input type="text" name="" id="" placeholder="Search employee">
+                </div>
+              </form>
             </div>
-            <!-- </div> -->
+          </nav>
 
-        <!-- End of content -->
+          <!-- Users Table -->
+          <div class="mesa-container">
+            <table class="mesa">
+              <thead class="mesa-head">
+                <tr>
+                  <th scope="col">Username</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Contact</th>
+                  <th scope="col">Action</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                    <th scope="row">Yvana Magno</th>
+                    <td>
+                      sexy@email.com
+                    </td>
+                    <td>*********</td>
+                    <td>09233272639</td>
+                    <td>Remove</td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Effer Adaza</th>
+                    <td>
+                      effer@email.com
+                    </td>
+                    <td>*********</td>
+                    <td>09233272639</td>
+                    <td>Remove</td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Kath Fernandez</th>
+                    <td>
+                      kath@email.com
+                    </td>
+                    <td>*********</td>
+                    <td>09233272639</td>
+                    <td>Remove</td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Eli Lamzon</th>
+                    <td>
+                      Eli@email.com
+                    </td>
+                    <td>*********</td>
+                    <td>09233272639</td>
+                    <td>Remove</td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>         
+              </tbody>
+            </table>
+          </div>
+
       </main>
-
     </div>
 
     <!-- Optional JavaScript -->
