@@ -1,42 +1,4 @@
 /* || Clients CSS Styles */
-/* Nav Bar */
-.navbar[data-user='client'] {
-    position: sticky;
-    width: 100%;
-    padding: .5rem 5%;
-    background-color: var(--navbar-client-bg);
-    color: var(--navbar-client-text);
-}
-
-.navbar[data-user='client'] .navbar .nav-item {
-    padding: 0 18px;
-}
-
-.navbar[data-user='client'] .navbar .nav-link {
-    text-transform: uppercase;
-    color: white;;
-}
-
-
-/* Brand */
-.navbar[data-user='client'] .brand .brand-icon {
-    width: 40px;
-    height: 40px;
-}
-
-.navbar[data-user='client'] .brand .brand-name {
-    display: inline-block;
-    margin-left: 20px;
-    max-width: 200px;
-    font-size: .75rem;
-    font-weight: 700;
-    white-space: normal;
-    text-transform: uppercase;
-}
-
-.navbar[data-user='client'] #user-display {
-    font-size: 1.5rem;
-}
 
 /* Flowting Items in Background */
 .bg-float1, .bg-float2 {

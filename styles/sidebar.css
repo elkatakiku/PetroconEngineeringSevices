@@ -17,6 +17,9 @@
 }
 
 /* || Sidebar */
+
+/* Default */
+
 #sidebar {
     max-width: 250px;
     transition: all .3s ease-out;
@@ -105,7 +108,7 @@ a[data-toggle = "collapse"] {
     width: 250px;
 }
 
-/* Client */
+/* Sidebar Client */
 
 #sidebar[data-user='client'] a,
 #sidebar[data-user='client'] a:hover,
