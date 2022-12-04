@@ -36,14 +36,7 @@
 
     /* Card Color */
 
-    /* Sidebar Color */
-    --sidebar-bg: #3D3DBB;
-    --sidebar-text: #E2D1FF;
-    --sidebar-text-active: white;
-    --sidebar-active-tab-border: #FF00FF;
-    --sidebar-active-tab-bg: rgba(231,233,236, .2);
-    --sidebar-tab-hover: white;
-    --sidebar-tab-hover-text: var(--sidebar-bg);
+   
 
     /* Topbar Color */
     --topbar-bg: white;
@@ -1001,32 +994,11 @@ form .row .right {
     text-align: right;
 }
 
-/* || Sidebar */
-.wrapper #sidebar {
-    max-width: 250px;
-    transition: all .3s ease-out;
-}
+
+/* || Content */
 
 .wrapper .content[data-fill="true"] {
     flex: 2 0 75%;
-}
-
-.collapsible {
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-    transition: width .15s;
-}
-
-.collapsible > span {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-}
-
-.wrapper #sidebar.active .collapsible {
-    width: 250px;
 }
 
 /* || Navigation */
