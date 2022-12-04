@@ -9,7 +9,7 @@
     /* --primary: #5215FC; */
     /* --secondary: #7070DD; */
     /* --purple: #FF00FF; */
-    /* --light-blue: #F2F2FF; */
+    --light-blue: #F2F2FF;
     --complementary: #744713;
 
     --action: #5050FF;
@@ -32,23 +32,7 @@
     --input-popup-border-color: #B0B0B2;
 
     --background-color: #F9F9FB;
-    --default-box-shadow-color: #dddde055;
-
-    /* Card Color */
-
-    /* Sidebar Color */
-    --sidebar-bg: #3D3DBB;
-    --sidebar-text: #E2D1FF;
-    --sidebar-text-active: white;
-    --sidebar-active-tab-border: #FF00FF;
-    --sidebar-active-tab-bg: rgba(231,233,236, .2);
-    --sidebar-tab-hover: white;
-    --sidebar-tab-hover-text: var(--sidebar-bg);
-
-    /* Topbar Color */
-    --topbar-bg: white;
-    --topbar-text: #272727;
-    --topbar-icon: var(--palette4);
+    --default-box-shadow-color: #dddde055;  
 
     /* Navigation Tab Color */
     --navtab-text-color: #797979;
@@ -78,7 +62,7 @@
 
 /* || General styles */
 body {
-    background-color: #f4f4f4;
+    background-color: var(--background-color);
     color: var(--primary-text);
     /* max-width: 1366px; */
     margin: auto;
@@ -128,7 +112,7 @@ hr {
     border-radius: 100px !important;
 }
 
-.linear, .linear-center-h {
+.linear, .linear-center {
     display: flex !important;
     align-items: center !important;
     gap: 10px;
@@ -138,8 +122,8 @@ hr {
     justify-content: space-between;
 }
 
-.linear-center-h {
-
+.linear-center {
+    height: 100%;
     width: 100%;
     justify-content: center;
 }
@@ -171,6 +155,38 @@ hr {
 
 .bg-light-violet {
     background-color: #FFBAD7;
+}
+
+/* || Containers */
+.wrapper {
+    display: flex;
+    justify-content: flex-start;
+    flex: 2;
+    transition: all .3s ease-out;
+}
+
+.body-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+  
+.white-section {
+    background-color: white;
+}
+
+.colored-section {
+    background-color: var(--primary);
+    color: white;
+}
+
+.colored-section p {
+    color: var(--secondary-text);
+}
+
+.white-section .container-fluid,
+.colored-section .container-fluid {
+    padding: 5% 10%;
 }
 
 /* || SITEWIDE  */
@@ -308,35 +324,6 @@ a.btn {
 /* Form buttons */
 button[data-toggle='form']:not(.show) {
     display: none;
-}
-
-
-/* || Containers */
-.wrapper {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.main.wrapper {
-    flex-direction: column;
-}
-  
-.white-section {
-    background-color: white;
-}
-
-.colored-section {
-    background-color: var(--primary);
-    color: white;
-}
-
-.colored-section p {
-    color: var(--secondary-text);
-}
-
-.white-section .container-fluid,
-.colored-section .container-fluid {
-    padding: 5% 10%;
 }
 
 
@@ -601,6 +588,161 @@ form .row .right {
     color: white;
 }
 
+/* || Table */
+.mesa-container {
+    width: 100%;
+    overflow: auto;
+    border-radius: var(--default-border-radius) !important;
+    background-color: white;
+    background-clip: border-box;
+}
+
+.mesa-container .mesa .mesa-head {
+    white-space: nowrap;
+}
+
+.mesa-container .mesa th:last-child, .mesa-container .mesa td:last-child {
+    text-align: right;
+}
+
+.mesa {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    border-style: hidden; /* hide standard table (collapsed) border */
+    border-radius: var(--default-border-radius) !important;
+}
+
+.mesa th, .mesa td {
+    padding: 0.75rem;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: var(--palette5);
+}
+
+.mesa tbody tr:hover {
+    cursor: pointer;
+    background-color: var(--palette5);
+}
+
+.mesa-head {
+    border-top-left-radius: var(--default-border-radius) !important;
+    border-top-right-radius: var(--default-border-radius) !important;
+    background-color: var(--table-header-bg);
+    color: var(--table-header-text);
+    font-size: .75rem;
+    /* position: sticky; */
+    /* top: 0; */
+}
+
+.mesa .mesa-head .tname {
+    color: var(--action);
+    font-weight: 400;
+}
+
+.mesa-head th {
+    vertical-align: middle;
+    padding: .75rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 200;
+}
+
+.mesa .action-cell {
+    text-align: right;
+}
+
+
+/* || Content */
+
+.wrapper .content[data-fill="true"] {
+    flex: 2 0 75%;
+}
+
+/* || Navigation */
+.nav-tab-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background-color: var(--background-color);
+}
+
+.nav-tab-container {
+    color: var(--navtab-text-color);
+}
+
+.nav-tab {
+    display: flex;
+    /* padding: 0 20px; */
+    list-style: none;
+    margin: 0;
+}
+  
+.nav-tab .nav-tab-item {
+    cursor: pointer;
+}
+  
+.nav-tab .nav-tab-item button {
+    padding: 8px 20px;
+    height: 100%;
+    color: inherit;
+    font-weight: inherit;
+}
+  
+.nav-tab .nav-tab-item .link-btn:hover,
+.nav-tab .nav-tab-item .link-btn:focus {
+    text-decoration: none;
+}
+  
+.nav-tab .nav-tab-item:not(.active) .link-btn:hover {
+    color: var(--navtab-active-text);
+    font-weight: 400;
+}
+  
+.nav-tab .nav-tab-item.active {
+    color: var(--navtab-active-text) !important;
+    font-weight: 600;
+    border-bottom: 5px solid var(--navtab-active-border);
+}
+  
+.nav-tab-container .material-icons-outlined,
+.nav-tab-container .material-icons {
+    color: var(--palette4);
+}
+
+/* Tabs */
+.custom-tab-container {
+    display: flex;
+    position: relative;
+    flex: 2;
+}
+
+.custom-tab-content {
+    width: 100%;
+    background-color: var(--custom-tab-bg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: flex-start;
+}
+
+.custom-tab-content:not(.show) {
+    display: none;
+    flex: 1 0;
+}
+
+/* || Card */
+.custom-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border: 1px solid var(--border-rgba-color);
+    border-radius: var(--default-border-radius);
+    box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
+}
+
 /* || Popup */
 .popup-open {
     overflow: hidden;
@@ -610,8 +752,6 @@ form .row .right {
     overflow-x: hidden;
     overflow-y: auto;
 }
-
-
 
 .popup {
     display: none;
@@ -879,214 +1019,6 @@ form .row .right {
     background-color: white;
 }
 
-/* || Sliding next and previous */
-.slide-wrapper {
-    display: flex;
-    overflow: hidden;
-}
-
-.pbody #prevSlide {
-    padding: 0;
-    margin-bottom: 10px;
-}
-
-#firstFormSlide, #secondFormSlide {
-    min-width: 100%;
-    margin-left: 0;
-    transition: all .3s;
-}
-
-.slideLeft {
-    margin-left: -100% !important;
-}
-
-
-/* || Table */
-.mesa-container {
-    width: 100%;
-    overflow: auto;
-    border-radius: var(--default-border-radius) !important;
-    background-color: white;
-    background-clip: border-box;
-}
-
-.mesa-container .mesa .mesa-head {
-    white-space: nowrap;
-}
-
-.mesa-container .mesa th:last-child, .mesa-container .mesa td:last-child {
-    text-align: right;
-}
-
-.mesa {
-    display: table;
-    width: 100%;
-    border-collapse: collapse;
-    border-style: hidden; /* hide standard table (collapsed) border */
-    border-radius: var(--default-border-radius) !important;
-}
-
-.mesa th, .mesa td {
-    padding: 0.75rem;
-    border-width: 1px 0;
-    border-style: solid;
-    border-color: var(--palette5);
-}
-
-.mesa tbody tr:hover {
-    cursor: pointer;
-    background-color: var(--palette5);
-}
-
-.mesa-head {
-    border-top-left-radius: var(--default-border-radius) !important;
-    border-top-right-radius: var(--default-border-radius) !important;
-    background-color: var(--table-header-bg);
-    color: var(--table-header-text);
-    font-size: .75rem;
-    /* position: sticky; */
-    /* top: 0; */
-}
-
-.mesa .mesa-head .tname {
-    color: var(--action);
-    font-weight: 400;
-}
-
-.mesa-head th {
-    vertical-align: middle;
-    padding: .75rem;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 200;
-}
-
-.mesa .action-cell {
-    text-align: right;
-}
-
-/* || Sidebar */
-.wrapper {
-    display: flex;
-    transition: all .3s ease-out;
-}
-
-.wrapper #sidebar {
-    max-width: 250px;
-    transition: all .3s ease-out;
-}
-
-.wrapper .content {
-    flex: 2 0 75%;
-    background-color: orange;
-}
-
-.collapsible {
-    white-space: nowrap;
-    overflow: hidden;
-    width: 0;
-    transition: width .15s;
-}
-
-.collapsible > span {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-}
-
-.wrapper #sidebar.active .collapsible {
-    width: 250px;
-}
-
-/* || Navigation */
-.nav-tab-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    background-color: var(--background-color);
-}
-
-.nav-tab-container {
-    color: var(--navtab-text-color);
-}
-
-.nav-tab {
-    display: flex;
-    /* padding: 0 20px; */
-    list-style: none;
-    margin: 0;
-}
-  
-.nav-tab .nav-tab-item {
-    cursor: pointer;
-}
-  
-.nav-tab .nav-tab-item button {
-    padding: 8px 20px;
-    height: 100%;
-    color: inherit;
-    font-weight: inherit;
-}
-  
-.nav-tab .nav-tab-item .link-btn:hover,
-.nav-tab .nav-tab-item .link-btn:focus {
-    text-decoration: none;
-}
-  
-.nav-tab .nav-tab-item:not(.active) .link-btn:hover {
-    color: var(--navtab-active-text);
-    font-weight: 400;
-}
-  
-.nav-tab .nav-tab-item.active {
-    color: var(--navtab-active-text) !important;
-    font-weight: 600;
-    border-bottom: 5px solid var(--navtab-active-border);
-}
-  
-.nav-tab-container .material-icons-outlined,
-.nav-tab-container .material-icons {
-    color: var(--palette4);
-}
-
-/* Tabs */
-.custom-tab-container {
-    display: flex;
-    position: relative;
-    flex: 2;
-}
-
-.custom-tab-content {
-    width: 100%;
-    background-color: var(--custom-tab-bg);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    align-content: flex-start;
-}
-
-.custom-tab-content:not(.show) {
-    display: none;
-    flex: 1 0;
-}
-
-/* || Card */
-.custom-card {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    border: 1px solid var(--border-rgba-color);
-    border-radius: var(--default-border-radius);
-    box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
-}
-
-/* .custom-tab-content.show {
-    display: flex;
-} */
-
 /* || MEDIA QUERIES */
 /* SM */
 /* Extra small devices (phones, 576px and down) */
@@ -1106,7 +1038,7 @@ form .row .right {
 @media only screen and (max-width: 768px) {
 
     /* Table */
-    #content .main > .mesa {
+    .content > .mesa {
         display: block;
         position: relative;
         overflow-x: auto;

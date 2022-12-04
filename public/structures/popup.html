@@ -53,6 +53,28 @@
                     <div class="modal-body">
 
                         <form action="table.html" class="slide-wrapper">
+
+                            <style>
+                                #firstFormSlide, #secondFormSlide {
+                                    min-width: 100%;
+                                    margin-left: 0;
+                                    transition: all .3s;
+                                }
+
+                                .pbody #prevSlide {
+                                    padding: 0;
+                                    margin-bottom: 10px;
+                                }
+
+                                .slideLeft {
+                                    margin-left: -100% !important;
+                                }
+
+                                .slide-wrapper {
+                                    display: flex;
+                                    overflow: hidden;
+                                }
+                            </style>
                             <div id="firstFormSlide">
                                 <div class="container">
                                     <div class="row">
@@ -122,7 +144,7 @@
             <div class="pcontainer">
               <div class="pcontent">
                 <div class="pheader">
-                  <div class="linear-center-h">
+                  <div class="linear-center">
                     <!-- Can add icon here -->
                     <i class="fas fa-image"></i>
                     <h2 class="ptitle">Popup Title</h2>

@@ -1,0 +1,87 @@
+:root {
+    /* Navbar Color */
+    --topbar-bg: white;
+    --topbar-text: #272727;
+    --topbar-icon: var(--palette4);
+
+    /* Navbar Home */
+    --navbar-home-bg: var(--primary);
+
+    /* Navbar Client Color */
+    --navbar-client-bg: var(--light-blue);
+    --navbar-client-text: var(--primary-text);
+}
+
+/* || Nav Bar */
+
+/* Default */
+
+.navbar {
+    gap: 1rem;
+    padding: .75rem 1rem;
+    align-items: center;
+    background-color: var(--topbar-bg);
+    color: var(--topbar-text);
+    border-bottom: 1px solid var(--border-rgba-color);
+}
+  
+#sidebarCollapseToggler {
+    padding: 0;
+}
+
+.navbar .material-icons {
+    color: var(--topbar-icon);
+    font-size: 1.3rem;
+}
+
+.navbar .user-name {
+    flex-shrink: 0;
+    margin: 0;
+    font-size: .9rem;
+    margin-left: 30px;
+    padding-left: 30px;
+    padding-right: 20px;
+    border-left: 1px solid var(--border-rgba-color);
+}
+
+/* Brand */
+.navbar .brand .brand-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.navbar .brand .brand-name {
+    display: inline-block;
+    margin-left: 20px;
+    max-width: 200px;
+    font-size: .75rem;
+    font-weight: 700;
+    white-space: normal;
+    text-transform: uppercase;
+}
+
+/* Navbar Client */
+.navbar[data-user='client'] {
+    position: sticky;
+    padding: .5rem 5%;
+    background-color: var(--navbar-client-bg);
+    color: var(--navbar-client-text);
+}
+
+.navbar .nav-item {
+    padding: 0 2px;
+}
+
+.navbar .nav-link {
+    color: white;;
+}
+
+.navbar[data-user='client'] #user-display {
+    font-size: 1.5rem;
+}
+
+/* Navbar Home */
+.navbar[data-user="home"] {
+    padding: .5rem 5%;
+    background-color: var(--navbar-home-bg);
+}
