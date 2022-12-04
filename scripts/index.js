@@ -34,7 +34,7 @@ function expandSidebar() {
         if($(window).width() > 780) {
             $("#sidebar.active .collapsible").animate({
                 width: "0"
-            }); 
+            }, 150); 
         }
         $('.sub-menu.show').collapse('hide');
     } 
@@ -43,7 +43,7 @@ function expandSidebar() {
         if($(window).width() > 780) {
             $("#sidebar .collapsible").animate({
                 width: "250px"
-            });
+            }, 150);
         }
     }
     $('#sidebar').toggleClass('active');
@@ -70,12 +70,13 @@ $(window).on("resize", (e) => {
 $("#sidebarCollapseToggler").click((e) => {
     expandSidebar();
 });
-y
+
 
 // Toggles
 const POPUP = "popup";
 const SLIDE = "slide";
 const TAB = "custom-tab";
+const FORM = "form";
 
 // Animation Names
 const SLIDE_OUT_TOP = "slide-out-top";
@@ -227,13 +228,13 @@ $("button[data-toggle]").on("click", function (e) {
 
     const btnCLicked = $(this);
     const toggleElement = btnCLicked.data("toggle");
+    const targetElementId = btnCLicked.data("target");
     
     switch (toggleElement) {
         case POPUP:
             showPopup(btnCLicked);
             break;
         case SLIDE:
-            const targetElementId = btnCLicked.data("target");
             const targetSlide = $(targetElementId);
 
             if ($("body").hasClass("slide-open")) {
@@ -250,6 +251,40 @@ $("button[data-toggle]").on("click", function (e) {
         case TAB:
             console.log("index.js: Show tab");
             switchTab(btnCLicked);
+            break;
+        case FORM:
+            console.log("Form button");
+              let form = $(btnCLicked.data("target"));
+
+              switch(btnCLicked.data("action")) {
+
+                case "edit":
+                    
+                    let submitBtn = $("button[data-toggle='form'][data-action='submit'][data-target='" + targetElementId + "']");
+                    
+                    btnCLicked.removeClass("show");
+                    btnCLicked.addClass("hide");
+
+                    submitBtn.addClass("show");
+                    submitBtn.removeClass("hide");
+
+                    form.addClass("form-open");
+                    form.find(".form-input-group").removeClass("display");
+
+                    break;
+
+                case "submit": 
+                    let editBtn = $("button[data-toggle='form'][data-action='edit'][data-target='" + targetElementId + "']");
+                    btnCLicked.removeClass("show");
+                    btnCLicked.addClass("hide");
+
+                    editBtn.addClass("show");
+                    editBtn.removeClass("hide");
+
+                    form.removeClass("form-open");
+                    form.find(".form-input-group").addClass("display");
+                    break;
+              }
             break;
     }
 });

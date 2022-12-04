@@ -22,6 +22,8 @@
     <!-- External CSS -->
     <!-- Change paths of href depending on the location of the file -->
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/sidebar.css">
     <link rel="stylesheet" href="../styles/astyles.css">
   </head>
   <body>
@@ -79,7 +81,9 @@
             <li class="">
               <a class="d-flex align-content-start" href="#">
                 <span class="material-icons">chat_bubble</span>
-                <div class="collapsible">Messages</div>
+                <div class="collapsible">
+                  <span>Messages</span>
+                </div>
               </a>
             </li>
             <li class="item-dropdown">
@@ -106,7 +110,9 @@
             <li class="">
               <a class="d-flex align-content-start" href="#">
                 <span class="material-icons">people</span>
-                <div class="collapsible">Users</div>
+                <div class="collapsible">
+                  <span>Users</span>
+                </div>
               </a>
             </li>
   
@@ -115,7 +121,9 @@
             <li class="">
               <a class="d-flex align-content-start" href="#">
                 <span class="material-icons">person</span>
-                <div class="collapsible">Profile</div>
+                <div class="collapsible">
+                  <span>Profile</span>
+                </div>
                 <span class="sr-only">(current)</span>
               </a>
             </li>
@@ -131,8 +139,7 @@
         </nav>
       </div>
       
-      <div class="content">
-        <main class="main">
+      <main class="content">
           <!-- Content -->
           <!-- Change content here -->
           <h2>Collapseible Sidebar using Bootstrap 4</h2>
@@ -172,9 +179,7 @@
           </p>
   
           <!-- End of content -->
-        </main>
-      </div>
-
+      </main>
     </div>
           
     <!-- Optional JavaScript -->
