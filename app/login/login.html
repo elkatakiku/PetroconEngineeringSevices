@@ -16,6 +16,8 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
     <link rel="stylesheet" href="../../styles/cstyles.css">
   </head>
   <body >
@@ -23,11 +25,9 @@
         <div class="login-container">
             <div class="row align-items-center">
                 <div class="col-lg-7 col-md-6 col-12">
-                    <div class="container">
-                        <span class="inline-block row brand">
-                            <img src="../../../images/petrocon-icon-2.png" class="brand-icon" alt="Petrocon logo">
-                            <span class="brand-name">Petrocon Engineering Services</span>
-                        </span>
+                    <div class="brand">
+                        <img src="../../images/petrocon-icon-2.png" class="brand-icon" alt="Petrocon logo">
+                        <span class="brand-name">Petrocon Engineering Services</span>
                     </div>
                     <header class="login-header-content">
                         <h1>Petrocon Engineering <br> Services can help.</h1>
@@ -40,7 +40,7 @@
 
                         <header class="text-center mb-5">
                             <h2>Login</h2>
-                            <p class="lead">Lorem ipsum dolor sit amet.</p>
+                            <p class="secondary-text">Lorem ipsum dolor sit amet.</p>
                         </header>
 
                         <div class="form-group">
@@ -56,17 +56,14 @@
 
                         <button type="button" name="" id="" class="btn btn-lg btn-block primary-btn">Login</button>
 
-                        <div class="container">
-                            <div class="row justify-content-between login-options">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue">
-                                        Remember me
-                                    </label>
-                                </div>
-                                <!-- <a href="">Forgot Password?</a> -->
-                                <button type="button" class="btn btn-link" data-toggle="popup" data-target="#popupforgotPass">Forgot Password?</button>
+                        <div class="login-options">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue">
+                                    Remember me
+                                </label>
                             </div>
+                            <button type="button" id="forgotPass" class="btn btn-link" data-toggle="popup" data-target="#popupforgotPass">Forgot Password?</button>
                         </div>
 
                         <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="popup" data-target="#popupsignUp">Create an account</button>
@@ -77,7 +74,6 @@
     </div>
 
     <!-- SIGNUP -->
-    <div class="container-fluid">
     <div class="popup fade" id="popupsignUp" tabindex="-1" aria-hidden="true">
         <div class="pcontainer">
             <div class="pcontent">
@@ -87,7 +83,7 @@
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <h2 class="ptitle">Sign Up</h2>
                     </div>
-                    <button type="button" class="close-btn" data-dismiss="popupsignUp" aria-label="Close">
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -144,45 +140,41 @@
             </div>
         </div>
     </div>
-    </div>
 
     <!-- FORGOT PASS -->
-    <div class="container-fluid">
-        <div class="popup fade" id="popupforgotPass" tabindex="-1" aria-hidden="true">
-            <div class="pcontainer">
-                <div class="pcontent">
-                    <div class="pheader">
-                        <div class="linear-center">
-                            <!-- Can add icon here -->
-                            <h2 class="ptitle">Forgot Password?</h2>
-                        </div>
-                        <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="popup fade" id="popupforgotPass" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                    <div class="linear-center">
+                        <h2 class="ptitle">Forgot Password?</h2>
                     </div>
-    
-                    <div class="pbody pad-6">
-                        <form action="table.html">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-7 col-8 col-12">
-                                        <div class="form-group">
-                                            <label for="">Enter your email address below and we'll send you further instructions on how to reset your password.</label>
-                                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Enter email address">
-                                        </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="pbody pad-6">
+                    <form action="table.html">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-7 col-8 col-12">
+                                    <div class="form-group">
+                                        <label for="">Enter your email address below and we'll send you further instructions on how to reset your password.</label>
+                                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Enter email address">
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div> 
+                        </div>
+                    </form>
+                </div> 
 
-                    <div class="pfooter pad-6">
-                        <button type="button" class="btn action-btn">Sign up</button>
-                        <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-                    </div>
-                    </div>
+                <div class="pfooter pad-6">
+                    <button type="button" class="btn action-btn">Sign up</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                 </div>
-        </div>
+                </div>
+            </div>
     </div>
     
     <!-- Optional JavaScript -->
@@ -195,6 +187,6 @@
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
     
     <!-- External JS -->
-    <script src="../../../scripts/index.js"></script>
+    <script src="../../scripts/index.js"></script>
   </body>
 </html>
