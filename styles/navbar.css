@@ -45,14 +45,18 @@
 }
 
 /* Brand */
-.navbar .brand .brand-icon {
+.brand {
+    display: flex;
+    gap: 20px;
+}
+
+.brand .brand-icon {
     width: 40px;
     height: 40px;
 }
 
-.navbar .brand .brand-name {
+.brand .brand-name {
     display: inline-block;
-    margin-left: 20px;
     max-width: 200px;
     font-size: .75rem;
     font-weight: 700;
