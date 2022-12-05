@@ -4,6 +4,7 @@ class HomeController extends Controller {
 
     public function __construct() {
         $this->setType(Controller::CLIENT);
+        $this->setPage(1);
     }
     
     public function index($name = '') {

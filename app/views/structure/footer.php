@@ -13,15 +13,14 @@ switch ($this->getType()) {
 
     <?php break;
   case Controller::ADMIN: ?>
-  
-        </main>
-      </div>
 
-    </div>
+  
 
     <?php break;
 }
 ?>
+
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

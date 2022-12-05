@@ -7,6 +7,8 @@ class App {
 
     
     public function __construct() {
+        session_start();
+        
         $url = $this->parseUrl();
 
         if(isset($url[0]) && file_exists('../app/controllers/' . $url[0] . '.controller.php')) {
@@ -25,7 +27,11 @@ class App {
         
         $this->params = $url ? array_values($url) : [];
 
-        call_user_func_array(array($this->controller, $this->method), $this->params);
+        try {
+            call_user_func_array(array($this->controller, $this->method), $this->params);
+        } catch (TypeError $e) {
+            // header("Location: ".SITE_URL);
+        }
     }
 
     private function parseUrl() {

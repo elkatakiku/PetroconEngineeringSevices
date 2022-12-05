@@ -19,6 +19,8 @@ defined('APP_PATH') ? null : define("APP_PATH", SITE_ROOT.DS.'app');
 defined('INC_PATH') ? null : define('INC_PATH', APP_PATH.DS.'includes');
 // D:\xampp\htdocs\PHPREST\core
 defined('CORE_PATH') ? null : define('CORE_PATH', APP_PATH.DS.'core');
+// Entities Path
+defined('ENTITIES_PATH') ? null : define('ENTITIES_PATH', APP_PATH.DS.'entities');
 
 // Public Path
 defined('PUBLIC_PATH') ? null : define('PUBLIC_PATH', DS.'PetroconEngineeringServices'.DS.'public');
@@ -35,3 +37,9 @@ require_once INC_PATH.DS.'Dbh.class.php';
 
 require_once CORE_PATH.DS."App.php";
 require_once CORE_PATH.DS."Controller.php";
+require_once CORE_PATH.DS."Model.php";
+
+include ENTITIES_PATH."/Expose.class.php";
+include ENTITIES_PATH."/Login.class.php";
+include ENTITIES_PATH."/Register.class.php";
+include ENTITIES_PATH."/Account.class.php";

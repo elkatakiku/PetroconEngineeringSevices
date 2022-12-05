@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Change the 'Page' to current page  -->
-    <title>Base Admin Structure</title>
+    <title>Petrocon</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,9 +20,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <!-- External CSS -->
-    <!-- Change paths of href depending on the location of the file -->
-    
     <link rel="stylesheet" href="<?=STYLES_PATH?>styles.css">
+    <link rel="stylesheet" href="<?=STYLES_PATH?>popup.css">
+    <link rel="stylesheet" href="<?=STYLES_PATH?>navbar.css">
+    <link rel="stylesheet" href="<?=STYLES_PATH?>sidebar.css">
     <?php
 
       switch ($this->getType()) {
@@ -38,28 +39,25 @@
     ?>
     
   </head>
-  <body <?php if ($this->getType() == Controller::CLIENT) {
-    echo 'data-spy="scroll" data-target="#navbar-client-petrocon" data-offset="500"';
-    }
-    ?>>
+  <body <?php 
+        if ($this->getType() == Controller::CLIENT) {
+          echo 'data-spy="scroll" data-target="#navbar-client-petrocon" data-offset="500"';
+        }
+      ?>
+    >
 
   <?php
 
   switch ($this->getType()) {
 
     case Controller::AUTH: ?>
-
-      <div class="login-background">
-        <div class="login-container">
-            <div class="row align-items-center">
-
       <?php break;
 
 
     case Controller::CLIENT: ?>
     
     <!-- Navbar -->
-    <nav id="navbar-client-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark">
+    <nav id="navbar-client-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark" data-user="<?= $this->getPage(); ?>">
       <a class="navbar-brand brand" href="#">
         <img src="<?=IMAGES_PATH?>petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
         <span class="brand-name">Petrocon Engineering Services</span>
@@ -113,7 +111,7 @@
         <nav>
           <ul class="list-unstyled components">
             <li class="active">
-              <a class="d-flex align-content-start" href="#">
+              <a class="d-flex align-content-start" href="index.html">
                 <span class="material-icons">dashboard</span>
                 <div class="collapsible">
                   <span>Dashboard</span>
@@ -135,7 +133,7 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
                 <li class="">
-                  <a class="" href="#">All</a>
+                  <a class="" href="/app/admin/projects.html">All</a>
                 </li>
                 <li class="">
                   <a class="" href="#">Done</a>
@@ -151,7 +149,9 @@
             <li class="">
               <a class="d-flex align-content-start" href="#">
                 <span class="material-icons">chat_bubble</span>
-                <div class="collapsible">Messages</div>
+                <div class="collapsible">
+                  <span>Messages</span>
+                </div>
               </a>
             </li>
             <li class="item-dropdown">
@@ -168,17 +168,19 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
                 <li class="">
-                  <a class="" href="#">Employees</a>
+                  <a class="" href="/app/admin/employees-admin.html">Employees</a>
                 </li>
                 <li class="">
-                  <a class="" href="#">Workers</a>
+                  <a class="" href="/app/admin/workers-admin.html">Workers</a>
                 </li>
               </ul>
             </li>
             <li class="">
-              <a class="d-flex align-content-start" href="#">
+              <a class="d-flex align-content-start" href="/app/admin/users-admin.html">
                 <span class="material-icons">people</span>
-                <div class="collapsible">Users</div>
+                <div class="collapsible">
+                  <span>Users</span>
+                </div>
               </a>
             </li>
   
@@ -187,12 +189,14 @@
             <li class="">
               <a class="d-flex align-content-start" href="#">
                 <span class="material-icons">person</span>
-                <div class="collapsible">Profile</div>
+                <div class="collapsible">
+                  <span>Profile</span>
+                </div>
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="">
-              <a class="d-flex align-content-start" href="#">
+              <a class="d-flex align-content-start" href="/app/login/login.html">
                 <span class="material-icons">logout</span>
                 <div class="collapsible">
                   <span>Logout</span>
@@ -202,9 +206,6 @@
           </ul>
         </nav>
       </div>
-      
-      <div class="content">
-        <main class="main <?= $data['dashboard'] ?>">
 
       <?php break;
   }

@@ -304,7 +304,7 @@
 .login-container {
     width: 100%;
     margin: auto;
-    padding: 5% 10%;
+    padding: 2rem 4rem;
     background-color: var(--backdrop);
     color: white;
     backdrop-filter: blur(2px);
@@ -313,9 +313,8 @@
     transition: .5s all linear;
 }    
 
-
 .login-header-content {
-    padding: 10% 0;
+    padding: 2rem 0;
 }
 
 .form-login, .form-signup {
@@ -329,9 +328,6 @@
     color: var(--primary-text);
     background-color: white;
     box-shadow: 10px 10px 5px rgba(26, 22, 38, 0.3);
-    position: relative;
-    left: 0;
-
     transition: .2s all linear;
 }
 
@@ -340,7 +336,16 @@
 }
 
 .form-login .login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 5% 0 12%;
+    font-size: .75rem;
+}
+
+#forgotPass {
+    padding: 0;
+    color: var(--primary-text);
 }
 
 /* || Home */

@@ -7,10 +7,22 @@ class Controller {
     const ADMIN = "admin";
     
     private $type;
+    private $pageNumber;
 
-    protected function model($model) {
+    private $model;
+
+    protected function setModel($model) {
         require_once '../app/models/' . $model . '.model.php';
-        return new $model();
+        $this->model = new $model();
+    }
+
+    protected function getModel() {
+        return $this->model;
+    }
+
+    protected function createEntity($entity) {
+        require_once '../app/entities/' . $entity . '.class.php';
+        return new $entity();
     }
 
     public function view($view, $data = []) {
@@ -25,5 +37,18 @@ class Controller {
 
     protected function setType($type) {
         $this->type = $type;
+    }
+
+    protected function setPage($pageNumber) {
+        $this->pageNumber = $pageNumber - 1;
+    }
+
+    protected function getPage() {
+        $pages = [
+            Controller::CLIENT => ["home"], 
+            Controller::ADMIN => ["dashboard", "projects", "messages", "team", "users", "profile"]
+        ];
+
+        return $pages[$this->type][$this->pageNumber];
     }
 }
