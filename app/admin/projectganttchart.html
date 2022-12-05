@@ -20,9 +20,11 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
+    <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
   </head>
-  <body class="white-section">
+  <body class="body-wrapper">
     
     <nav class="navbar navbar-expand-md navbar-light">
         <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
@@ -32,9 +34,10 @@
         <span class="material-icons">circle_notifications</span>
         <p class="user-name">Eli Lamzon</p>
         <span id="user-display" class="material-icons">account_circle</span>
-      </nav>
+    </nav>
 
-      <div class="wrapper">
+    <div class="wrapper">
+        <!-- Sidebar -->
         <div id="sidebar">
           <nav>
             <ul class="list-unstyled components">
@@ -135,17 +138,20 @@
           </nav>
         </div>
 
-      <div class="content">
-      <div id="content">
-        <main class="main dashboard">
-                <!-- Content -->
-          <div class="main-content">
+        <main class="content">
+            <!-- Header -->
             <div class="page-header">
-              <h1 class="page-title">Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</h1>
-              <small>Robinson Palace, Antipolo City</small>
+                <div class="project-info">
+                    <div>
+                        <h1 class="page-title">Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</h1>
+                        <small>Robinson Palace, Antipolo City</small>
+                    </div>
+                </div>
+                <button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
+                <span class="material-icons-outlined">info</span>
+                </button>
             </div>
 
-            <!-- Content -->
             <nav class="nav-tab-container border-bottom">
                 <ul class="nav-tab">
                     <li class="nav-tab-item active">
@@ -648,15 +654,8 @@
                     </div>
                 </div>
             </div>
-            <!-- End of content -->
-        
         </main>
     </div>
-    </div>
-
-    <!-- Timeline Slide -->
-
-    <!-- Details Slide -->
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -19,9 +19,11 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
+    <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
   </head>
-  <body class="white-section">
+  <body class="body-wrapper">
 
     <nav class="navbar navbar-expand-md navbar-light">
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
@@ -134,172 +136,167 @@
         </nav>
       </div>
 
-      <div class="content">
-      <main class="main wrapper">  
-        <main class="main dashboard">
-          <!-- Content -->
-          <div class="main-content">
-            <div class="page-header">
-              <h1 class="page-title">Projects</h1>
-            </div>
+      <div class="content"> 
+        
+          <!-- Header -->
+          <div class="page-header">
+            <h1 class="page-title">Projects</h1>
+            
+            <!-- New Projects -->
+            <button type="button" class="btn primary-btn align-self-center" 
+                  data-toggle="popup" data-target="#projectPopup">
+              Create Project
+            </button>
+          </div>
 
-            <nav class="nav-tab-container">
-              <!-- Search -->
-              <div class="search-container">
-                <form action="" class="search-form">
-                  <div class="input-container">
-                    <div class="input-prepend">
-                      <i class="fa fa-search icon" aria-hidden="true"></i>
-                    </div>
-                    <input type="text" name="" id="" placeholder="Search Project">
+          <!-- Navigation Tab -->
+          <nav class="nav-tab-container">
+            <ul class="nav-tab">
+                <li class="nav-tab-item active">
+                  <button class="link-btn">All</button>
+                </li>
+                <li class="nav-tab-item">
+                  <button class="link-btn">Ongoing</button>
+                </li>
+                <li class="nav-tab-item">
+                  <button class="link-btn">Done</button>
+                </li>
+                <li class="nav-tab-item">
+                  <button class="link-btn">Pending</button>
+                </li>
+            </ul>
+
+            <!-- Search -->
+            <div class="search-container">
+              <form action="" class="search-form">
+                <div class="input-container">
+                  <div class="input-prepend">
+                    <i class="fa fa-search icon" aria-hidden="true"></i>
                   </div>
-                </form>
-              </div>
-    
-              <!-- New Projects -->
-              <button type="button" class="btn primary-btn align-self-center" 
-                    data-toggle="popup" data-target="#projectPopup">
-                Add Project
-              </button>
-            </nav>
+                  <input type="text" name="" id="" placeholder="Search Project">
+                </div>
+              </form>
+            </div>
+          </nav>
 
-        <nav class="nav-tab-container">
-          <ul class="nav-tab">
-              <li class="nav-tab-item active">
-                <button class="link-btn">All</button>
-              </li>
-              <li class="nav-tab-item">
-                <button class="link-btn">Ongoing</button>
-              </li>
-              <li class="nav-tab-item">
-                <button class="link-btn">Done</button>
-              </li>
-              <li class="nav-tab-item">
-                <button class="link-btn">Pending</button>
-              </li>
-          </ul>
-        </nav>
+          <!-- Project Table -->
+          <div class="mesa-container">
+            <table class="mesa">
+              <thead class="mesa-head">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col" class="tname projectName">Project</th>
+                  <th scope="col">Last change</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr class="">
+                  <th scope="row">2</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr class="">
+                  <th scope="row">2</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr class="">
+                  <th scope="row">2</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr class="">
+                  <th scope="row">2</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>21/11/2022</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-        <!-- Project Table -->
-        <div class="mesa-container">
-          <table class="mesa">
-            <thead class="mesa-head">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col" class="tname projectName">Project</th>
-                <th scope="col">Last change</th>
-                <th scope="col">Status</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">1</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr class="">
-                <th scope="row">2</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr class="">
-                <th scope="row">2</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr class="">
-                <th scope="row">2</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-              <tr class="">
-                <th scope="row">2</th>
-                <td>
-                  <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-                  <small>Robinsons Palace, Antipolo City</small>
-                </td>
-                <td>21/11/2022</td>
-                <td>Done</td>
-                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- End of content -->
-      </main>
-    </div>
+      </div>
     </div>
 
     <!-- Popup -->
@@ -307,7 +304,7 @@
       <div class="pcontainer">
         <div class="pcontent">
           <div class="pheader">
-            <div class="linear-center-h">
+            <div class="linear-center">
               <i class="fas fa-layer-group fa-lg"></i>
               <h2 class="ptitle">Create a new project</h2>
             </div>
@@ -428,36 +425,6 @@
       $(window).on("resize", () => {
         setNavTab();
       });
-
-      
-      // $(".popup button[data-dismiss]").click(function (e) { 
-      //   e.preventDefault();
-      //   console.log(e);
-      //   // console.log("dismissing: " + $(this).attr("data-dismiss"));
-      //   if ($(".popup.show .pcontainer").hasClass("popup-below")) {
-      //     $(".popup.show .pcontainer").addClass("slide-down");
-
-      //     $(".popup.show#projectPopup .pcontainer").on("animationend", function (e) {
-      //       console.log(e);
-
-      //       // Checks if slide down ended
-      //       if (e.originalEvent.animationName === "slide-down") {
-
-      //         $("#projectPopup").popup('hide');
-
-      //         // Removes classes, styles and backdrop
-      //         $("body").removeClass("popup-open");
-      //         $(".popup .pcontainer").removeClass("slide-down");
-      //         projectPopup.removeClass("show");
-
-      //         projectPopup.css("padding-right", "");
-      //         projectPopup.css("display", "none");
-
-      //         // $(".popup-backdrop").remove();
-      //       }
-      //     });
-      //   }
-      // });      
     </script>
   </body>
 </html>
