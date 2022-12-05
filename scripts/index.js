@@ -70,7 +70,7 @@ $(window).on("resize", (e) => {
 $("#sidebarCollapseToggler").click((e) => {
     expandSidebar();
 });
-y
+
 
 // Toggles
 const POPUP = "popup";
