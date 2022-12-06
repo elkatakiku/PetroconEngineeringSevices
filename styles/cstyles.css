@@ -406,6 +406,21 @@
     text-align: right;
 }
 
+/* zoomEfferct*/
+.zoomEffect{
+    display:inline-block;
+    border:30;
+    position: relative;
+    transition: all 200ms ease-in;
+    transform: scale(1);   
+    width: 100%;
+}
+.zoomEffect:hover{
+    z-index: 2;   
+    transition: all 200ms ease-in;
+    transform: scale(1.2);
+}
+
 
 /* || MEDIA QUERIES */
 /* SM */
