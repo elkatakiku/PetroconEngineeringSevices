@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/popup.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
-    <link rel="stylesheet" href="../../styles/popup.css">
   </head>
   <body class="body-wrapper">
     
@@ -167,11 +166,15 @@
                     </li>
                 </ul>
 
-                <div>
-                    <button type="button" class="btn action-btn" data-toggle="popup" data-target="#turnover">
-                        Invoice
-                    </button>
-                    <button class="btn action-btn">Turn Over</button>
+                <div>                   
+                    <!--
+                    <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectInvoice">Invoice</button>
+                    <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectTurnOver">Turn Over</button>
+                        -->
+                    
+                    <a class="btn action-btn" data-toggle="custom-tab" >Invoice</a>
+                    <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
+            
                 </div>
 
             </nav>
@@ -280,6 +283,7 @@
                     background-color:#0080FF;
                 }   
             </style>
+
 
             <div class="slide-container">
                 <div class="custom-tab-container">
@@ -586,6 +590,7 @@
                         </div>
                     </div>
 
+                
                     <!-- Project Info -->
                     <div class="slide" id="projectInfo" data-side="right">
                         <div class="slide-content">
@@ -652,7 +657,6 @@
             
                         <div class="slide-footer">
                             footer
-                        </div>
                         </div>
                     </div>
                 </div>

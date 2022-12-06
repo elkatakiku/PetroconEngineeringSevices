@@ -16,22 +16,28 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../../styles/styles.css">
-    <link rel="stylesheet" href="../../styles/navbar.css">
-    <link rel="stylesheet" href="../../styles/popup.css">
     <link rel="stylesheet" href="../../styles/cstyles.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
   </head>
   <body >
     <div class="login-background">
         <div class="login-container">
             <div class="row align-items-center">
                 <div class="col-lg-7 col-md-6 col-12">
-                    <div class="brand">
-                        <img src="../../images/petrocon-icon-2.png" class="brand-icon" alt="Petrocon logo">
-                        <span class="brand-name">Petrocon Engineering Services</span>
+                    <div class="container">
+                        <span class="inline-block row brand">
+                            <img src="../../images/petrocon-icon-2.png" class="brand-icon" alt="Petrocon logo">
+                        
+                            <span class="brand-name">Petrocon Engineering Services</span>
+                        </span>
                     </div>
                     <header class="login-header-content">
                         <h1>Petrocon Engineering <br> Services can help.</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <p class="subtitle">
+                            Accident precaution is our intention, 
+                            <br>
+                            For every project, we provide quality construction.
+                        </p>
                     </header>
                 </div>
                 
@@ -40,7 +46,7 @@
 
                         <header class="text-center mb-5">
                             <h2>Login</h2>
-                            <p class="secondary-text">Lorem ipsum dolor sit amet.</p>
+                            <p class="lead">New to this site? Click create an account button below and sign up!</p>
                         </header>
 
                         <div class="form-group">
@@ -56,17 +62,20 @@
 
                         <button type="button" name="" id="" class="btn btn-lg btn-block primary-btn">Login</button>
 
-                        <div class="login-options">
-                            <div class="form-check">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue">
-                                    Remember me
-                                </label>
+                        <div class="container">
+                            <div class="row justify-content-between login-options">
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue">
+                                        Remember me
+                                    </label>
+                                </div>
+                                <!-- <a href="">Forgot Password?</a> -->
+                                <button type="button" class="btn btn-link" data-toggle="popup" data-target="#popupforgotPass">Forgot Password?</button>
                             </div>
-                            <button type="button" id="forgotPass" class="btn btn-link" data-toggle="popup" data-target="#popupforgotPass">Forgot Password?</button>
                         </div>
 
-                        <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="popup" data-target="#popupsignUp">Create an account</button>
+                        <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="popup" data-target="#popupLargeId">Create an account</button>
                     </form>
                 </div>
             </div>
@@ -74,21 +83,22 @@
     </div>
 
     <!-- SIGNUP -->
-    <div class="popup fade" id="popupsignUp" tabindex="-1" aria-hidden="true">
-        <div class="pcontainer">
+    <!-- Popup -->
+    <div class="popup fade" id="popupLargeId" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer popup-lg">
             <div class="pcontent">
                 <div class="pheader">
-                    <div class="linear-center">
-                        <!-- Can add icon here -->
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <h2 class="ptitle">Sign Up</h2>
-                    </div>
-                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <h2 class="ptitle">Sign Up</h2>
                 </div>
-
-                <div class="pbody pad-6">
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
                     <form action="table.html">
                         <div class="container">
                             <div class="row">
@@ -132,50 +142,124 @@
                         </div>       
                     </form>
                 </div>
-
-                <div class="pfooter pad-6">
-                <button type="button" class="btn action-btn">Sign up</button>
+    
+                <div class="pfooter">
+                <button type="button" class="btn action-btn"  data-toggle="popup" data-target="#popupMediumId">Sign Up</button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
+
     <!-- FORGOT PASS -->
-    <div class="popup fade" id="popupforgotPass" tabindex="-1" aria-hidden="true">
-        <div class="pcontainer">
-            <div class="pcontent">
-                <div class="pheader">
+    <div class="container-fluid">
+        <div class="popup fade" id="popupforgotPass" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer">
+                <div class="pcontent">
+                    <div class="pheader">
+                        <div class="linear-center">
+                            <!-- Can add icon here -->
+                            <h2 class="ptitle">Forgot Password?</h2>
+                        </div>
+                        <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+    
+                    <div class="pbody pad-6">
+                        <form action="table.html">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-7 col-8 col-12">
+                                        <div class="form-group">
+                                            <label for="">Enter your email address below and we'll send you further instructions on how to reset your password.</label>
+                                            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Enter email address">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div> 
+
+                    <div class="pfooter pad-6">
+                        <button type="button" class="btn action-btn">Submit</button>
+                        <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    
+<!-- VERIFY -->   
+
+    <!-- Default Size of Popup-->
+   
+        <!-- Popup -->
+        <div class="popup fade" id="popupMediumId" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer popup-md">
+                <div class="pcontent">
+                    <div class="pheader">
                     <div class="linear-center">
-                        <h2 class="ptitle">Forgot Password?</h2>
+                        <!-- Can add icon here -->
+                        <i class="fas fa-image"></i>
+                        <h2 class="ptitle">Verify Your Account</h2>
+    
                     </div>
                     <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
-
-                <div class="pbody pad-6">
-                    <form action="table.html">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-7 col-8 col-12">
-                                    <div class="form-group">
-                                        <label for="">Enter your email address below and we'll send you further instructions on how to reset your password.</label>
-                                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Enter email address">
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+        
+                    <div class="pbody">
+                        <p align="center">We've sent an email to xxxxxxxxx@gmail.com to verify your email address and activate your account. Enter the confirmation code we sent to your email. </p>
+                        <div class="form-group">
+                                
+                            <input type="" class="form-control" name="" id="" placeholder="Enter confirmation code">
                         </div>
-                    </form>
-                </div> 
-
-                <div class="pfooter pad-6">
-                    <button type="button" class="btn action-btn">Sign up</button>
-                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-                </div>
+                    </div>
+        
+                    <div class="pfooter">
+                        <button type="button" class="btn action-btn"  data-toggle="popup" data-target="#popupSmallId">Submit</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Back to Login</button>
+                    </div>
                 </div>
             </div>
-    </div>
+        </div>
+
+        <!-- VERIFIEEEEED-->   
+
+    <!-- Small Size of Popup-->
+   
+        <!-- Popup -->
+        <div class="popup fade" id="popupSmallId" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer popup-md">
+                <div class="pcontent">
+                    <div class="pheader">
+                    <div class="linear-center">
+                        <!-- Can add icon here -->
+                        <i class="fa-sharp fa-solid fa-badge-check"></i>
+                        <h2 class="ptitle">Email Verified</h2>
+    
+                    </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+        
+                    <div class="pbody">
+                        <p align="center">Your email was successfully verified.</p>
+                    </div>
+        
+                    <div class="pfooter">
+                    <button type="button" class="btn action-btn">Continue</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Back to Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
