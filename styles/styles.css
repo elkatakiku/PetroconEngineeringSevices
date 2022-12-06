@@ -749,6 +749,9 @@ form .row .right {
 }
 
 /* || Slide element */
+body:has(.slide-fixed.active).slide-open {
+    overflow: hidden;
+}
 
 .slide-container {
     flex: 2;
@@ -765,6 +768,13 @@ form .row .right {
     /* overflow: auto; */
 }
 
+.slide.slide-fixed {
+    position: fixed;
+    z-index: 110;
+    top: 0;
+    right: -100%;
+}
+
 .slide-content {
     width: 100%;
     height: 100%;
@@ -773,6 +783,10 @@ form .row .right {
     justify-content: space-between;
     border: 1px solid var(--border-rgba-color);
     background-color: white;
+}
+
+.slide.slide-fixed .slide-content {
+    height: 100vh;
 }
 
 .slide-header {
@@ -791,6 +805,10 @@ form .row .right {
     flex-grow: 1;
     width: 100%;
     padding: 1rem 2rem;
+}
+
+.slide-fixed .slide-body {
+    overflow-y: auto;
 }
 
 .slide-footer {

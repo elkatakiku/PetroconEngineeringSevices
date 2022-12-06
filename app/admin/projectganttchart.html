@@ -26,9 +26,10 @@
     <link rel="stylesheet" href="../../styles/astyles.css">
     <link rel="stylesheet" href="../../styles/popup.css">
   </head>
+
   <body class="body-wrapper">
     
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav id="topbar" class="navbar navbar-expand-md navbar-light">
         <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
             <span class="material-icons">menu</span>
         </button>
@@ -150,8 +151,82 @@
                     </div>
                 </div>
                 <button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
-                <span class="material-icons-outlined">info</span>
+                    <span class="material-icons-outlined">info</span>
                 </button>
+            </div>
+
+            <!-- Project Info -->
+            <div class="slide slide-fixed" id="projectInfo" data-side="right">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <button class="btn icon-btn" data-dismiss="slide">
+                        <span class="material-icons">navigate_next</span>
+                        </button>
+                        <h2 class="slide-title">Details</h2>
+                        <div>
+                        <button class="btn link-btn show" data-toggle="form" data-action="edit" data-target="#projectDetailForm">
+                            Edit
+                        </button>
+                        <button class="btn link-btn" type="submit" form="#projectDetailForm" data-toggle="form" data-action="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
+                            Done
+                        </button>
+                        </div>
+                    </div>
+    
+                    <div class="slide-body">
+                        <form action="" id="projectDetailForm">
+        
+                            <h3 class="detail-header">General</h3>
+            
+                            <div class="form-input-group display">
+                                <label for="">Name of Client</label>
+                                <p>Yvana Eunice Magno</p>
+                                <input type="text" value="Yvana Eunice Magno" autofocus>
+                            </div>
+            
+                            <div class="form-input-group display">
+                                <label for="">Building no.</label>
+                                <p>Building 1, 2, 3</p>
+                                <input type="text" value="Building 1, 2, 3">
+                            </div>
+            
+                            <div class="form-input-group display">
+                                <label for="">Work Description</label>
+                                <p>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</p>
+                                <textarea name="" id="">Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
+                            </div>
+            
+                            <h3 class="detail-header">Project</h3>
+
+                            <div class="linear">
+                
+                                <div class="form-input-group display">
+                                    <label for="">Purchase Order #</label>
+                                    <p>20221526</p>
+                                    <input type="number" value="20221526">
+                                </div>
+                
+                                <div class="form-input-group display">
+                                    <label for="">Date of Award</label>
+                                    <p>11/26/2022</p>
+                                    <input type="date" value="11/26/2022">
+                                </div>
+
+                            </div>
+            
+                            <div class="form-input-group display">
+                                <label for="">Location</label>
+                                <p>Rosario, Batangas</p>
+                                <input type="text" value="Rosario, Batangas">
+                            </div>
+            
+                        </form>
+                    </div>
+        
+                    <div class="slide-footer">
+                        footer
+                    </div>
+                </div>
             </div>
 
             <nav class="nav-tab-container border-bottom">
@@ -585,76 +660,6 @@
                             </table>
                         </div>
                     </div>
-
-                    <!-- Project Info -->
-                    <div class="slide" id="projectInfo" data-side="right">
-                        <div class="slide-content">
-                        <div class="slide-header">
-                            <button class="btn icon-btn" data-dismiss="slide">
-                            <span class="material-icons">navigate_next</span>
-                            </button>
-                            <h2 class="slide-title">Details</h2>
-                            <div>
-                            <button class="btn link-btn show" data-toggle="form" data-action="edit" data-target="#projectDetailForm">
-                                Edit
-                            </button>
-                            <button class="btn link-btn" type="submit" form="#projectDetailForm" data-toggle="form" data-action="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
-                                Done
-                            </button>
-                            </div>
-                        </div>
-            
-                        <div class="slide-body">
-                            <form action="" id="projectDetailForm">
-            
-                            <h3 class="detail-header">General</h3>
-            
-                            <div class="form-input-group display">
-                                <label for="">Name of Client</label>
-                                <p>Yvana Eunice Magno</p>
-                                <input type="text" value="Yvana Eunice Magno" autofocus>
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Building no.</label>
-                                <p>Building 1, 2, 3</p>
-                                <input type="text" value="Building 1, 2, 3">
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Work Description</label>
-                                <p>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</p>
-                                <textarea name="" id="">Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
-                            </div>
-            
-                            <h3 class="detail-header">Project</h3>
-            
-                            <div class="form-input-group display">
-                                <label for="">Purchase Order #</label>
-                                <p>20221526</p>
-                                <input type="number" value="20221526">
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Date of Award</label>
-                                <p>11/26/2022</p>
-                                <input type="date" value="11/26/2022">
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Location</label>
-                                <p>Rosario, Batangas</p>
-                                <input type="text" value="Rosario, Batangas">
-                            </div>
-            
-                            </form>
-                        </div>
-            
-                        <div class="slide-footer">
-                            footer
-                        </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </main>
@@ -703,20 +708,16 @@
     <script src="../../scripts/index.js"></script>
 
     <script>
-        function initSlide() {
-            $(".custom-tab-container:has(.slide[data-side='left'])").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
-            $(".custom-tab-container:has(.slide[data-side='right'])").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
-        }
-    
-        let resizeObserver = new ResizeObserver(entries => {
-            console.log("The element was resized");
-            initSlide();
-        });
+        
 
-        resizeObserver.observe($(".slide[data-side='left']")[0]);
-        resizeObserver.observe($(".slide[data-side='right']")[0]);
+        // $(".slide.slide-fixed").css({
+        //     "top": $("#topbar")[0].scrollHeight + "px"
+        // });
 
-        initSlide();
+        // $(".slide.slide-fixed .slide-content").css({
+        //     "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
+        // });
+
     </script>
   </body>
 </html>

@@ -25,7 +25,7 @@
   </head>
   <body class="body-wrapper">
 
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav id="topbar" class="navbar navbar-expand-md navbar-light">
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
           <span class="material-icons">menu</span>
       </button>
@@ -407,6 +407,7 @@
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
 
     <!-- External JS -->
+    <script src="../../scripts/popup.js"></script>
     <script src="../../scripts/index.js"></script>
 
     <script>
@@ -419,6 +420,9 @@
       //     thead.css("top", "0");
       //   }
       // }
+
+      let popup = new Popup();
+      popup.render();
 
       setNavTab();
 

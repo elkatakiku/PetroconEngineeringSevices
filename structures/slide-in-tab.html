@@ -20,10 +20,12 @@
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/sidebar.css">
     <link rel="stylesheet" href="../styles/astyles.css">
   </head>
   <body class="body-wrapper">
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav id="topbar" class="navbar navbar-expand-md navbar-light">
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
           <span class="material-icons">menu</span>
       </button>
@@ -281,20 +283,20 @@
     <script src="../scripts/index.js"></script>
 
     <script>
-      function initSlide() {
-            $(".custom-tab-container:has(.slide[data-side='left'])").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
-            $(".custom-tab-container:has(.slide[data-side='right'])").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
-        }
+      // function initSlide() {
+      //       $(".custom-tab-container:has(.slide[data-side='left'])").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
+      //       $(".custom-tab-container:has(.slide[data-side='right'])").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
+      //   }
     
-        let resizeObserver = new ResizeObserver(entries => {
-            console.log("The element was resized");
-            initSlide();
-        });
+      //   let resizeObserver = new ResizeObserver(entries => {
+      //       console.log("The element was resized");
+      //       initSlide();
+      //   });
 
-        resizeObserver.observe($(".slide[data-side='left']")[0]);
-        resizeObserver.observe($(".slide[data-side='right']")[0]);
+      //   resizeObserver.observe($(".slide[data-side='left']")[0]);
+      //   resizeObserver.observe($(".slide[data-side='right']")[0]);
 
-        initSlide();
+      //   initSlide();
 
     </script>
   </body>
