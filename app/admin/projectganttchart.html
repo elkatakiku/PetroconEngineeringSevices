@@ -24,7 +24,6 @@
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/popup.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
-    <link rel="stylesheet" href="../../styles/popup.css">
   </head>
 
   <body class="body-wrapper">
@@ -242,11 +241,15 @@
                     </li>
                 </ul>
 
-                <div>
-                    <button type="button" class="btn action-btn" data-toggle="popup" data-target="#turnover">
-                        Invoice
-                    </button>
-                    <button class="btn action-btn">Turn Over</button>
+                <div>                   
+                    <!--
+                    <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectInvoice">Invoice</button>
+                    <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectTurnOver">Turn Over</button>
+                        -->
+                    
+                    <a class="btn action-btn" data-toggle="custom-tab" >Invoice</a>
+                    <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
+            
                 </div>
 
             </nav>
@@ -355,6 +358,7 @@
                     background-color:#0080FF;
                 }   
             </style>
+
 
             <div class="slide-container">
                 <div class="custom-tab-container">
@@ -658,6 +662,76 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+
+                
+                    <!-- Project Info -->
+                    <div class="slide" id="projectInfo" data-side="right">
+                        <div class="slide-content">
+                        <div class="slide-header">
+                            <button class="btn icon-btn" data-dismiss="slide">
+                            <span class="material-icons">navigate_next</span>
+                            </button>
+                            <h2 class="slide-title">Details</h2>
+                            <div>
+                            <button class="btn link-btn show" data-toggle="form" data-action="edit" data-target="#projectDetailForm">
+                                Edit
+                            </button>
+                            <button class="btn link-btn" type="submit" form="#projectDetailForm" data-toggle="form" data-action="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
+                                Done
+                            </button>
+                            </div>
+                        </div>
+            
+                        <div class="slide-body">
+                            <form action="" id="projectDetailForm">
+            
+                            <h3 class="detail-header">General</h3>
+            
+                            <div class="form-input-group display">
+                                <label for="">Name of Client</label>
+                                <p>Yvana Eunice Magno</p>
+                                <input type="text" value="Yvana Eunice Magno" autofocus>
+                            </div>
+            
+                            <div class="form-input-group display">
+                                <label for="">Building no.</label>
+                                <p>Building 1, 2, 3</p>
+                                <input type="text" value="Building 1, 2, 3">
+                            </div>
+            
+                            <div class="form-input-group display">
+                                <label for="">Work Description</label>
+                                <p>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</p>
+                                <textarea name="" id="">Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
+                            </div>
+            
+                            <h3 class="detail-header">Project</h3>
+            
+                            <div class="form-input-group display">
+                                <label for="">Purchase Order #</label>
+                                <p>20221526</p>
+                                <input type="number" value="20221526">
+                            </div>
+            
+                            <div class="form-input-group display">
+                                <label for="">Date of Award</label>
+                                <p>11/26/2022</p>
+                                <input type="date" value="11/26/2022">
+                            </div>
+            
+                            <div class="form-input-group display">
+                                <label for="">Location</label>
+                                <p>Rosario, Batangas</p>
+                                <input type="text" value="Rosario, Batangas">
+                            </div>
+            
+                            </form>
+                        </div>
+            
+                        <div class="slide-footer">
+                            footer
                         </div>
                     </div>
                 </div>
