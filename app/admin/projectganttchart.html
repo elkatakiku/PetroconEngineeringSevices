@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../styles/styles.css">
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
     <link rel="stylesheet" href="../../styles/popup.css">
   </head>
@@ -167,8 +168,9 @@
                 </ul>
 
                 <div>
-                    <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupXLargeId">
-                        Invoice</button>
+                    <button type="button" class="btn action-btn" data-toggle="popup" data-target="#turnover">
+                        Invoice
+                    </button>
                     <button class="btn action-btn">Turn Over</button>
                 </div>
 
@@ -658,32 +660,36 @@
         </main>
         
     </div>
-        <!-- Popup -->
-        <div class="popup fade" id="popupXLargeId" tabindex="-1" aria-hidden="true">
-            <div class="pcontainer popup-lg">
-                <div class="pcontent">
-                    <div class="pheader">
-                    <div class="linear-center">
-                        <!-- Can add icon here -->
-                        <i class="fas fa-image"></i>
-                        <h2 class="ptitle">PETROCON ENGINEERING SERVICES</h2>
-                    </div>
-                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-        
-                    <div class="pbody">
-                    Popup body
-                    </div>
-        
-                    <div class="pfooter">
-                    <button type="button" class="btn action-btn">Submit</button>
-                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-                    </div>
+
+
+    <!-- Popup -->
+    <div class="popup fade" id="turnover" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer popup-sm">
+            <div class="pcontent">
+                <div class="pheader">
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <i class="fas fa-image"></i>
+                    <h2 class="ptitle">Popup Title</h2>
+                </div>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
+                Popup body
+                </div>
+    
+                <div class="pfooter">
+                <button type="button" class="btn action-btn">Submit</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>
         </div>
+    </div>
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
