@@ -60,6 +60,14 @@ class SignupController extends Controller {
             echo "<br>Username or email is taken";
             return -104;
         }
+
+        if (!$this->isOldEnough()) {
+            echo "<br>Should be 18 and above.";
+            return -105;
+        }
+
+        // Test: Testing validations
+        // return;
         
         
         // Create login
@@ -98,5 +106,12 @@ class SignupController extends Controller {
     private function checkUser() {
         echo "<br>Will check user";
         return $this->getModel()->checkUser($this->username, $this->email);
+    }
+
+    private function isOldEnough() {
+        $birthdate = new DateTime($this->birthdate);
+        $currentDate =  new DateTime(date('Y-m-d'));
+        $diff = $birthdate->diff($currentDate);
+        return $diff->y >= 18;
     }
 }

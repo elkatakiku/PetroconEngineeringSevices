@@ -22,13 +22,12 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
     }
 });
 
-// $("#createAccountBtn").click(function(){
-        // $(".form-login").hide();
-    // $(".form-login").css("left", "100%").fadeOut();
-// });
-
 // Sidebar
-function expandSidebar() { 
+function expandSidebar(submenu = false) { 
+    if (submenu && $("#sidebar").hasClass("active")) {
+        return;
+    }
+
     if ($("#sidebar").hasClass("active")) {
         // Collapse sidebar
         if($(window).width() > 780) {
@@ -46,13 +45,14 @@ function expandSidebar() {
             }, 150);
         }
     }
+
     $('#sidebar').toggleClass('active');
 }
 
 // Sidebar Buttons Listener
 $('.sub-menu').on('show.bs.collapse' , () => {
     if ($(window).width() > 768) {
-        expandSidebar();
+        expandSidebar(true);
     }
 });
 
@@ -178,49 +178,121 @@ function switchTab (btn) {
 }
 
 // Slide
+if ($("#topbar").length > 0) {
+    $(".slide.slide-fixed").css({
+        "top": $("#topbar")[0].scrollHeight + "px"
+    });
+    
+    $(".slide.slide-fixed .slide-content").css({
+        "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
+    });
+} else {
+    console.log("Error! No topbar found.");
+}
+
+function initSlide() {
+    console.log("Initializing slide");
+    $(".slide-container .slide[data-side='left']").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
+    $(".slide-container .slide[data-side='right']").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
+}
+
+if ($(".slide").length > 0) {
+    let resizeObserver = new ResizeObserver(entries => {
+        console.log("The element was resized");
+        initSlide();
+    });
+    
+    resizeObserver.observe($(".slide[data-side='left']")[0]);
+    resizeObserver.observe($(".slide[data-side='right']")[0]);
+
+    initSlide();
+}
+
 function toggleSlide(toggle, slideElement) {
     let side = slideElement.data("side");
     console.log("toggle: " + toggle);
     console.log("side: " + side);
+    
     switch (toggle) {
+        
       case "show": 
         console.log("Opening slide");
 
-        
         $(slideElement).addClass("active");
         $("body").addClass("slide-open");
 
-        let leftPos = (side === "left") ? $(".slide[data-side='left']").width() + "px" : "auto";
-        let rightPos = (side === "right") ? $(".slide[data-side='right']").width() + "px" : "auto";
+        // Fixed slide
+        if (slideElement.hasClass("slide-fixed")) {
+            switch (side) {
+                case "left":
+                    slideElement.animate({
+                        "left": 0
+                    }, 150);
+                    break;
+            
+                case "right":
+                    slideElement.animate({
+                        "right": 0
+                    }, 150);
+                    
+                    break;
+            }
+            
+            return;
+            break;
+        }
+        // Contained slide
+        else {
+            let leftPos = (side === "left") ? $(".slide[data-side='left']").width() + "px" : "auto";
+            let rightPos = (side === "right") ? $(".slide[data-side='right']").width() + "px" : "auto";
 
-        console.log("left: " + leftPos);
-        console.log("right: " + rightPos);
-        
-        $(".custom-tab-container .slide[data-side='" + side + "']").animate({
-          "left": leftPos,
-          "right": rightPos
-        }, 150);
+            console.log("left: " + leftPos);
+            console.log("right: " + rightPos);
+            
+            $(".slide-container .slide[data-side='" + side + "']").animate({
+            "left": leftPos,
+            "right": rightPos
+            }, 150);
+        }
 
         break;
 
       case "hide":
         console.log("Closing slide");
 
-        let hidePosL = (side === "left") ? 0 : "auto";
-        let hidePosR = (side === "right") ? 0 : "auto";
-        
-        $(".custom-tab-container .slide.active[data-side='" + side + "']").animate({
-          "left" : hidePosL,
-          "right" : hidePosR
-        }, 150);
-        
+        // Fixed slide
+        if (slideElement.hasClass("slide-fixed")) {
+            switch (side) {
+                case "left":
+                    slideElement.animate({
+                        "left": "-" + $(".slide.slide-fixed.active[data-side='" + side + "']").width()
+                    }, 150);
+                    break;
+            
+                case "right":
+                    slideElement.animate({
+                        "right": "-" + $(".slide.slide-fixed.active[data-side='" + side + "']").width()
+                    }, 150);
+                    break;
+            }
+        } 
+        // Contained slide
+        else {
+            let hidePosL = (side === "left") ? 0 : "auto";
+            let hidePosR = (side === "right") ? 0 : "auto";
+            
+            $(".slide-container .slide.active[data-side='" + side + "']").animate({
+                "left" : hidePosL,
+                "right" : hidePosR
+            }, 150);
+        }
+
         $(".slide.active[data-side='" + side + "']").removeClass("active");
         $("body").removeClass("slide-open");
         break;
     }
     
 }
-
 
 $("button[data-toggle]").on("click", function (e) {
     console.log("Button clicked");

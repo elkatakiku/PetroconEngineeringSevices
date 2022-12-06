@@ -11,6 +11,18 @@ class Controller {
 
     private $model;
 
+    private $isLogin;
+
+    protected function __construct() {
+        if (isset($_SESSION["accID"])) {
+            $this->isLogin = true;
+        }
+    }
+
+    protected function isLogin() {
+        return $this->isLogin;
+    }
+
     protected function setModel($model) {
         require_once '../app/models/' . $model . '.model.php';
         $this->model = new $model();
@@ -41,6 +53,10 @@ class Controller {
 
     protected function setPage($pageNumber) {
         $this->pageNumber = $pageNumber - 1;
+    }
+
+    protected function getPageNumber() {
+        return $this->pageNumber;
     }
 
     protected function getPage() {

@@ -79,16 +79,16 @@ class AuthController extends Controller {
 
         $this->action = "signup";
         
-        $lastname = htmlspecialchars(strip_tags($_POST['lNameInput']));
-        $firstname = htmlspecialchars(strip_tags($_POST['fNameInput']));
-        $middleName = htmlspecialchars(strip_tags($_POST['mNameInput']));
-        $contactNumber = htmlspecialchars(strip_tags($_POST['contactInput']));
-        $birthdate = htmlspecialchars(strip_tags($_POST['dobInput']));
-        $email = htmlspecialchars(strip_tags($_POST['emailInput']));
+        $lastname = ucwords(trim(htmlspecialchars(strip_tags($_POST['lNameInput']))));
+        $firstname = ucwords(trim(htmlspecialchars(strip_tags($_POST['fNameInput']))));
+        $middleName = strtoupper(trim(htmlspecialchars(strip_tags($_POST['mNameInput']))));
+        $contactNumber = trim(htmlspecialchars(strip_tags($_POST['contactInput'])));
+        $birthdate = trim(htmlspecialchars(strip_tags($_POST['dobInput'])));
+        $email = trim(htmlspecialchars(strip_tags($_POST['emailInput'])));
 
-        $username = htmlspecialchars(strip_tags($_POST['usernameInput']));
-        $password = htmlspecialchars(strip_tags($_POST['passwordInput']));
-        $passwordRepeat = htmlspecialchars(strip_tags($_POST['passwordRepeatInput']));
+        $username = trim(htmlspecialchars(strip_tags($_POST['usernameInput'])));
+        $password = trim(htmlspecialchars(strip_tags($_POST['passwordInput'])));
+        $passwordRepeat = trim(htmlspecialchars(strip_tags($_POST['passwordRepeatInput'])));
 
         $signupController = new SignupController(
             $lastname, 
@@ -126,7 +126,13 @@ class AuthController extends Controller {
     }
 
     public function recover_password() {
+    }
 
+    public function logout() {
+        session_unset();
+        session_destroy();
+
+        header("Location: ".SITE_URL.US."home/index");
     }
 
     public function getAction() {

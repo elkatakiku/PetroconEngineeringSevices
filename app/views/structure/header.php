@@ -39,9 +39,9 @@
     ?>
     
   </head>
-  <body <?php 
+  <body class="body-wrapper" <?php 
         if ($this->getType() == Controller::CLIENT) {
-          echo 'data-spy="scroll" data-target="#navbar-client-petrocon" data-offset="500"';
+          echo 'data-spy="scroll" data-target="#topbar" data-offset="500"';
         }
       ?>
     >
@@ -57,7 +57,7 @@
     case Controller::CLIENT: ?>
     
     <!-- Navbar -->
-    <nav id="navbar-client-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark" data-user="<?= $this->getPage(); ?>">
+    <nav id="topbar" class="navbar fixed-top navbar-expand-lg navbar-dark" data-user="<?= $this->getPage(); ?>">
       <a class="navbar-brand brand" href="#">
         <img src="<?=IMAGES_PATH?>petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
         <span class="brand-name">Petrocon Engineering Services</span>
@@ -96,13 +96,14 @@
 
     case Controller::ADMIN: ?>
       
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav id="topbar"  class="navbar navbar-expand-md navbar-light">
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
           <span class="material-icons">menu</span>
       </button>
-      <strong class="user-type flex-grow-1">Petrocon</strong>
+      <a class="flex-grow-1" href="<?= SITE_URL.US.'dashboard' ?>"><strong>Petrocon</strong><small> : Admin</small></a>
       <span class="material-icons">circle_notifications</span>
       <p class="user-name">Eli Lamzon</p>
+      
       <span id="user-display" class="material-icons">account_circle</span>
     </nav>
 
@@ -110,8 +111,8 @@
       <div id="sidebar">
         <nav>
           <ul class="list-unstyled components">
-            <li class="active">
-              <a class="d-flex align-content-start" href="index.html">
+            <li class="">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'dashboard' ?>">
                 <span class="material-icons">dashboard</span>
                 <div class="collapsible">
                   <span>Dashboard</span>
@@ -119,6 +120,7 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+
             <li class="item-dropdown">
               <div class="dropdown-tile">
                 <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId"> 
@@ -133,27 +135,29 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
                 <li class="">
-                  <a class="" href="/app/admin/projects.html">All</a>
+                  <a class="" href="<?= SITE_URL.US.'projects/all' ?>">All</a>
                 </li>
                 <li class="">
-                  <a class="" href="#">Done</a>
+                  <a class="" href="<?= SITE_URL.US.'projects/done' ?>">Done</a>
                 </li>
                 <li class="">
-                  <a class="" href="#">Ongoing</a>
+                  <a class="" href="<?= SITE_URL.US.'projects/ongoing' ?>">Ongoing</a>
                 </li>
                 <li class="">
-                  <a class="" href="#">Pending</a>
+                  <a class="" href="<?= SITE_URL.US.'projects/pending' ?>">Pending</a>
                 </li>
               </ul>
             </li>
+
             <li class="">
-              <a class="d-flex align-content-start" href="#">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'messages' ?>">
                 <span class="material-icons">chat_bubble</span>
                 <div class="collapsible">
                   <span>Messages</span>
                 </div>
               </a>
             </li>
+
             <li class="item-dropdown">
               <div class="dropdown-tile">
                 <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
@@ -168,15 +172,16 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
                 <li class="">
-                  <a class="" href="/app/admin/employees-admin.html">Employees</a>
+                  <a class="" href="<?= SITE_URL.US.'team/employees' ?>">Employees</a>
                 </li>
                 <li class="">
-                  <a class="" href="/app/admin/workers-admin.html">Workers</a>
+                  <a class="" href="<?= SITE_URL.US.'team/workers' ?>">Workers</a>
                 </li>
               </ul>
             </li>
+
             <li class="">
-              <a class="d-flex align-content-start" href="/app/admin/users-admin.html">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'users' ?>">
                 <span class="material-icons">people</span>
                 <div class="collapsible">
                   <span>Users</span>
@@ -187,7 +192,7 @@
             <hr>
   
             <li class="">
-              <a class="d-flex align-content-start" href="#">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'profile' ?>">
                 <span class="material-icons">person</span>
                 <div class="collapsible">
                   <span>Profile</span>
@@ -195,8 +200,9 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
+            
             <li class="">
-              <a class="d-flex align-content-start" href="/app/login/login.html">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'auth/logout' ?>">
                 <span class="material-icons">logout</span>
                 <div class="collapsible">
                   <span>Logout</span>

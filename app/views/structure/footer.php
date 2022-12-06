@@ -33,5 +33,16 @@ switch ($this->getType()) {
 
     <!-- External JS -->
     <script src="<?=SCRIPTS_PATH?>index.js"></script>
+    <script>
+      let sideNavLink = $("#sidebar .components > li");
+
+      for (let i = 0; i < sideNavLink.length; i++) {
+        const navLink = sideNavLink[i];
+        if (i === <?= $this->getPageNumber() ?>) {
+          console.log("This is the one");
+          $(navLink).addClass("active");
+        }
+      }
+    </script>
   </body>
 </html>

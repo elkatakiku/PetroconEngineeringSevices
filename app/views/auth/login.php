@@ -21,9 +21,9 @@
                     </header>
 
                     <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" name="usernameInput" id="username" aria-describedby="helpId" placeholder="Username">
-                    <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" name="usernameInput" id="username" aria-describedby="helpId" placeholder="Username">
+                        <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                     </div>
 
                     <div class="form-group">
@@ -99,7 +99,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="birthdate">Birthdate</label>
-                                    <input type="date" class="form-control" name="dobInput" id="birthdate" aria-describedby="helpId" placeholder="Enter birthdate">
+                                    <input type="date" class="form-control" name="dobInput" id="birthdate" aria-describedby="helpId" placeholder="Enter birthdate" value="<?= date('Y-m-d') ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
