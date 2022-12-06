@@ -23,7 +23,11 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
 });
 
 // Sidebar
-function expandSidebar() { 
+function expandSidebar(submenu = false) { 
+    if (submenu && $("#sidebar").hasClass("active")) {
+        return;
+    }
+
     if ($("#sidebar").hasClass("active")) {
         // Collapse sidebar
         if($(window).width() > 780) {
@@ -41,13 +45,14 @@ function expandSidebar() {
             }, 150);
         }
     }
+
     $('#sidebar').toggleClass('active');
 }
 
 // Sidebar Buttons Listener
 $('.sub-menu').on('show.bs.collapse' , () => {
     if ($(window).width() > 768) {
-        expandSidebar();
+        expandSidebar(true);
     }
 });
 
