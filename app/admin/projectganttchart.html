@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../styles/styles.css">
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
   </head>
   <body class="body-wrapper">
@@ -165,9 +166,15 @@
                     </li>
                 </ul>
 
-                <div>
-                    <button class="btn action-btn">Invoice</button>
-                    <button class="btn action-btn">Turn Over</button>
+                <div>                   
+                    <!--
+                    <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectInvoice">Invoice</button>
+                    <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectTurnOver">Turn Over</button>
+                        -->
+                    
+                    <a class="btn action-btn" data-toggle="custom-tab" >Invoice</a>
+                    <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
+            
                 </div>
 
             </nav>
@@ -274,9 +281,9 @@
                 ul .chart-li-seven {
                     grid-column: 12/12; 
                     background-color:#0080FF;
-                }
-
+                }   
             </style>
+
 
             <div class="slide-container">
                 <div class="custom-tab-container">
@@ -583,6 +590,7 @@
                         </div>
                     </div>
 
+                
                     <!-- Project Info -->
                     <div class="slide" id="projectInfo" data-side="right">
                         <div class="slide-content">
@@ -650,13 +658,42 @@
                         <div class="slide-footer">
                             footer
                         </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </main>
+        
     </div>
+
+
+    <!-- Popup -->
+    <div class="popup fade" id="turnover" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer popup-sm">
+            <div class="pcontent">
+                <div class="pheader">
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <i class="fas fa-image"></i>
+                    <h2 class="ptitle">Popup Title</h2>
+                </div>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
     
+                <div class="pbody">
+                Popup body
+                </div>
+    
+                <div class="pfooter">
+                <button type="button" class="btn action-btn">Submit</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
