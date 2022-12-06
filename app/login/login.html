@@ -46,7 +46,7 @@
 
                         <header class="text-center mb-5">
                             <h2>Login</h2>
-                            <p class="lead">Lorem ipsum dolor sit amet.</p>
+                            <p class="lead">New to this site? Click create an account button below and sign up!</p>
                         </header>
 
                         <div class="form-group">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
 
-                        <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="popup" data-target="#popupsignUp">Create an account</button>
+                        <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="popup" data-target="#popupLargeId">Create an account</button>
                     </form>
                 </div>
             </div>
@@ -83,22 +83,22 @@
     </div>
 
     <!-- SIGNUP -->
-    <div class="container-fluid">
-    <div class="popup fade" id="popupsignUp" tabindex="-1" aria-hidden="true">
-        <div class="pcontainer">
+    <!-- Popup -->
+    <div class="popup fade" id="popupLargeId" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer popup-lg">
             <div class="pcontent">
                 <div class="pheader">
-                    <div class="linear-center">
-                        <!-- Can add icon here -->
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <h2 class="ptitle">Sign Up</h2>
-                    </div>
-                    <button type="button" class="close-btn" data-dismiss="popupsignUp" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <h2 class="ptitle">Sign Up</h2>
                 </div>
-
-                <div class="pbody pad-6">
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
                     <form action="table.html">
                         <div class="container">
                             <div class="row">
@@ -142,15 +142,15 @@
                         </div>       
                     </form>
                 </div>
-
-                <div class="pfooter pad-6">
-                <button type="button" class="btn action-btn">Sign up</button>
+    
+                <div class="pfooter">
+                <button type="button" class="btn action-btn"  data-toggle="popup" data-target="#popupMediumId">Sign Up</button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 
     <!-- FORGOT PASS -->
     <div class="container-fluid">
@@ -183,13 +183,83 @@
                     </div> 
 
                     <div class="pfooter pad-6">
-                        <button type="button" class="btn action-btn">Sign up</button>
+                        <button type="button" class="btn action-btn">Submit</button>
                         <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                     </div>
                     </div>
                 </div>
         </div>
     </div>
+
+    
+<!-- VERIFY -->   
+
+    <!-- Default Size of Popup-->
+   
+        <!-- Popup -->
+        <div class="popup fade" id="popupMediumId" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer popup-md">
+                <div class="pcontent">
+                    <div class="pheader">
+                    <div class="linear-center">
+                        <!-- Can add icon here -->
+                        <i class="fas fa-image"></i>
+                        <h2 class="ptitle">Verify Your Account</h2>
+    
+                    </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+        
+                    <div class="pbody">
+                        <p align="center">We've sent an email to xxxxxxxxx@gmail.com to verify your email address and activate your account. Enter the confirmation code we sent to your email. </p>
+                        <div class="form-group">
+                                
+                            <input type="" class="form-control" name="" id="" placeholder="Enter confirmation code">
+                        </div>
+                    </div>
+        
+                    <div class="pfooter">
+                        <button type="button" class="btn action-btn"  data-toggle="popup" data-target="#popupSmallId">Submit</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Back to Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VERIFIEEEEED-->   
+
+    <!-- Small Size of Popup-->
+   
+        <!-- Popup -->
+        <div class="popup fade" id="popupSmallId" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer popup-md">
+                <div class="pcontent">
+                    <div class="pheader">
+                    <div class="linear-center">
+                        <!-- Can add icon here -->
+                        <i class="fa-sharp fa-solid fa-badge-check"></i>
+                        <h2 class="ptitle">Email Verified</h2>
+    
+                    </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+        
+                    <div class="pbody">
+                        <p align="center">Your email was successfully verified.</p>
+                    </div>
+        
+                    <div class="pfooter">
+                    <button type="button" class="btn action-btn">Continue</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Back to Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -23,17 +23,171 @@
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
+
+    <style>
+      {
+          box-sizing: border-box;
+      }
+      /* Set additional styling options for the columns*/
+      .turnovercolumn {
+      float: left;
+      width: 40%;
+      }
+  
+      .turnoverrow:after {
+      content: "";
+      display: table;
+      clear: both;
+      }
+      </style>
+
+
   </head>
 
-  <body>
-    <h1>PETROCON ENGINEERING SERVICES</h1>
-    <p>024 Strike Ville, Vizcarra Comp., Molino 3, Bacoor City<br>
-    Tel.No (046) 513-7533; Cell No. 0917-140-8987<br>
-    petroconphil@gmail.com </p>
+  <nav class="navbar navbar-expand-md navbar-light">
+    <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
+        <span class="material-icons">menu</span>
+    </button>
+    <strong class="user-type flex-grow-1">Petrocon</strong>
+    <span class="material-icons">circle_notifications</span>
+    <p class="user-name">Eli Lamzon</p>
+    <span id="user-display" class="material-icons">account_circle</span>
+  </nav>
 
+  <body>
+  <div class="wrapper">
+    <div id="sidebar">
+      <nav>
+        <ul class="list-unstyled components">
+          <li class="">
+            <a class="d-flex align-content-start" href="#">
+              <span class="material-icons">dashboard</span>
+              <div class="collapsible">
+                <span>Dashboard</span>
+              </div> 
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="item-dropdown active">
+            <div class="dropdown-tile">
+              <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId"> 
+                <span class="material-icons">handyman</span>
+                <div class="collapsible">
+                  <span>
+                    Projects
+                    <span class="material-icons">arrow_drop_down</span>
+                  </span>
+                </div>
+              </a>
+            </div>
+            <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
+              <li class="">
+                <a class="" href="#">All</a>
+              </li>
+              <li class="">
+                <a class="" href="#">Done</a>
+              </li>
+              <li class="">
+                <a class="" href="#">Ongoing</a>
+              </li>
+              <li class="">
+                <a class="" href="#">Pending</a>
+              </li>
+            </ul>
+          </li>
+          <li class="">
+            <a class="d-flex align-content-start" href="#">
+              <span class="material-icons">chat_bubble</span>
+              <div class="collapsible">
+                <span>Messages</span>
+              </div>
+            </a>
+          </li>
+          <li class="item-dropdown">
+            <div class="dropdown-tile">
+              <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
+                <span class="material-icons">workspaces</span>
+                <div class="collapsible">
+                  <span>
+                    Team
+                    <span class="material-icons">arrow_drop_down</span>
+                  </span>
+                </div>
+              </a>
+            </div>
+            <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
+              <li class="">
+                <a class="" href="#">Employees</a>
+              </li>
+              <li class="">
+                <a class="" href="#">Workers</a>
+              </li>
+            </ul>
+          </li>
+          <li class="">
+            <a class="d-flex align-content-start" href="#">
+              <span class="material-icons">people</span>
+              <div class="collapsible">
+                <span>Users</span>
+              </div>
+            </a>
+          </li>
+
+          <hr>
+
+          <li class="">
+            <a class="d-flex align-content-start" href="#">
+              <span class="material-icons">person</span>
+              <div class="collapsible">
+                <span>Profile</span>
+              </div>
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="">
+            <a class="d-flex align-content-start" href="#">
+              <span class="material-icons">logout</span>
+              <div class="collapsible">
+                <span>Logout</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    
+    <main class="content">
+       <!-- Header -->
+    <div class="page-header">
+        <div class="project-info">
+            <div>
+                <h1 class="page-title">Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</h1>
+                <small>Robinson Palace, Antipolo City</small>
+            </div>
+        </div>
+        <button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
+        <span class="material-icons-outlined">info</span>
+        </button>
+    </div>
+
+    <nav class="nav-tab-container border-bottom"></nav>
+      
+    </nav>
+      
+    
     <form action="" method="POST" id="turnoverform">
-        <fieldset>
-          <h2 align="center"> TURN-OVER AND ACCEPTANCE CERTIFICATE</h2>
+        <!--<fieldset>-->
+          <a class="navbar-brand brand" href="#">
+            <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
+            <span class="brand-name">Petrocon</span>
+          </a>
+
+        <h2 align="center">PETROCON ENGINEERING SERVICES</h2>
+        <p align="center"> 024 Strike Ville, Vizcarra Comp., Molino 3, Bacoor City<br>
+        Tel.No (046) 513-7533; Cell No. 0917-140-8987<br>
+        petroconphil@gmail.com </p>
+
+        <h4 align="center"> TURN-OVER AND ACCEPTANCE CERTIFICATE</h4>
             Name of Client :
             <input type="text" name="name">
         <br>Building no. :
@@ -48,24 +202,32 @@
             <input type="text" name="name">
         <br>
             <!--input type="submit" value="submit"-->
-        </fieldset>
+        <!--/fieldset>-->
 
-        <h2 align="center"> C E R T I F I C A T I O N</h2>
-        <p>This is to certify that the above mentioned job work by PETROCON ENGINEERING SERVICES were completed to the full satisfaction and in accordance to the latest edition of NFA 58 and PLPGA safety code.</p><br>
-        <p>This is also certify that the installed pipeline from manifold to distribution line up to burners in building no. 1,2, and 3 no leaking found during leak testing and the installations are safe to use.</p><br>
-        <p>This is to further certify that the job /work has completed and turned-over by Petrocon Engineering Services, this (date).</p><br>
-        
-        <p>Turned-over by: <br><br>
-            _______________________<br>
-            Contractor
-        </p>
-        <p>Accepted for and in behalf:  <br><br>
-            _______________________<br>
-            (Client) Representative
-        </p>
+        <h4 align="center"> C E R T I F I C A T I O N</h4>
+        <p>&emsp;&emsp;This is to certify that the above mentioned job work by PETROCON ENGINEERING SERVICES were completed to the full satisfaction and in accordance to the latest edition of NFA 58 and PLPGA safety code.<br>
+        <br> &emsp;&emsp; This is also certify that the installed pipeline from manifold to distribution line up to burners in building no. 1,2, and 3 no leaking found during leak testing and the installations are safe to use.<br>
+        <br> &emsp;&emsp; This is to further certify that the job /work has completed and turned-over by Petrocon Engineering Services, this (date).</p><br>
+      
+
+        <div class="turnoverrow">
+          <div class="turnovercolumn"> 
+              <p>&emsp;&emsp;Turned-over by: <br><br>
+                &emsp;&emsp;_______________________<br>
+                &emsp;&emsp;Contractor</p>
+          </div>
+          <div class="turnovercolumn"> 
+              <p>&emsp;&emsp;Accepted for and in behalf:  <br><br>
+                &emsp;&emsp;______________________<br>
+                &emsp;&emsp;(Client) Representative</p>
+          </div>
+        </div>
     </form>
 
-        <p><input type="button" onclick="turnoverprint('turnoverform')" value="print"></p>
+        <p><input type="button" onclick="turnoverprint('turnoverform')" class="btn outline-primary-btn btn-lg btn-block" value="Print"></p>
+        
+        <a class="btn action-btn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="custom-tab" href="projectganttchart.html">Go Back</a>
+       
         <script>
             function turnoverprint(turnoverform){
                 var printdata = document.getElementById(turnoverform);
@@ -76,7 +238,7 @@
             }
         </script>
 
-
+    </main>
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

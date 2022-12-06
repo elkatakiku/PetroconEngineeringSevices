@@ -22,6 +22,7 @@
     <!-- External CSS -->
     <!-- Change paths of href depending on the location of the file -->
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/popup.css">
   </head>
   <body style="margin-bottom: 50px;">
     <div class="jumbotron">
@@ -136,31 +137,157 @@
 
         <h2>Custom Popup</h2>
 
-        <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupId">            Popup Default
+        <!-- Small Popup -->
+        <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupSmallId">
+            Small
+        </button>
+    
+        <!-- Popup -->
+        <div class="popup fade" id="popupSmallId" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer popup-sm">
+                <div class="pcontent">
+                    <div class="pheader">
+                    <div class="linear-center">
+                        <!-- Can add icon here -->
+                        <i class="fas fa-image"></i>
+                        <h2 class="ptitle">Popup Title</h2>
+                    </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+        
+                    <div class="pbody">
+                    Popup body
+                    </div>
+        
+                    <div class="pfooter">
+                    <button type="button" class="btn action-btn">Submit</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Default -->
+        <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupId">
+            Default
         </button>
     
         <!-- Popup -->
         <div class="popup fade" id="popupId" tabindex="-1" aria-hidden="true">
             <div class="pcontainer">
-              <div class="pcontent">
-                <div class="pheader">
-                  <div class="linear-center">
-                    <!-- Can add icon here -->
-                    <i class="fas fa-image"></i>
-                    <h2 class="ptitle">Popup Title</h2>
-                  </div>
-                  <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                <div class="pcontent">
+                    <div class="pheader">
+                    <div class="linear-center">
+                        <!-- Can add icon here -->
+                        <i class="fas fa-image"></i>
+                        <h2 class="ptitle">Popup Title</h2>
+                    </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+        
+                    <div class="pbody">
+                    Popup body
+                    </div>
+        
+                    <div class="pfooter">
+                    <button type="button" class="btn action-btn">Submit</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    </div>
                 </div>
-      
-                <div class="pbody">
-                  Popup body
+            </div>
+        </div>
+
+        <!-- Popup -->
+        <div class="popup fade" id="popupMediumId" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer popup-md">
+                <div class="pcontent">
+                    <div class="pheader">
+                    <div class="linear-center">
+                        <!-- Can add icon here -->
+                        <i class="fas fa-image"></i>
+                        <h2 class="ptitle">Popup Title</h2>
+                    </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+        
+                    <div class="pbody">
+                    Popup body
+                    </div>
+        
+                    <div class="pfooter">
+                    <button type="button" class="btn action-btn">Submit</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    </div>
                 </div>
-      
-                <div class="pfooter">
-                  <button type="button" class="btn action-btn">Submit</button>
-                  <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Large Popup -->
+        <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupLargeId">
+            Large
+        </button>
+
+        <!-- Popup -->
+        <div class="popup fade" id="popupLargeId" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer popup-lg">
+                <div class="pcontent">
+                    <div class="pheader">
+                    <div class="linear-center">
+                        <!-- Can add icon here -->
+                        <i class="fas fa-image"></i>
+                        <h2 class="ptitle">Popup Title</h2>
+                    </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+        
+                    <div class="pbody">
+                    Popup body
+                    </div>
+        
+                    <div class="pfooter">
+                    <button type="button" class="btn action-btn">Submit</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- XLarge Popup -->
+        <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupXLargeId">
+            XLarge
+        </button>
+
+        <!-- Popup -->
+        <div class="popup fade" id="popupXLargeId" tabindex="-1" aria-hidden="true">
+            <div class="pcontainer popup-xl">
+                <div class="pcontent">
+                    <div class="pheader">
+                    <div class="linear-center">
+                        <!-- Can add icon here -->
+                        <i class="fas fa-image"></i>
+                        <h2 class="ptitle">Popup Title</h2>
+                    </div>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+        
+                    <div class="pbody">
+                    Popup body
+                    </div>
+        
+                    <div class="pfooter">
+                    <button type="button" class="btn action-btn">Submit</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    </div>
                 </div>
             </div>
         </div>

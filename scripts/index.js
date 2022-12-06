@@ -22,11 +22,6 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
     }
 });
 
-// $("#createAccountBtn").click(function(){
-        // $(".form-login").hide();
-    // $(".form-login").css("left", "100%").fadeOut();
-// });
-
 // Sidebar
 function expandSidebar() { 
     if ($("#sidebar").hasClass("active")) {
@@ -84,6 +79,7 @@ const SLIDE_DOWN = "slide-down";
 
 // Popup 
 function showPopup(btn) {
+    console.log("Popup button clicked");
     $(btn.data("target")).addClass("show");
     $("body").addClass("popup-open");
     $("body").append("<div class='popup-backdrop'></div>");
