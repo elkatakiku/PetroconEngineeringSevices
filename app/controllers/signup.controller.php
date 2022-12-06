@@ -41,7 +41,6 @@ class SignupController extends Controller {
 
     public function signupUser() {
 
-        echo "<br>Signing up user";
         if ($this->emptyInput()) {
             echo "<br>Please fill all required inputs.";
             return -101;
@@ -62,8 +61,7 @@ class SignupController extends Controller {
             return -104;
         }
         
-
-        echo "<br>end signup user";
+        
         // Create login
         $this->login->createLogin($this->username, $this->password);
 

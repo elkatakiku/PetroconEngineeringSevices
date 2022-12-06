@@ -28,46 +28,24 @@ class AuthController extends Controller {
 
         require_once "login.controller.php";
 
-        // echo "<h1>Signup Controller</h1>";
-        // echo "<hr>";
-
         $this->action = "login";
-
-        // echo "signup submitted";
 
         $username = htmlspecialchars(strip_tags($_POST['usernameInput']));
         $password = htmlspecialchars(strip_tags($_POST['passwordInput']));
-
-        // echo "<br>";
-        // var_dump(!$lastname);
-        // echo "<hr>";
-        // echo $username;
-        // echo "<br>";
-        // echo $password;
-        // echo "<hr>";
 
         $loginController = new LoginController(
             $username, 
             $password
         );
 
-        // echo "<pre>";
         if($loginController->loginUser() < 0) {
             // Error Handling
-            // echo '<hr>';
-            // echo "Error here";
+            // Code here
+            echo "<h1>Username or password does not match.</h1>";
             return;
         }
         
-        
-        // echo "<hr>";
-        // echo "Login success from " . __METHOD__;
-        // echo "<hr>";
-
-        // echo $_SESSION["accType"];
-        // echo "<hr>";
-        // echo Account::ADMIN_TYPE;
-        
+        // Login Success
         switch ($_SESSION["accType"]) {
             case Account::ADMIN_TYPE:
                 header("Location: ".SITE_URL.US."dashboard");
@@ -83,7 +61,8 @@ class AuthController extends Controller {
                 exit();
                 break;
             default:
-                # code...
+                echo "Different Account Type";
+                exit();
                 break;
         }
         
@@ -98,12 +77,7 @@ class AuthController extends Controller {
         
         require_once "signup.controller.php";
 
-        // echo "<h1>Signup Controller</h1>";
-        // echo "<hr>";
-
         $this->action = "signup";
-
-        // echo "signup submitted";
         
         $lastname = htmlspecialchars(strip_tags($_POST['lNameInput']));
         $firstname = htmlspecialchars(strip_tags($_POST['fNameInput']));
@@ -128,22 +102,18 @@ class AuthController extends Controller {
             $passwordRepeat
         );
 
-        // echo "<pre>";
-        if($signupController->signupUser() > 0) {
-            // echo "<hr>";
-            // echo "Account creation success";
-            // echo "<hr>";
 
-            header("Location: ".SITE_URL."/auth/login?signup=success");
-            exit();
+        if($signupController->signupUser() < 0) {
+            // Error Handling
+            // Code here
+            echo "<h1>Error occured signing up</h1>"; 
+           return;
         }
 
-        // Error Handling
-        // echo "<br>";
-        // echo __METHOD__;
 
-
-        // echo "End";
+        // Account creation success
+        header("Location: ".SITE_URL."/auth/login?signup=success");
+        exit();
     }
 
     public function reset() {

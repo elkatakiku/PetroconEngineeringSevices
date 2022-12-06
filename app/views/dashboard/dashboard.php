@@ -4,50 +4,50 @@
       <h1 class="page-title">Overview</h1>
     </div>
 
-    <div class="overview-card-container">
+    <div class="ov-card-container">
       <div class="custom-card">
         <div class="overview-card">
-          <i class="fa fa-info-circle icon" aria-hidden="true"></i>
-          <div class="info">
-            <h3 class="dark-text">48</h3>
-            <p class="text-5">Total projects</p>
+          <div class="ov-info">
+            <h3 class="ov-title">48</h3>
+            <p class="ov-desc">Total projects</p>
           </div>
+          <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
         </div>
       </div>
 
       <div class="custom-card">
         <div class="overview-card">
-          <i class="fa fa-info-circle icon" aria-hidden="true"></i>
-          <div class="info">
-            <h3 class="dark-text">48</h3>
-            <p class="text-5">Total projects</p>
+          <div class="ov-info">
+            <h3 class="ov-title">48</h3>
+            <p class="ov-desc">Total projects</p>
           </div>
+          <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
         </div>
       </div>
 
       <div class="custom-card">
         <div class="overview-card">
-          <i class="fa fa-info-circle icon" aria-hidden="true"></i>
-          <div class="info">
-            <h3 class="dark-text">48</h3>
-            <p class="text-5">Total projects</p>
+          <div class="ov-info">
+            <h3 class="ov-title">48</h3>
+            <p class="ov-desc">Total projects</p>
           </div>
+          <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
         </div>
       </div>
       
       <div class="custom-card">
         <div class="overview-card">
-          <i class="fa fa-info-circle icon" aria-hidden="true"></i>
-          <div class="info">
-            <h3 class="dark-text">48</h3>
-            <p class="text-5">Total projects</p>
+          <div class="ov-info">
+            <h3 class="ov-title">48</h3>
+            <p class="ov-desc">Total projects</p>
           </div>
+          <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
         </div>
       </div>
     </div>
 
-    <h5 class="header-5">Projects</h5>
-    <p class="h3">12,345,678</p>
+    <h5 class="db-sec-header">Projects</h5>
+    <p class="db-project-count">12,345,678</p>
 
     <!-- Chart -->
     <style>
@@ -109,16 +109,15 @@
 
   <!-- Side contents -->
   <div class="db-side">
-
-    <h2 class="header-4">Other</h2>
+    <h2 class="db-side-header">Other</h2>
 
     <div class="side-content" id="events">
-      <h5 class="header-5">Events</h5>
+      <h5 class="db-sec-header">Events</h5>
       <!-- Calendar -->
       <div class="month">      
         <ul class="linear space-between">
           <li class="prev">&#10094;</li>
-          <li class="dark-text">December 2022</li>
+          <li class="ov-title">December 2022</li>
           <li class="next">&#10095;</li>
         </ul>
       </div>
@@ -175,7 +174,7 @@
 
     <div class="side-content" id="messages">
       <div class="side-content-header">
-        <h5 class="header-5">Messages</h5>
+        <h5 class="db-sec-header">Messages</h5>
         <button class="btn link-btn">View</button>
       </div>
 
