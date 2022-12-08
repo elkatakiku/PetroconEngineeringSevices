@@ -7,9 +7,9 @@
   background: #fff none repeat scroll 0 0;
   border: 1px solid #e1e8ed;
   border-radius: 6px;
-  height: 200px;
+  height: 100px;
   width: 100%;
-  max-width: 1500px;
+  max-width: 2000px;
   
 }
 .profile-bg{
@@ -17,20 +17,8 @@
   background-position: 0 50%;
   background-size: 100% auto;
   border-radius: 4px 4px 0px 0px;
-  height: 25vh;
+  height: 20vh;
   width: 100%;
-
-}
-.profile-link{
-
-  border-radius: 6px;
-  display: inline-block;
-  float: left;
-  margin: -30px 5px 0px 8px;
-  max-width: 100%;
-  padding: 5px;
-  vertical-align: bottom;
-  padding-left: 10px;
 }
 .profile-img{
   border-radius: 50%;
@@ -53,28 +41,9 @@
 .profile-state{
   padding: 15px;
 }
-.profile-arrange{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0;
-  min-width: 100%;
-  padding: 0px;
-}
-ul.profile-arrange{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+
 .profile-details a:hover{
   text-decoration: none;
-}
-.profile-number{
-  display: block;
-  font-size: 18px;
-  font-weight: 500;
-  transition: color 0.15s ease-in-out 0s;
-
 }
 .profile-label{
   color: #8899a6;
@@ -97,12 +66,9 @@ ul.profile-arrange{
 
 .profile-details{
   display: grid;
-  height: 20vh;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 02fr 1.5fr 1.2fr .8fr;
-  
   padding-top: 5%;
-  
 
 }
 .profile-details h6{
