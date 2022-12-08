@@ -764,6 +764,7 @@ body:has(.slide-fixed.active).slide-open {
     position: relative;
     /* width: auto; */
     min-width: 500px;
+    z-index: 110;
     /* max-width: 500px; */
     /* overflow: auto; */
 }
@@ -831,9 +832,18 @@ body:has(.slide-fixed.active).slide-open {
 .slide .mesa thead.mesa-header {
     background-color:  rgba(0,0,0,.03);
     width: 100%;
-    padding: .5rem 1rem;
-    font-size: 1rem;
     border-bottom: 1px solid var(--border-rgba-color);
+}
+
+.slide .mesa thead.mesa-header th {
+    padding: 5px .75rem;
+    font-size: .75rem;
+    font-weight: 300;
+}
+
+.slide .mesa thead.mesa-header th.taskCell {
+    color: var(--action);
+    font-weight: 400;
 }
 
 .slide .mesa .taskCell {
