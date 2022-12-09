@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/popup.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
+    <link rel="stylesheet" href="../../styles/pstyles.css">
   </head>
 
   <body class="body-wrapper">
@@ -144,257 +145,135 @@
             <!-- Header -->
             <div class="page-header">
                
-                        <h1 class="page-title">User Management </h1>
+                <h1 class="page-title">User Management </h1>
                         
                 <button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
                     <span class="material-icons-outlined">info</span>
                 </button>
             </div>
 
-            <!-- Project Info -->
-            <div class="slide slide-fixed" id="projectInfo" data-side="right">
-                <div class="slide-content">
-                    <div class="slide-header">
-                        <button class="btn icon-btn" data-dismiss="slide">
-                        <span class="material-icons">navigate_next</span>
-                        </button>
-                        <h2 class="slide-title">Details</h2>
-                        <div>
-                        <button class="btn link-btn show" data-toggle="form" data-action="edit" data-target="#projectDetailForm">
-                            Edit
-                        </button>
-                        <button class="btn link-btn" type="submit" form="#projectDetailForm" data-toggle="form" data-action="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
-                            Done
-                        </button>
-                        </div>
-                    </div>
-    
-                    <div class="slide-body">
-                        <form action="" id="projectDetailForm">
-        
-                            <h3 class="detail-header">General</h3>
-            
-                            <div class="form-input-group display">
-                                <label for="">Name of Client</label>
-                                <p>Yvana Eunice Magno</p>
-                                <input type="text" value="Yvana Eunice Magno" autofocus>
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Building no.</label>
-                                <p>Building 1, 2, 3</p>
-                                <input type="text" value="Building 1, 2, 3">
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Work Description</label>
-                                <p>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</p>
-                                <textarea name="" id="">Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
-                            </div>
-            
-                            <h3 class="detail-header">Project</h3>
-
-                            <div class="linear">
-                
-                                <div class="form-input-group display">
-                                    <label for="">Purchase Order #</label>
-                                    <p>20221526</p>
-                                    <input type="number" value="20221526">
-                                </div>
-                
-                                <div class="form-input-group display">
-                                    <label for="">Date of Award</label>
-                                    <p>11/26/2022</p>
-                                    <input type="date" value="11/26/2022">
-                                </div>
-
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Location</label>
-                                <p>Rosario, Batangas</p>
-                                <input type="text" value="Rosario, Batangas">
-                            </div>
-            
-                        </form>
-                    </div>
-        
-                    <div class="slide-footer">
-                        footer
-                    </div>
-                </div>
-            </div>
 
             <nav class="nav-tab-container border-bottom">
                 <ul class="nav-tab">
                     <li class="nav-tab-item active">
-                        <button class="link-btn" data-toggle="custom-tab" data-target="#userProfile">Profile</button>
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#userProfile">User Profile</button>
                     </li>
                     <li class="nav-tab-item">
                         <button class="link-btn" data-toggle="custom-tab" data-target="#userLogHistory">Log History</button>
                     </li>
                     <li class="nav-tab-item">
-                        <button class="link-btn" data-toggle="custom-tab" data-target="#userProject">Project</button>
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#userProject">Joined Project/s</button>
                     </li>
                 </ul>
             </nav> 
 
-            <div id="userLogHistory" class="custom-tab-content">
-            <hr>
-            <p>&emsp;Log History</p>
-              <div class="container">
-                    <!-- USER LOG HISTORY -->
-                    <div class="mesa-container">
-                      <table class="mesa">
-                      <thead class="mesa-head">
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Username</th>
-                          <th scope="col">Email Address</th>
-                          <th scope="col">Last Login Date/Time</th>
-                          <th scope="col"></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">1</th>
-                          <td>Vana Sexy</td>
-                          <td>vanasexy@email.com</td>
-                          <td>03/04/2022 | 11:58</td>
-                          <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                        </tr>
-                        <tr class="">
-                          <th scope="row">2</th>
-                          <td>Vana Sexy</td>
-                          <td>vanasexy@email.com</td>
-                          <td>03/04/2022 | 11:58</td>
-                          <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                        </tr>
-                        <tr>
-                          <th scope="row">3</th>
-                          <td>Vana Sexy</td>
-                          <td>vanasexy@email.com</td>
-                          <td>03/04/2022 | 11:58</td>
-                          <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                        </tr>
-                      </tbody>
-                      </table>
+            <hr>  
+            
+              <div class="custom-tab-container">
+                <div id="userProfile" class="custom-tab-content show">
+                  <div class="container">             
+                    <div class="samp">
+                      <img src="../../images/ic0n.jpg" class="profile-img" style="padding-left: 10px;">
+                      <div class="inner">
+                        <div class="perfile-name">
+                          <h2>Kathiana Fernandez <i class="fa-solid fa-pen-to-square"></i></h2> 
+                        </div>
+                        <p >kathiana@email.com</p>
+                        <p class="position">Twerker</p>
+                      </div>         
                     </div>
-              </div>
-            </div>
-
-            <div id="userProject" class="custom-tab-content">
-              <hr>
-              <p>&emsp;Joined Project/s</p>
-                <div class="container">
-                      <!-- USER JOINED PROJECT-->
+                  </div>
+                </div>
+                  
+                <div id="userLogHistory" class="custom-tab-content">    
+                    <div class="container">
+                      <!-- USER LOG HISTORY -->
                       <div class="mesa-container">
                         <table class="mesa">
                         <thead class="mesa-head">
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Project Name/Description</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Date/Time</th>
-                            <th scope="col">Status</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email Address</th>
+                            <th scope="col">Last Login Date/Time</th>
                             <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <th scope="row">1</th>
-                            <td>Installation of LPG Pipeline</td>
-                            <td>Lancaster New City, Gentri, Cavite</td>
+                            <td>Vana Sexy</td>
+                            <td>vanasexy@email.com</td>
                             <td>03/04/2022 | 11:58</td>
-                            <td>Ongoing</td>
                             <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
                           </tr>
                           <tr class="">
                             <th scope="row">2</th>
-                            <td>Installation of LPG Pipeline</td>
-                            <td>Lancaster New City, Gentri, Cavite</td>
+                            <td>Vana Sexy</td>
+                            <td>vanasexy@email.com</td>
                             <td>03/04/2022 | 11:58</td>
-                            <td>Done</td>
                             <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
                           </tr>
                           <tr>
                             <th scope="row">3</th>
-                            <td>Installation of LPG Pipeline</td>
-                            <td>Lancaster New City, Gentri, Cavite</td>
+                            <td>Vana Sexy</td>
+                            <td>vanasexy@email.com</td>
                             <td>03/04/2022 | 11:58</td>
-                            <td>Done</td>
                             <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
                           </tr>
                         </tbody>
                         </table>
                       </div>
-                </div>
-              </div>
-
-
-            <div class="slide-container">
-                <div class="custom-tab-container">
-                    <!-- Timeline Slide -->
-                    <div class="slide" id="timelineSlide" data-side="left">
-                        <div class="slide-content">
-                            <div class="mesa-container">
-                            <table class="mesa">
-                                <thead class="mesa-header">
-                                <th scope="col">#</th>
-                                <th scope="col" class="taskCell">Task</th>
-                                <th scope="col">Start</th>
-                                <th scope="col">Due</th>
-                                <th scope="col">Status</th>
-                                <th scope="col" class="action-cell">
-                                    <button class="btn icon-btn" data-dismiss="slide">
-                                    <span class="material-icons">navigate_before</span>
-                                    </button>
-                                </th>
-                                </thead>
-                        
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td class="taskCell">Procurement</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>Done</td>
-                                    <td class="action-cell">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </td>
-                                </tr>
-                        
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td class="taskCell">Tool Box Meeting</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>Done</td>
-                                    <td class="action-cell">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </td>
-                                </tr>
-                        
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td class="taskCell">Actual visit at site for measurementActual visit at site for measurementActual visit at site for measurementActual visit at site for measurement</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>Done</td>
-                                    <td class="action-cell">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                          </div>
-                        </div>
                     </div>
                 </div>
-            </div>             
+                 
+                <div id="userProject" class="custom-tab-content">
+                    <div class="container">
+                          <!-- USER JOINED PROJECT-->
+                          <div class="mesa-container">
+                            <table class="mesa">
+                            <thead class="mesa-head">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Project Name/Description</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Date/Time</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Installation of LPG Pipeline</td>
+                                <td>Lancaster New City, Gentri, Cavite</td>
+                                <td>03/04/2022 | 11:58</td>
+                                <td>Ongoing</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                              </tr>
+                              <tr class="">
+                                <th scope="row">2</th>
+                                <td>Installation of LPG Pipeline</td>
+                                <td>Lancaster New City, Gentri, Cavite</td>
+                                <td>03/04/2022 | 11:58</td>
+                                <td>Done</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>Installation of LPG Pipeline</td>
+                                <td>Lancaster New City, Gentri, Cavite</td>
+                                <td>03/04/2022 | 11:58</td>
+                                <td>Done</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                              </tr>
+                            </tbody>
+                            </table>
+                          </div>
+                    </div>
+                </div>
+              </div> 
+            </div>            
         </main>  
     </div>
 
