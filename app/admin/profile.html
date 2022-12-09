@@ -2,7 +2,7 @@
 <!doctype html> 
 <html lang="en">
   <head>
-    <title>Petrocon | Edit Profile</title>
+    <title>Petrocon | Profile</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
     <link rel="stylesheet" href="../../styles/pstyle.css">
-    <link rel="stylesheet" href="../styles/popup.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
   </head>
   <nav class="navbar navbar-expand-md navbar-light">
     <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
@@ -36,7 +36,7 @@
     <div id="sidebar">
       <nav>
         <ul class="list-unstyled components">
-          <li class="active">
+          <li class="">
             <a class="d-flex align-content-start" href="#">
               <span class="material-icons">dashboard</span>
               <div class="collapsible">
@@ -106,7 +106,7 @@
             </a>
           </li>
           <hr>
-          <li class="">
+          <li class="active">
             <a class="d-flex align-content-start" href="#">
               <span class="material-icons">person</span>
               <div class="collapsible">
@@ -127,54 +127,105 @@
       </nav>
     </div>
   <!--------------------------->
-  <main class="content">
-       
+  <main class="content">    
     <div class="wapper">
+      
       <div class="profile-bg d-block">
       </div>
+
+      <div class="cntnt">
+        <div class="samp">
+          <img src="../../images/ic0n.jpg" class="profile-img" style="padding-left: 10px;">
+          <div class="inner">
+            <div class="perfile-name">
+              <h2>Kathiana Fernandez <i class="fa-solid fa-pen-to-square"></i></h2> 
+            </div>
+            <p >kathiana@email.com</p>
+            <p class="position">Twerker</p>
+          </div>
+        </div>
+
+        <form action="">
+        <div id="firstFormSlide">
+          <div class="container">
+            <div class="form-group">
+              <label for="">Full Name</label>
+              <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Full Name">
+            </div>
+            <div class="form-group">
+              <label for="">Position/Title</label>
+              <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Position/Title">
+            </div>
+            <div class="form-group">
+              <label for="">Username</label>
+              <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Username">
+            </div>
+            <div class="form-group">
+              <label for="">Email</label>
+              <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Email">
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupChangePass">
+                Change Password</button> <!---pop up to----->
+            </div>
+          </div>
+          </form>
+
+          <div class="container-fluid">
+            <!-- Popup -->
+            <div class="popup fade" id="popupChangePass" tabindex="-1" aria-hidden="true">
+                <div class="pcontainer">
+                    <div class="pcontent">
+                        <div class="pheader">
+                            <div class="linear-center">
+                                <!-- Can add icon here -->
+                                <i class="fa-solid fa-lock"></i>
+                                <h2 class="ptitle">Change Password?<h2>
+                            </div>
+                            <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+            
+                        <div class="pbody">
+                          <div class="form-group">
+                            <label for=""> Current Password</label>
+                            <input type="password" class="form-control" name="" id="" placeholder="Password">
+                          </div>
+
+                          <div class="form-group">
+                            <label for="">New Password</label>
+                            <input type="password" class="form-control" name="" id="" placeholder="Password">
+                           </div>
+
+                          <div class="form-group">
+                            <label for="">Confirm New Password</label>
+                            <input type="password" class="form-control" name="" id="" placeholder="Password">
+                          </div>
+                        </div>
+            
+                        <div class="pfooter">
+                            <button type="button" class="btn action-btn">Save Changes</button>
+                            <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+  
+          <div class="btn-side" style="text-align: center;">
+            <button type="button" class="btn action-btn" onclick="changePage('clientprofile.html')">Save Change</button>
+            <button type="button" class="btn outline-action-btn" onclick="changePage('clientprofile.html')">Cancel</button>
+          </div>
+        
+      </div>
+          
+    </div>
     
-</div>
-<img src="../../images/ic0n.jpg" class="profile-img" style="padding-left: 10px;">
-<!-------NEED HELP MALAGYAN NG EDIT PROFILE PICTURE BUTTON KAGAYA SA FB HOWWWW------->
 
-<div style="margin-top: -130px; padding: 0 10rem; display: flex; justify-content: space-between; padding-bottom: 100px;"> 
-  <div>
-    <div class="perfile-name">
-    <h2>Kathiana Fernandez </h2> 
-    <p>Worker</p>
-  </div>
-  </div>
-</div>
-<!-------------->
 
-      <div id="firstFormSlide">
-        <div class="container">
-          <div class="form-group">
-            <label for="">Full Name</label>
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Full Name">
-          </div>
-          <div class="form-group">
-            <label for="">Position/Title</label>
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Position/Title">
-          </div>
-          <div class="form-group">
-            <label for="">Username</label>
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Username">
-          </div>
-          <div class="form-group">
-            <label for="">Email</label>
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Email">
-          </div>
-          <div class="form-group">
-            <button type="button" class="btn outline-action-btn" onclick="changePage('index.html')">Change Password</button> <!---pop up to----->
-          </div>
-        </div>
-        </form>
-
-        <div class="btn-side" style="padding-left: 400px;">
-          <button type="button" class="btn action-btn" onclick="changePage('clientprofile.html')">Save</button>
-          <button type="button" class="btn outline-action-btn" onclick="changePage('clientprofile.html')">Cancel</button>
-        </div>
+  <!--------------------------->
+      
       
     </main>
     <!-- Optional JavaScript -->

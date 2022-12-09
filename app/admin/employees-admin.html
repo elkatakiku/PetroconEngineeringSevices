@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
   </head>
   <body class="body-wrapper">
     
@@ -140,28 +141,34 @@
 
           <!-- Header -->
           <div class="page-header">
-            <h1 class="page-title">Employees</h1>
+            <nav class="nav-tab-container">
+              <div class="linear">
+                <h1 class="page-title">Employees</h1>
+              
+                <!-- New Employee -->
+
+                <button type="button" class="btn primary-btn align-self-center" data-toggle="popup" data-target="#addEmployee">
+                  Add Employee
+                </button>
+              </div>
+  
+              <!-- Search -->
+              <div class="space-between">
+                <div class="search-container">
+                  <form action="" class="search-form">
+                    <div class="input-container">
+                      <div class="input-prepend">
+                        <i class="fa fa-search icon" aria-hidden="true"></i>
+                      </div>
+                      <input type="text" name="" id="" placeholder="Search employee">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </nav>
           </div>
           
-          <nav class="nav-tab-container">
-            <!-- New Employee -->
-            <button type="button" class="btn primary-btn align-self-center" 
-                  data-toggle="popup" data-target="#projectPopup">
-              Add Employee
-            </button>
-
-            <!-- Search -->
-            <div class="search-container">
-              <form action="" class="search-form">
-                <div class="input-container">
-                  <div class="input-prepend">
-                    <i class="fa fa-search icon" aria-hidden="true"></i>
-                  </div>
-                  <input type="text" name="" id="" placeholder="Search employee">
-                </div>
-              </form>
-            </div>
-          </nav>
+         
 
           <!-- Users Table -->
           <div class="mesa-container">
@@ -223,6 +230,51 @@
                 </tr>         
               </tbody>
             </table>
+          </div>
+
+
+          <!-- Popup -->
+          <div class="popup fade" id="addEmployee" tabindex="-1" aria-hidden="true">
+              <div class="pcontainer">
+                  <div class="pcontent">
+                      <div class="pheader">
+                      <div class="linear-center">
+                          <!-- Can add icon here -->
+                          <i class="fa-solid fa-user-plus"></i>
+                          <h2 class="ptitle">Employee</h2>
+                      </div>
+                      <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      </div>
+          
+                      <div class="pbody">
+                      
+                        <div class="form-group">
+                          <label for="">Username</label>
+                          <input type="text" class="form-control" name="" id="" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Email</label>
+                          <input type="text" class="form-control" name="" id="" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Password</label>
+                          <input type="password" class="form-control" name="" id="" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Contact</label>
+                          <input type="text" class="form-control" name="" id="" placeholder="Contact">
+                        </div>
+
+                      </div>
+          
+                      <div class="pfooter">
+                      <button type="button" class="btn action-btn">Submit</button>
+                      <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                      </div>
+                  </div>
+              </div>
           </div>
 
       </main>

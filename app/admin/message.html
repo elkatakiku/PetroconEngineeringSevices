@@ -2,8 +2,6 @@
 <html lang="en">
     <head>
         <title>Petrocon | Messages </title> 
-    <!-- Change the 'Page' to current page  -->
-    <title>Base Admin Structure</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,15 +20,14 @@
 
     <!-- External CSS -->
     <!-- Change paths of href depending on the location of the file -->
-    <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="stylesheet" href="../styles/navbar.css">
-    <link rel="stylesheet" href="../styles/sidebar.css">
-    <link rel="stylesheet" href="../styles/astyles.css">
-    <link rel="stylesheet" href="../styles/message.css">
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
+    <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../styles/astyles.css">
+    <link rel="stylesheet" href="../../styles/message.css">
   </head>
   <body>
-
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav id="topbar" class="navbar navbar-expand-md navbar-light">
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
           <span class="material-icons">menu</span>
       </button>
@@ -44,7 +41,7 @@
       <div id="sidebar">
         <nav>
           <ul class="list-unstyled components">
-            <li class="active">
+            <li class="">
               <a class="d-flex align-content-start" href="#">
                 <span class="material-icons">dashboard</span>
                 <div class="collapsible">
@@ -80,7 +77,7 @@
                 </li>
               </ul>
             </li>
-            <li class="">
+            <li class="active">
               <a class="d-flex align-content-start" href="#">
                 <span class="material-icons">chat_bubble</span>
                 <div class="collapsible">
@@ -140,9 +137,10 @@
           </ul>
         </nav>
       </div>
+    
       
       
-      <!--------------------------->
+      <!----------MESSAGES----------------->
       <main class="content">
         <div class="container">
             <div class="leftSide">
@@ -151,9 +149,7 @@
                     <h4>Messages</h4>
                 </div>
 
-
-             
-          
+                <!----search ni kath 
                 <div class="search_chat">
                     <div>
                       <form action="" class="search-form">
@@ -165,6 +161,18 @@
                         </div>
                       </form>
                     </div>
+                </div> -->
+                
+                <!----search ni eli -->
+                <div class="search-container">
+                  <form action="" class="search-form">
+                    <div class="input-container">
+                      <div class="input-prepend">
+                        <i class="fa fa-search icon" aria-hidden="true"></i>
+                      </div>
+                      <input type="text" name="" id="" placeholder="Search messages">
+                    </div>
+                  </form>
                 </div>
            
            <!----Chat list-->
@@ -391,9 +399,9 @@
             
             <!-------chat input--------->
             <div class="chatbox_input">
-                
+
+                <i class="fa-regular fa-image"></i> 
                 <input type="text" placeholder="Type a message..">
-                
                 <ion-icon name="send-sharp"></ion-icon>
             </div>
         </div>
@@ -412,6 +420,6 @@
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
 
     <!-- External JS -->
-    <script src="../scripts/index.js"></script>
+    <script src="../../scripts/index.js"></script>
     </body>
 </html>
