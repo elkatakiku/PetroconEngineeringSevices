@@ -32,6 +32,7 @@
     pointer-events: none;
     max-width: 90%;
     margin: 1.75rem auto;
+    z-index: 2010;
 }
 
 @media (min-width: 576px) {
@@ -75,7 +76,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: 12px;
     border-bottom: 1px solid var(--border-rgba-color);
     border-top-left-radius: var(--default-border-radius);
     border-top-right-radius: var(--default-border-radius);
@@ -85,14 +86,15 @@
 .ptitle {
     margin: 0;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1rem;
+    color: #5e6c84;
 }
 
 .pbody {
     position: relative;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    padding: 1rem;
+    padding: 12px;
 }
 
 .pfooter {
@@ -101,7 +103,7 @@
     flex-direction: column;
     align-items: stretch;
     gap: .75rem;
-    padding: 1rem;
+    padding: 12px;
     border-top: 1px solid var(--border-rgba-color);
     border-bottom-right-radius: var(--default-border-radius);
     border-bottom-left-radius: var(--default-border-radius);
@@ -110,18 +112,24 @@
 /* Popup Components */
 .pheader button[data-dismiss] {
     position: absolute;
-    top: 50%;
-    right: 1.75rem;
-    transform: translateY(-50%);
+    top: 12px;
+    right: 12px;
+}
+
+.pheader button[data-dismiss] .material-icons {
+    font-size: 14px;
 }
 
 .popup .pcontent .pbody label {
-    font-weight: 300;
+    font-size: 12px;
+    font-weight: 500;
+    color: #5e6c84;
 }
 
 .popup .pcontent .pbody input, .popup .pcontent .pbody .input-options {
     border: 1px solid var(--input-popup-border-color);
     background-color: white !important;
+    font-size: 14px;
 }
 
 .popup .pcontent .pbody input::placeholder, .popup .pcontent .pbody small {
@@ -139,8 +147,21 @@
     opacity: .5;
 }
 
-/* Popup Animations */
+.popup.popup-center .pcontainer {
+    width: 100%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
+.pfooter .btn {
+    height: 2rem;
+    font-size: .8rem;
+}
+
+/* Popup Animations */
 .popup.popup-below .pcontainer {
     margin: auto;
     margin-top: 1.75rem;

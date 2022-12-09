@@ -64,7 +64,6 @@
 body {
     background-color: var(--background-color);
     color: var(--primary-text);
-    /* max-width: 1366px; */
     margin: auto;
     position: relative;
     box-shadow: 10px 0 8px -5px #e9e1ff, -10px 0 8px -5px #e9e1ff;
@@ -101,7 +100,11 @@ hr {
 }
 
 .hide {
-    display: none;
+    display: none !important;
+}
+
+.scroll-x {
+    overflow-x: auto;
 }
 
 .unscrollable {
@@ -235,6 +238,8 @@ hr {
     font-family: 'Open Sans', sans-serif;
 }
 
+.btn-sm
+
 a.btn {
     padding: .5rem 1.5rem;
 }
@@ -292,8 +297,13 @@ a.btn {
 }
 
 .light-btn {
-    background-color: white;
-    color: var(--palette1);
+    background-color: #f4f4f4;
+    color: #231F20;
+    box-shadow: 0 0 2px 1px var(--border-rgba-color);
+}
+
+.light-btn .btn-icon {
+    color: var(--palette4);
 }
 
 .link-btn {
@@ -324,6 +334,24 @@ a.btn {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dots-menu {
+    color: #8A8A8A;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+}
+
+.dots-menu:focus {
+    box-shadow: 0 0 0 2px rgba(145, 135, 255, 0.3);
+}
+
+.neutral-btn {
+    border: 1px solid #B6B6B6;
 }
 
 /* Form buttons */
@@ -565,7 +593,6 @@ form .row .right {
     align-items: center !important;
     border: 1px solid var(--border-rgba-color);
     border-radius: var(--default-border-radius);
-    overflow: auto;
 }
 
 .option-box {
@@ -623,6 +650,7 @@ form .row .right {
     border-width: 1px 0;
     border-style: solid;
     border-color: var(--palette5);
+    vertical-align: text-top;
 }
 
 .mesa tbody tr:hover {
@@ -636,8 +664,6 @@ form .row .right {
     background-color: var(--table-header-bg);
     color: var(--table-header-text);
     font-size: .75rem;
-    /* position: sticky; */
-    /* top: 0; */
 }
 
 .mesa .mesa-head .tname {
@@ -652,8 +678,63 @@ form .row .right {
     font-weight: 200;
 }
 
+/* Action Cell */
 .mesa .action-cell {
+    vertical-align: top;
+}
+
+.mesa .action-cell-content {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
     text-align: right;
+    min-width: 100px;
+    gap: 1rem;
+}
+
+.mesa-header .action-cell .btn { 
+    display: flex;
+    float: right;
+}
+
+.mesa .action-cell .btn {
+    padding: 0;
+    margin: 0;
+}
+
+.mesa tbody tr:not(:hover) .row-action-btns {
+    display: none;
+}
+
+.mesa-container .row-action-btns .btn {
+    color: #8A8A8A !important;
+}
+
+/* Status Cell */
+.status-cell {
+    min-width: 100px;
+}
+
+span.status {
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+span.status[data-status = "done"] {
+    background-color: #7BC86C;
+    color: white;
+}
+
+span.status[data-status = "in-progress"] {
+    background-color: #FFE172;
+    color: var(--palette1);
+}
+
+/* Action Row */
+.mesa-container .table-action-row {
+    display: flex;
+    gap: 10px;
+    margin: 1rem;
 }
 
 
@@ -668,7 +749,7 @@ form .row .right {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
+    z-index: 120;
     background-color: var(--background-color);
 }
 
@@ -762,16 +843,13 @@ body:has(.slide-fixed.active).slide-open {
 .slide {
     flex-shrink: 0;
     position: relative;
-    /* width: auto; */
     min-width: 500px;
     z-index: 110;
-    /* max-width: 500px; */
-    /* overflow: auto; */
 }
 
 .slide.slide-fixed {
     position: fixed;
-    z-index: 110;
+    z-index: 130;
     top: 0;
     right: -100%;
 }
@@ -829,6 +907,15 @@ body:has(.slide-fixed.active).slide-open {
     font-size: 1rem;
 }
 
+#tasksTable {
+    height: 100%;
+    border-right: 1px solid var(--border-rgba-color);
+}
+
+#tasksTable td {
+    font-size: 14px;
+}
+
 .slide .mesa thead.mesa-header {
     background-color:  rgba(0,0,0,.03);
     width: 100%;
@@ -836,6 +923,7 @@ body:has(.slide-fixed.active).slide-open {
 }
 
 .slide .mesa thead.mesa-header th {
+    vertical-align: middle;
     padding: 5px .75rem;
     font-size: .75rem;
     font-weight: 300;
@@ -852,6 +940,156 @@ body:has(.slide-fixed.active).slide-open {
 
 .slide .mesa tbody {
     background-color: white;
+}
+
+/* Timeline Slide */
+#timelineSlide .slide-content {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#taskBar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 1rem;
+}
+
+.tb-title {
+    font-size: 14px;
+}
+
+.tb-date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tb-date input {
+    font-size: 12px;
+}
+
+.tb-date hr {
+    width: 1rem;
+    border-color: var(--primary-text);
+}
+
+#taskBar .light-btn:has(.btn-icon) {
+    position: relative;
+}
+
+#taskBar .light-btn:has(.btn-icon) .btn-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#legends {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 14px;
+}
+
+#legends .task-legend {
+    display: grid;
+    grid-template-columns: 50px  1fr 40px;
+}
+
+#legends .leg-color {
+    background-color: #5050FF;
+}
+
+#legends .leg-title {
+    background-color: #3F3FBF;
+    color: white;
+    padding: 5px 10px;
+}
+
+#legends .leg-edit, #legends .leg-edit .material-icons {
+    align-self: center;
+    justify-self: center;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+}
+
+#legends .light-btn {
+    margin-top: 5px;
+}
+
+/* Create Legend */
+#legendPopup .pheader {
+    padding: 12px;
+}
+
+#legendPopup .pheader .ptitle {
+    font-size: 14px;
+}
+
+#legendPopup .pbody {
+    margin: 0;
+    padding: 0;
+}
+
+.legend-preview {
+    background-color: #f4f5f7;
+    margin-top: 10px;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-preview span {
+    display: block;
+    width: 50%;
+    min-height: 20px;
+    background-color: #7B7B7B;
+}
+
+.legend-preview span:first-child {
+    align-self: flex-start;
+}
+
+.color-preview {
+    align-self: center;
+    background-color: #5050FF !important;
+}
+
+.legend-preview span:last-child {
+    align-self: flex-end;
+}
+
+.color-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.color-selection .option-box {
+    min-height: 25px;
+    flex-grow: 0;
+    min-width: calc((100% - ((5px * 5)+24px)) / 5);;
+}
+
+.color-selection .option-box:hover {
+    background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
+}
+
+#legendForm {
+    padding: 12px;
+}
+
+#legendPopup .pfooter {
+    flex-direction: row-reverse;
+}
+
+#legendPopup .pfooter .btn {
+    width: 100px;
+    height: 2rem;
+    font-size: .8rem;
 }
 
 /* || MEDIA QUERIES */

@@ -141,37 +141,44 @@
         </div>
         
         <main class="content">
-          <form action="#" method="POST" id="invoice">
-            <div class="page-title">
-              <a class="navbar-brand brand" href="#">
-                <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
-                <span class="brand-name">Petrocon</span>
-              </a>
-                <div>
-                    <h2>PETROCON ENGINEERING SERVICES</h2>
-                    <p>Strike Ville, Vizcarra Comp., Molino 3, Bacoor City
-                    <br>
-                    (046) 513-7533; Cell No. 0917-140-8987
-                    <br>
-                    petroconphil@gmail.com 
-                </div> 
-            </div>
-            <div class="page-client-container" contenteditable="true">
-                MS. EFFER ADAZA
-                <br>
-                Purchasing Officer
-                <br>
-                Phoenix LPG Philippines, Inc.
-                <br>
-                Matab-ang, Dalipuga, Iligan City
-                <br>
-            </div> 
-            <div class="page-description">
-                <p  class="fill" contenteditable="true">&nbsp;</p>&nbsp; 
-                <br>
-                <br>
-                  I would like to bill hundred percent completion for the
-                  &nbsp;<p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+          <form action="#" method="POST" id="invoiceform">
+            <div>
+              <div class="invoice-page-title">
+                <a class="brand" href="#">
+                  <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
+                  <span class="brand-name">Petrocon</span>
+                </a>
+                  <div>
+                      <h2>PETROCON ENGINEERING SERVICES</h2>
+                      <p>Strike Ville, Vizcarra Comp., Molino 3, Bacoor City
+                      <br>
+                      (046) 513-7533; Cell No. 0917-140-8987
+                      <br>
+                      petroconphil@gmail.com 
+                  </div> 
+              </div>
+              <div class="invoice-page-info">
+                <p>
+                  Name of Client: 
+                  <span class="fill" contenteditable="true">&nbsp;</span>
+                  <br>
+                  Position: 
+                  <span class="fill" contenteditable="true">&nbsp;</span>
+                  <br>
+                  Company Name: 
+                  <span class="fill" contenteditable="true">&nbsp;</span>
+                  <br>
+                  Company Address: 
+                  <span class="fill" contenteditable="true">&nbsp;</span>
+                  <br>
+                  <br>
+                </p>
+                  Mr/Ms.
+                  <span  class="fill" contenteditable="true">&nbsp;</span>
+              </div> 
+              <div class="page-description">
+                  <p>I would like to bill hundred percent completion for the
+                  <span class="fill" contenteditable="true">&nbsp;</span>&nbsp;
                   For the total cost including labor and mobilization is
                   &nbsp;<p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
                   VAT Inclusive. See attached Service report and inspection report.
@@ -193,16 +200,15 @@
             </div> 
 
             <style>
-                .page-title{
+                .invoice-page-title{
                   text-align: center;
                   margin: 30mm 45mm 30mm 45mm; 
                 }
-                .page-client-container{
+                .invoice-page-info{
                   text-align: left;
-                  margin: -15mm 50mm 5mm 45mm; 
+                  margin: -15mm 0mm 5mm 35mm; 
                 }
                 .page-description{
-
                   margin: 10mm 30mm 30mm 45mm; 
                 }
                 .page-amount{
@@ -210,21 +216,19 @@
                   margin: -25mm 0mm 5mm 65mm; 
                 }
                 .fill{
-                  border-bottom: 1px solid rgb(143, 128, 128);
-                  width: max-content;
-                  padding: 10px;
+                  border-bottom: 1px solid rgb(51, 43, 43);
+                  min-width: 100px;
+                  display: inline-block;
                 }
 
             </style>
           </form>
 
-          <div class="button">
-            <p><input type="button" onclick="turnoverprint('invoice')" class="btn outline-action-btn" value="Print"></p>
+          <div class="linear space-between">
+            <p><input type="button" onclick="invoiceprint('invoiceform')" class="btn outline-primary-btn btn-lg btn-block" value="Print"></p>  
             <a class="btn action-btn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="custom-tab" href="projectganttchart.html">Go Back</a>
           </div>
-
         </main>
-
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
