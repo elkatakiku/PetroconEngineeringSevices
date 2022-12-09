@@ -24,24 +24,6 @@
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/astyles.css">
 
-    <style>
-      {
-          box-sizing: border-box;
-      }
-      /* Set additional styling options for the columns*/
-      .turnovercolumn {
-      float: left;
-      width: 40%;
-      }
-  
-      .turnoverrow:after {
-      content: "";
-      display: table;
-      clear: both;
-      }
-      </style>
-
-
   </head>
 
   <nav class="navbar navbar-expand-md navbar-light">
@@ -157,88 +139,104 @@
     </div>
     
     <main class="content">
-       <!-- Header -->
-    <div class="page-header">
-        <div class="project-info">
-            <div>
-                <h1 class="page-title">Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</h1>
-                <small>Robinson Palace, Antipolo City</small>
+      <form action="#" method="POST" id="turnoverform">
+        <div>
+          <div class="turnover-page-title">
+            <a class="brand" href="#">
+              <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
+              <span class="brand-name">Petrocon</span>
+            </a>
+              <div>
+                  <h2>PETROCON ENGINEERING SERVICES</h2>
+                  <p>Strike Ville, Vizcarra Comp., Molino 3, Bacoor City
+                  <br>
+                  (046) 513-7533; Cell No. 0917-140-8987
+                  <br>
+                  petroconphil@gmail.com 
+              </div> 
+              <h4> TURN-OVER AND ACCEPTANCE CERTIFICATE</h4>
+          </div>
+
+          <div class="turnover-client-info">
+            <div class="linear">
+              <p>Name of Client: </p>
+              <p class="fill" contenteditable="true">&nbsp;</p>
             </div>
-        </div>
-        <button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
-        <span class="material-icons-outlined">info</span>
-        </button>
-    </div>
+            <div class="linear">
+              <p>Building No.: </p>
+              <p class="fill" contenteditable="true">&nbsp;</p>
+            </div>
+            <div class="linear">
+              <p>Work Description: </p>
+              <p class="fill" contenteditable="true">&nbsp;</p>
+            </div>
+            <div class="linear">
+              <p>Purchase Order #: </p>
+              <p class="fill" contenteditable="true">&nbsp;</p>
+            </div>
+            <div class="linear">
+              <p>Date of Award: </p>
+              <p class="fill" contenteditable="true">&nbsp;</p>
+            </div>
+            <div class="linear">
+              <p>Location: </p>
+              <p class="fill" contenteditable="true">&nbsp;</p>
+            </div>
+          </div> 
 
-    <nav class="nav-tab-container border-bottom"></nav>
-      
-    </nav>
-      
-    
-    <form action="" method="POST" id="turnoverform">
-        <!--<fieldset>-->
-          <a class="navbar-brand brand" href="#">
-            <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
-            <span class="brand-name">Petrocon</span>
-          </a>
-
-        <h2 align="center">PETROCON ENGINEERING SERVICES</h2>
-        <p align="center"> 024 Strike Ville, Vizcarra Comp., Molino 3, Bacoor City<br>
-        Tel.No (046) 513-7533; Cell No. 0917-140-8987<br>
-        petroconphil@gmail.com </p>
-
-        <h4 align="center"> TURN-OVER AND ACCEPTANCE CERTIFICATE</h4>
-            Name of Client :
-            <input type="text" name="name">
-        <br>Building no. :
-            <input type="text" name="name">
-        <br>Work Description :
-            <input type="text" name="name">
-        <br>Purchase Order # :
-            <input type="text" name="name">
-        <br>Date of Award :
-            <input type="text" name="name">
-        <br>Location :
-            <input type="text" name="name">
-        <br>
-            <!--input type="submit" value="submit"-->
-        <!--/fieldset>-->
-
-        <h4 align="center"> C E R T I F I C A T I O N</h4>
-        <p>&emsp;&emsp;This is to certify that the above mentioned job work by PETROCON ENGINEERING SERVICES were completed to the full satisfaction and in accordance to the latest edition of NFA 58 and PLPGA safety code.<br>
-        <br> &emsp;&emsp; This is also certify that the installed pipeline from manifold to distribution line up to burners in building no. 1,2, and 3 no leaking found during leak testing and the installations are safe to use.<br>
-        <br> &emsp;&emsp; This is to further certify that the job /work has completed and turned-over by Petrocon Engineering Services, this (date).</p><br>
-      
-
-        <div class="turnoverrow">
-          <div class="turnovercolumn"> 
-              <p>&emsp;&emsp;Turned-over by: <br><br>
-                &emsp;&emsp;_______________________<br>
-                &emsp;&emsp;Contractor</p>
+          <div class="turnover-client-cert">
+            <h4 style="text-align: center;"> C E R T I F I C A T I O N</h4>
+            <p>&emsp;&emsp;This is to certify that the above mentioned job work by PETROCON ENGINEERING SERVICES were completed to the full satisfaction and in accordance to the latest edition of NFA 58 and PLPGA safety code.<br>
+            <br> &emsp;&emsp; This is also certify that the installed pipeline from manifold to distribution line up to burners in building no. 1,2, and 3 no leaking found during leak testing and the installations are safe to use.<br>
+            <br> &emsp;&emsp; This is to further certify that the job /work has completed and turned-over by Petrocon Engineering Services, this (date).</p><br>
           </div>
-          <div class="turnovercolumn"> 
-              <p>&emsp;&emsp;Accepted for and in behalf:  <br><br>
-                &emsp;&emsp;______________________<br>
-                &emsp;&emsp;(Client) Representative</p>
-          </div>
+
+        <div class="linear space-between">
+            <div class="turnovercolumn"> 
+                <p>&emsp;&emsp;Turned-over by: <br><br>
+                  &emsp;&emsp;_______________________<br>
+                  &emsp;&emsp;Contractor</p>
+            </div>
+            <div class="turnovercolumn"> 
+                <p>&emsp;&emsp;Accepted for and in behalf:  <br><br>
+                  &emsp;&emsp;______________________<br>
+                  &emsp;&emsp;(Client) Representative</p>
+            </div>
+
         </div>
+            <style>
+              /* Set additional styling options for the columns*/
+              .turnover-page-title{
+                text-align: center;
+                margin: 30mm 45mm 30mm 45mm; 
+              }
+
+              .turnover-client-info{
+                text-align: left;
+                margin: -10mm 0mm 5mm 30mm; 
+              }
+
+              .turnover-client-cert{
+                text-align: justify;
+                margin: 10mm 30mm 30mm 45mm; 
+              }
+              .fill{
+                  border-bottom: 1px solid rgb(143, 128, 128);
+                  width: max-content;
+                  min-width: 100px;
+                  font-size: 20px;
+                }
+
+
+              </style>
     </form>
 
-        <p><input type="button" onclick="turnoverprint('turnoverform')" class="btn outline-primary-btn btn-lg btn-block" value="Print"></p>
-        
-        <a class="btn action-btn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="custom-tab" href="projectganttchart.html">Go Back</a>
-       
-        <script>
-            function turnoverprint(turnoverform){
-                var printdata = document.getElementById(turnoverform);
-                newwin = window.open("");
-                newwin.document.write(printdata.outerHTML);
-                newwin.print();
-                newwin.close();
-            }
-        </script>
-
+      <div class="linear space-between">
+        <p><input type="button" onclick="turnoverprint('turnoverform')" class="btn outline-primary-btn btn-lg btn-block" value="Print"></p>  
+        <a class="btn action-btn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="" href="projectganttchart.html">Go Back</a>
+      </div>
     </main>
+
   <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -250,6 +248,16 @@
 
     <!-- External JS -->
     <script src="../../scripts/index.js"></script>
+
+    <script>
+      function turnoverprint(turnoverform){
+          var printdata = document.getElementById(turnoverform);
+          newwin = window.open("");
+          newwin.document.write(printdata.outerHTML);
+          newwin.print();
+          newwin.close();
+      }
+    </script>    
 
     <script>
         function initSlide() {

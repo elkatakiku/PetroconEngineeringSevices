@@ -141,68 +141,72 @@
         </div>
         
         <main class="content">
-          <form action="#" method="POST" id="invoice">
-            <div class="page-title">
-              <a class="navbar-brand brand" href="#">
-                <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
-                <span class="brand-name">Petrocon</span>
-              </a>
-                <div>
-                    <h2>PETROCON ENGINEERING SERVICES</h2>
-                    <p>Strike Ville, Vizcarra Comp., Molino 3, Bacoor City
-                    <br>
-                    (046) 513-7533; Cell No. 0917-140-8987
-                    <br>
-                    petroconphil@gmail.com 
-                </div> 
-            </div>
-            <div class="page-client-container" contenteditable="true">
-                MS. EFFER ADAZA
+          <form action="#" method="POST" id="invoiceform">
+            <div>
+              <div class="invoice-page-title">
+                <a class="brand" href="#">
+                  <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
+                  <span class="brand-name">Petrocon</span>
+                </a>
+                  <div>
+                      <h2>PETROCON ENGINEERING SERVICES</h2>
+                      <p>Strike Ville, Vizcarra Comp., Molino 3, Bacoor City
+                      <br>
+                      (046) 513-7533; Cell No. 0917-140-8987
+                      <br>
+                      petroconphil@gmail.com 
+                  </div> 
+              </div>
+              <div class="invoice-page-info">
+                  <p class="fill" contenteditable="true">MS. EFFER ADAZA</p>
+                  <p class="fill" contenteditable="true">Purchasing Officer</p>
+                  <p class="fill" contenteditable="true">Phoenix LPG Philippines, Inc.</p>
+                  <p class="fill" contenteditable="true">Matab-ang, Dalipuga, Iligan City</p>
+                  <br>
+                  <br>
+                  <p  class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+              </div> 
+              <div class="page-description">
+                  <div class="linear">
+                    <p>I would like to bill hundred percent completion for the</p>
+                    <p class="fill" contenteditable="true">&nbsp;</p>
+                  </div>
+                  <div class="linear">
+                    <p>For the total cost including labor and mobilization is</p>
+                    <p class="fill" contenteditable="true">&nbsp;</p>
+                    VAT Inclusive. See attached Service report and inspection report.
+                  </div>
+                  </div>
+              </div> 
+              <div class="page-amount">
+                <div class="linear">
+                  <strong>Material Cost: </strong>
+                  <p class="fill" contenteditable="true">&nbsp;</p>
+                </div>
+                <div class="linear">
+                  <strong>Labor and Mobilization: </strong>
+                  <p class="fill" contenteditable="true">&nbsp;</p>
+               </div>
+               <div class="linear">
+                <strong>Total: </strong>
+                <p class="fill" contenteditable="true">&nbsp;</p>
+                </p>
+                </div>
                 <br>
-                Purchasing Officer
                 <br>
-                Phoenix LPG Philippines, Inc.
-                <br>
-                Matab-ang, Dalipuga, Iligan City
-                <br>
-            </div> 
-            <div class="page-description">
-                <p  class="fill" contenteditable="true">&nbsp;</p>&nbsp; 
-                <br>
-                <br>
-                  I would like to bill hundred percent completion for the
-                  &nbsp;<p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
-                  For the total cost including labor and mobilization is
-                  &nbsp;<p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
-                  VAT Inclusive. See attached Service report and inspection report.
-              </p>
-            </div> 
-            <div class="page-amount">
-              <strong>Material Cost: </strong>
-              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
-              <br>
-              <strong>Labor and Mobilization: </strong>
-              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
-              <br>
-              <strong>Total: </strong>
-              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
-              </p>
-              <br>
-              <br>
-              Thank you!
-            </div> 
+                Thank you!
+              </div> 
 
             <style>
-                .page-title{
+                .invoice-page-title{
                   text-align: center;
                   margin: 30mm 45mm 30mm 45mm; 
                 }
-                .page-client-container{
+                .invoice-page-info{
                   text-align: left;
-                  margin: -15mm 50mm 5mm 45mm; 
+                  margin: -15mm 0mm 5mm 35mm; 
                 }
                 .page-description{
-
                   margin: 10mm 30mm 30mm 45mm; 
                 }
                 .page-amount{
@@ -212,17 +216,16 @@
                 .fill{
                   border-bottom: 1px solid rgb(143, 128, 128);
                   width: max-content;
-                  padding: 10px;
+                  min-width: 100px;
                 }
 
             </style>
           </form>
 
-          <div class="button">
-            <p><input type="button" onclick="turnoverprint('invoice')" class="btn outline-action-btn" value="Print"></p>
+          <div class="linear space-between">
+            <p><input type="button" onclick="invoiceprint('invoiceform')" class="btn outline-primary-btn btn-lg btn-block" value="Print"></p>  
             <a class="btn action-btn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="custom-tab" href="projectganttchart.html">Go Back</a>
           </div>
-
         </main>
 
 
@@ -240,8 +243,8 @@
 <script src="../../scripts/index.js"></script>
 
 <script>
-  function turnoverprint(turnoverform){
-      var printdata = document.getElementById(turnoverform);
+  function invoiceprint(invoiceform){
+      var printdata = document.getElementById(invoiceform);
       newwin = window.open("");
       newwin.document.write(printdata.outerHTML);
       newwin.print();
