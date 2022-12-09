@@ -247,137 +247,34 @@
                     <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectTurnOver">Turn Over</button>
                         -->
                     
-                    <a class="btn action-btn" data-toggle="custom-tab" >Invoice</a>
+                    <a class="btn action-btn" data-toggle="custom-tab" href="invoice-admin.html">Invoice</a>
                     <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
             
                 </div>
 
             </nav>
 
-            <style>
-                .gantt-chart {  
-                    /* max-width: 1200px;  */
-                    min-width: 650px;  
-                    margin: 0 auto; 
-                    padding: 50px;
-                }
-                .gantt-chart .chart { 
-                    display: grid;  
-                    border: 2px solid #000;  
-                    position: relative;  
-                    overflow: hidden; 
-                } 
-                .gantt-chart .chart-row {  
-                    display: grid; 
-                    grid-template-columns: 50px 1fr; 
-                    background-color: #DCDCDC;
-                }
-
-                .gantt-chart .chart-period { 
-                    color:  #fff;  
-                    background-color:  #708090 !important;  
-                    border-bottom: 2px solid #000;  
-                    grid-template-columns: 50px repeat(12, 1fr);
-                }
-
-                .gantt-chart .chart-period > span {
-                    text-align: center;  
-                    font-size: 13px;  
-                    align-self: center;  
-                    font-weight: bold;  
-                    padding: 15px 0;   
-                }
-
-                .gantt-chart .chart-lines { 
-                    position: absolute;  
-                    height: 100%;  
-                    width: 100%;  
-                    background-color: transparent;  
-                    grid-template-columns: 50px repeat(12, 1fr);}
-
-                .gantt-chart .chart-lines > span {  
-                    display: block;  border-right: 1px solid rgba(0, 0, 0, 0.3);
-                }
-
-                .gantt-chart .chart-row-item { 
-                    background-color: #808080;  
-                    border: 1px solid #000;  
-                    border-top: 0;  border-left: 0;  
-                    padding: 20px 0;  font-size: 15px;  
-                    font-weight: bold;  
-                    text-align: center;
-                }
-
-                .gantt-chart .chart-row-bars { 
-                    list-style: none; 
-                    display: grid;  padding: 15px 0;  
-                    margin: 0;  
-                    grid-template-columns: repeat(12, 1fr); 
-                    grid-gap: 10px 0;  
-                    border-bottom: 1px solid #000;
-                }
-                .gantt-chart li {  
-                    font-weight: 450;  
-                    text-align: left;  
-                    font-size: 15px;  min-height: 15px;  
-                    background-color: #708090;  
-                    padding: 5px 15px;  color: #fff;  
-                    overflow: hidden;  
-                    position: relative;  
-                    cursor: pointer;  
-                    border-radius: 15px;
-                } 
-                
-                .gantt-chart ul .chart-li-one { 
-                    grid-column: 1/2;  
-                    background-color: #588BAE;
-                }
-
-                ul .chart-li-two-b {
-                    grid-column: 2/4; 
-                    background-color:#4682B4;
-                } 
-                ul .chart-li-three {
-                    grid-column: 3/5; 
-                    background-color:#57A0D3;
-                }
-                ul .chart-li-four {
-                    grid-column: 3/9; 
-                    background-color:#0E4D92;
-                }
-                ul .chart-li-five {
-                    grid-column: 7/10; 
-                    background-color:#4F97A3;
-                }
-                ul .chart-li-six {
-                    grid-column: 10/12; 
-                    background-color:#73C2FB;
-                }
-                ul .chart-li-seven {
-                    grid-column: 12/12; 
-                    background-color:#0080FF;
-                }   
-            </style>
-
-
             <div class="slide-container">
                 <div class="custom-tab-container">
+
                     <!-- Timeline Slide -->
                     <div class="slide" id="timelineSlide" data-side="left">
                         <div class="slide-content">
                             <div class="mesa-container">
                             <table class="mesa">
                                 <thead class="mesa-header">
-                                <th scope="col">#</th>
-                                <th scope="col" class="taskCell">Task</th>
-                                <th scope="col">Start</th>
-                                <th scope="col">Due</th>
-                                <th scope="col">Status</th>
-                                <th scope="col" class="action-cell">
-                                    <button class="btn icon-btn" data-dismiss="slide">
-                                    <span class="material-icons">navigate_before</span>
-                                    </button>
-                                </th>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col" class="taskCell">Task</th>
+                                        <th scope="col">Start</th>
+                                        <th scope="col">Due</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col" class="action-cell">
+                                            <button class="btn icon-btn" data-dismiss="slide">
+                                            <span class="material-icons">navigate_before</span>
+                                            </button>
+                                        </th>
+                                    </tr>
                                 </thead>
                         
                                 <tbody>
@@ -422,83 +319,492 @@
                         </div>
                     </div>
 
+                    <style>
+
+                        .chart-container {
+                            display: grid;
+                            padding: 0 !important;
+                        }
+
+                        .gantt-chart {  
+                            position: relative;
+                            overflow: auto;
+                        }
+
+                        .gantt-chart .chart { 
+                            display: grid;  
+
+                        }
+
+                        :root {
+                            --chart-row-head: 250px;
+                            --chart-grid-width: 30px;
+                            --week-days: 7;
+                            --chart-header-bg: var(--palette1);
+                        }
+
+                        .chart-header {
+                            background-color:  var(--chart-header-bg) !important;
+                            color:  white;
+                        }
+
+                        .chart-body {
+                            position: relative;
+                            background-color: white;
+                        }
+
+                        .gantt-chart .chart-row {  
+                            display: grid; 
+                            grid-template-columns: var(--chart-row-head) 1fr; 
+                            /* background-color: #DCDCDC; */
+                        }
+
+                        /* .chart-row:nth-child(even) {
+                            background-color: #EEF4ED !important;
+                        } */
+
+                        /* Grid width */
+                        .chart-lines {
+                            display: grid;
+                            grid-template-columns: var(--chart-row-head) repeat(50, 1fr) !important;
+                        }
+
+                        .chart-months, .chart-days,
+                        .gantt-chart .chart-row-bars { 
+                            display: grid;
+                            grid-template-columns: repeat(50, minmax(var(--chart-grid-width), 1fr)); 
+                        }
+
+                        /* Grid Components */
+                        #timelineToggler {
+                            padding: 0;
+                            background-color:  var(--chart-header-bg);
+                            border-right: none;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: white;
+                            font-size: 1rem;
+                            text-align: center;
+                            position: relative;
+                        }
+
+                        #timelineToggler .btn {
+                            position: absolute;
+                            left: 10px;
+                            height: 100%;
+                            color: white;
+                        }
+
+                        #timelineToggler .btn .material-icons {
+                            align-self: center;
+                        }
+
+                        .chart-months {
+                            text-transform: uppercase;
+                            font-weight: 500;
+                            border-bottom: 1px solid white;
+                        }
+
+                        .startMonth, .month31, .month30 {
+                            border-left: 1px solid white;
+                            padding: 5px 0;
+                        }
+
+                        .startMonth {
+                            grid-column: 1 / span 22;
+                            justify-self: center;
+                            align-self: stretch;
+                            width: 100%;
+                            text-align: center;
+                        }
+
+                        .month31 {
+                            grid-column: 1 / span 31;
+                        }
+
+                        .month30 {
+                            grid-column: 1 / span 30;
+                        }
+
+                        .gantt-chart .chart-days {
+                            padding: 2px 0;
+                            border-left: 1px solid white;
+                        }
+
+                        .gantt-chart .chart-days > span {
+                            font-size: .75rem;  
+                            display: block;
+                            text-align: center;
+                            align-self: center;  
+                        }
+        
+                        .gantt-chart .chart-lines { 
+                            display: grid; 
+                            position: absolute;  
+                            height: 100%;
+                            width: 100%; 
+                            background-color: transparent;
+                        }
+        
+                        .gantt-chart .chart-lines > span {  
+                            display: block;  
+                            border-right: 1px solid rgba(13, 13, 13, 0.4);
+                        }
+
+                        .gantt-chart .chart-days > span, 
+                        .gantt-chart .chart-lines > span {
+                            min-width: var(--chart-grid-width);
+                        }
+
+                        .gantt-chart .chart-lines > span:nth-child(3),
+                        .gantt-chart .chart-lines > span:nth-child(10),
+                        .gantt-chart .chart-lines > span:nth-child(17) {
+                            background-color: rgb(255, 70, 70);
+                            position: relative;
+                            z-index: 50;
+                        }
+        
+                        .gantt-chart .chart-row-item { 
+                            align-self: stretch;
+                            display: grid;
+                            grid-template-columns: minmax(5px, auto) 1fr;
+                            gap: 10px;
+                            padding: 10px;
+                            min-height: 20px;
+                            background-color: white;
+                            font-size: .75rem;
+                            color: var(--primary-text);
+                            border-right: 1px solid black;
+                            border-bottom: 1px solid var(--border-rgba-color);
+
+                            position: sticky;
+                            left: 0;
+                            z-index: 60;
+                        }
+        
+                        .gantt-chart .chart-row-bars { 
+                            list-style: none; 
+                            padding: 10px 0;
+                            margin: 0;  
+                            grid-gap: 10px 0;
+                            border-bottom: 1px solid var(--border-rgba-color);
+                        }
+                        
+                        .gantt-chart li {  
+                            min-width: 30px;
+                            min-height: 30px;
+                            max-height: 30px;
+                            cursor: pointer;
+                            overflow: hidden;
+
+                            position: relative;
+                            z-index: 40;
+                        }
+                        
+                        .gantt-chart li.plan {
+                            background-color: var(--palette1) !important;
+                        }
+
+                        .gantt-chart li.actual {
+                            background-color: green !important;
+                        }
+                        
+                        .gantt-chart li.yellow-bar {
+                            background-color: yellow !important;
+                        }
+
+                        
+
+                        /* .gantt-chart li.actual {
+                            background-color: yellow !important;
+                        } */
+
+                        .gantt-chart ul .chart-li-one { 
+                            grid-column: 1 / span 1;  
+                            /* background-color: #588BAE; */
+                        }
+
+                        .chart-li-two-a {
+                            grid-column: 1 / span 1;  
+                        }
+        
+                        ul .chart-li-two-b {
+                            grid-column: 1 / span 1;  
+                            /* background-color:#4682B4; */
+                        } 
+
+                        ul .chart-li-three {
+                            grid-column: 1 / span 1; 
+                            /* background-color:#57A0D3; */
+                        }
+
+                        ul .chart-li-four {
+                            grid-column: 3 / span 1; 
+                            /* background-color:#0E4D92; */
+                        }
+
+                        ul .chart-li-five {
+                            grid-column: 3 / span 4; 
+                            /* background-color:#4F97A3; */
+                        }
+
+                        ul .chart-li-six {
+                            grid-column: 3 / span 13; 
+                            /* background-color:#73C2FB; */
+                        }
+
+                        ul .chart-li-seven-t1 {
+                            grid-column: 3 / span 13; 
+                        }
+
+                        ul .chart-li-seven-t2 {
+                            grid-column: 3 / span 9; 
+                            /* background-color:#0080FF; */
+                        }
+
+                        .chart-li-8-t1 {
+                            grid-column: 3 / span 13; 
+                        }
+
+                        .chart-li-8-t2 {
+                            grid-column: 13 / span 3; 
+                        }
+
+                        .chart-li-8-t3 {
+                            grid-column: 17 / span 3; 
+                        }
+                    </style>
+
                     <!-- Gantt Chart -->
-                    <div id="projectGanttChart" class="custom-tab-content show gantt-chart">
-                        <div class="chart">
-                            <div class="chart-row chart-period">
-                                <div class="chart-row-item"></div>
-                                <span>January</span>
-                                <span>February</span>
-                                <span>March</span>
-                                <span>April</span>
-                                <span>May</span>
-                                <span>June</span>
-                                <span>July</span>
-                                <span>August</span>
-                                <span>September</span>
-                                <span>October</span>
-                                <span>November</span>
-                                <span>December</span>
-                            </div>
+                    <div id="projectGanttChart" class="custom-tab-content show chart-container">
+                        <div class="gantt-chart">                        
+                            <div class="chart">
+                                <div class="chart-row chart-header">
+                                    <div class="chart-row-item" id="timelineToggler">
+                                        <button type="button" class="btn icon-btn" data-toggle="slide" data-target="#timelineSlide">
+                                            <span class="material-icons">edit_note</span>
+                                        </button>
+                                        Tasks
+                                    </div>
+                                    <div>
+                                        <div class="chart-months">
+                                            <span class="startMonth">December</span>
+                                            <!-- <span class="month30">January</span> -->
+                                        </div>
+                                        <div class="chart-days">
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="chart-row chart-lines"> 
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
+                                <div class="chart-body">
+                                    <div class="chart-lines"> 
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>1</strong>
+                                            Procurement
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-one"></li>
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>2</strong>
+                                            Tool Box Meeting
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-two-a"></li>
+                                            <li class="actual chart-li-two-b"></li>          
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>3</strong>
+                                            Actual visit at site for measurement
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-three"></li>
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>4</strong>
+                                            Mobilization
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-four"></li>
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>5</strong>
+                                            Repainting of pipe
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-five"></li>
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>6</strong>
+                                            Relocation of 2" Distribution line from Handyman's area (removal and Reinstall with 55 meter located at Upper ground)
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-six"></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>7</strong>
+                                            Modification of 2" B.I. pipe (step-up for x 600mm 10meter long) due to modification of wall from concrete to glass wall at Second floor.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-seven-t1"></li>
+                                        </ul>
 
-                            <div class="chart-row">
-                                <div class="chart-row-item">1</div>
-                                <ul class="chart-row-bars">
-                                    <li class="chart-li-one">Planning</li>
-                                </ul>
-                            </div>
-                            <div class="chart-row">
-                                <div class="chart-row-item">2</div>
-                                <ul class="chart-row-bars">
-                                    <li class="chart-li-two-a">Meeting</li>
-                                    <li class="chart-li-two-b">Analysis</li>          
-                                </ul>
-                            </div>
-                            <div class="chart-row">
-                                <div class="chart-row-item">3</div>
-                                <ul class="chart-row-bars">
-                                    <li class="chart-li-three">Design</li>
-                                </ul>
-                            </div>
-                            <div class="chart-row">
-                                <div class="chart-row-item">4</div>
-                                <ul class="chart-row-bars">
-                                    <li class="chart-li-four">Development</li>
-                                </ul>
-                            </div>
-                            <div class="chart-row">
-                                <div class="chart-row-item">5</div>
-                                <ul class="chart-row-bars">
-                                    <li class="chart-li-five">Testing</li>
-                                </ul>
-                            </div>
-                            <div class="chart-row">
-                                <div class="chart-row-item">6</div>
-                                <ul class="chart-row-bars">
-                                    <li class="chart-li-six">Maintenance</li>
-                                </ul>
-                            </div>
-                            <div class="chart-row">
-                                <div class="chart-row-item">7</div>
-                                <ul class="chart-row-bars">
-                                    <li class="chart-li-seven">Meeting</li>
-                                </ul>
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Modification of 2" Distribution pipe line second floor due to aircon   ducting conflict with 15 meter long.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-seven-t2"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>8</strong>
+                                            Additional stub-out for 6 tenants and additional pipe line for 12- tenats  from existing stub-outs to meter location inside the tenant area.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-8-t1"></li>
+                                        </ul>
+
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Leak Test and commissioning  at 2F, UGF, LGF
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-8-t2"></li>
+                                        </ul>
+
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Additional 2-1/2"  LPG mainline and stubouts for Vikings, Tongyang and 3 tenants
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="yellow-bar chart-li-8-t3"></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -664,76 +970,6 @@
                             </table>
                         </div>
                     </div>
-
-                
-                    <!-- Project Info -->
-                    <div class="slide" id="projectInfo" data-side="right">
-                        <div class="slide-content">
-                        <div class="slide-header">
-                            <button class="btn icon-btn" data-dismiss="slide">
-                            <span class="material-icons">navigate_next</span>
-                            </button>
-                            <h2 class="slide-title">Details</h2>
-                            <div>
-                            <button class="btn link-btn show" data-toggle="form" data-action="edit" data-target="#projectDetailForm">
-                                Edit
-                            </button>
-                            <button class="btn link-btn" type="submit" form="#projectDetailForm" data-toggle="form" data-action="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
-                                Done
-                            </button>
-                            </div>
-                        </div>
-            
-                        <div class="slide-body">
-                            <form action="" id="projectDetailForm">
-            
-                            <h3 class="detail-header">General</h3>
-            
-                            <div class="form-input-group display">
-                                <label for="">Name of Client</label>
-                                <p>Yvana Eunice Magno</p>
-                                <input type="text" value="Yvana Eunice Magno" autofocus>
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Building no.</label>
-                                <p>Building 1, 2, 3</p>
-                                <input type="text" value="Building 1, 2, 3">
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Work Description</label>
-                                <p>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</p>
-                                <textarea name="" id="">Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
-                            </div>
-            
-                            <h3 class="detail-header">Project</h3>
-            
-                            <div class="form-input-group display">
-                                <label for="">Purchase Order #</label>
-                                <p>20221526</p>
-                                <input type="number" value="20221526">
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Date of Award</label>
-                                <p>11/26/2022</p>
-                                <input type="date" value="11/26/2022">
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Location</label>
-                                <p>Rosario, Batangas</p>
-                                <input type="text" value="Rosario, Batangas">
-                            </div>
-            
-                            </form>
-                        </div>
-            
-                        <div class="slide-footer">
-                            footer
-                        </div>
-                    </div>
                 </div>
             </div>
         </main>
@@ -782,6 +1018,22 @@
     <script src="../../scripts/index.js"></script>
 
     <script>
+
+        let chartRows = $(".chart-row");
+        // let chartItems = $(".chart-row-item");
+
+        if (chartRows.length > 0) {
+            for (let i = 0; i < chartRows.length; i++) {
+                if (i % 2===0) {
+                    if (i !== 0) {
+                    $(chartRows[i]).css("background-color", "#EEF4ED");
+                    $(chartRows[i]).find(".chart-row-item").css("background-color", "#EEF4ED");
+                    // if (i !== 0) {
+                    //     $(chartItems[i]).css("background-color", "#EEF4ED");
+                    }
+                }
+            }
+        }
         
 
         // $(".slide.slide-fixed").css({

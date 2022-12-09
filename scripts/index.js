@@ -183,28 +183,37 @@ function switchTab (btn) {
 
 // Slide
 
-$(".slide.slide-fixed").css({
-    "top": $("#topbar")[0].scrollHeight + "px"
-});
-
-$(".slide.slide-fixed .slide-content").css({
-    "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
-});
+if ($("#topbar").length > 0) {
+    $(".slide.slide-fixed").css({
+        "top": $("#topbar")[0].scrollHeight + "px"
+    });
+    
+    $(".slide.slide-fixed .slide-content").css({
+        "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
+    });
+} else {
+    console.log("Info: No topbar found.");
+}
 
 function initSlide() {
+    console.log("Initializing slide");
     $(".slide-container .slide[data-side='left']").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
     $(".slide-container .slide[data-side='right']").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
 }
 
-let resizeObserver = new ResizeObserver(entries => {
-    console.log("The element was resized");
+if ($(".slide[data-side]").length > 0) {
+    let resizeObserver = new ResizeObserver(entries => {
+        console.log("The element was resized");
+        initSlide();
+    });
+    
+    resizeObserver.observe($(".slide[data-side='left']")[0]);
+    resizeObserver.observe($(".slide[data-side='right']")[0]);
+
     initSlide();
-});
-
-resizeObserver.observe($(".slide[data-side='left']")[0]);
-resizeObserver.observe($(".slide[data-side='right']")[0]);
-
-initSlide();
+} else {
+    console.log("Info: No slide found.");
+}
 
 function toggleSlide(toggle, slideElement) {
     let side = slideElement.data("side");

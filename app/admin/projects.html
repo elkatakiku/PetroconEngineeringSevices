@@ -192,7 +192,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr onclick="viewData()">
                   <th scope="row">1</th>
                   <td>
                     <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
@@ -408,10 +408,11 @@
 
     <!-- External JS -->
     <script src="../../scripts/popup.js"></script>
+    <script src="../../scripts/table.js"></script>
     <script src="../../scripts/index.js"></script>
 
     <script>
-      const thead = $("#content main .mesa .mesa-head");
+      // const thead = $("#content main .mesa .mesa-head");
 
       // function setNavTab() {
       //   if ($(window).width() > 768) {
@@ -421,14 +422,14 @@
       //   }
       // }
 
-      let popup = new Popup();
-      popup.render();
+      // let popup = new Popup();
+      // popup.render();
 
-      setNavTab();
+      // setNavTab();
 
-      $(window).on("resize", () => {
-        setNavTab();
-      });
+      // $(window).on("resize", () => {
+      //   setNavTab();
+      // });
     </script>
   </body>
 </html>
