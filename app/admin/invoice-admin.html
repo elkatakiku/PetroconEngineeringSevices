@@ -180,28 +180,24 @@
                   <p>I would like to bill hundred percent completion for the
                   <span class="fill" contenteditable="true">&nbsp;</span>&nbsp;
                   For the total cost including labor and mobilization is
-                  <span class="fill" contenteditable="true">&nbsp;</span>&nbsp;
+                  &nbsp;<p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
                   VAT Inclusive. See attached Service report and inspection report.
-                  </p>
-                  
-              </div> 
-              <div class="page-amount">
-                  <p>
-                  <strong>Material Cost: </strong>
-                  <span class="fill" contenteditable="true">&nbsp;</span>
-                  <br>
-                  <strong>Labor and Mobilization: </strong>
-                  <span class="fill" contenteditable="true">&nbsp;</span>
-                  <br>
-               
-                <strong>Total: </strong>
-                <span class="fill" contenteditable="true">&nbsp;</span>
-                </p>
-               
-                <br>
-                <br>
-                Thank you!
-              </div> 
+              </p>
+            </div> 
+            <div class="page-amount">
+              <strong>Material Cost: </strong>
+              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+              <br>
+              <strong>Labor and Mobilization: </strong>
+              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+              <br>
+              <strong>Total: </strong>
+              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+              </p>
+              <br>
+              <br>
+              Thank you!
+            </div> 
 
             <style>
                 .invoice-page-title{
@@ -248,13 +244,12 @@
 <script src="../../scripts/index.js"></script>
 
 <script>
-  function invoiceprint(printId){
-    var restorePage = document.body.innerHTML;
-      var printContent = document.getElementById(printId).innerHTML;
-      document.body.innerHTML = printContent;
-      window.print();
-      window.close();
-      document.body.innerHTML = restorePage;
+  function turnoverprint(turnoverform){
+      var printdata = document.getElementById(turnoverform);
+      newwin = window.open("");
+      newwin.document.write(printdata.outerHTML);
+      newwin.print();
+      newwin.close();
   }
 </script>
 </body>

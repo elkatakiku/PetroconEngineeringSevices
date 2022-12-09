@@ -260,61 +260,142 @@
                     <!-- Timeline Slide -->
                     <div class="slide" id="timelineSlide" data-side="left">
                         <div class="slide-content">
-                            <div class="mesa-container">
-                            <table class="mesa">
-                                <thead class="mesa-header">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col" class="taskCell">Task</th>
-                                        <th scope="col">Start</th>
-                                        <th scope="col">Due</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col" class="action-cell">
-                                            <button class="btn icon-btn" data-dismiss="slide">
-                                            <span class="material-icons">navigate_before</span>
-                                            </button>
-                                        </th>
-                                    </tr>
-                                </thead>
-                        
-                                <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td class="taskCell">Procurement</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>Done</td>
-                                    <td class="action-cell">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </td>
-                                </tr>
-                        
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td class="taskCell">Tool Box Meeting</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>Done</td>
-                                    <td class="action-cell">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </td>
-                                </tr>
-                        
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td class="taskCell">Actual visit at site for measurementActual visit at site for measurementActual visit at site for measurementActual visit at site for measurement</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>Done</td>
-                                    <td class="action-cell">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <div class="mesa-container" id="tasksTable">
+                                <table class="mesa">
+                                    <thead class="mesa-header">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col" class="taskCell">Task</th>
+                                            <th scope="col">Start</th>
+                                            <th scope="col">Due</th>
+                                            <th scope="col" class="status-cell">Status</th>
+                                            <th scope="col" class="action-cell">
+                                                <button class="btn" data-dismiss="slide">
+                                                    <span class="material-icons">navigate_before</span>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                            
+                                    <tbody>
+                                        <tr onclick="openTask()">
+                                            <th scope="row">1</th>
+                                            <td class="taskCell">Procurement</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td><span class="status" data-status="done">Done</span></td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    <span class="row-action-btns">
+                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                
+                                        <tr onclick="openTask()">
+                                            <th scope="row">2</th>
+                                            <td class="taskCell">Tool Box Meeting</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td><span class="status" data-status="in-progress">In progress</span></td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    <span class="row-action-btns">
+                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                
+                                        <tr onclick="openTask()">
+                                            <th scope="row">3</th>
+                                            <td class="taskCell">Actual visit at site for measurementActual visit at site for measurementActual visit at site for measurementActual visit at site for measurement</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td><span class="status" data-status="in-progress">In progress</span></td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    <span class="row-action-btns">
+                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="table-action-row">
+                                    <button type="button" class="btn action-btn slim-btn">
+                                        <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                                        Add a task
+                                    </button>
+                                    
+                                    <button type="button" class="btn outline-action-btn slim-btn">
+                                        <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                                        Add a sub task
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="taskBar" class="hide">
+                                <h5 class="tb-title">Task Title</h5>
+
+                                <div class="form-input-group">
+                                    <label for="">Plan</label>
+                                    <div class="tb-date">
+                                        <input type="date" name="" id="">
+                                        <hr>
+                                        <input type="date" name="" id="">
+                                    </div>
+                                </div>
+
+                                <div class="form-input-group">
+                                    <label for="">Actual</label>
+                                    <div class="tb-date">
+                                        <input type="date" name="" id="">
+                                        <hr>
+                                        <input type="date" name="" id="">
+                                    </div>
+                                </div>
+
+                                <button id="addLegend" class="btn light-btn slim-btn">
+                                    <i class="fa fa-tag btn-icon" aria-hidden="true"></i>
+                                    Add legend
+                                </button>
+
+                                <div id="legends" class="hide">
+                                    <div class="task-legend">
+                                        <span class="leg-color"></span>
+                                        <span class="leg-title">Plan</span>
+                                        <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                            <span class="material-icons">edit</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="task-legend">
+                                        <span class="leg-color"></span>
+                                        <span class="leg-title">Plan</span>
+                                        <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                            <span class="material-icons">edit</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="task-legend">
+                                        <span class="leg-color"></span>
+                                        <span class="leg-title">Plan</span>
+                                        <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                            <span class="material-icons">edit</span>
+                                        </button>
+                                    </div>
+
+                                    <button class="btn light-btn slim-btn" data-toggle="popup" data-target="#legendPopup">
+                                        Create legend
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -834,10 +915,12 @@
                                         <td>300</td>
                                         <td>2,400</td>
                                         <td>Mahal lods</td>
-                                        <td>
-                                            <div>
-                                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
                                             </div>
                                         </td>
                                     </tr>
@@ -848,10 +931,12 @@
                                         <td>300</td>
                                         <td>2,400</td>
                                         <td>Mahal lods</td>
-                                        <td>
-                                            <div>
-                                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
                                             </div>
                                         </td>
                                     </tr>
@@ -862,10 +947,12 @@
                                         <td>300</td>
                                         <td>2,400</td>
                                         <td>Mahal lods</td>
-                                        <td>
-                                            <div>
-                                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
                                             </div>
                                         </td>
                                     </tr>
@@ -876,10 +963,12 @@
                                         <td>300</td>
                                         <td>2,400</td>
                                         <td>Mahal lods</td>
-                                        <td>
-                                            <div>
-                                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
                                             </div>
                                         </td>
                                     </tr>
@@ -890,10 +979,12 @@
                                         <td>300</td>
                                         <td>2,400</td>
                                         <td>Mahal lods</td>
-                                        <td>
-                                            <div>
-                                                <i class="fa fa-trash" aria-hidden="true"></i>        
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
                                             </div>
                                         </td>
                                     </tr>
@@ -909,20 +1000,35 @@
 
                     <!-- People -->
                     <div id="projectPeople" class="custom-tab-content">
-                        <div class="linear">
+                        <div class="linear space-between">
+                            <button class="btn btn-sm link-btn">Pending invitations</button>
+
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    Add people
+                                </button>
+
+                                <div class="dropdown-menu dropdown-menu-lg-right">
+                                    <a class="dropdown-item" href="#">Invite</a>
+                                    <a class="dropdown-item" href="#">Choose from team</a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- <div class="linear"> -->
                             <!-- <form action="" class=""> -->
-                                <div class="input-container">
+                            <!-- <div class="input-container">
                                 <input type="text" placeholder="Enter an email address or number of a person you want to invite.">
                                 <div class="input-append">
                                     <button type="button" class="btn action-btn slim-btn">Invite person</button>
                                 </div>
-                                </div>
+                            </div>
 
-                                <span class="align-self-center">or</span>
+                            <span class="align-self-center">or</span>
 
-                                <button class="btn action-btn slim-btn  ">Choose from Team</button>
+                            <button class="btn action-btn slim-btn  ">Choose from Team</button> -->
                             <!-- </form> -->
-                        </div>
+                        <!-- </div> -->
 
                         <!-- People Table -->
                         <div class="mesa-container">
@@ -1004,6 +1110,92 @@
         </div>
     </div>
 
+    <!-- Popup -->
+    <div class="popup fade popup-center" id="legendPopup" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer popup-sm">
+            <div class="pcontent popup2">
+                <div class="pheader">
+                    <h2 class="ptitle">Create legend</h2>
+                    <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="legend-preview">
+                        <span></span>
+                        <span class="color-preview"></span>
+                        <span></span>
+                    </div>
+
+                    <form action=".?action=create" method="POST" id="legendForm">
+                        <div class="form-group">
+                          <label for="">Title</label>
+                          <input type="text"
+                            class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        </div>
+
+                        <label for="">Select a color</label>
+                        <div class="color-selection">
+                            <label for="row1.1" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.1">
+                            </label>
+                            <label for="row1.2" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.2">
+                            </label>
+                            <label for="row1.3" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.3">
+                            </label>
+                            <label for="row1.4" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.4">
+                            </label>
+                            <label for="row1.5" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.5">
+                            </label>
+
+                            <label for="row2.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.1">
+                            </label>
+                            <label for="row2.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.2">
+                            </label>
+                            <label for="row2.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.3">
+                            </label>
+                            <label for="row2.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.4">
+                            </label>
+                            <label for="row2.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.5">
+                            </label>
+
+                            <label for="row3.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.1">
+                            </label>
+                            <label for="row3.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.2">
+                            </label>
+                            <label for="row3.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.3">
+                            </label>
+                            <label for="row3.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.4">
+                            </label>
+                            <label for="row3.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.5">
+                            </label>
+                        </div>
+                    </form>
+                </div>
+    
+                <div class="pfooter">
+                <button type="submit" form="legendForm" class="btn action-btn">Save</button>
+                <button type="button" class="btn neutral-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -1016,6 +1208,8 @@
 
     <!-- External JS -->
     <script src="../../scripts/index.js"></script>
+    <script src="../../scripts/table.js"></script>
+    <script src="../../scripts/project.js"></script>
 
     <script>
 
@@ -1026,14 +1220,17 @@
             for (let i = 0; i < chartRows.length; i++) {
                 if (i % 2===0) {
                     if (i !== 0) {
-                    $(chartRows[i]).css("background-color", "#EEF4ED");
-                    $(chartRows[i]).find(".chart-row-item").css("background-color", "#EEF4ED");
-                    // if (i !== 0) {
-                    //     $(chartItems[i]).css("background-color", "#EEF4ED");
+                        $(chartRows[i]).css("background-color", "#EEF4ED");
+                        $(chartRows[i]).find(".chart-row-item").css("background-color", "#EEF4ED");
                     }
                 }
             }
         }
+
+        $("#addLegend").click(function (e) { 
+            e.preventDefault();
+            $("#legends").toggleClass("hide");
+        });
         
 
         // $(".slide.slide-fixed").css({

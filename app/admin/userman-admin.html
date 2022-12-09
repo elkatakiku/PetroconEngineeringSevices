@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Petrocon | Project Gantt Chart</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
+    <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
+    <link rel="stylesheet" href="../../styles/astyles.css">
+    <link rel="stylesheet" href="../../styles/pstyles.css">
+  </head>
+
+  <body class="body-wrapper">
+    
+    <nav id="topbar" class="navbar navbar-expand-md navbar-light">
+        <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
+            <span class="material-icons">menu</span>
+        </button>
+        <strong class="user-type flex-grow-1">Petrocon</strong>
+        <span class="material-icons">circle_notifications</span>
+        <p class="user-name">Eli Lamzon</p>
+        <span id="user-display" class="material-icons">account_circle</span>
+    </nav>
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar">
+          <nav>
+            <ul class="list-unstyled components">
+              <li class="">
+                <a class="d-flex align-content-start" href="/app/index.html">
+                  <span class="material-icons">dashboard</span>
+                  <div class="collapsible">
+                    <span>Dashboard</span>
+                  </div> 
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="item-dropdown">
+                <div class="dropdown-tile">
+                  <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId"> 
+                    <span class="material-icons">handyman</span>
+                    <div class="collapsible">
+                      <span>
+                        Projects
+                        <span class="material-icons">arrow_drop_down</span>
+                      </span>
+                    </div>
+                  </a>
+                </div>
+                <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
+                  <li class="active">
+                    <a class="" href="/app/admin/projects.html">All</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="#">Done</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="#">Ongoing</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="#">Pending</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="">
+                <a class="d-flex align-content-start" href="#">
+                  <span class="material-icons">chat_bubble</span>
+                  <div class="collapsible">
+                    <span>Messages</span>
+                  </div>
+                </a>
+              </li>
+              <li class="item-dropdown">
+                <div class="dropdown-tile">
+                  <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
+                    <span class="material-icons">workspaces</span>
+                    <div class="collapsible">
+                      <span>
+                        Team
+                        <span class="material-icons">arrow_drop_down</span>
+                      </span>
+                    </div>
+                  </a>
+                </div>
+                <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
+                  <li class="">
+                    <a class="" href="employees-admin.html">Employees</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="workers-admin.html">Workers</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="active">
+                <a class="d-flex align-content-start" href="users-admin.html">
+                  <span class="material-icons">people</span>
+                  <div class="collapsible">
+                    <span>Users</span>
+                  </div>
+                </a>
+              </li>
+    
+              <hr>
+    
+              <li class="">
+                <a class="d-flex align-content-start" href="#">
+                  <span class="material-icons">person</span>
+                  <div class="collapsible">
+                    <span>Profile</span>
+                  </div>
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="">
+                <a class="d-flex align-content-start" href="/app/login/login.html">
+                  <span class="material-icons">logout</span>
+                  <div class="collapsible">
+                    <span>Logout</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <main class="content">
+            <!-- Header -->
+            <div class="page-header">
+               
+                <h1 class="page-title">User Management </h1>
+                        
+                <button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
+                    <span class="material-icons-outlined">info</span>
+                </button>
+            </div>
+
+
+            <nav class="nav-tab-container border-bottom">
+                <ul class="nav-tab">
+                    <li class="nav-tab-item active">
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#userProfile">User Profile</button>
+                    </li>
+                    <li class="nav-tab-item">
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#userLogHistory">Log History</button>
+                    </li>
+                    <li class="nav-tab-item">
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#userProject">Joined Project/s</button>
+                    </li>
+                </ul>
+            </nav> 
+
+            <hr>  
+            
+              <div class="custom-tab-container">
+                <div id="userProfile" class="custom-tab-content show">
+                  <div class="container">             
+                    <div class="samp">
+                      <img src="../../images/ic0n.jpg" class="profile-img" style="padding-left: 10px;">
+                      <div class="inner">
+                        <div class="perfile-name">
+                          <h2>Kathiana Fernandez <i class="fa-solid fa-pen-to-square"></i></h2> 
+                        </div>
+                        <p >kathiana@email.com</p>
+                        <p class="position">Twerker</p>
+                      </div>         
+                    </div>
+                  </div>
+                </div>
+                  
+                <div id="userLogHistory" class="custom-tab-content">    
+                    <div class="container">
+                      <!-- USER LOG HISTORY -->
+                      <div class="mesa-container">
+                        <table class="mesa">
+                        <thead class="mesa-head">
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Username</th>
+                            <th scope="col">Email Address</th>
+                            <th scope="col">Last Login Date/Time</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Vana Sexy</td>
+                            <td>vanasexy@email.com</td>
+                            <td>03/04/2022 | 11:58</td>
+                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                          </tr>
+                          <tr class="">
+                            <th scope="row">2</th>
+                            <td>Vana Sexy</td>
+                            <td>vanasexy@email.com</td>
+                            <td>03/04/2022 | 11:58</td>
+                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Vana Sexy</td>
+                            <td>vanasexy@email.com</td>
+                            <td>03/04/2022 | 11:58</td>
+                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                          </tr>
+                        </tbody>
+                        </table>
+                      </div>
+                    </div>
+                </div>
+                 
+                <div id="userProject" class="custom-tab-content">
+                    <div class="container">
+                          <!-- USER JOINED PROJECT-->
+                          <div class="mesa-container">
+                            <table class="mesa">
+                            <thead class="mesa-head">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Project Name/Description</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Date/Time</th>
+                                <th scope="col">Status</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">1</th>
+                                <td>Installation of LPG Pipeline</td>
+                                <td>Lancaster New City, Gentri, Cavite</td>
+                                <td>03/04/2022 | 11:58</td>
+                                <td>Ongoing</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                              </tr>
+                              <tr class="">
+                                <th scope="row">2</th>
+                                <td>Installation of LPG Pipeline</td>
+                                <td>Lancaster New City, Gentri, Cavite</td>
+                                <td>03/04/2022 | 11:58</td>
+                                <td>Done</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">3</th>
+                                <td>Installation of LPG Pipeline</td>
+                                <td>Lancaster New City, Gentri, Cavite</td>
+                                <td>03/04/2022 | 11:58</td>
+                                <td>Done</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                              </tr>
+                            </tbody>
+                            </table>
+                          </div>
+                    </div>
+                </div>
+              </div> 
+            </div>            
+        </main>  
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
+
+    <!-- External JS -->
+    <script src="../../scripts/index.js"></script>
+
+    <script>
+        
+
+        // $(".slide.slide-fixed").css({
+        //     "top": $("#topbar")[0].scrollHeight + "px"
+        // });
+
+        // $(".slide.slide-fixed .slide-content").css({
+        //     "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
+        // });
+
+    </script>
+  </body>
+</html>

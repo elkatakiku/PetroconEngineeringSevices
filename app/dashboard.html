@@ -214,7 +214,7 @@
 
               .bar {
                 border-radius: 5px 5px 0 0;
-                background-color: #ff4136;
+                background-color: #3d3dbb;
                 grid-row-start: 1;
                 grid-row-end: 101; 
               }
@@ -232,6 +232,18 @@
 
               .bar[data-value="1"] {
                 grid-row-start: 50;
+              } 
+              .bar[data-value="4"] {
+                grid-row-start: 50;
+              }
+              .bar[data-value="5"] {
+                grid-row-start: 30;
+              }
+              .bar[data-value="7"] {
+                grid-row-start: 50;
+              }
+              .bar[data-value="11"] {
+                grid-row-start: 70;
               }
               .bar[data-value="2"] {
                 grid-row-start: 30;
@@ -307,30 +319,6 @@
               }
             </style>
 
-            <div class="chart">
-              <ul class="numbers">
-                <li><span>100%</span></li>
-                <li><span>50%</span></li>
-                <li><span>0%</span></li>
-              </ul>
-
-            <ul class="bars">
-              <li><div class="bar" data-percentage="50"></div><span>January</span></li>
-              <li><div class="bar" data-percentage="100"></div><span>February</span></li>
-              <li><div class="bar" data-percentage="50"></div><span>March</span></li>
-              <li><div class="bar" data-percentage="30"></div><span>April</span></li>
-              <li><div class="bar" data-percentage="50"></div><span>May</span></li>
-              <li><div class="bar" data-percentage="40"></div><span>June</span></li>
-              <li><div class="bar" data-percentage="30"></div><span>July</span></li>
-              <li><div class="bar" data-percentage="100"></div><span>August</span></li>
-              <li><div class="bar" data-percentage="30"></div><span>September</span></li>
-              <li><div class="bar" data-percentage="50"></div><span>October</span></li>
-              <li><div class="bar" data-percentage="10"></div><span>November</span></li>
-              <li><div class="bar" data-percentage="20"></div><span>December</span></li>
-            </ul>
-           </div>
-
-           <!-- 
             <div class="chart-container">
               <div class="chart">
                 <div class="bar" data-value="1"></div>
