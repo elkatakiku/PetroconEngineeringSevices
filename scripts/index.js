@@ -86,11 +86,21 @@ const SLIDE_OUT_TOP = "slide-out-top";
 const SLIDE_DOWN = "slide-down";
 
 // Popup 
+$(".popup").click((e) => {
+    if ($(e.target).hasClass('popup')) {
+        hidePopup();
+    }
+});
+
 function showPopup(btn) {
     console.log("Popup button clicked");
     $(btn.data("target")).addClass("show");
     $("body").addClass("popup-open");
     $("body").append("<div class='popup-backdrop'></div>");
+
+    if (btn.data("action")) {
+        editForm(btn.data("target"));
+    }
 }
 
 function hidePopup() {
@@ -100,8 +110,6 @@ function hidePopup() {
     popupElement.on("animationend", function (e) {
         console.log("Animation end: " + e.originalEvent.animationName);
         const ANIMATION_NAME = e.originalEvent.animationName;
-        // removeAnimation(e.originalEvent.animationName);
-        // console.log("Animation end: " + animationName);
         switch (ANIMATION_NAME) {
             case SLIDE_OUT_TOP:
                 $(".popup").removeClass(SLIDE_OUT_TOP);
@@ -182,7 +190,6 @@ function switchTab (btn) {
 }
 
 // Slide
-
 if ($("#topbar").length > 0) {
     $(".slide.slide-fixed").css({
         "top": $("#topbar")[0].scrollHeight + "px"
@@ -199,6 +206,9 @@ function initSlide() {
     console.log("Initializing slide");
     $(".slide-container .slide[data-side='left']").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
     $(".slide-container .slide[data-side='right']").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
+
+    $(".slide-container .slide.active[data-side='left']").css("left", $(".slide[data-side='left']").width() + "px");
+    $(".slide-container .slide.active[data-side='right']").css("right", $(".slide[data-side='right']").width() + "px");
 }
 
 if ($(".slide[data-side]").length > 0) {
@@ -366,6 +376,14 @@ $("button[data-toggle]").on("click", function (e) {
             break;
     }
 });
+
+function editForm (formId) { 
+    console.log($(formId));
+    form = $(formId).find("form");
+
+    form.addClass("edit");
+    console.log(form.attr("action", "./link/submit"));
+}
 
 $("button[data-dismiss]").on("click", function (e) {
     const btnCLicked = $(this);

@@ -171,15 +171,17 @@
                 <br>
                 <br>
                   I would like to bill hundred percent completion for the
-                  &nbsp;<p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+                  &nbsp;<span class="fill" contenteditable="true">&nbsp;</span>&nbsp;
                   For the total cost including labor and mobilization is
-                  &nbsp;<p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+                  &nbsp;<span class="fill" contenteditable="true">&nbsp;</span>&nbsp;
                   VAT Inclusive. See attached Service report and inspection report.
               </p>
             </div> 
             <div class="page-amount">
-              <strong>Material Cost: </strong>
-              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+              <div class="linear">
+                <strong>Material Cost: </strong>
+                <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+              </div>
               <br>
               <strong>Labor and Mobilization: </strong>
               <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
@@ -240,12 +242,23 @@
 <script src="../../scripts/index.js"></script>
 
 <script>
-  function turnoverprint(turnoverform){
-      var printdata = document.getElementById(turnoverform);
-      newwin = window.open("");
-      newwin.document.write(printdata.outerHTML);
-      newwin.print();
-      newwin.close();
+  function turnoverprint(turnover){
+      // var printdata = document.getElementById(turnoverform);
+      // newwin = window.open("");
+      // newwin.document.write(printdata.outerHTML);
+      
+      // console.log("Print");
+      // setTimeout(() => {
+      //   console.log("Printing");
+      //   newwin.print();
+      //   newwin.close();
+      // },1000);
+      var restorePage = document.body.innerHTML;
+      var printContent = document.getElementById(turnover).innerHTML;
+      document.body.innerHTML = printContent;
+      window.print();
+      window.close();
+      document.body.innerHTML = restorePage;
   }
 </script>
 </body>
