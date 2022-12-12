@@ -1140,21 +1140,31 @@
 
                     <!-- People -->
                     <div id="projectPeople" class="custom-tab-content">
-                        <div class="linear space-between">
-                            <button class="btn btn-sm link-btn">Pending invitations</button>
-
-                            <div class="dropdown">
-                                <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    Add people
+                        <nav class="nav-tab-container">
+                            <div class="space-between">
+                                <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">Pending invitations</button>
+                            </div>
+                            <div class="linear">
+                                <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
+                                    Generate Slip
                                 </button>
+                                <div class="dropdown">
+                                    
+                                    <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                                        Add people
+                                    </button>
 
-                                <div class="dropdown-menu dropdown-menu-lg-right">
-                                    <a class="dropdown-item" href="#">Invite</a>
-                                    <a class="dropdown-item" href="#">Choose from team</a>
+                                    <div class="dropdown-menu dropdown-menu-lg-right">
+                                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
+                                        Invite
+                                        </button>
+                                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
+                                            Choose from team
+                                        </button>   
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
+                        </nav>
                         <!-- <div class="linear"> -->
                             <!-- <form action="" class=""> -->
                             <!-- <div class="input-container">
@@ -1307,6 +1317,191 @@
             </div>
         </div>
     </div>
+
+        <!--------STYLES FOR POPUPS------->
+    <style>
+        .selected{
+            min-height: 150px;
+            border: 1px solid black;
+            text-align: center;
+            display: grid;
+            align-items: center;
+            
+        }
+    </style>
+    <!--POPUP INVITE PEOPLE-->
+    <div class="popup fade popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <h2 class="ptitle">Invite People</h2>
+                </div>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" name="" id="" placeholder="Type the name here">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email / Phone</label>
+                            <div class="input-container">
+                                <input type="text" placeholder="Enter an email address or phone number.">
+                                <div class="input-append">  
+                                    <button type="button" class="btn action-btn slim-btn">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>                     
+                    </div>
+                    <div class="form-group">
+                        
+                        <label for="">Selected Person</label>
+                        
+                            <div class="selected">
+                                <p>Add a person to the list</p>
+                            </div> 
+                    </div>
+                </div>
+    
+                <div class="pfooter">
+                <button type="button" class="btn action-btn">Send Invitation</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--POPUP CHOOSE FROM TEAM-->
+    <div class="popup fade popup-center" id="ChooseFromTeam" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <i class="fa-solid fa-people-group"></i>
+                    <h2 class="ptitle">Choose from team</h2>
+                </div>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group">
+                        <label for="">Email / Phone</label>
+                            <div class="input-container">
+                                <input type="text" placeholder="Enter an email address or phone number.">
+                                <div class="input-append">  
+                                    <button type="button" class="btn action-btn slim-btn">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>                     
+                    </div>
+                    <div class="form-group">
+                        
+                        <label for="">Selected Person</label>
+                        
+                            <div class="selected">
+                                <p>Add a person to the list</p>
+                            </div> 
+                    </div>
+                </div>
+    
+                <div class="pfooter">
+                <button type="button" class="btn action-btn">Send Invitation</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--PENDING INVI-->
+    <div class="popup fade popup-center" id="Pending" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <h2 class="ptitle">Pending Invitation</h2>
+                </div>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group"> 
+                        <label for="">Invitation</label>
+                            <div class="selected" style="overflow: auto;max-height: 250px;">
+                                
+                                    <table class="mesa">
+                                      <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row"></th>
+                                                <td>vana</td>
+                                                <td>09152934627</td>
+                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                              </tr>
+                                            <tr>
+                                                <th scope="row"></th>
+                                                <td>vana</td>
+                                                <td>09152934627</td>
+                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                              </tr>
+                                            <tr>
+                                                <th scope="row"></th>
+                                                <td>vana</td>
+                                                <td>09152934627</td>
+                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                            </tr>
+                                            
+                                          <tr>
+                                            <th scope="row"></th>
+                                            <td>vana</td>
+                                            <td>09152934627</td>
+                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row"></th>
+                                            <td>effer</td>
+                                            <td>09152934627</td>
+                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row"></th>
+                                            <td>elkatakiki</td>
+                                            <td>elimarimae@emailcom</td>
+                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row"></th>
+                                            <td>kath</td>
+                                            <td>09152934627</td>
+                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                
+                            </div>
+                    </div>
+                        <div class="pfooter">
+                        <button type="button" class="btn link-btn" data-dismiss="popup">Okay</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- Optional JavaScript -->
