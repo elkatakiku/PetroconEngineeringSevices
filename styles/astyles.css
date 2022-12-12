@@ -355,6 +355,120 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
+/* || Invoice Form */
+#invoiceform {
+  margin: 20px 4rem;
+  font-family: Arial, Helvetica, sans-serif !important;
+  /* font-family: 'Courier New', Courier, monospace; */
+  background-color: white;
+  box-shadow: 0 0 5px 1px rgb(201, 201, 201);
+  padding: 4rem;  
+}
+
+.invoice-page-title{
+  text-align: center;
+  position: relative;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: inherit;
+}
+
+.invoice-page-info {
+  text-align: left;
+  font-family: inherit;
+  position: relative;
+}
+
+.invoice-page-info input{
+  border: 1px solid #ccc;
+  padding: 1px 6px;
+}
+
+.invoice-msmr{
+  display: grid;
+  grid-template-columns: 55px minmax(200px, auto);
+  text-align: left;
+  font-family: inherit;
+}
+
+.page-description {
+  font-family: inherit;
+  text-align: justify;
+}
+
+.page-amount{
+  display: grid;
+  grid-template-columns: 300px minmax(50px, auto);
+  text-align: left;
+  margin: 0 3rem;
+  font-family: inherit;
+}
+
+.fill {
+  border-bottom: 1px solid rgb(51, 43, 43);
+  min-width: 150px;
+  width: auto;
+  display: inline-block;
+  font-family: inherit;
+}
+
+.text{
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 1px 6px;
+  /*display: table-cell;*/
+  width: 100%;
+  overflow: hidden;
+  resize: both;
+  min-height: 40px;
+  }
+
+  .print-actions {
+    margin: 20px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .print-actions .btn {
+    min-width: 100px;
+  }
+
+
+                @media print {
+                  body{
+                      width: 21cm;
+                      height: 29.7cm;
+                      margin: 30mm 45mm 30mm 45mm; 
+                      /* change the margins as you want them to be. */
+                } 
+              }
+
+/* || Turnover Form */
+#turnoverform {
+  margin: 20px 4rem;
+  font-family: Arial, Helvetica, sans-serif !important;
+  /* font-family: 'Courier New', Courier, monospace; */
+  background-color: white;
+  box-shadow: 0 0 5px 1px rgb(201, 201, 201);
+  padding: 4rem;  
+}
+
+.turnover-page-title{
+  text-align: center;
+  position: relative;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: inherit;
+}
+
+.turnover-client-info{
+  display: grid;
+  grid-template-columns: 170px minmax(50px, auto);
+  text-align: left;
+  margin: 0 3rem;
+  font-family: inherit;
+}
 
 /* || MEDIA QUERIES */
 

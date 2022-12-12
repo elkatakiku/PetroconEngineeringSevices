@@ -80,7 +80,7 @@
                 </ul>
               </li>
               <li class="">
-                <a class="d-flex align-content-start" href="#">
+                <a class="d-flex align-content-start" href="message.html">
                   <span class="material-icons">chat_bubble</span>
                   <div class="collapsible">
                     <span>Messages</span>
@@ -120,7 +120,7 @@
               <hr>
     
               <li class="">
-                <a class="d-flex align-content-start" href="#">
+                <a class="d-flex align-content-start" href="profile.html">
                   <span class="material-icons">person</span>
                   <div class="collapsible">
                     <span>Profile</span>
@@ -141,93 +141,104 @@
         </div>
         
         <main class="content">
-          <form action="#" method="POST" id="invoiceform">
+          <!-- Header -->
+          <div class="page-header">
+            <div class="project-info">
+              <div>
+                <h1 class="page-title">Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</h1>
+                <small>Robinson Palace, Antipolo City</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="print-actions linear space-between border=bottom">
+            <button class="btn link-btn"><a href="projectganttchart.html">Go Back</a></button>
+            <button type="button" onclick="printDocument('invoiceform')" class="btn action-btn">Print</button>
+          </div>
+          
+          <form action="#" method="POST" id="invoiceform" onload="window.print(); window.close()">
             <div>
               <div class="invoice-page-title">
-                <a class="brand" href="#">
-                  <img src="../../images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
-                  <span class="brand-name">Petrocon</span>
+                <a class="brand print-brand" href="#">
+                  <img src="../../images/petrocon-icon-2.png" class="d-block align-top brand-icon" alt="Petrocon Logo">
+                  <p class="brand-name">Petrocon</p>
                 </a>
-                  <div>
-                      <h2>PETROCON ENGINEERING SERVICES</h2>
-                      <p>Strike Ville, Vizcarra Comp., Molino 3, Bacoor City
-                      <br>
-                      (046) 513-7533; Cell No. 0917-140-8987
-                      <br>
-                      petroconphil@gmail.com 
-                  </div> 
+                <div>
+                    <h2>PETROCON ENGINEERING SERVICES</h2>
+                    <p>Strike Ville, Vizcarra Comp., Molino 3, Bacoor City
+                    <br>
+                    (046) 513-7533; Cell No. 0917-140-8987
+                    <br>
+                    petroconphil@gmail.com 
+                </div> 
               </div>
               <div class="invoice-page-info">
+                <div>
+                  <input type="date" id="dateToday" /> <br> 
+                  <br>
+                </div>
+                <br>
                 <p>
-                  Name of Client: 
-                  <span class="fill" contenteditable="true">&nbsp;</span>
-                  <br>
-                  Position: 
-                  <span class="fill" contenteditable="true">&nbsp;</span>
-                  <br>
-                  Company Name: 
-                  <span class="fill" contenteditable="true">&nbsp;</span>
-                  <br>
-                  Company Address: 
-                  <span class="fill" contenteditable="true">&nbsp;</span>
-                  <br>
-                  <br>
+                  <p><span class="text" role="textbox" contenteditable>Name of Client</span></p>
+                  <p><span class="text" role="textbox" contenteditable>Position</span></p>
+                  <p><span class="text" role="textbox" contenteditable>Company Name</span></p>
+                  <p><span class="text" role="textbox" contenteditable>Company Address</span></p>
+
                 </p>
-                  Mr/Ms.
-                  <span  class="fill" contenteditable="true">&nbsp;</span>
+                <br>
               </div> 
+
+              <div class="invoice-msmr">
+                Mr.Ms.
+                <p><span class="fill" contenteditable="true"></span></p>
+              </div>
+              <br>
+
               <div class="page-description">
-                  <p>I would like to bill hundred percent completion for the
+                <p>
+                  I would like to bill hundred percent completion for the
                   <span class="fill" contenteditable="true">&nbsp;</span>&nbsp;
                   For the total cost including labor and mobilization is
-                  &nbsp;<p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+                  &nbsp;<span class="fill" contenteditable="true">&nbsp;&nbsp; </span>
                   VAT Inclusive. See attached Service report and inspection report.
-              </p>
+                </p>
+              </div>
             </div> 
+
+            <br>
             <div class="page-amount">
               <strong>Material Cost: </strong>
-              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
-              <br>
+              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
+
               <strong>Labor and Mobilization: </strong>
-              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
-              <br>
+              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
+
               <strong>Total: </strong>
-              <p class="fill" contenteditable="true">&nbsp;</p>&nbsp;
+              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
               </p>
-              <br>
-              <br>
-              Thank you!
             </div> 
+            <br>
+            Thank you!
 
-            <style>
-                .invoice-page-title{
-                  text-align: center;
-                  margin: 30mm 45mm 30mm 45mm; 
-                }
-                .invoice-page-info{
-                  text-align: left;
-                  margin: -15mm 0mm 5mm 35mm; 
-                }
-                .page-description{
-                  margin: 10mm 30mm 30mm 45mm; 
-                }
-                .page-amount{
-                  text-align: left;
-                  margin: -25mm 0mm 5mm 65mm; 
-                }
-                .fill{
-                  border-bottom: 1px solid rgb(51, 43, 43);
-                  min-width: 100px;
-                  display: inline-block;
-                }
+           <style>
+              .print-brand {
+                    display: block;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                  }
 
+                  .print-brand .brand-icon {
+                    width: 100px;
+                    height: 100px;
+                  }
+
+                  .print-brand .brand-name {
+                    font-size: 1rem;
+                  }
             </style>
-          </form>
-
-          <div class="linear space-between">
-            <p><input type="button" onclick="invoiceprint('invoiceform')" class="btn outline-primary-btn btn-lg btn-block" value="Print"></p>  
-            <a class="btn action-btn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="custom-tab" href="projectganttchart.html">Go Back</a>
-          </div>
+            
+          </form> 
         </main>
 
 <!-- Optional JavaScript -->
@@ -244,13 +255,30 @@
 <script src="../../scripts/index.js"></script>
 
 <script>
-  function turnoverprint(turnoverform){
-      var printdata = document.getElementById(turnoverform);
-      newwin = window.open("");
-      newwin.document.write(printdata.outerHTML);
-      newwin.print();
-      newwin.close();
-  }
+
+</script>
+
+
+<script>
+  // function printDocument(printId){
+  //     var printdata = document.getElementById(printId);
+  //     newwin = window.open("");
+  //     newwin.document.write(printdata.outerHTML);
+  //     setTimeout(function() {
+
+  //     }, 10);
+  //     newwin.print();
+  //     newwin.close();
+  // }
+
+  function printDocument(printId){
+        var restorePage = document.body.innerHTML;
+        var printContent = document.getElementById(printId).innerHTML;
+        document.body.innerHTML = printContent;
+        window.print();
+        // window.close();
+        document.body.innerHTML = restorePage;
+      }
 </script>
 </body>
 </html>
