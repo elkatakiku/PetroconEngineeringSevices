@@ -104,6 +104,7 @@
 
 /* Header Content */
 .header-content {
+    margin-top: 60px;
     padding: 12% 40% 12% 5%;
     position: relative;
     z-index: 100;
@@ -295,29 +296,68 @@
 
 /* || Login Page */
 .login-background {
-    width: 100%;
-    height: 100%;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
     background: white url('../images/header-image.jpg') no-repeat;
     background-size: cover;
 }
 
 .login-container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    margin: auto;
+    height: 100%;
     padding: 2rem 4rem;
     background-color: var(--backdrop);
     color: white;
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
     overflow: hidden;
-    transition: .5s all linear;
-}    
+}
+
+@media (min-width: 576px) {
+    .login-container > div, .container, .container-sm {
+        max-width: 540px;
+    } 
+}
+
+@media (min-width: 768px) {
+    .login-container > div, .container, .container-md, .container-sm {
+        max-width: 720px;
+    } 
+}
+
+@media (min-width: 992px) {
+    .login-container > div, .container, .container-lg, .container-md, .container-sm {
+        max-width: 960px;
+    } 
+}
+
+@media (min-width: 1200px) {
+    .login-container > div, .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1140px;
+    }
+}
+
+
+
+
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
 
 .login-header-content {
     padding: 2rem 0;
 }
 
-.form-login, .form-signup {
+.form-login {
     padding: 3rem 2rem 10%;
     color: var(--primary-text);
     background-color: white;
@@ -327,7 +367,7 @@
     padding: 3rem 2rem 10%;
     color: var(--primary-text);
     background-color: white;
-    box-shadow: 10px 10px 5px rgba(26, 22, 38, 0.3);
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
     transition: .2s all linear;
 }
 

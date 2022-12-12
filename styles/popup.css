@@ -75,7 +75,7 @@
 .pheader {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    gap: 10px;
     padding: 12px;
     border-bottom: 1px solid var(--border-rgba-color);
     border-top-left-radius: var(--default-border-radius);
@@ -86,7 +86,7 @@
 .ptitle {
     margin: 0;
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 14px;
     color: #5e6c84;
 }
 
@@ -100,7 +100,7 @@
 .pfooter {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row-reverse;
     align-items: stretch;
     gap: .75rem;
     padding: 12px;
@@ -110,6 +110,10 @@
 }
 
 /* Popup Components */
+.pheader .ptitle-icon {
+    color: #5e6c84;
+}
+
 .pheader button[data-dismiss] {
     position: absolute;
     top: 12px;
@@ -157,9 +161,11 @@
 }
 
 .pfooter .btn {
+    width: 100px;
     height: 2rem;
     font-size: .8rem;
 }
+
 
 /* Popup Animations */
 .popup.popup-below .pcontainer {
@@ -237,4 +243,18 @@
     to {
         top: -100%;
     }
+}
+
+/* Popup Contained */
+.popup-contained {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.popup-contained .pcontainer {
+    width: 100%;
+    margin: 0;
+
+    position: absolute;
 }

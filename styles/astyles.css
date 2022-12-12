@@ -168,6 +168,14 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
 }
 
+.page-header .page-title {
+  font-size: 22px;
+}
+
+.page-header small {
+  font-size: 14px;
+}
+
 .page-header .page-title,
 .page-header small  {
   margin: 0;
@@ -250,6 +258,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .detail-header {
   font-size: 18px;
+}
+
+#projectDetailForm label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #5e6c84;
 }
 
 /* || Calendar */
