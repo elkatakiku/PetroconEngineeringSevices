@@ -184,8 +184,41 @@
               </div>
             </div>
 
-            <h5 class="db-sec-header">Projects</h5>
-            <p class="db-project-count">12,345,678</p>
+          <div class="linear space-between">
+            <div class="">
+              <h5 class="db-sec-header">Projects</h5>
+              <p class="db-project-count">12,345,678</p>
+              <br>
+            </div>  
+            <div
+             class="linear space-between">
+
+              <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                      Year
+                  </button>
+
+                  <div class="dropdown-menu dropdown-menu-lg-right">
+                      <a class="dropdown-item" href="#">2009</a>
+                      <a class="dropdown-item" href="#">2010</a>
+                      <a class="dropdown-item" href="#">2011</a>
+                      <a class="dropdown-item" href="#">2012</a>
+                      <a class="dropdown-item" href="#">2013</a>
+                      <a class="dropdown-item" href="#">2014</a>
+                      <a class="dropdown-item" href="#">2015</a>
+                      <a class="dropdown-item" href="#">2016</a>
+                      <a class="dropdown-item" href="#">2017</a>
+                      <a class="dropdown-item" href="#">2018</a>
+                      <a class="dropdown-item" href="#">2019</a>
+                      <a class="dropdown-item" href="#">2020</a>
+                      <a class="dropdown-item" href="#">2021</a>
+                      <a class="dropdown-item" href="#">2022</a>
+                      <a class="dropdown-item" href="#">2023</a>
+                  </div>
+              </div>
+
+          </div>  
+          </div>
 
             <!-- Chart -->
             <style>
@@ -237,8 +270,105 @@
               .bar[data-value="11"] {
                 grid-row-start: 70;
               }
+              .bar[data-value="2"] {
+                grid-row-start: 30;
+              }
+
+              .char{
+                width: 600px;
+                height: 300px;
+                display: block;
+              }
+
+              .numbers{
+                color: black;
+                width: 50px;
+              }
+
+              .numbers li{
+                list-style: none;
+                height: 150px;
+                position: relative;
+                bottom: 145px;
+              }
+
+              .numbers span{
+                font-size: 12px;
+                font-weight: 600;
+                position: absolute;
+                bottom: 0;
+                right: 10px;
+              }
+
+              .bars{
+                color: black;
+                font-size: 12px;
+                margin: 0;
+                padding: 0;
+                display: inline-block;
+                width: 750px;
+                height: fit-content;
+                border-radius: 5px;
+              }
+
+              .bars .bar{
+                background: rgb(236, 92, 205);
+                width: 50px;
+                position: absolute;
+                bottom: 0;
+                margin-left: 7px; 
+              }
+
+              .bars .bar:hover{
+                background: #e4a6dc;
+                cursor: pointer;
+              }
+
+              .bar .bar:before{
+                color: #030202;
+                content: attr(data-percentage) '%';
+              }
+
+              .bars li{
+                display: table-cell;
+                width: inherit;
+                height: 350px;
+                position: relative;
+              }
+
+              .bars span{
+                width: 100%;
+                position: absolute;
+                bottom: -30px;
+                text-align: center;
+              }
             </style>
 
+            <div class="chart">
+              <ul class="numbers">
+                <li><span>100%</span></li>
+                <li><span>50%</span></li>
+                <li><span>0%</span></li>
+              </ul>
+
+            <ul class="bars">
+              <li><div class="bar" data-percentage="50"></div><span>January</span></li>
+              <li><div class="bar" data-percentage="100"></div><span>February</span></li>
+              <li><div class="bar" data-percentage="50"></div><span>March</span></li>
+              <li><div class="bar" data-percentage="30"></div><span>April</span></li>
+              <li><div class="bar" data-percentage="50"></div><span>May</span></li>
+              <li><div class="bar" data-percentage="40"></div><span>June</span></li>
+              <li><div class="bar" data-percentage="30"></div><span>July</span></li>
+              <li><div class="bar" data-percentage="100"></div><span>August</span></li>
+              <li><div class="bar" data-percentage="30"></div><span>September</span></li>
+              <li><div class="bar" data-percentage="50"></div><span>October</span></li>
+              <li><div class="bar" data-percentage="10"></div><span>November</span></li>
+              <li><div class="bar" data-percentage="20"></div><span>December</span></li>
+            </ul>
+           </div>
+
+           <!-- 
+            <div class="chart-container">
             
             <div class="overview-card">
                   <h3 align="right">YEAR 2021</h3></i>
@@ -257,8 +387,8 @@
                 <div class="bar" data-value="11"></div>
                 <div class="bar" data-value="12"></div>
               </div>
-            </div>
-
+            </div> -->
+            <!---->
           </div>
 
           <!-- Side contents -->
@@ -382,5 +512,15 @@
 
     <!-- External JS -->
     <script src="../scripts/index.js"></script>
+    <script type="text/JavaScript">
+      $(function(){
+        $('.bars li .bar').each(function(key, bar){
+          var percentage = $(this).data('percentage');
+          $(this).animate({
+            'height' : percentage + '%'
+          },1000);
+        });
+      });
+      </script>
   </body>
 </html>
