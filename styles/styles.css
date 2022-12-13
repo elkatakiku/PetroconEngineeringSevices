@@ -6,6 +6,9 @@
     --palette4: #8DA9C4;
     --palette5: #EEF4ED;
     --primary: #3D3DBB;
+    --danger: #ff647c;
+    --success: #00c48c;
+    --information: #0084f4;
     /* --primary: #5215FC; */
     /* --secondary: #7070DD; */
     /* --purple: #FF00FF; */
@@ -246,6 +249,10 @@ hr {
     font-family: 'Open Sans', sans-serif;
 }
 
+.btn > * {
+    pointer-events: none;
+}
+
 a.btn {
     padding: .5rem 1.5rem;
 }
@@ -341,6 +348,11 @@ a.btn {
     justify-content: center;
     align-items: center;
 }
+
+.success-btn .material-icons {
+    color: var(--success);
+}
+
 
 /* || FORM */
 
@@ -629,7 +641,7 @@ form .row .right {
     border-width: 1px 0;
     border-style: solid;
     border-color: var(--palette5);
-    vertical-align: text-top;
+    vertical-align: top;
 }
 
 .mesa tbody tr:hover, tbody tr.active {
@@ -687,8 +699,14 @@ form .row .right {
     margin: 0;
 }
 
-.mesa tbody tr:not(:hover) .row-action-btns {
-    display: none;
+.mesa tbody tr textarea:read-only,
+.mesa tbody tr input:read-only {
+    cursor: pointer;
+}
+
+.mesa tbody tr .row-action-btns {
+    display: flex;
+    gap: 10px;
 }
 
 .mesa-container .row-action-btns .btn {
@@ -723,7 +741,6 @@ span.status[data-status = "in-progress"] {
 }
 
 /* || Content */
-
 .wrapper .content[data-fill="true"] {
     flex: 2 0 75%;
 }
@@ -1084,6 +1101,10 @@ body:has(.slide-fixed.active).slide-open {
     box-shadow: 0 0 0 2px rgba(145, 135, 255, 0.3);
 }
 
+.dots-menu-btn * {
+    pointer-events: none;
+}
+
 .dots-menu-popup {
     min-width: 150px;
     margin: 0;
@@ -1110,7 +1131,7 @@ body:has(.slide-fixed.active).slide-open {
     margin: 5px 0;
 }
 
-.neutral-btn {
+.neutral-outline-btn {
     border: 1px solid #B6B6B6;
 }
 

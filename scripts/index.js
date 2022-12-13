@@ -107,8 +107,15 @@ $(".popup").click((e) => {
 function showPopup(btn) {
     console.log("Popup button clicked");
     $(btn.data("target")).addClass("show");
-    $("body").addClass("popup-open");
-    $("body").append("<div class='popup-backdrop'></div>");
+
+    if(!$(btn.data("target")).hasClass("popup-contained")) {   
+        $("body").addClass("popup-open");
+    }
+
+    if (btn.data("backdrop") !== false) {
+        $("body").append("<div class='popup-backdrop'></div>");
+    }
+
 
     if (btn.data("action")) {
         editForm(btn.data("target"));
@@ -144,6 +151,8 @@ function hidePopup() {
     } else if (popupElement.hasClass("popup-below")) {
         console.log("Is popup below");
         popupElement.addClass(SLIDE_DOWN);
+    } else {
+        removePopup(popupElement);
     }
 }
 
@@ -418,6 +427,6 @@ function autoHeight(input) {
     input.style.overflowY = "hidden";
 }
 
-// $("textarea").on("input", function() {
-//     autoHeight(this);
-// });
+$("textarea").on("input", function() {
+    autoHeight(this);
+});
