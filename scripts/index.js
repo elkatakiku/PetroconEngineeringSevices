@@ -1,3 +1,15 @@
+// $.fn.hasVerticalScrollBar = function () {
+//     return this[0].clientHeight < this[0].scrollHeight;
+// }
+
+// $.fn.hasHorizontalScrollBar = function () {
+//    return this[0].clientWidth < this[0].scrollWidth;
+// }
+
+// console.log("Horizontal Scrollbar");
+// console.log($('#projectGanttChart .gantt-chart').hasHorizontalScrollBar());
+// console.log("Vretical Scrollbar");
+// console.log($('#projectGanttChart .gantt-chart').hasVerticalScrollBar());
 /*
 Carousel
 */
@@ -342,35 +354,26 @@ $("button[data-toggle]").on("click", function (e) {
             break;
         case FORM:
             console.log("Form button");
-              let form = $(btnCLicked.data("target"));
+            let form = $("#" + btnCLicked.attr("form"));
 
               switch(btnCLicked.data("action")) {
 
                 case "edit":
-                    
-                    let submitBtn = $("button[data-toggle='form'][data-action='submit'][data-target='" + targetElementId + "']");
-                    
-                    btnCLicked.removeClass("show");
-                    btnCLicked.addClass("hide");
+                    console.log("Edit Form");
+                    form.find("textarea, input").removeAttr("readonly");
 
-                    submitBtn.addClass("show");
-                    submitBtn.removeClass("hide");
-
-                    form.addClass("form-open");
-                    form.find(".form-input-group").removeClass("display");
-
+                    btnCLicked.text("Done");
+                    btnCLicked.data("action", "submit");
+                    btnCLicked.attr("type", "button");
                     break;
 
                 case "submit": 
-                    let editBtn = $("button[data-toggle='form'][data-action='edit'][data-target='" + targetElementId + "']");
-                    btnCLicked.removeClass("show");
-                    btnCLicked.addClass("hide");
+                    console.log("Submit");
+                    form.find("textarea, input").attr("readonly", true);
 
-                    editBtn.addClass("show");
-                    editBtn.removeClass("hide");
-
-                    form.removeClass("form-open");
-                    form.find(".form-input-group").addClass("display");
+                    btnCLicked.text("Edit");
+                    btnCLicked.data("action", "edit");
+                    btnCLicked.attr("type", "submit");
                     break;
               }
             break;
@@ -400,10 +403,21 @@ $("button[data-dismiss]").on("click", function (e) {
     }
 });
 
+// Textarea
+let textAreas = document.getElementsByTagName("textarea");
+for (let i = 0; i < textAreas.length; i++) {
+    autoHeight(textAreas[i]);
+}
 
-$("textarea").on("input", function() {
-    this.style.minHeight = "1rem";
-    this.style.height = "auto";
-    this.style.height = (this.scrollHeight) + "px";
-    this.style.overflowY = "hidden";
-});
+function autoHeight(input) {
+    console.log("AutoHeight");
+    console.log(input);
+    input.style.minHeight = "1rem";
+    input.style.height = "auto";
+    input.style.height = (input.scrollHeight) + "px";
+    input.style.overflowY = "hidden";
+}
+
+// $("textarea").on("input", function() {
+//     autoHeight(this);
+// });

@@ -159,64 +159,53 @@
                 <div class="slide-content">
                     <div class="slide-header">
                         <button class="btn icon-btn" data-dismiss="slide">
-                        <span class="material-icons">navigate_next</span>
+                            <span class="material-icons">navigate_next</span>
                         </button>
                         <h2 class="slide-title">Details</h2>
-                        <div>
-                        <button class="btn link-btn show" data-toggle="form" data-action="edit" data-target="#projectDetailForm">
+                        <button type="button" class="btn link-btn show" form="projectDetailForm" data-toggle="form" data-action="edit">
                             Edit
                         </button>
-                        <button class="btn link-btn" type="submit" form="#projectDetailForm" data-toggle="form" data-action="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
-                            Done
-                        </button>
-                        </div>
                     </div>
     
                     <div class="slide-body">
-                        <form action="" id="projectDetailForm">
+                        <form action="/index.html" method="post" id="projectDetailForm">
         
                             <h3 class="detail-header">General</h3>
             
-                            <div class="form-input-group display">
+                            <div class="form-input-group">
                                 <label for="">Name of Client</label>
-                                <p>Yvana Eunice Magno</p>
-                                <input type="text" value="Yvana Eunice Magno" autofocus>
+                                <input type="text" value="Yvana Eunice Magno" autofocus readonly>
                             </div>
             
-                            <div class="form-input-group display">
+                            <div class="form-input-group">
                                 <label for="">Building no.</label>
-                                <p>Building 1, 2, 3</p>
-                                <input type="text" value="Building 1, 2, 3">
+                                <input type="text" value="Building 1, 2, 3" readonly>
                             </div>
             
-                            <div class="form-input-group display">
+                            <div class="form-input-group">
                                 <label for="">Work Description</label>
-                                <p>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</p>
-                                <textarea name="" id="">Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
+                                <textarea oninput="autoHeight(this)" name="" id="" rows="1" readonly>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
                             </div>
             
                             <h3 class="detail-header">Project</h3>
 
                             <div class="linear">
                 
-                                <div class="form-input-group display">
+                                <div class="form-input-group">
                                     <label for="">Purchase Order #</label>
-                                    <p>20221526</p>
-                                    <input type="number" value="20221526">
+                                    <input type="number" value="20221526" readonly>
                                 </div>
                 
-                                <div class="form-input-group display">
+                                <div class="form-input-group">
                                     <label for="">Date of Award</label>
-                                    <p>11/26/2022</p>
-                                    <input type="date" value="11/26/2022">
+                                    <input type="date" value="11/26/2022" readonly>
                                 </div>
 
                             </div>
             
-                            <div class="form-input-group display">
+                            <div class="form-input-group">
                                 <label for="">Location</label>
-                                <p>Rosario, Batangas</p>
-                                <input type="text" value="Rosario, Batangas">
+                                <input type="text" value="Rosario, Batangas" readonly>
                             </div>
             
                         </form>
@@ -260,76 +249,147 @@
                     <!-- Timeline Slide -->
                     <div class="slide" id="timelineSlide" data-side="left">
                         <div class="slide-content">
-                            <div class="mesa-container" id="tasksTable">
-                                <table class="mesa">
+                            <div class="mesa-container">
+                                <form action="">
+                                <table class="mesa" id="tasksTable">
                                     <thead class="mesa-header">
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col" class="taskCell">Task</th>
-                                            <th scope="col">Start</th>
-                                            <th scope="col">Due</th>
-                                            <th scope="col" class="status-cell">Status</th>
+                                            <th scope="col">Plan Start</th>
+                                            <th scope="col">Plan Due</th>
                                             <th scope="col" class="action-cell">
-                                                <button class="btn" data-dismiss="slide">
+                                                <button class="btn" type="button" data-dismiss="slide">
                                                     <span class="material-icons">navigate_before</span>
                                                 </button>
                                             </th>
                                         </tr>
                                     </thead>
+
+                                    <style>
+                                        .row-actions {
+                                            display: none;
+                                        }
+                                    </style>
                             
                                     <tbody>
-                                        <tr onclick="openTask()">
+                                        <tr onclick="openTask(this, event)">
                                             <th scope="row">1</th>
-                                            <td class="taskCell">Procurement</td>
-                                            <td>dd/mm/YYYY</td>
-                                            <td>dd/mm/YYYY</td>
-                                            <td><span class="status" data-status="done">Done</span></td>
+                                            <td class="taskCell">
+                                                <div class="form-input-group">
+                                                    <textarea oninput="autoHeight(this)" name="" id=""  rows="1" readonly>Procurement</textarea>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" id="" value="2014-02-09" readonly>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" id="" value="2014-02-15" readonly>
+                                                </div>
+                                            </td>
                                             <td class="action-cell">
                                                 <div class="action-cell-content">
-                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    <div class="dots-menu">
+                                                        <button onclick="showRowMenu(this, event)" type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                        <ul class="dots-menu-popup">
+                                                            <li onclick="editTask(this, event)">Edit</li>
+                                                            <li onclick="removeTask(this, event)">Remove</li>
+                                                            <hr>
+                                                            <li onclick="addTask(this, event)" data-position="subtask">Add sub task</li>
+                                                            <li onclick="addTask(this, event)" data-position="top">Add task before</li>
+                                                            <li onclick="addTask(this, event)" data-position="bottom">Add task after</li>
+                                                        </ul>
+                                                    </div>
                                                     <span class="row-action-btns">
-                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                        <button class="btn icon-btn" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                     </span>
                                                 </div>
                                             </td>
                                         </tr>
+
+                                        <tr class="row-actions" data-target="task1">
+                                            <td colspan="5">
+                                                <div class="table-action-row">
+                                                    <button type="button" class="btn action-btn slim-btn" data-toggle="row" data-target="#tasksTable">
+                                                        <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                                                        Add a task
+                                                    </button>
+                                                    
+                                                    <button type="button" class="btn outline-action-btn slim-btn">
+                                                        <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                                                        Add a sub task
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
                                 
-                                        <tr onclick="openTask()">
+                                        <tr onclick="openTask(this, event)">
                                             <th scope="row">2</th>
                                             <td class="taskCell">Tool Box Meeting</td>
                                             <td>dd/mm/YYYY</td>
                                             <td>dd/mm/YYYY</td>
-                                            <td><span class="status" data-status="in-progress">In progress</span></td>
                                             <td class="action-cell">
                                                 <div class="action-cell-content">
-                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                     <span class="row-action-btns">
-                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                        <button type="button" class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                     </span>
                                                 </div>
                                             </td>
                                         </tr>
                                 
-                                        <tr onclick="openTask()">
+                                        <tr onclick="openTask(this, event)">
                                             <th scope="row">3</th>
                                             <td class="taskCell">Actual visit at site for measurementActual visit at site for measurementActual visit at site for measurementActual visit at site for measurement</td>
                                             <td>dd/mm/YYYY</td>
                                             <td>dd/mm/YYYY</td>
-                                            <td><span class="status" data-status="in-progress">In progress</span></td>
                                             <td class="action-cell">
                                                 <div class="action-cell-content">
-                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                     <span class="row-action-btns">
-                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                        <button type="button" class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr onclick="openTask(this, event)">
+                                            <th scope="row">#</th>
+                                            <td class="taskCell">
+                                                <div class="form-input-group">
+                                                    <textarea oninput="autoHeight(this)" name="" id=""  rows="1"></textarea>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" id="">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" id="">
+                                                </div>
+                                            </td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <div class="dots-menu">
+                                                        <button onclick="showRowMenu(this, event)" type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    </div>
+                                                    <span class="row-action-btns">
+                                                        <button class="btn icon-btn" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                     </span>
                                                 </div>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                </form>
 
                                 <div class="table-action-row">
-                                    <button type="button" class="btn action-btn slim-btn">
+                                    <button type="button" class="btn action-btn slim-btn" data-toggle="row" data-target="#tasksTable">
                                         <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
                                         Add a task
                                     </button>
@@ -363,11 +423,11 @@
                                 </div>
 
                                 <button id="addLegend" class="btn light-btn slim-btn">
-                                    <i class="fa fa-tag btn-icon" aria-hidden="true"></i>
+                                    <span class="material-icons btn-icon">label</span>
                                     Add legend
                                 </button>
 
-                                <div id="legends" class="hide">
+                                <div id="legends" class="legends-container hide">
                                     <div class="task-legend">
                                         <span class="leg-color"></span>
                                         <span class="leg-title">Plan</span>
@@ -401,10 +461,10 @@
                     </div>
 
                     <style>
-
                         .chart-container {
                             display: grid;
                             padding: 0 !important;
+                            position: relative;
                         }
 
                         .gantt-chart {  
@@ -414,7 +474,6 @@
 
                         .gantt-chart .chart { 
                             display: grid;  
-
                         }
 
                         :root {
@@ -437,12 +496,8 @@
                         .gantt-chart .chart-row {  
                             display: grid; 
                             grid-template-columns: var(--chart-row-head) 1fr; 
-                            /* background-color: #DCDCDC; */
                         }
 
-                        /* .chart-row:nth-child(even) {
-                            background-color: #EEF4ED !important;
-                        } */
 
                         /* Grid width */
                         .chart-lines {
@@ -595,12 +650,6 @@
                             background-color: yellow !important;
                         }
 
-                        
-
-                        /* .gantt-chart li.actual {
-                            background-color: yellow !important;
-                        } */
-
                         .gantt-chart ul .chart-li-one { 
                             grid-column: 1 / span 1;  
                             /* background-color: #588BAE; */
@@ -654,6 +703,33 @@
 
                         .chart-li-8-t3 {
                             grid-column: 17 / span 3; 
+                        }
+
+                        .expanding-btn {
+                            position: absolute;
+                            right: 20px;
+                            bottom: 40px;
+                        }
+                        
+                        .expanding-btn button {
+                            border-radius: 100px;
+                            padding: 5px;
+                            transition: all .3s linear;
+                        }
+
+                        .expanding-btn button::before {
+                            content: "Legends";
+                            display: none;
+                            transition: all .3s;
+                        }
+
+                        .expanding-btn:hover button {
+                            padding: 5px 10px;
+                        }
+
+                        .expanding-btn:hover button::before {
+                            display: inline-block;
+                            margin: 0 10px;
                         }
                     </style>
 
@@ -888,6 +964,70 @@
                                 </div>
                             </div>
                         </div>
+
+                        <span class="expanding-btn">
+                            <button class="btn action-btn icon-btn">
+                                <span class="material-icons">legend_toggle</span>
+                            </button>
+                        </span>
+
+                        <style>
+                            #viewLegends .pcontainer{
+                                right: 20px;
+                                bottom: 40px;
+                            }
+
+                            #viewLegends .pbody {
+                                min-height: 300px;
+                            }
+                        </style>
+
+                        <!-- View Legends Popup -->
+                        <div id="viewLegends" class="popup popup-contained fade show" tabindex="-1" aria-hidden="true">
+                            <div class="pcontainer popup-sm">
+                                <div class="pcontent">
+                                    <div class="pheader">
+                                        <h2 class="ptitle">Legends</h2>
+                                        <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                                            <span class="material-icons">close</span>
+                                        </button>
+                                    </div>
+                        
+                                    <div class="pbody">
+                                        <div class="legends-container">
+                                            <div class="task-legend">
+                                                <span class="leg-color"></span>
+                                                <span class="leg-title">Plan</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="task-legend">
+                                                <span class="leg-color"></span>
+                                                <span class="leg-title">Plan</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="task-legend">
+                                                <span class="leg-color"></span>
+                                                <span class="leg-title">Plan</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <button class="btn light-btn slim-btn" data-toggle="popup" data-target="#legendPopup">
+                                                <span class="material-icons btn-icon">label</span>
+                                                Create legend
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Resources -->
@@ -917,7 +1057,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -933,7 +1073,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -949,7 +1089,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -965,7 +1105,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -981,7 +1121,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -1010,14 +1150,23 @@
                                 <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
                                     Add people
                                 </button>
+                                <div class="dropdown">
+                                    
+                                    <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                                        Add people
+                                    </button>
 
-                                <div class="dropdown-menu dropdown-menu-lg-right">
-                                    <a class="dropdown-item" href="#">Invite</a>
-                                    <a class="dropdown-item" href="#">Choose from team</a>
+                                    <div class="dropdown-menu dropdown-menu-lg-right">
+                                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
+                                        Invite
+                                        </button>
+                                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
+                                            Choose from team
+                                        </button>   
+                                    </div>
                                 </div>
                             </div>
-
-                        </div>
+                        </nav>
                         <!-- <div class="linear"> -->
                             <!-- <form action="" class=""> -->
                             <!-- <div class="input-container">
@@ -1079,44 +1228,16 @@
                             </table>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </main>
-        
     </div>
 
-
-    <!-- Popup -->
-    <div class="popup fade" id="turnover" tabindex="-1" aria-hidden="true">
-        <div class="pcontainer popup-sm">
-            <div class="pcontent">
-                <div class="pheader">
-                <div class="linear-center">
-                    <!-- Can add icon here -->
-                    <i class="fas fa-image"></i>
-                    <h2 class="ptitle">Popup Title</h2>
-                </div>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-    
-                <div class="pbody">
-                Popup body
-                </div>
-    
-                <div class="pfooter">
-                <button type="button" class="btn action-btn">Submit</button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Popup -->
+    <!-- Legend Popup -->
     <div class="popup fade popup-center" id="legendPopup" tabindex="-1" aria-hidden="true">
         <div class="pcontainer popup-sm">
-            <div class="pcontent popup2">
+            <div class="pcontent">
                 <div class="pheader">
                     <h2 class="ptitle">Create legend</h2>
                     <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
@@ -1199,6 +1320,191 @@
         </div>
     </div>
 
+        <!--------STYLES FOR POPUPS------->
+    <style>
+        .selected{
+            min-height: 150px;
+            border: 1px solid black;
+            text-align: center;
+            display: grid;
+            align-items: center;
+            
+        }
+    </style>
+    <!--POPUP INVITE PEOPLE-->
+    <div class="popup fade popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <h2 class="ptitle">Invite People</h2>
+                </div>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" name="" id="" placeholder="Type the name here">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email / Phone</label>
+                            <div class="input-container">
+                                <input type="text" placeholder="Enter an email address or phone number.">
+                                <div class="input-append">  
+                                    <button type="button" class="btn action-btn slim-btn">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>                     
+                    </div>
+                    <div class="form-group">
+                        
+                        <label for="">Selected Person</label>
+                        
+                            <div class="selected">
+                                <p>Add a person to the list</p>
+                            </div> 
+                    </div>
+                </div>
+    
+                <div class="pfooter">
+                <button type="button" class="btn action-btn">Send Invitation</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--POPUP CHOOSE FROM TEAM-->
+    <div class="popup fade popup-center" id="ChooseFromTeam" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <i class="fa-solid fa-people-group"></i>
+                    <h2 class="ptitle">Choose from team</h2>
+                </div>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group">
+                        <label for="">Email / Phone</label>
+                            <div class="input-container">
+                                <input type="text" placeholder="Enter an email address or phone number.">
+                                <div class="input-append">  
+                                    <button type="button" class="btn action-btn slim-btn">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>                     
+                    </div>
+                    <div class="form-group">
+                        
+                        <label for="">Selected Person</label>
+                        
+                            <div class="selected">
+                                <p>Add a person to the list</p>
+                            </div> 
+                    </div>
+                </div>
+    
+                <div class="pfooter">
+                <button type="button" class="btn action-btn">Send Invitation</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--PENDING INVI-->
+    <div class="popup fade popup-center" id="Pending" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                <div class="linear-center">
+                    <!-- Can add icon here -->
+                    <h2 class="ptitle">Pending Invitation</h2>
+                </div>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group"> 
+                        <label for="">Invitation</label>
+                            <div class="selected" style="overflow: auto;max-height: 250px;">
+                                
+                                    <table class="mesa">
+                                      <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row"></th>
+                                                <td>vana</td>
+                                                <td>09152934627</td>
+                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                              </tr>
+                                            <tr>
+                                                <th scope="row"></th>
+                                                <td>vana</td>
+                                                <td>09152934627</td>
+                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                              </tr>
+                                            <tr>
+                                                <th scope="row"></th>
+                                                <td>vana</td>
+                                                <td>09152934627</td>
+                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                            </tr>
+                                            
+                                          <tr>
+                                            <th scope="row"></th>
+                                            <td>vana</td>
+                                            <td>09152934627</td>
+                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row"></th>
+                                            <td>effer</td>
+                                            <td>09152934627</td>
+                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row"></th>
+                                            <td>elkatakiki</td>
+                                            <td>elimarimae@emailcom</td>
+                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                          </tr>
+                                          <tr>
+                                            <th scope="row"></th>
+                                            <td>kath</td>
+                                            <td>09152934627</td>
+                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                
+                            </div>
+                    </div>
+                        <div class="pfooter">
+                        <button type="button" class="btn link-btn" data-dismiss="popup">Okay</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -1212,12 +1518,10 @@
     <!-- External JS -->
     <script src="../../scripts/index.js"></script>
     <script src="../../scripts/table.js"></script>
-    <script src="../../scripts/project.js"></script>
 
     <script>
 
         let chartRows = $(".chart-row");
-        // let chartItems = $(".chart-row-item");
 
         if (chartRows.length > 0) {
             for (let i = 0; i < chartRows.length; i++) {
@@ -1244,6 +1548,137 @@
         //     "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
         // });
 
+        const NEWTASK = '<tr onclick="openTask(this, event)">' +
+                            '<th scope="row">#</th>' +
+                            '<td class="taskCell">' +
+                                '<div class="form-input-group">' +
+                                    '<textarea oninput="autoHeight(this)" name="" id=""  rows="1"></textarea>' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>' +
+                                '<div class="form-input-group">' +
+                                    '<input type="date" name="" id="">' +
+                                '</div>' +
+                            '</td>' +
+                            '<td>' +
+                                '<div class="form-input-group">' +
+                                    '<input type="date" name="" id="">' +
+                                '</div>' +
+                            '</td>' +
+                            '<td class="action-cell">' +
+                                '<div class="action-cell-content">' +
+                                    '<div class="dots-menu">' +
+                                        '<button onclick="showRowMenu(this, event)" type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>' +
+                                    '</div>' +
+                                    '<span class="row-action-btns">' +
+                                        '<button class="btn icon-btn" type="button"><i class="fa fa-trash" aria-hidden="true"></i></button>' +
+                                    '</span>' +
+                                '</div>' +
+                            '</td>' +
+                        '</tr>';
+
+        const DOTS_MENU =   '<ul class="dots-menu-popup">' + 
+                                '<li onclick="editTask(this, event)">Edit</li>' +
+                                '<li onclick="removeTask(this, event)">Remove</li>' +
+                                '<hr>' + 
+                                '<li onclick="addTask(this, event)" data-position="subtask">Add sub task</li>' + 
+                                '<li onclick="addTask(this, event)" data-position="top">Add task before</li>' + 
+                                '<li onclick="addTask(this, event)" data-position="bottom">Add task after</li>' + 
+                            '</ul>'
+
+
+        $("button[data-toggle='row']").on('click', function () {
+            console.log("Add row");
+            let btn = $(this);
+            let table = $(btn.data('target'));
+            let tableId = btn.data('target').replace("#", '');
+            console.log(tableId);
+            console.log(table);
+
+            table.append(NEWTASK);
+        
+            console.log(document.getElementById(tableId).rows[0].cells.length);
+        });
+
+        // $("#tasksTable tbody tr").on('mouseover', (e) => {
+        //     // console.log("Hovering");
+        //     // console.log($(e.target).closest("tbody tr").after("<button>Hello World</button>"));
+        //     console.log($(e.target).closest("tbody tr").next("tr.row-actions").css("display", "table-row"));
+        // });
+
+        function showRowMenu(element, e) {
+            console.log("Menu");
+            e.preventDefault();
+            console.log(element);
+            // console.log($(element).next(".dots-menu-popup").length > 0);
+            // console.log($(element).next(".dots-menu-popup"));
+            if ($(element).next(".dots-menu-popup").length > 0) {
+                $(element).next(".dots-menu-popup").remove();
+            } else {   
+                $(element).after(DOTS_MENU);
+                // $(element).next(".dots-menu-popup").addClass("show-block");
+            }
+
+            e.stopPropagation();
+        }
+        
+        // $("form table tbody tr textarea, form table tbody tr input").click((e) => {
+        //     // e.stopPropagation();
+        //     console.log("Input click");
+        // });
+
+        // $(document).click((e) => {
+        //     console.log("Something clicked");
+        //     console.log($(".show, .show-block").length);
+        //     console.log($(e.target).is("form table tbody tr textarea, form table tbody tr input"));
+        //     console.log(e.target);
+        //     console.log($("form table tbody tr textarea"));
+        //     console.log($("form table tbody tr textarea") === $(e.target));
+        //     console.log($("form table tbody tr textarea, form table tbody tr input") === $(e.target));
+        //     // $("form table tbody tr").find("textarea, input").attr();
+        //     // console.log(e.target);
+        // });
+
+        function addTask(element, e) {
+            // $(element).closest(".dots-menu-popup.show-block").removeClass("show-block");
+            
+            console.log("Add Task");
+            e.preventDefault();
+            console.log(element);
+            let position = $(e.target).data("position");
+
+            switch(position) {
+                case "top":
+                console.log($(e.target).closest("tbody tr").before(NEWTASK));
+                    break;
+                case "bottom":
+                console.log($(e.target).closest("tbody tr").after(NEWTASK));
+                    break;
+            }
+            $(element).closest(".dots-menu-popup").remove();
+            e.stopPropagation();
+        }
+        
+        function editTask(element, e) {
+            e.preventDefault();
+            console.log("Edit Task");
+            console.log(element);
+            console.log($(element).closest("tbody tr").find("textarea, input").removeAttr("readonly"));
+            console.log($(element).closest(".dots-menu-popup").remove());
+
+            $("form table tbody tr textarea:not(:read-only), form table tbody tr input:not(:read-only)").blur((e) => {
+                console.log(e.target);
+                console.log("================\nAjax save data\n=====================");
+            });
+            
+            e.stopPropagation();
+        }
+
+        function removeTask(element, event) {
+            console.log("Remove this element");
+        }
+
+        
     </script>
   </body>
 </html>
