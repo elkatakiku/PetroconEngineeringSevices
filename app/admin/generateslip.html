@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <!-- Change the 'Page' to current page  -->
-    <title>Petrocon | Invoice</title>
+    <title>Petrocon | Payslip</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -142,14 +142,6 @@
         
         <main class="content">
           <!-- Header -->
-          <div class="page-header">
-            <div class="project-info">
-              <div>
-                <h1 class="page-title">Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</h1>
-                <small>Robinson Palace, Antipolo City</small>
-              </div>
-            </div>
-          </div>
 
           <div class="print-actions linear space-between border=bottom">
             <button class="btn link-btn"><a href="projectganttchart.html">Go Back</a></button>
@@ -157,68 +149,87 @@
           </div>
           
           <form action="#" method="POST" id="invoiceform" onload="window.print(); window.close()">
-            <div>
-              <div class="invoice-page-title">
-                <a class="brand print-brand" href="#">
-                  <img src="../../images/petrocon-icon-2.png" class="d-block align-top brand-icon" alt="Petrocon Logo">
-                  <p class="brand-name">Petrocon</p>
-                </a>
-                <div>
-                    <h2>PETROCON ENGINEERING SERVICES</h2>
-                    <p>Strike Ville, Vizcarra Comp., Molino 3, Bacoor City
-                    <br>
-                    (046) 513-7533; Cell No. 0917-140-8987
-                    <br>
-                    petroconphil@gmail.com 
-                </div> 
-              </div>
-              <div class="invoice-page-info">
-                <div>
-                  <input type="date" id="dateToday" /> <br> 
+   
+          <!-- Users Table -->
+          <div class="mesa-container">
+            <table class="mesa">
+              <thead class="mesa-head">
+                <tr>
+                  <th scope="col">EMPLOYEE NAME</th>
+                  <th scope="col">POSITION</th>
+                  <th scope="col">NO. OF DAYS</th>
+                  <th scope="col">BASIC RATE PER DAY</th>
+                  <th scope="col">T. AMOUNT BASIC PAY</th>
+                  <th scope="col">OVERTIME HOURS</th>
+                  <th scope="col">AMOUNT PER HOUR</th>
+                  <th scope="col">AMOUNT OF OVERTIME</th>
+                  <th scope="col">TOTAL AMOUNT</th>
+                  <th scope="col">PAKYAW AMOUNT</th>
+                  <th scope="col">NET AMOUNT</th>
+                  <th scope="col">SIGNATURE</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                    <th scope="row">Kolas</th>
+                    <td>Dri/Fab</td>
+                    <td>3</td>
+                    <td>650</td>
+                    <td>1950</td>
+                    <td>4</td>
+                    <td>81.25</td>
+                    <td>325</td>
+                    <td>2275</td>
+                    <td>0</td>
+                    <td>2,275</td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Renante</th>
+                    <td>Welder</td>
+                    <td>0</td>
+                    <td>1000</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>125</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Kolas</th>
+                    <td>Dri/Fab</td>
+                    <td>3</td>
+                    <td>600</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>75</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>        
+              </tbody>
+            </table>
+
+            <br><br>
+            <div class=""> 
+                <p>&emsp;&emsp;&emsp;Prepared by:
                   <br>
-                </div>
-                <br>
-                <p>
-                  <p><span class="text" role="textbox" contenteditable>Name of Client</span></p>
-                  <p><span class="text" role="textbox" contenteditable>Position</span></p>
-                  <p><span class="text" role="textbox" contenteditable>Company Name</span></p>
-                  <p><span class="text" role="textbox" contenteditable>Company Address</span></p>
-
+                  <br>
+                  &emsp;&emsp;<strong style="text-decoration: underline;">Vhal B. Albaciete</strong>
+                  <br>
+                  &emsp;&emsp;&emsp;&nbsp;Contractor
                 </p>
-                <br>
-              </div> 
+            </div>
 
-              <div class="invoice-msmr">
-                Mr.Ms.
-                <p><span class="fill" contenteditable="true"></span></p>
-              </div>
-              <br>
-
-              <div class="page-description">
-                <p>
-                  I would like to bill hundred percent completion for the
-                  <span class="fill" contenteditable="true">&nbsp;</span>&nbsp;
-                  For the total cost including labor and mobilization is
-                  &nbsp;<span class="fill" contenteditable="true">&nbsp;&nbsp; </span>
-                  VAT Inclusive. See attached Service report and inspection report.
-                </p>
-              </div>
-            </div> 
-
-            <br>
-            <div class="page-amount">
-              <strong>Material Cost: </strong>
-              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
-
-              <strong>Labor and Mobilization: </strong>
-              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
-
-              <strong>Total: </strong>
-              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
-              </p>
-            </div> 
-            <br>
-            Thank you!
+          </div>
 
            <style>
               .print-brand {

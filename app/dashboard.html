@@ -184,8 +184,41 @@
               </div>
             </div>
 
-            <h5 class="db-sec-header">Projects</h5>
-            <p class="db-project-count">12,345,678</p>
+          <div class="linear space-between">
+            <div class="">
+              <h5 class="db-sec-header">Projects</h5>
+              <p class="db-project-count">12,345,678</p>
+              <br>
+            </div>  
+            <div
+             class="linear space-between">
+
+              <div class="dropdown">
+                  <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                      Year
+                  </button>
+
+                  <div class="dropdown-menu dropdown-menu-lg-right">
+                      <a class="dropdown-item" href="#">2009</a>
+                      <a class="dropdown-item" href="#">2010</a>
+                      <a class="dropdown-item" href="#">2011</a>
+                      <a class="dropdown-item" href="#">2012</a>
+                      <a class="dropdown-item" href="#">2013</a>
+                      <a class="dropdown-item" href="#">2014</a>
+                      <a class="dropdown-item" href="#">2015</a>
+                      <a class="dropdown-item" href="#">2016</a>
+                      <a class="dropdown-item" href="#">2017</a>
+                      <a class="dropdown-item" href="#">2018</a>
+                      <a class="dropdown-item" href="#">2019</a>
+                      <a class="dropdown-item" href="#">2020</a>
+                      <a class="dropdown-item" href="#">2021</a>
+                      <a class="dropdown-item" href="#">2022</a>
+                      <a class="dropdown-item" href="#">2023</a>
+                  </div>
+              </div>
+
+          </div>  
+          </div>
 
             
             <div class="overview-card">
@@ -205,8 +238,8 @@
                 <div class="bar" data-value="11"></div>
                 <div class="bar" data-value="12"></div>
               </div>
-            </div>
-
+            </div> -->
+            <!---->
           </div>
 
           <!-- Side contents -->
@@ -328,5 +361,15 @@
 
     <!-- External JS -->
     <script src="../scripts/index.js"></script>
+    <script type="text/JavaScript">
+      $(function(){
+        $('.bars li .bar').each(function(key, bar){
+          var percentage = $(this).data('percentage');
+          $(this).animate({
+            'height' : percentage + '%'
+          },1000);
+        });
+      });
+      </script>
   </body>
 </html>
