@@ -1,8 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Change the 'Page' to current page  -->
-    <title>Base Admin Structure</title>
+    <title>Petrocon | Project Lists</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,191 +16,212 @@
 
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 
     <!-- External CSS -->
-    <!-- Change paths of href depending on the location of the file -->
-    <link rel="stylesheet" href="../styles/styles.css">
-    <link rel="stylesheet" href="../styles/astyles.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/popup.css">
   </head>
-  <body>
+  <body class="body-wrapper">
 
     <style>
-      .body-samp {
+      .wrap {
+        flex: 1;
         display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-
-      .wrap-samp {
-        background-color: red;
-        flex: 2;
-        display: flex;
-      }
-
-      .cont-samp {
-
+        /* display: grid;
+        grid-template-columns: auto 1fr;
+        grid-auto-rows: 1fr;
+        justify-items: stretch;
+        align-items: stretch; */
       }
     </style>
 
-    <div class="body-samp">
-
-      <nav id="topbar" class="navbar navbar-expand-md navbar-light">
-        <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
-            <span class="material-icons">menu</span>
-        </button>
-        <strong class="user-type flex-grow-1">Petrocon</strong>
-        <span class="material-icons">circle_notifications</span>
-        <p class="user-name">Eli Lamzon</p>
-        <span id="user-display" class="material-icons">account_circle</span>
-      </nav>
-
-      <div class="wrap-samp">
-        <div id="sidebar">
-          <nav>
-            <ul class="list-unstyled components">
-              <li class="active">
-                <a class="d-flex align-content-start" href="#">
-                  <span class="material-icons">dashboard</span>
+    <div class="wrap">
+      <div id="sidebar">
+        <nav>
+          <ul class="list-unstyled components">
+            <li class="">
+              <a class="d-flex align-content-start" href="/app/index.html">
+                <span class="material-icons">dashboard</span>
+                <div class="collapsible">
+                  <span>Dashboard</span>
+                </div> 
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="item-dropdown">
+              <div class="dropdown-tile">
+                <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId"> 
+                  <span class="material-icons">handyman</span>
                   <div class="collapsible">
-                    <span>Dashboard</span>
-                  </div> 
-                  <span class="sr-only">(current)</span>
+                    <span>
+                      Projects
+                      <span class="material-icons">arrow_drop_down</span>
+                    </span>
+                  </div>
                 </a>
-              </li>
-              <li class="item-dropdown">
-                <div class="dropdown-tile">
-                  <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId"> 
-                    <span class="material-icons">handyman</span>
-                    <div class="collapsible">
-                      <span>
-                        Projects
-                        <span class="material-icons">arrow_drop_down</span>
-                      </span>
-                    </div>
-                  </a>
+              </div>
+              <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
+                <li class="active">
+                  <a class="" href="/app/admin/projects.html">All</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Done</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Ongoing</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Pending</a>
+                </li>
+              </ul>
+            </li>
+            <li class="">
+              <a class="d-flex align-content-start" href="#">
+                <span class="material-icons">chat_bubble</span>
+                <div class="collapsible">
+                  <span>Messages</span>
                 </div>
-                <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
-                  <li class="">
-                    <a class="" href="#">All</a>
-                  </li>
-                  <li class="">
-                    <a class="" href="#">Done</a>
-                  </li>
-                  <li class="">
-                    <a class="" href="#">Ongoing</a>
-                  </li>
-                  <li class="">
-                    <a class="" href="#">Pending</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="">
-                <a class="d-flex align-content-start" href="#">
-                  <span class="material-icons">chat_bubble</span>
+              </a>
+            </li>
+            <li class="item-dropdown">
+              <div class="dropdown-tile">
+                <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
+                  <span class="material-icons">workspaces</span>
                   <div class="collapsible">
-                    <span>Messages</span>
+                    <span>
+                      Team
+                      <span class="material-icons">arrow_drop_down</span>
+                    </span>
                   </div>
                 </a>
-              </li>
-              <li class="item-dropdown">
-                <div class="dropdown-tile">
-                  <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
-                    <span class="material-icons">workspaces</span>
-                    <div class="collapsible">
-                      <span>
-                        Team
-                        <span class="material-icons">arrow_drop_down</span>
-                      </span>
-                    </div>
-                  </a>
+              </div>
+              <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
+                <li class="">
+                  <a class="" href="employees-admin.html">Employees</a>
+                </li>
+                <li class="">
+                  <a class="" href="workers-admin.html">Workers</a>
+                </li>
+              </ul>
+            </li>
+            <li class="">
+              <a class="d-flex align-content-start" href="users-admin.html">
+                <span class="material-icons">people</span>
+                <div class="collapsible">
+                  <span>Users</span>
                 </div>
-                <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
-                  <li class="">
-                    <a class="" href="#">Employees</a>
-                  </li>
-                  <li class="">
-                    <a class="" href="#">Workers</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="">
-                <a class="d-flex align-content-start" href="#">
-                  <span class="material-icons">people</span>
-                  <div class="collapsible">
-                    <span>Users</span>
-                  </div>
-                </a>
-              </li>
-    
-              <hr>
-    
-              <li class="">
-                <a class="d-flex align-content-start" href="#">
-                  <span class="material-icons">person</span>
-                  <div class="collapsible">
-                    <span>Profile</span>
-                  </div>
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="">
-                <a class="d-flex align-content-start" href="#">
-                  <span class="material-icons">logout</span>
-                  <div class="collapsible">
-                    <span>Logout</span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        
-        <div class="cont-samp">
-          <main class="main">
-            <!-- Content -->
-            <!-- Change content here -->
-            <h2>Collapseible Sidebar using Bootstrap 4</h2>
-            <p>
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-              
-            </p>
-            <p>
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-              
-            </p>
-    
-            <div class="line"></div>
-            <h3>Lorem Ipsum</h3>
-    
-            <p>
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-              
-            </p>
-    
+              </a>
+            </li>
+  
             <hr>
-    
-            <h3>Lorem Ipsum</h3>
-    
-            <p>
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-              
-            </p>
-    
-            <hr>
-    
-            <h3>Lorem Ipsum</h3>
-    
-            <p>
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-              
-            </p>
-    
-            <!-- End of content -->
-          </main>
-        </div>
+  
+            <li class="">
+              <a class="d-flex align-content-start" href="#">
+                <span class="material-icons">person</span>
+                <div class="collapsible">
+                  <span>Profile</span>
+                </div>
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="">
+              <a class="d-flex align-content-start" href="/app/login/login.html">
+                <span class="material-icons">logout</span>
+                <div class="collapsible">
+                  <span>Logout</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
 
+      <style>
+
+        body {
+          max-width: 500px;
+        }
+
+        .cont {
+          /* flex-grow: 1;
+          flex-shrink: 2;
+          flex-basis: 25%; */
+          background-color: blue;
+          max-width: 1000px;
+          overflow: auto;
+        }
+
+        .samp {
+          overflow: auto;
+          background-color: rebeccapurple;
+        }
+
+        .insamp {
+          max-height: 100px;
+          background-color: red;
+          overflow: auto;
+        }
+
+        th {
+          white-space: nowrap;
+        }
+      </style>
+
+      <div class="cont"> 
+        <div class="samp">
+          <div class="insamp">
+            <table class="">
+              <thead class="">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Duis posuere id ante a fermentum. Vestibulum in nibh viverra, auctor ex vitae, volutpat risus. Praesent facilisis risus id quam iaculis pharetra. Suspendisse volutpat vel orci eget iaculis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque a leo ligula. Aenean odio erat, laoreet et ultricies eu, dictum ac nibh.</th>
+                  <th scope="col">Last change</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                  <th scope="col">#</th>
+                  <th scope="col" class="tname projectName">Project</th>
+                  <th scope="col">Last change</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                  <th scope="col">#</th>
+                  <th scope="col" class="tname projectName">Project</th>
+                  <th scope="col">Last change</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+
+          <!-- Project Table -->
+          <!-- <div class="mesa-container">
+            <table class="mesa">
+              <thead class="mesa-head">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col" class="tname projectName">Project</th>
+                  <th scope="col">Last change</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                  <th scope="col">#</th>
+                  <th scope="col" class="tname projectName">Project</th>
+                  <th scope="col">Last change</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                  <th scope="col">#</th>
+                  <th scope="col" class="tname projectName">Project</th>
+                  <th scope="col">Last change</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+            </table>
+          </div> -->
+
+      </div>
     </div>
           
     <!-- Optional JavaScript -->

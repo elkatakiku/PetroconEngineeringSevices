@@ -1,8 +1,18 @@
 class Popup {
     constructor() {
+        this.type = "";
+        this.size = "";
+
+        this.color = "action";
         this.id = "popup";
 
         this.animation = "fade";
+        this.location = "";
+
+        this.top = "";
+        this.right = "";
+        this.bottom = "";
+        this.left = "";
 
         this.icon = "";
         this.title = "Popup Title";
@@ -13,6 +23,22 @@ class Popup {
         this.neutralButton = "Cancel";
 
         this.padding = "";
+    }
+
+    setType(type) {
+        this.type = "popup-" + type;
+    }
+
+    getType() {
+        return this.type;
+    }
+
+    setSize(size) {
+        this.size = "popup-" + size;
+    }
+
+    getSize() {
+        return this.size;
     }
 
     setId(id) {
@@ -37,13 +63,11 @@ class Popup {
 
     getHeader() {
         return '<div class="pheader">' +
-                    '<div class="linear-center">' +
-                        this.icon +
-                        '<h2 class="ptitle">' + this.title + '</h2>' +
-                    '</div>' +
-                    '<button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">' +
-                        '<span aria-hidden="true">&times;</span>' +
-                    '</button>' +
+                    this.icon +
+                    '<h2 class="ptitle">' + this.title + '</h2>' +
+                    '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">'+
+                        '<span class="material-icons">close</span>'+
+                    '</button>'+
                 '</div>';
     }
 
@@ -53,7 +77,7 @@ class Popup {
 
     getBody() {
         return '<div class="pbody">' +
-                this.bodyContent +
+                    this.bodyContent +
                 '</div>';
     }
 
@@ -67,25 +91,25 @@ class Popup {
 
     getFooter() {
         return '<div class="pfooter">' +
-                    '<button type="button" class="btn action-btn">' + this.submitButton + '</button>' +
+                    '<button type="button" class="btn ' + this.color + '-btn">' + this.submitButton + '</button>' +
                     '<button type="button" class="btn link-btn" data-dismiss="popup">' + this.neutralButton + '</button>' +
                 '</div>';
     }
 
-    render() {
+    generatePopup() {
 
-        let popup = ' <div class="popup ' + this.animation + '" id="' + this.id + '" tabindex="-1" aria-hidden="true">' +
-                    '<div class="pcontainer">' +
-                        '<div class="pcontent">' +
-                            this.getHeader() +
-                            this.getBody() +
-                            this.getFooter() +
+        return '<div class="popup show ' + this.animation + ' ' + this.location + ' ' + this.type + '" id="' + this.id + '" tabindex="-1" aria-hidden="true">' +
+                        '<div class="pcontainer ' + this.size + '">' +
+                            '<div class="pcontent">' +
+                                this.getHeader() +
+                                this.getBody() +
+                                this.getFooter() +
+                            '</div>' +
                         '</div>' +
-                    '</div>' +
-                '</div>';
+                    '</div>';
 
-        console.log(popup);
+        // console.log(popup);
 
-        $("body").append(popup);
+        // $("body").append(popup);
     }
 }

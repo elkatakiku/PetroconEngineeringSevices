@@ -1,0 +1,18 @@
+/* New Project Popup */
+#projectPopup .pheader .linear-center {
+    gap: 25px;
+}
+  
+#projectPopup .form-group .linear {
+    margin-bottom: .5rem;
+}
+  
+#projectPopup .form-group .linear label {
+    margin-bottom: 0;
+}
+  
+#projectPopup .form-group .linear hr {
+    border-top: 1px solid var(--border-rgba-color);
+    flex-grow: 1;
+    margin: 0;
+}

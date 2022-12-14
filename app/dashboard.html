@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/navbar.css">
     <link rel="stylesheet" href="../styles/sidebar.css">
-    <link rel="stylesheet" href="../styles/astyles.css">
+    <link rel="stylesheet" href="../styles/dashboard.css">
   </head>
   <body class="body-wrapper">
 
@@ -220,158 +220,9 @@
           </div>  
           </div>
 
-            <!-- Chart -->
-            <style>
-              .chart-container {
-                position: relative;
-                width: 100%;
-                padding: 5px 10px;
-              }
-
-              .chart {
-                display: grid;
-                grid-template-columns: repeat(12, 1fr);
-                grid-template-rows: repeat(100, 1fr);
-                grid-column-gap: 5px;
-                height: 250px;
-                
-              }
-
-              .bar {
-                border-radius: 5px 5px 0 0;
-                background-color: #3d3dbb;
-                grid-row-start: 1;
-                grid-row-end: 101; 
-              }
-
-              .grid {
-                grid-gap: 5px;
-                grid-template-columns: repeat(4, 1fr);
-                grid-template-rows: repeat(4, 1fr);
-              }
-
-              .special-col {
-                grid-row: 2 / 4;
-                background-color: #222;
-              }
-
-              .bar[data-value="1"] {
-                grid-row-start: 50;
-              } 
-              .bar[data-value="4"] {
-                grid-row-start: 50;
-              }
-              .bar[data-value="5"] {
-                grid-row-start: 30;
-              }
-              .bar[data-value="7"] {
-                grid-row-start: 50;
-              }
-              .bar[data-value="11"] {
-                grid-row-start: 70;
-              }
-              .bar[data-value="2"] {
-                grid-row-start: 30;
-              }
-
-              .char{
-                width: 600px;
-                height: 300px;
-                display: block;
-              }
-
-              .numbers{
-                color: black;
-                width: 50px;
-              }
-
-              .numbers li{
-                list-style: none;
-                height: 150px;
-                position: relative;
-                bottom: 145px;
-              }
-
-              .numbers span{
-                font-size: 12px;
-                font-weight: 600;
-                position: absolute;
-                bottom: 0;
-                right: 10px;
-              }
-
-              .bars{
-                color: black;
-                font-size: 12px;
-                margin: 0;
-                padding: 0;
-                display: inline-block;
-                width: 750px;
-                height: fit-content;
-                border-radius: 5px;
-              }
-
-              .bars .bar{
-                background: rgb(236, 92, 205);
-                width: 50px;
-                position: absolute;
-                bottom: 0;
-                margin-left: 7px; 
-              }
-
-              .bars .bar:hover{
-                background: #e4a6dc;
-                cursor: pointer;
-              }
-
-              .bar .bar:before{
-                color: #030202;
-                content: attr(data-percentage) '%';
-              }
-
-              .bars li{
-                display: table-cell;
-                width: inherit;
-                height: 350px;
-                position: relative;
-              }
-
-              .bars span{
-                width: 100%;
-                position: absolute;
-                bottom: -30px;
-                text-align: center;
-              }
-            </style>
-
-            <div class="chart">
-              <ul class="numbers">
-                <li><span>100%</span></li>
-                <li><span>50%</span></li>
-                <li><span>0%</span></li>
-              </ul>
-
-            <ul class="bars">
-              <li><div class="bar" data-percentage="50"></div><span>January</span></li>
-              <li><div class="bar" data-percentage="100"></div><span>February</span></li>
-              <li><div class="bar" data-percentage="50"></div><span>March</span></li>
-              <li><div class="bar" data-percentage="30"></div><span>April</span></li>
-              <li><div class="bar" data-percentage="50"></div><span>May</span></li>
-              <li><div class="bar" data-percentage="40"></div><span>June</span></li>
-              <li><div class="bar" data-percentage="30"></div><span>July</span></li>
-              <li><div class="bar" data-percentage="100"></div><span>August</span></li>
-              <li><div class="bar" data-percentage="30"></div><span>September</span></li>
-              <li><div class="bar" data-percentage="50"></div><span>October</span></li>
-              <li><div class="bar" data-percentage="10"></div><span>November</span></li>
-              <li><div class="bar" data-percentage="20"></div><span>December</span></li>
-            </ul>
-           </div>
-
-           <!-- 
-            <div class="chart-container">
             
             <div class="overview-card">
-                  <h3 align="right">YEAR 2021</h3></i>
+              <h3 align="right">YEAR 2021</h3>
                
               <div class="chart">
                 <div class="bar" data-value="1"></div>
@@ -393,8 +244,6 @@
 
           <!-- Side contents -->
           <div class="db-side">
-
-            <h2 class="db-side-header">Other</h2>
 
             <div class="side-content" id="events">
               <h5 class="db-sec-header">Events</h5>
