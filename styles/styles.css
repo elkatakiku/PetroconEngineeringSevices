@@ -118,6 +118,10 @@ hr {
     overflow: hidden !important;
 }
 
+.text-wrap {
+    white-space: wrap;
+}
+
 .round {
     border-radius: 100px !important;
 }
