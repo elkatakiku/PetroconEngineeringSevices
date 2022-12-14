@@ -15,7 +15,6 @@
 /* || Nav Bar */
 
 /* Default */
-
 .navbar {
     gap: 1rem;
     padding: .75rem 1rem;
@@ -23,6 +22,8 @@
     background-color: var(--topbar-bg);
     color: var(--topbar-text);
     border-bottom: 1px solid var(--border-rgba-color);
+    position: relative;
+    z-index: 200;
 }
   
 #sidebarCollapseToggler {
@@ -42,26 +43,6 @@
     padding-left: 30px;
     padding-right: 20px;
     border-left: 1px solid var(--border-rgba-color);
-}
-
-/* Brand */
-.brand {
-    display: flex;
-    gap: 20px;
-}
-
-.brand .brand-icon {
-    width: 40px;
-    height: 40px;
-}
-
-.brand .brand-name {
-    display: inline-block;
-    max-width: 200px;
-    font-size: .75rem;
-    font-weight: 700;
-    white-space: normal;
-    text-transform: uppercase;
 }
 
 /* Navbar Client */

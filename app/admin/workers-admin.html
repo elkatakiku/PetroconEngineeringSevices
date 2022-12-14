@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="../../styles/styles.css">
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/sidebar.css">
-    <link rel="stylesheet" href="../../styles/astyles.css">
     <link rel="stylesheet" href="../../styles/popup.css">
   </head>
   <body class="body-wrapper">
@@ -230,7 +229,7 @@
         </div>
 
          <!-- Popup -->
-         <div class="popup fade popup-center" id="addWorker" tabindex="-1" aria-hidden="true">
+         <div class="popup popup-center" id="addWorker" tabindex="-1" aria-hidden="true">
             <div class="pcontainer">
                 <div class="pcontent">
                     <div class="pheader">
@@ -303,36 +302,6 @@
       $(window).on("resize", () => {
         setNavTab();
       });
-
-      
-      // $(".popup button[data-dismiss]").click(function (e) { 
-      //   e.preventDefault();
-      //   console.log(e);
-      //   // console.log("dismissing: " + $(this).attr("data-dismiss"));
-      //   if ($(".popup.show .pcontainer").hasClass("popup-below")) {
-      //     $(".popup.show .pcontainer").addClass("slide-down");
-
-      //     $(".popup.show#projectPopup .pcontainer").on("animationend", function (e) {
-      //       console.log(e);
-
-      //       // Checks if slide down ended
-      //       if (e.originalEvent.animationName === "slide-down") {
-
-      //         $("#projectPopup").popup('hide');
-
-      //         // Removes classes, styles and backdrop
-      //         $("body").removeClass("popup-open");
-      //         $(".popup .pcontainer").removeClass("slide-down");
-      //         projectPopup.removeClass("show");
-
-      //         projectPopup.css("padding-right", "");
-      //         projectPopup.css("display", "none");
-
-      //         // $(".popup-backdrop").remove();
-      //       }
-      //     });
-      //   }
-      // });      
     </script>
   </body>
 </html>

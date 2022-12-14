@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/popup.css">
-    <link rel="stylesheet" href="../../styles/astyles.css">
     <link rel="stylesheet" href="../../styles/project.css">
   </head>
 
@@ -171,23 +170,6 @@
                     <div class="slide-body">
                         <form action="/index.html" method="post" id="projectDetailForm">
         
-                            <h3 class="detail-header">General</h3>
-            
-                            <div class="form-input-group">
-                                <label for="">Name of Client</label>
-                                <input type="text" value="Yvana Eunice Magno" autofocus readonly>
-                            </div>
-            
-                            <div class="form-input-group">
-                                <label for="">Building no.</label>
-                                <input type="text" value="Building 1, 2, 3" readonly>
-                            </div>
-            
-                            <div class="form-input-group">
-                                <label for="">Work Description</label>
-                                <textarea name="" id="" rows="1" readonly>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
-                            </div>
-            
                             <h3 class="detail-header">Project</h3>
 
                             <div class="linear">
@@ -203,11 +185,40 @@
                                 </div>
 
                             </div>
+
+                            <div class="form-input-group">
+                                <label for="">Building no.</label>
+                                <input type="text" value="Building 1, 2, 3" readonly>
+                            </div>
             
                             <div class="form-input-group">
                                 <label for="">Location</label>
                                 <input type="text" value="Rosario, Batangas" readonly>
+                            </div>         
+                            
+                            <div class="form-input-group">
+                                <label for="">Work Description</label>
+                                <textarea name="" id="" rows="1" readonly>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
                             </div>
+            
+                            <h3 class="detail-header">Client</h3>
+
+                            <div class="form-input-group">
+                                <label for="">Representative</label>
+                                <input type="text" value="Yvana Eunice Magno" readonly>
+                            </div>
+
+                            <div class="form-input-group">
+                                <label for="">Company</label>
+                                <input type="text" value="Pheonix Inc." readonly>
+                            </div>
+
+                            <div class="form-input-group">
+                                <label for="">Contact</label>
+                                <input type="tel" value="09123456789" readonly>
+                            </div>
+
+
             
                         </form>
                     </div>
@@ -669,14 +680,14 @@
                         </div>
 
                         <span class="expanding-btn">
-                            <button class="btn action-btn icon-btn" data-backdrop="false" data-toggle="popup" data-target="#viewLegends">
+                            <button class="btn action-btn icon-btn" data-toggle="popup" data-target="#viewLegends">
                                 <span class="material-icons">legend_toggle</span>
                             </button>
                         </span>
 
                         <!-- View Legends Popup -->
-                        <div id="viewLegends" class="popup popup-contained" tabindex="-1" aria-hidden="true">
-                            <div class="pcontainer popup-sm">
+                        <div id="viewLegends" class="popup popup-contained" data-backdrop="false" tabindex="-1" aria-hidden="true">
+                            <div class="pcontainer popup-sm" data-right="15" data-bottom="35">
                                 <div class="pcontent">
                                     <div class="pheader">
                                         <h2 class="ptitle">Legends</h2>
@@ -832,46 +843,30 @@
 
                     <!-- People -->
                     <div id="projectPeople" class="custom-tab-content">
-                        <nav class="nav-tab-container">
-                            <div class="space-between">
-                                <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">Pending invitations</button>
-                            </div>
-                            <div class="linear">
-                                <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
-                                    Generate Slip
+                        <nav class="linear w-100">
+                            <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">
+                                Pending invitations
+                            </button>
+                            <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
+                                Generate Slip
+                            </button>
+                            <div class="dropdown ml-auto">
+                                
+                                <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    Add people
                                 </button>
-                                <div class="dropdown">
-                                    
-                                    <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
-                                        Add people
-                                    </button>
 
-                                    <div class="dropdown-menu dropdown-menu-lg-right">
-                                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
-                                        Invite
-                                        </button>
-                                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
-                                            Choose from team
-                                        </button>   
-                                    </div>
+                                <div class="dropdown-menu dropdown-menu-lg-right">
+                                    <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
+                                    Invite
+                                    </button>
+                                    <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
+                                        Choose from team
+                                    </button>   
                                 </div>
                             </div>
                         </nav>
-                        <!-- <div class="linear"> -->
-                            <!-- <form action="" class=""> -->
-                            <!-- <div class="input-container">
-                                <input type="text" placeholder="Enter an email address or number of a person you want to invite.">
-                                <div class="input-append">
-                                    <button type="button" class="btn action-btn slim-btn">Invite person</button>
-                                </div>
-                            </div>
-
-                            <span class="align-self-center">or</span>
-
-                            <button class="btn action-btn slim-btn  ">Choose from Team</button> -->
-                            <!-- </form> -->
-                        <!-- </div> -->
-
+                        
                         <!-- People Table -->
                         <div class="mesa-container">
                             <table class="mesa">
@@ -925,7 +920,7 @@
     </div>
 
     <!-- Legend Popup -->
-    <div class="popup fade popup-center" id="legendPopup" tabindex="-1" aria-hidden="true">
+    <div class="popup popup-center" id="legendPopup" tabindex="-1" aria-hidden="true">
         <div class="pcontainer popup-sm">
             <div class="pcontent">
                 <div class="pheader">
@@ -1011,17 +1006,15 @@
     </div>
 
     <!--POPUP INVITE PEOPLE-->
-    <div class="popup fade popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
+    <div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
         <div class="pcontainer">
             <div class="pcontent">
                 <div class="pheader">
-                <div class="linear-center">
                     <i class="fa-solid fa-envelope-open-text"></i>
                     <h2 class="ptitle">Invite People</h2>
-                </div>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
     
                 <div class="pbody">
@@ -1051,133 +1044,127 @@
                 </div>
     
                 <div class="pfooter">
-                <button type="button" class="btn action-btn">Send Invitation</button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    <button type="button" class="btn action-btn">Send Invitation</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!--POPUP CHOOSE FROM TEAM-->
-    <div class="popup fade popup-center" id="ChooseFromTeam" tabindex="-1" aria-hidden="true">
+    <div class="popup popup-center" id="ChooseFromTeam" tabindex="-1" aria-hidden="true">
         <div class="pcontainer">
             <div class="pcontent">
                 <div class="pheader">
-                <div class="linear-center">
-                    <!-- Can add icon here -->
                     <i class="fa-solid fa-people-group"></i>
                     <h2 class="ptitle">Choose from team</h2>
-                </div>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
     
                 <div class="pbody">
                     <div class="form-group">
                         <label for="">Email / Phone</label>
-                            <div class="input-container">
-                                <input type="text" placeholder="Enter an email address or phone number.">
-                                <div class="input-append">  
-                                    <button type="button" class="btn action-btn slim-btn">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>                     
+                        <div class="input-container">
+                            <input type="text" placeholder="Enter an email address or phone number.">
+                            <div class="input-append">  
+                                <button type="button" class="btn action-btn slim-btn">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>                     
                     </div>
+
                     <div class="form-group">
-                        
                         <label for="">Selected Person</label>
-                        
-                            <div class="selected">
-                                <p>Add a person to the list</p>
-                            </div> 
+                        <div class="selected">
+                            <p>Add a person to the list</p>
+                        </div> 
                     </div>
                 </div>
     
                 <div class="pfooter">
-                <button type="button" class="btn action-btn">Send Invitation</button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    <button type="button" class="btn action-btn">Send Invitation</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!--PENDING INVI-->
-    <div class="popup fade popup-center" id="Pending" tabindex="-1" aria-hidden="true">
+    <div class="popup popup-center" id="Pending" tabindex="-1" aria-hidden="true">
         <div class="pcontainer">
             <div class="pcontent">
                 <div class="pheader">
-                <div class="linear-center">
-                    <!-- Can add icon here -->
                     <h2 class="ptitle">Pending Invitation</h2>
-                </div>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
     
                 <div class="pbody">
                     <div class="form-group"> 
-                        <label for="">Invitation</label>
-                            <div class="selected" style="overflow: auto;max-height: 250px;">
-                                <table class="table table-hover">
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td>vana</td>
-                                            <td>09152934627</td>
-                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td>vana</td>
-                                            <td>09152934627</td>
-                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                        </tr>
-                                        
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td>vana</td>
-                                            <td>09152934627</td>
-                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                        </tr>
-                                        
-                                        <tr>
+                        <label for="">Invitations</label>
+                        <div class="selected" style="overflow: auto;max-height: 250px;">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
                                         <th scope="row"></th>
                                         <td>vana</td>
                                         <td>09152934627</td>
                                         <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                        </tr>
-                                        
-                                        <tr>
+                                    </tr>
+                                    
+                                    <tr>
                                         <th scope="row"></th>
-                                        <td>effer</td>
+                                        <td>vana</td>
                                         <td>09152934627</td>
                                         <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                        </tr>
-                                        
-                                        <tr>
+                                    </tr>
+                                    
+                                    <tr>
                                         <th scope="row"></th>
-                                        <td>elkatakiki</td>
-                                        <td>elimarimae@emailcom</td>
-                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                        </tr>
-                                        
-                                        <tr>
-                                        <th scope="row"></th>
-                                        <td>kath</td>
+                                        <td>vana</td>
                                         <td>09152934627</td>
                                         <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>vana</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>effer</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>elkatakiki</td>
+                                    <td>elimarimae@emailcom</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>kath</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                        <div class="pfooter">
-                        <button type="button" class="btn link-btn" data-dismiss="popup">Okay</button>
-                    </div>
+                </div>
+
+                <div class="pfooter">
+                    <button type="button" class="btn action-btn" data-dismiss="popup">Okay</button>
                 </div>
             </div>
         </div>

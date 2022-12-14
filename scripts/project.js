@@ -1,4 +1,3 @@
-
 // Gantt Chart Even Rows Background
 let chartRows = $(".chart-row");
 
@@ -109,8 +108,8 @@ function renderRowActions(rowID) {
                 '<button class="btn icon-btn neutral-btn" type="button">' +
                     '<span class="material-icons">cancel</span>' +
                 '</button>' +
-                '<button class="btn icon-btn success-btn" name="editTask" type="submit" value="' + rowID + '">' +
-                    '<span class="material-icons">check_circle</span>' +
+                '<button class="btn icon-btn" name="editTask" type="submit" value="' + rowID + '">' +
+                    '<span class="material-icons success-text">check_circle</span>' +
                 '</button>' +
             '</span>';
 }

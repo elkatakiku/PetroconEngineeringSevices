@@ -1,3 +1,18 @@
+/* || Project Details */
+#projectInfo {
+    max-width: 250px;
+}
+
+.detail-header {
+    font-size: 16px;
+}
+
+#projectDetailForm label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #5e6c84;
+}
+
 /* || Gantt Chart */
 .chart-container {
     display: grid;
@@ -51,16 +66,15 @@
 
 /* Grid Components */
 #timelineToggler {
-    padding: 0;
-    background-color:  var(--chart-header-bg);
-    border-right: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
+    border-right: none;
+    background-color:  var(--chart-header-bg);
     color: white;
     font-size: 1rem;
     text-align: center;
-    position: relative;
 }
 
 #timelineToggler .btn {

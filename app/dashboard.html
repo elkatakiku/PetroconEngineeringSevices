@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/navbar.css">
     <link rel="stylesheet" href="../styles/sidebar.css">
-    <link rel="stylesheet" href="../styles/astyles.css">
+    <link rel="stylesheet" href="../styles/dashboard.css">
   </head>
   <body class="body-wrapper">
 
@@ -187,61 +187,9 @@
             <h5 class="db-sec-header">Projects</h5>
             <p class="db-project-count">12,345,678</p>
 
-            <!-- Chart -->
-            <style>
-              .chart-container {
-                position: relative;
-                width: 100%;
-                padding: 5px 10px;
-              }
-
-              .chart {
-                display: grid;
-                grid-template-columns: repeat(12, 1fr);
-                grid-template-rows: repeat(100, 1fr);
-                grid-column-gap: 5px;
-                height: 250px;
-                
-              }
-
-              .bar {
-                border-radius: 5px 5px 0 0;
-                background-color: #3d3dbb;
-                grid-row-start: 1;
-                grid-row-end: 101; 
-              }
-
-              .grid {
-                grid-gap: 5px;
-                grid-template-columns: repeat(4, 1fr);
-                grid-template-rows: repeat(4, 1fr);
-              }
-
-              .special-col {
-                grid-row: 2 / 4;
-                background-color: #222;
-              }
-
-              .bar[data-value="1"] {
-                grid-row-start: 50;
-              } 
-              .bar[data-value="4"] {
-                grid-row-start: 50;
-              }
-              .bar[data-value="5"] {
-                grid-row-start: 30;
-              }
-              .bar[data-value="7"] {
-                grid-row-start: 50;
-              }
-              .bar[data-value="11"] {
-                grid-row-start: 70;
-              }
-            </style>
-
             
             <div class="overview-card">
-                  <h3 align="right">YEAR 2021</h3></i>
+              <h3 align="right">YEAR 2021</h3>
                
               <div class="chart">
                 <div class="bar" data-value="1"></div>
@@ -263,8 +211,6 @@
 
           <!-- Side contents -->
           <div class="db-side">
-
-            <h2 class="db-side-header">Other</h2>
 
             <div class="side-content" id="events">
               <h5 class="db-sec-header">Events</h5>
