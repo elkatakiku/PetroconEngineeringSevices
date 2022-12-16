@@ -90,7 +90,7 @@
                   <span class="material-icons">workspaces</span>
                   <div class="collapsible">
                     <span>
-                      Team
+                      Users
                       <span class="material-icons">arrow_drop_down</span>
                     </span>
                   </div>
@@ -103,17 +103,12 @@
                 <li class="">
                   <a class="" href="workers-admin.html">Workers</a>
                 </li>
+                <li class="">
+                  <a class="" href="clients-admin.html">Clients</a>
+                </li>
               </ul>
             </li>
-            <li class="">
-              <a class="d-flex align-content-start" href="users-admin.html">
-                <span class="material-icons">people</span>
-                <div class="collapsible">
-                  <span>Users</span>
-                </div>
-              </a>
-            </li>
-  
+           
             <hr>
   
             <li class="">
@@ -167,8 +162,6 @@
               </div>
             </nav>
           </div>
-          
-         
 
           <!-- Users Table -->
           <div class="mesa-container">
@@ -178,56 +171,15 @@
                   <th scope="col">Username</th>
                   <th scope="col">Email</th>
                   <th scope="col">Password</th>
+                  <th scope="col">Position</th>
+                  <th scope="col">Address</th>
                   <th scope="col">Contact</th>
                   <th scope="col">Action</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-
-                <tr>
-                    <th scope="row">Yvana Magno</th>
-                    <td>
-                      sexy@email.com
-                    </td>
-                    <td>*********</td>
-                    <td>09233272639</td>
-                    <td>Remove</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">Effer Adaza</th>
-                    <td>
-                      effer@email.com
-                    </td>
-                    <td>*********</td>
-                    <td>09233272639</td>
-                    <td>Remove</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">Kath Fernandez</th>
-                    <td>
-                      kath@email.com
-                    </td>
-                    <td>*********</td>
-                    <td>09233272639</td>
-                    <td>Remove</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                </tr>
-
-                <tr>
-                    <th scope="row">Eli Lamzon</th>
-                    <td>
-                      Eli@email.com
-                    </td>
-                    <td>*********</td>
-                    <td>09233272639</td>
-                    <td>Remove</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                </tr>         
+     
               </tbody>
             </table>
           </div>
@@ -249,30 +201,43 @@
                       </div>
           
                       <div class="pbody">
-                      
-                        <div class="form-group">
-                          <label for="">Username</label>
-                          <input type="text" class="form-control" name="" id="" placeholder="Username">
-                        </div>
-                        <div class="form-group">
-                          <label for="">Email</label>
-                          <input type="text" class="form-control" name="" id="" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                          <label for="">Password</label>
-                          <input type="password" class="form-control" name="" id="" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                          <label for="">Contact</label>
-                          <input type="text" class="form-control" name="" id="" placeholder="Contact">
-                        </div>
-
+                        <form id="usermanform" action="">
+                          <div class="form-group">
+                              <label>Username:</label>
+                              <input type="text" name="name" class="form-control" value="">
+                          </div>
+                          <div class="form-group">
+                              <label>Email Address:</label>
+                              <input type="email" name="email" class="form-control" value="">
+                          </div>
+                          <div class="form-group">
+                              <label>Password:</label>
+                              <input type="password" name="pass" class="form-control" value="">
+                          </div>
+                          <div class="form-group">
+                              <label>Position:</label>
+                              <input type="text" name="position" class="form-control" value="">
+                          </div>
+                          <div class="form-group">
+                              <label>Address:</label>
+                              <input type="text" name="address" class="form-control" value="">
+                          </div>
+                          <div class="form-group">
+                              <label>Contact No.:</label>
+                              <input type="text" name="contact" class="form-control" value="">
+                          </div>
+                        </form> 
                       </div>
           
+                       <!-- Before -->
+          
                       <div class="pfooter">
-                      <button type="button" class="btn action-btn">Submit</button>
-                      <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                        <!-- Prepend -->
+                        <button type="submit" form="usermanform" class="btn action-btn" data-dismiss="popup">Submit</button>
+                        <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                        <!-- Append -->
                       </div>
+                      <!-- After -->
                   </div>
               </div>
           </div>
@@ -337,7 +302,75 @@
       //       }
       //     });
       //   }
-      // });      
+      // });  
+      
+     
+      //JQUERY FOR EDITABLE TABLE
+        
+      $("#usermanform").submit(function(e) {
+        e.preventDefault();    
+        var name=$("input[name='name']").val();
+        var email=$("input[name='email']").val();
+        var pass=$("input[name='pass']").val();
+        var position=$("input[name='position']").val();
+        var address=$("input[name='address']").val();
+        var contact=$("input[name='contact']").val();
+
+        //mesa tbody kung san malalagay ung ininput pag nagclick submit
+        $(".mesa tbody").append("<tr data-name='"+name+"' data-email='"+email+"' data-pass='"+pass+"' data-position='"+position+"' data-address='"+address+"' data-contact='"+contact+"'><td>"+name+"</td><td>"+email+"</td><td>"+pass+"</td><td>"+position+"</td><td>"+address+"</td><td>"+contact+"</td><td><button class='btn btn-danger btn-lg btn-delete mr-3' type='button'>Delete</button><button class='btn btn-info btn-lg btn-edit' type='button'>Edit</button></td></tr>");
+
+        $("input[name='']").val("");
+      });
+
+      $('body').on('click','.btn-delete',function() {
+      $(this).parents('tr').remove();
+      });
+
+      $('body').on('click','.btn-edit',function() {
+      var name=$(this).parents('tr').attr('data-name');
+      var email=$(this).parents('tr').attr('data-email');
+      var pass=$(this).parents('tr').attr('data-pass');
+      var position=$(this).parents('tr').attr('data-position');
+      var address=$(this).parents('tr').attr('data-address');
+      var contact=$(this).parents('tr').attr('data-contact');
+
+      $(this).parents('tr').find('td:eq(0)').html("<input name='edit_text' value='"+name+"'>");
+      $(this).parents('tr').find('td:eq(1)').html("<input name='edit_email' value='"+email+"'>");
+      $(this).parents('tr').find('td:eq(2)').html("<input name='edit_pass' value='"+pass+"'>");
+      $(this).parents('tr').find('td:eq(3)').html("<input name='edit_position' value='"+position+"'>");
+      $(this).parents('tr').find('td:eq(4)').html("<input name='edit_address' value='"+address+"'>");
+      $(this).parents('tr').find('td:eq(5)').html("<input name='edit_contact' value='"+contact+"'>");
+
+      $(this).parents('tr').find('td:eq(6)').prepend("<button type='button' class='btn btn-info btn-lg btn-update mr-3'>Update</button>");
+      $(this).hide()
+      });
+
+      $('body').on('click','.btn-update',function() {
+      var name=$(this).parents('tr').find("input[name='edit_text']").val();
+      var email=$(this).parents('tr').find("input[name='edit_email']").val();
+      var pass=$(this).parents('tr').find("input[name='edit_pass']").val();
+      var position=$(this).parents('tr').find("input[name='edit_position']").val();
+      var address=$(this).parents('tr').find("input[name='edit_address']").val();
+      var contact=$(this).parents('tr').find("input[name='edit_contact']").val();
+
+      $(this).parents('tr').find('td:eq(0)').text(name);
+      $(this).parents('tr').find('td:eq(1)').text(email);
+      $(this).parents('tr').find('td:eq(2)').text(pass);
+      $(this).parents('tr').find('td:eq(3)').text(position);
+      $(this).parents('tr').find('td:eq(4)').text(address);
+      $(this).parents('tr').find('td:eq(5)').text(contact);
+
+      $(this).parents('tr').attr('data-name',name);
+      $(this).parents('tr').attr('data-email',email);
+      $(this).parents('tr').attr('data-email',pass);
+      $(this).parents('tr').attr('data-email',position);
+      $(this).parents('tr').attr('data-email',address);
+      $(this).parents('tr').attr('data-email',contact);
+
+      $(this).parents('tr').find('.btn-edit').show();
+      $(this).parents('tr').find('.btn-update').remove();
+
+      })  
     </script>
   </body>
 </html>
