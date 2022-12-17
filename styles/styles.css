@@ -122,6 +122,10 @@ hr {
     white-space: wrap;
 }
 
+.align-right {
+    text-align: right;
+}
+
 .round {
     border-radius: 100px !important;
 }
@@ -784,9 +788,9 @@ span.status[data-status = "in-progress"] {
 }
 
 /* || Content */
-.wrapper .content[data-fill="true"] {
+/* .wrapper .content[data-fill="true"] {
     flex: 2 0 75%;
-}
+} */
 
 .content {
     flex: 2;
@@ -1159,61 +1163,6 @@ body:has(.slide-fixed.active).slide-open {
 
 .light-btn {
     margin-top: 5px;
-}
-
-/* Create Legend */
-#legendPopup .pbody {
-    margin: 0;
-    padding: 0;
-}
-
-.legend-preview {
-    background-color: #f4f5f7;
-    margin-top: 10px;
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.legend-preview span {
-    display: block;
-    width: 50%;
-    min-height: 20px;
-    background-color: #7B7B7B;
-}
-
-.legend-preview span:first-child {
-    align-self: flex-start;
-}
-
-.color-preview {
-    align-self: center;
-    background-color: #5050FF !important;
-}
-
-.legend-preview span:last-child {
-    align-self: flex-end;
-}
-
-.color-selection {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.color-selection .option-box {
-    min-height: 25px;
-    flex-grow: 0;
-    min-width: calc((100% - ((5px * 5)+24px)) / 5);;
-}
-
-.color-selection .option-box:hover {
-    background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
-}
-
-#legendForm {
-    padding: 12px;
 }
 
 /* || Menu */

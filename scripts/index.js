@@ -83,12 +83,8 @@ $(window).on("resize", (e) => {
 
 });
 
-
-$("#sidebarCollapseToggler").click((e) => {
-    expandSidebar();
-});
-
-// Content responsiveness
+// Sidebar Listener
+$("#sidebarCollapseToggler").click(() => {expandSidebar();});
 
 
 
@@ -101,7 +97,7 @@ $(".popup").click((e) => {
 
     // Closes popup when clicked outside popup content
     if ($(e.target).hasClass('popup')) {
-        hidePopup();
+        hidePopup(e);
     }
 });
 
@@ -118,9 +114,9 @@ function animatePopup(popup) {
 }
 
 // Shows popup
-function showPopup(btn) {
+function showPopup(btn, popup = $(btn.data("target"))) {
     console.log("Popup button clicked");
-    let popup = $(btn.data("target"));
+    // let ;    
     
     popup.addClass("show");
 
@@ -141,9 +137,9 @@ function showPopup(btn) {
         });
     }
 
-    if (popup.data("backdrop") !== false && $('.popup-backdrop').length < 1) {
-        $("body").append("<div class='popup-backdrop'></div>");
-    }
+    // if (popup.data("backdrop") !== false && $('.popup-backdrop').length < 1) {
+    //     $("body").append("<div class='popup-backdrop'></div>");
+    // }
 
     if (btn.data("action")) {
         editForm(btn.data("target"));
@@ -151,28 +147,79 @@ function showPopup(btn) {
 }
 
 // Hides popup
-function hidePopup(btn) {
+function hidePopup(e) {
     console.log("Hide popup");
-    let popup = btn.closest(".popup.show");
+    console.log(e.target);
+    let popup = $(e.target).closest(".popup.show");
     console.log("Opened popup");
     console.log(popup);
 
     if (popup.hasClass("popup-center")) {
         popup.find('.pcontainer').animate({
                 top: '-' + popup.find('.pcontainer').height() + 'px'
-            }, 300, "swing", () => {removePopup(popup);});
+            }, 300, "swing", () => {
+                removePopup(popup);
+            });
         return;
-    } 
+    }
 
     removePopup(popup);
 }
 
 // Removes popup
-function removePopup(popup) {
+function removePopup(popup, remove = false) {
     $("body").removeClass("popup-open");
     popup.removeClass("show");
     $(".popup-backdrop").remove();
+
+    if (popup.is($('#deletePopup, #legendPopup'))) {
+        popup.remove();
+    }
+    // $('#deletePopup, #legendPopup').remove();    
 }
+
+// Initialize Popup Listeners
+function initializePopup(popup) {
+    popup.find('button[data-dismiss]').on('click', hidePopup);
+    popup.find('button[data-action="delete"]').on('click', promptDelete);
+}
+
+// || Delete Popup
+function generateDeletePopup(item) { 
+    return '<div class="popup show popup-center popup-delete" id="deletePopup" tabindex="-1" aria-hidden="true">' +
+                '<div class="pcontainer popup-sm">' +
+                    '<div class="pcontent">' +
+                        '<div class="pheader">' +
+                            '<h2 class="ptitle">Delete ' + item + '</h2>' +
+                            '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
+                                '<span class="material-icons">close</span>' +
+                            '</button>' +
+                        '</div>' +
+            
+                        '<div class="pbody">' +
+                            '<p>Are you sure you want to delete this ' + item + '?</p>' +
+                        '</div>' +
+            
+                        '<div class="pfooter">' +
+                            '<button type="button" class="btn danger-btn">Delete</button>' +
+                            '<button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+}
+
+function promptDelete(e) { 
+    console.log("Delete chuchu");
+    let popup = $(generateDeletePopup("task"));
+
+    $('body').append(popup);
+    showPopup($(this), popup);
+
+    // Listeners
+    initializePopup(popup);
+}
+
 
 
 // || Tab
@@ -230,8 +277,8 @@ function initSlide() {
     $(".slide-container .slide[data-side='left']").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
     $(".slide-container .slide[data-side='right']").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
 
-    $(".slide-fixed .slide[data-side='right']").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
-    $(".slide-fixed .slide.active[data-side='right']").css("right", $(".slide[data-side='right']").width() + "px");
+    $(".slide-fixed[data-side='right']:not(.active)").css("right", "-" + $(".slide[data-side='right']").width() + "px");
+    $(".slide-fixed.active[data-side='right']").css("right", 0);
 
     $(".slide-container .slide.active[data-side='left']").css("left", $(".slide[data-side='left']").width() + "px");
     $(".slide-container .slide.active[data-side='right']").css("right", $(".slide[data-side='right']").width() + "px");
@@ -242,9 +289,12 @@ if ($(".slide[data-side]").length > 0) {
         console.log("The element was resized");
         initSlide();
     });
-    
-    resizeObserver.observe($(".slide[data-side='left']")[0]);
-    resizeObserver.observe($(".slide[data-side='right']")[0]);
+
+    $(".slide[data-side]").each((index, element) => {
+        console.log("Element Each");
+        console.log(element);
+        resizeObserver.observe(element);
+    });
 
     initSlide();
 } else {
@@ -417,7 +467,7 @@ $("button[data-dismiss]").on("click", function (e) {
     console.log(dismissElement);
     switch (dismissElement) {
         case POPUP:
-            hidePopup(btnCLicked);
+            hidePopup(e);
             break;
         case SLIDE:
             console.log("Dismiss slide");
@@ -425,6 +475,8 @@ $("button[data-dismiss]").on("click", function (e) {
             break;
     }
 });
+
+$('button[data-action="delete"]').click(promptDelete);
 
 
 
