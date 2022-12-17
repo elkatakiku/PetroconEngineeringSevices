@@ -168,8 +168,9 @@
                 </div> 
               </div>
               <div class="invoice-page-info">
-                <div>
-                  <input type="date" id="dateToday" /> <br> 
+                <div class="dateToday">
+                  <span id="dateToday"> </span>
+                  <br> 
                   <br>
                 </div>
                 <br>
@@ -248,13 +249,22 @@
 <!-- External JS -->
 <!-- Change paths of src depending on the location of the file -->
 <script src="../../scripts/index.js"></script>
+<script src="../../scripts/project.js"></script>  
 
 <script>
+      function getTodayDate() {
+      var tdate = new Date();
+      var dd = tdate.getDate(); //yields day
+      var MM = tdate.getMonth(); //yields month
+      var yyyy = tdate.getFullYear(); //yields year
+      var currentDate= dd + "-" +(MM+1) + "-" + yyyy;
 
-</script>
+      return currentDate;
+    }
 
+    console.log(getTodayDate());
 
-<script>
+    $('#dateToday').text(getTodayDate());  
   // function printDocument(printId){
   //     var printdata = document.getElementById(printId);
   //     newwin = window.open("");
