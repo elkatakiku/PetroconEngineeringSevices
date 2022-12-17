@@ -404,14 +404,14 @@
                                     </div>
                                 </div>
 
-                                <button id="addLegend" class="btn light-btn slim-btn" data-toggle="legend">
+                                <button id="addLegend" class="btn light-btn slim-btn">
                                     <span class="material-icons btn-icon">label</span>
                                     Add legend
                                 </button>
 
                                 <div id="legends" class="legends-container hide">
                                     <div class="task-legend">
-                                        <span class="leg-color"></span>
+                                        <span class="leg-color" data-color="#026aa7"></span>
                                         <span class="leg-title">Plan</span>
                                         <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
                                             <span class="material-icons">edit</span>
@@ -419,16 +419,16 @@
                                     </div>
 
                                     <div class="task-legend">
-                                        <span class="leg-color"></span>
-                                        <span class="leg-title">Plan</span>
+                                        <span class="leg-color" data-color="#5aac44"></span>
+                                        <span class="leg-title">Actual</span>
                                         <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
                                             <span class="material-icons">edit</span>
                                         </button>
                                     </div>
 
                                     <div class="task-legend">
-                                        <span class="leg-color"></span>
-                                        <span class="leg-title">Plan</span>
+                                        <span class="leg-color" data-color="#f5dd29"></span>
+                                        <span class="leg-title">Sample</span>
                                         <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
                                             <span class="material-icons">edit</span>
                                         </button>
@@ -694,24 +694,24 @@
                                     <div class="pbody">
                                         <div class="legends-container">
                                             <div class="task-legend">
-                                                <span class="leg-color"></span>
+                                                <span class="leg-color" data-color="#026aa7"></span>
                                                 <span class="leg-title">Plan</span>
-                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
                                                     <span class="material-icons">edit</span>
                                                 </button>
                                             </div>
-
+        
                                             <div class="task-legend">
-                                                <span class="leg-color"></span>
-                                                <span class="leg-title">Plan</span>
-                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
+                                                <span class="leg-color" data-color="#5aac44"></span>
+                                                <span class="leg-title">Actual</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
                                                     <span class="material-icons">edit</span>
                                                 </button>
                                             </div>
-
+        
                                             <div class="task-legend">
-                                                <span class="leg-color"></span>
-                                                <span class="leg-title">Plan</span>
+                                                <span class="leg-color" data-color="#f5dd29"></span>
+                                                <span class="leg-title">Sample</span>
                                                 <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
                                                     <span class="material-icons">edit</span>
                                                 </button>
@@ -956,68 +956,68 @@
 
                         <label for="">Select a color</label>
                         <div class="color-selection">
-                            <label for="row1.1" class="option-box" data-color="#7bc86c">
-                              <input type="radio" name="legendColor" id="row1.1">
+                            <label for="row1.1" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.1" value="#7bc86c">
                             </label>
-                            <label for="row1.2" class="option-box" data-color="#f5dd29">
-                              <input type="radio" name="legendColor" id="row1.2">
+                            <label for="row1.2" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.2" value="#f5dd29">
                             </label>
-                            <label for="row1.3" class="option-box" data-color="#ffaf3f">
-                              <input type="radio" name="legendColor" id="row1.3">
+                            <label for="row1.3" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.3" value="#ffaf3f">
                             </label>
-                            <label for="row1.4" class="option-box" data-color="#ef7564">
-                              <input type="radio" name="legendColor" id="row1.4">
+                            <label for="row1.4" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.4" value="#ef7564">
                             </label>
-                            <label for="row1.5" class="option-box" data-color="#cd8de5">
-                              <input type="radio" name="legendColor" id="row1.5">
-                            </label>
-
-                            <label for="row2.1" class="option-box" data-color="#5aac44">
-                                <input type="radio" name="legendColor" id="row2.1">
-                            </label>
-                            <label for="row2.2" class="option-box" data-color="#e6c60d">
-                                <input type="radio" name="legendColor" id="row2.2">
-                            </label>
-                            <label for="row2.3" class="option-box" data-color="#e79217">
-                                <input type="radio" name="legendColor" id="row2.3">
-                            </label>
-                            <label for="row2.4" class="option-box" data-color="#cf513d">
-                                <input type="radio" name="legendColor" id="row2.4">
-                            </label>
-                            <label for="row2.5" class="option-box" data-color="#a86cc1">
-                                <input type="radio" name="legendColor" id="row2.5">
+                            <label for="row1.5" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.5" value="#cd8de5">
                             </label>
 
-                            <label for="row3.1" class="option-box" data-color="#5ba4cf">
-                                <input type="radio" name="legendColor" id="row3.1">
+                            <label for="row2.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.1" value="#5aac44">
                             </label>
-                            <label for="row3.2" class="option-box" data-color="#29cce5">
-                                <input type="radio" name="legendColor" id="row3.2">
+                            <label for="row2.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.2" value="#e6c60d">
                             </label>
-                            <label for="row3.3" class="option-box" data-color="#6deca9">
-                                <input type="radio" name="legendColor" id="row3.3">
+                            <label for="row2.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.3" value="#e79217">
                             </label>
-                            <label for="row3.4" class="option-box" data-color="#ff8ed4">
-                                <input type="radio" name="legendColor" id="row3.4">
+                            <label for="row2.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.4" value="#cf513d">
                             </label>
-                            <label for="row3.5" class="option-box" data-color="#344563">
-                                <input type="radio" name="legendColor" id="row3.5">
+                            <label for="row2.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.5" value="#a86cc1">
                             </label>
 
-                            <label for="row4.1" class="option-box" data-color="#026aa7">
-                                <input type="radio" name="legendColor" id="row4.1">
+                            <label for="row3.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.1" value="#5ba4cf">
                             </label>
-                            <label for="row4.2" class="option-box" data-color="#00aecc">
-                                <input type="radio" name="legendColor" id="row4.2">
+                            <label for="row3.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.2" value="#29cce5">
                             </label>
-                            <label for="row4.3" class="option-box" data-color="#4ed583">
-                                <input type="radio" name="legendColor" id="row4.3">
+                            <label for="row3.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.3" value="#6deca9">
                             </label>
-                            <label for="row4.4" class="option-box" data-color="#e568af">
-                                <input type="radio" name="legendColor" id="row4.4">
+                            <label for="row3.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.4" value="#ff8ed4">
                             </label>
-                            <label for="row4.5" class="option-box" data-color="#091e42">
-                                <input type="radio" name="legendColor" id="row4.5">
+                            <label for="row3.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.5" value="#344563">
+                            </label>
+
+                            <label for="row4.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.1" value="#026aa7">
+                            </label>
+                            <label for="row4.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.2" value="#00aecc">
+                            </label>
+                            <label for="row4.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.3" value="#4ed583">
+                            </label>
+                            <label for="row4.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.4" value="#e568af">
+                            </label>
+                            <label for="row4.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.5" value="#091e42">
                             </label>
                         </div>
                     </form>
@@ -1247,68 +1247,68 @@
 
                                                 '<label for="">Select a color</label>' +
                                                 '<div class="color-selection">' +
-                                                    '<label for="row1.1" class="option-box" data-color="#7bc86c">' +
-                                                    '<input type="radio" name="legendColor" id="row1.1">' +
+                                                    '<label for="row1.1" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.1"  value="#7bc86c">' +
                                                     '</label>' +
-                                                    '<label for="row1.2" class="option-box" data-color="#f5dd29">' +
-                                                    '<input type="radio" name="legendColor" id="row1.2">' +
+                                                    '<label for="row1.2" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.2"  value="#f5dd29">' +
                                                     '</label>' +
-                                                    '<label for="row1.3" class="option-box" data-color="#ffaf3f">' +
-                                                    '<input type="radio" name="legendColor" id="row1.3">' +
+                                                    '<label for="row1.3" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.3"  value="#ffaf3f">' +
                                                     '</label>' +
-                                                    '<label for="row1.4" class="option-box" data-color="#ef7564">' +
-                                                    '<input type="radio" name="legendColor" id="row1.4">' +
+                                                    '<label for="row1.4" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.4"  value="#ef7564">' +
                                                     '</label>' +
-                                                    '<label for="row1.5" class="option-box" data-color="#cd8de5">' +
-                                                    '<input type="radio" name="legendColor" id="row1.5">' +
-                                                    '</label>' +
-
-                                                    '<label for="row2.1" class="option-box" data-color="#5aac44">' +
-                                                        '<input type="radio" name="legendColor" id="row2.1">' +
-                                                    '</label>' +
-                                                    '<label for="row2.2" class="option-box" data-color="#e6c60d">' +
-                                                        '<input type="radio" name="legendColor" id="row2.2">' +
-                                                    '</label>' +
-                                                    '<label for="row2.3" class="option-box" data-color="#e79217">' +
-                                                        '<input type="radio" name="legendColor" id="row2.3">' +
-                                                    '</label>' +
-                                                    '<label for="row2.4" class="option-box" data-color="#cf513d">' +
-                                                        '<input type="radio" name="legendColor" id="row2.4">' +
-                                                    '</label>' +
-                                                    '<label for="row2.5" class="option-box" data-color="#a86cc1">' +
-                                                        '<input type="radio" name="legendColor" id="row2.5">' +
+                                                    '<label for="row1.5" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.5"  value="#cd8de5">' +
                                                     '</label>' +
 
-                                                    '<label for="row3.1" class="option-box" data-color="#5ba4cf">' +
-                                                        '<input type="radio" name="legendColor" id="row3.1">' +
+                                                    '<label for="row2.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.1"  value="#5aac44">' +
                                                     '</label>' +
-                                                    '<label for="row3.2" class="option-box" data-color="#29cce5">' +
-                                                        '<input type="radio" name="legendColor" id="row3.2">' +
+                                                    '<label for="row2.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.2"  value="#e6c60d">' +
                                                     '</label>' +
-                                                    '<label for="row3.3" class="option-box" data-color="#6deca9">' +
-                                                        '<input type="radio" name="legendColor" id="row3.3">' +
+                                                    '<label for="row2.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.3"  value="#e79217">' +
                                                     '</label>' +
-                                                    '<label for="row3.4" class="option-box" data-color="#ff8ed4">' +
-                                                        '<input type="radio" name="legendColor" id="row3.4">' +
+                                                    '<label for="row2.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.4"  value="#cf513d">' +
                                                     '</label>' +
-                                                    '<label for="row3.5" class="option-box" data-color="#344563">' +
-                                                        '<input type="radio" name="legendColor" id="row3.5">' +
+                                                    '<label for="row2.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.5"  value="#a86cc1">' +
                                                     '</label>' +
 
-                                                    '<label for="row4.1" class="option-box" data-color="#026aa7">' +
-                                                        '<input type="radio" name="legendColor" id="row4.1">' +
+                                                    '<label for="row3.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.1"  value="#5ba4cf">' +
                                                     '</label>' +
-                                                    '<label for="row4.2" class="option-box" data-color="#00aecc">' +
-                                                        '<input type="radio" name="legendColor" id="row4.2">' +
+                                                    '<label for="row3.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.2"  value="#29cce5">' +
                                                     '</label>' +
-                                                    '<label for="row4.3" class="option-box" data-color="#4ed583">' +
-                                                        '<input type="radio" name="legendColor" id="row4.3">' +
+                                                    '<label for="row3.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.3"  value="#6deca9">' +
                                                     '</label>' +
-                                                    '<label for="row4.4" class="option-box" data-color="#e568af">' +
-                                                        '<input type="radio" name="legendColor" id="row4.4">' +
+                                                    '<label for="row3.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.4"  value="#ff8ed4">' +
                                                     '</label>' +
-                                                    '<label for="row4.5" class="option-box" data-color="#091e42">' +
-                                                        '<input type="radio" name="legendColor" id="row4.5">' +
+                                                    '<label for="row3.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.5"  value="#344563">' +
+                                                    '</label>' +
+
+                                                    '<label for="row4.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.1"  value="#026aa7">' +
+                                                    '</label>' +
+                                                    '<label for="row4.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.2"  value="#00aecc">' +
+                                                    '</label>' +
+                                                    '<label for="row4.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.3"  value="#4ed583">' +
+                                                    '</label>' +
+                                                    '<label for="row4.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.4"  value="#e568af">' +
+                                                    '</label>' +
+                                                    '<label for="row4.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.5"  value="#091e42">' +
                                                     '</label>' +
                                                 '</div>' +
                                             '</form>' +
@@ -1326,56 +1326,50 @@
                             '</div>');
 
             legend.find('.option-box').each((index, element) => {
-                $(element).css('background-color', $(element).data('color'));
+                $(element).css('background-color', $(element).find('input').val());
                 $(element).find('input').change((e) => {
                     console.log("Input change");
                     if (e.target.checked) {
-                        $('#color-preview').css('background-color', $(e.target).closest('.option-box').data('color'));
+                        $('#color-preview').css('background-color', $(e.target).val());
                     }
                 });
             });
 
             initializePopup(legend);
 
-
-
-            // legend.find("button[data-dismiss]").on("click", dismiss);
-
             return legend;
         }
-
-        // for (let i = 0; i < array.length; i++) {
-        //     const element = array[i];
-        // }
-
-        // $('#legendPopup .option-box').each((index, element) => {
-        //     console.log($(element).css('background-color', $(element).data('color')));
-        // });
-
-        // $('.option-box input').change((e) => {
-        //     console.log("Input change");
-
-        //     console.log(e.target);
-        //     if (e.target.checked) {
-        //         $('#color-preview').css('background-color', $(e.target).closest('.option-box').data('color'));
-        //     }
-        // });
 
         $("button[data-toggle='legend']").on('click', (e) => {
             console.log("Legend button");
             let btn = $(e.target);
             let legendForm = generateLegendForm();
 
+            console.log(btn);
+            console.log(legendForm);
+
             if (btn.data("target") != null) {
                 console.log("Target is not null");
                 console.log(btn.data("target"));
                 legendForm = $(generateLegendForm(btn.data("target")));
+                legendForm.attr('data-legend', 'edit' );
+
             } else {
                 legendForm.find(".ptitle").text("Create legend");
+                legendForm.find(".pfooter .btn.danger-btn").remove();
             }
 
             console.log(legendForm);
             $('body').append(legendForm);
+            showPopup(btn, legendForm);
+        });
+    
+        $('.task-legend').each((index, element) => {
+            console.log("Task Legend");
+            let color = $(element).find('.leg-color');
+            console.log(color.css('background-color', color.data('color')));
+            $(element).find('.leg-title').css('background-color', color.data('color'));
+
         });
     </script>
   </body>

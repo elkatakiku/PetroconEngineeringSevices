@@ -116,16 +116,14 @@ function animatePopup(popup) {
 // Shows popup
 function showPopup(btn, popup = $(btn.data("target"))) {
     console.log("Popup button clicked");
-    // let ;    
+    console.log(popup);
     
     popup.addClass("show");
 
     if (popup.hasClass("popup-center")) {
         console.log("Popup Center");
         animatePopup(popup);
-    }
-
-    if(!popup.hasClass("popup-contained")) {   
+    } else if(!popup.hasClass("popup-contained")) {   
         $("body").addClass("popup-open");
     } else {
         let container = popup.find('.pcontainer');
