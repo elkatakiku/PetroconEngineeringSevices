@@ -1,0 +1,165 @@
+/* Header */
+.content .page-header {
+    margin: 0;
+    padding: 24px 20px;
+    border-bottom: 1px solid var(--border-rgba-color);
+}
+
+#backBtn > * {
+    font-size: 12px; 
+}
+
+/* Content */
+#newProject .form-group .linear-center {
+    height: auto;
+}
+
+.linear-container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.linear-container .linear {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start !important;
+    gap: 15px 0 !important;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.linear > div {
+    flex-grow: 1;
+    flex-shrink: 0;
+    padding: 0 15px;
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Form */
+.form-header {
+    font-size: 1.12rem;
+}
+
+.linear-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+}
+
+.linear-label label {
+    margin: 0;
+}
+
+/* Footer */
+.page-footer .btn {
+    min-width: 100px;
+}
+
+/* Utilities */
+.basis-1 {
+    flex-basis: 50%;
+}
+
+.basis-2 {
+    flex-basis: 50%;
+}
+
+.basis-3 {
+    flex-basis: 25%;
+}
+
+.basis-4 {
+    flex-basis: 50%;
+}
+
+.basis-5 {
+    flex-basis: 50%;
+}
+
+.basis-6 {
+    flex-basis: 50%;
+}
+
+.basis-7 {
+    flex-basis: 50%;
+}
+
+.basis-8 {
+    flex-basis: 50%;
+}
+
+.basis-9 {
+    flex-basis: 75%;
+}
+
+.basis-10 {
+    flex-basis: 50%;
+}
+
+.basis-11 {
+    flex-basis: 50%;
+}
+
+.basis-12 {
+    flex-basis: 100% !important;
+}
+
+/* Media Queries */
+/* MD */
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 992px) {
+
+    .project-form {
+        border-right: 1px solid var(--border-rgba-color);
+    }
+    
+    .basis-lg-1 {
+        flex-basis: 50%;
+    }
+
+    .basis-lg-2 {
+        flex-basis: 50%;
+    }
+
+    .basis-lg-3 {
+        flex-basis: 25%;
+    }
+
+    .basis-lg-4 {
+        flex-basis: 33%;
+    }
+
+    .basis-lg-5 {
+        flex-basis: 50%;
+    }
+
+    .basis-lg-6 {
+        flex-basis: 50%;
+    }
+
+    .basis-lg-7 {
+        flex-basis: 50%;
+    }
+
+    .basis-lg-8 {
+        flex-basis: 66%;
+    }
+
+    .basis-lg-9 {
+        flex-basis: 75%;
+    }
+
+    .basis-lg-10 {
+        flex-basis: 50%;
+    }
+
+    .basis-lg-11 {
+        flex-basis: 50%;
+    }
+
+    .basis-lg-12 {
+        flex-basis: 100% !important;
+    }
+
+}

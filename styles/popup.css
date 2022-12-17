@@ -73,7 +73,7 @@
     padding: 12px;
 }
 
-.pfooter {
+.content .page-footer, .pfooter {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row-reverse;
