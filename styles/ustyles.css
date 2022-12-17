@@ -1,0 +1,71 @@
+p {
+  
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  .samp {
+    background-color: #f9f9fb;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 5%;
+    margin-top: 3%;
+    justify-content: flex-start;
+    
+  }
+
+  .user-img{
+    border-radius: 50%;
+    height: 230px;
+    width: 230px;
+    padding-left: 10px;
+    
+  }
+
+  .innerleft{
+    align-self: flex-start;
+    margin-left: 20%;
+  }
+  
+
+  .innerright{
+    align-self: flex-end;
+    margin-left: 20%;
+  }
+  
+.user-info{
+    min-width: 250px;
+    margin-top: 10%;
+    margin-left: 50%;
+    margin-right: 50%;
+}
+
+.editinfo{
+    width: 250px; 
+    display: flex;
+  }
+
+  .vertical {
+    border-left: 2px solid gray;
+    height: auto;
+    left: 20%;
+    top: 0;
+    width: 100%;
+  }
+
+.buttons{
+  text-align: center;
+}
+
+.pheader .i{
+  color: #f44141;
+}
+
+.usermanbutt{
+  float: right;
+}
+     
