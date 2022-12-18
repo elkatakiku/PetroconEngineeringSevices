@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Petrocon | Employees</title>
+    <title>Petrocon | Users</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,11 +21,10 @@
     <link rel="stylesheet" href="../../styles/styles.css">
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/sidebar.css">
-    
     <link rel="stylesheet" href="../../styles/popup.css">
   </head>
   <body class="body-wrapper">
-    
+
     <nav id="topbar" class="navbar navbar-expand-md navbar-light">
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
           <span class="material-icons">menu</span>
@@ -35,7 +34,7 @@
       <p class="user-name">Eli Lamzon</p>
       <span id="user-display" class="material-icons">account_circle</span>
     </nav>
-
+    
     <div class="wrapper">
       <div id="sidebar">
         <nav>
@@ -63,7 +62,7 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
                 <li class="">
-                  <a class="" href="projects.html">All</a>
+                  <a class="" href="/app/admin/projects.html">All</a>
                 </li>
                 <li class="">
                   <a class="" href="#">Done</a>
@@ -97,7 +96,7 @@
                 </a>
               </div>
               <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
-                <li class="active">
+                <li class="">
                   <a class="" href="employees-admin.html">Employees</a>
                 </li>
                 <li class="">
@@ -105,7 +104,7 @@
                 </li>
               </ul>
             </li>
-            <li class="">
+            <li class="active">
               <a class="d-flex align-content-start" href="users-admin.html">
                 <span class="material-icons">people</span>
                 <div class="collapsible">
@@ -138,148 +137,143 @@
       </div>
 
       <main class="content">
+        <!-- Header -->
+        <div class="page-header">
+          <nav class="nav-tab-container">
+            <div class="linear">
+              <h1 class="page-title">Users</h1>
+            
+              <!-- New Employee -->
 
-          <!-- Header -->
-          <div class="page-header">
-            <nav class="nav-tab-container">
-              <div class="linear">
-                <h1 class="page-title">Employees</h1>
-              
-                <!-- New Employee -->
+              <button type="button" class="btn primary-btn align-self-center" data-toggle="popup" data-target="#addUser">
+                Add User
+              </button>
+            </div>
 
-                <button type="button" class="btn primary-btn align-self-center" data-toggle="popup" data-target="#addEmployee">
-                  Add Employee
-                </button>
-              </div>
-  
-              <!-- Search -->
-              <div class="space-between">
-                <div class="search-container">
-                  <form action="" class="search-form">
-                    <div class="input-container">
-                      <div class="input-prepend">
-                        <i class="fa fa-search icon" aria-hidden="true"></i>
-                      </div>
-                      <input type="text" name="" id="" placeholder="Search employee">
+            <!-- Search -->
+            <div class="space-between">
+              <div class="search-container">
+                <form action="" class="search-form">
+                  <div class="input-container">
+                    <div class="input-prepend">
+                      <i class="fa fa-search icon" aria-hidden="true"></i>
                     </div>
-                  </form>
-                </div>
+                    <input type="text" name="" id="" placeholder="Search user">
+                  </div>
+                </form>
               </div>
-            </nav>
-          </div>
-          
-         
+            </div>
+          </nav>
+        </div>
 
-          <!-- Users Table -->
-          <div class="mesa-container">
-            <table class="mesa">
-              <thead class="mesa-head">
-                <tr>
-                  <th scope="col">Username</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Password</th>
-                  <th scope="col">Contact</th>
-                  <th scope="col">Action</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
+        <!-- Users Table -->
+        <div class="mesa-container">  
+          <table class="mesa">
+            <thead class="mesa-head">
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Action</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
 
-                <tr>
-                    <th scope="row">Yvana Magno</th>
-                    <td>
-                      sexy@email.com
-                    </td>
-                    <td>*********</td>
-                    <td>09233272639</td>
-                    <td>Remove</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                </tr>
+              <tr>
+                  <th scope="row">Yvana Magno</th>
+                  <td>
+                    sexy@email.com
+                  </td>
+                  <td>*********</td>
+                  <td>09233272639</td>
+                  <td>Remove</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+              </tr>
 
-                <tr>
-                    <th scope="row">Effer Adaza</th>
-                    <td>
-                      effer@email.com
-                    </td>
-                    <td>*********</td>
-                    <td>09233272639</td>
-                    <td>Remove</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                </tr>
+              <tr>
+                  <th scope="row">Effer Adaza</th>
+                  <td>
+                    effer@email.com
+                  </td>
+                  <td>*********</td>
+                  <td>09233272639</td>
+                  <td>Remove</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+              </tr>
 
-                <tr>
-                    <th scope="row">Kath Fernandez</th>
-                    <td>
-                      kath@email.com
-                    </td>
-                    <td>*********</td>
-                    <td>09233272639</td>
-                    <td>Remove</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                </tr>
+              <tr>
+                  <th scope="row">Kath Fernandez</th>
+                  <td>
+                    kath@email.com
+                  </td>
+                  <td>*********</td>
+                  <td>09233272639</td>
+                  <td>Remove</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+              </tr>
 
-                <tr>
-                    <th scope="row">Eli Lamzon</th>
-                    <td>
-                      Eli@email.com
-                    </td>
-                    <td>*********</td>
-                    <td>09233272639</td>
-                    <td>Remove</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                </tr>         
-              </tbody>
-            </table>
-          </div>
+              <tr>
+                  <th scope="row">Eli Lamzon</th>
+                  <td>
+                    Eli@email.com
+                  </td>
+                  <td>*********</td>
+                  <td>09233272639</td>
+                  <td>Remove</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+              </tr>         
+            </tbody>
+          </table>
+        </div>
 
+         <!-- Popup -->
+         <div class="popup popup-center" id="addUser" tabindex="-1" aria-hidden="true">
+          <div class="pcontainer">
+              <div class="pcontent">
+                  <div class="pheader">
+                  <div class="linear-center">
+                      <!-- Can add icon here -->
+                      <i class="fa-solid fa-user-plus"></i>
+                      <h2 class="ptitle">User</h2>
+                  </div>
+                  <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  </div>
+      
+                  <div class="pbody">
+                  
+                    <div class="form-group">
+                      <label for="">Username</label>
+                      <input type="text" class="form-control" name="" id="" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Email</label>
+                      <input type="text" class="form-control" name="" id="" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Password</label>
+                      <input type="password" class="form-control" name="" id="" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Contact</label>
+                      <input type="text" class="form-control" name="" id="" placeholder="Contact">
+                    </div>
 
-          <!-- Popup -->
-          <div class="popup popup-center" id="addEmployee" tabindex="-1" aria-hidden="true">
-              <div class="pcontainer">
-                  <div class="pcontent">
-                      <div class="pheader">
-                      <div class="linear-center">
-                          <!-- Can add icon here -->
-                          <i class="fa-solid fa-user-plus"></i>
-                          <h2 class="ptitle">Employee</h2>
-                      </div>
-                      <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                      </div>
-          
-                      <div class="pbody">
-                      
-                        <div class="form-group">
-                          <label for="">Username</label>
-                          <input type="text" class="form-control" name="" id="" placeholder="Username">
-                        </div>
-                        <div class="form-group">
-                          <label for="">Email</label>
-                          <input type="text" class="form-control" name="" id="" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                          <label for="">Password</label>
-                          <input type="password" class="form-control" name="" id="" placeholder="Password">
-                        </div>
-                        <div class="form-group">
-                          <label for="">Contact</label>
-                          <input type="text" class="form-control" name="" id="" placeholder="Contact">
-                        </div>
-
-                      </div>
-          
-                      <div class="pfooter">
-                      <button type="button" class="btn action-btn">Submit</button>
-                      <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-                      </div>
+                  </div>
+      
+                  <div class="pfooter">
+                  <button type="button" class="btn action-btn">Submit</button>
+                  <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                   </div>
               </div>
           </div>
-
+        </div>
       </main>
     </div>
-
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

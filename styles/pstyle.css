@@ -12,18 +12,19 @@
 }
 
 .cntnt {
-  margin-top: -130px;
+  margin-top: -150px;
 }
 
 .samp {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   margin-bottom: 5%;
 }
 
 .inner {
   align-self: flex-end;
+
   padding-bottom: 10px;
 }
 
@@ -77,7 +78,7 @@
   height: 230px;
   width: 230px;
   border-radius: 50%;
-  border: 3px solid var(--background-color);
+  border: 2px solid var(--background-color);
   padding: 3px;
   color: #fff;
   height: 230px;
@@ -88,44 +89,16 @@
   position: relative;
   top: 20px;
 }
-
 .profile-name {
   margin-bottom: 20px;
   font-weight: 700;
   line-height: 21px;
 }
 
-.profile-name a{
-  color: inherit;
-}
-
-.profile-display-info p {
-  margin: 0;
-}
-
-.profile-display-info .position{
-  color: blue;
-}
-
-.profile-state{
-  padding: 15px;
-}
-
-.profile-details a:hover{
-  text-decoration: none;
-}
-.profile-label{
-  color: #8899a6;
-  font-size: 10px;
-  letter-spacing: 0.02em;
-  overflow: hidden;
-  text-transform: uppercase;
-  transition: color 0.15s ease-in-out 0s;
-}
-
 .profile-name{
   color: white;
 }
+
 
 .profile-details{
   display: grid;
@@ -138,7 +111,60 @@
   color: var(--sidebar-bg);
   margin-bottom: 9%;
 }
-.side-icon{
-  cursor: pointer;
-}
+/*******edit profile pic button********/
 
+.profile-pic {
+  color: transparent;
+  transition: all .3s ease;
+  display: flex;
+  position: relative;
+  transition: all .3s ease;
+}
+.profile-pic {
+  color: transparent;
+  transition: all .3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: all .3s ease;
+}
+.profile-pic input {
+  display: none;
+}
+.profile-pic img {
+  position: absolute;
+  object-fit: cover;
+  width: 165px;
+  height: 165px;
+  box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+  border-radius: 100px;
+  z-index: 0;
+}
+.profile-pic .-label {
+  cursor: pointer;
+  height: 165px;
+  width: 165px;
+}
+.profile-pic:hover .-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  color: #fafafa;
+  transition: background-color .2s ease-in-out;
+  border-radius: 100px;
+  margin-bottom: 0;
+}
+.profile-pic span {
+  display: inline-flex;
+  padding: .2em;
+  height: 2em;
+}
+.profile-display-info .icon-btn{
+  color: #fff;
+}
+.profile-display-info .icon-btn:hover{
+  color: #e0e0e0;
+}
