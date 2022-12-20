@@ -220,14 +220,14 @@
                 
                 <div class="col-sm-6 col-12 left">
                   <div class="form-label-group">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
+                    <input type="text" class="form-control" id="inputFirstName" name="firstName" placeholder="First Name" required>
                     <label for="inputFirstName">First Name</label>
                   </div>
                 </div>
 
                 <div class="col-sm-6 col-12 right">
                   <div class="form-label-group">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
+                    <input type="text" class="form-control" id="inputLastName" name="lastName" placeholder="Last Name" required>
                     <label for="inputLastName">Last Name</label>
                   </div>
                 </div>
@@ -238,14 +238,14 @@
               <div class="row">
                 <div class="col-sm-6 col-12 left">
                   <div class="form-label-group">
-                    <input type="number" class="form-control" id="inputContactNo" placeholder="Contact no." required>
+                    <input type="number" class="form-control" id="inputContactNo" name="contact" placeholder="Contact no." required>
                     <label for="inputContactNo">Contact no.</label>
                   </div>
                 </div>
 
                 <div class="col-sm-6 col-12 right">
                   <div class="form-label-group">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                    <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email" required>
                     <label for="inputEmail">Email</label>
                   </div>
                 </div>
@@ -261,7 +261,7 @@
           
             <div class="">
               <div class="form-label-group">
-                <textarea name="" id="inputMessage" rows="5" class="form-control"  placeholder="Message" required></textarea>
+                <textarea name="" id="inputMessage" rows="5" class="form-control"  name="message" placeholder="Message" required></textarea>
                 <label for="inputMessage" class="">Message</label>
               </div>
             </div>
@@ -293,7 +293,7 @@
       <p>Dreams are meant to come true. We’ll make it happen for you.</p>
     </header>
       
-    <a href="auth/login">
+    <a href="<?= SITE_URL.US.'auth/login' ?>">
       <button type="button" class="btn btn-lg cta-button btn-light">Log in</button>
     </a>
     <button type="button" class="btn btn-lg cta-button btn-outline-light">Sign up</button>

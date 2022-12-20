@@ -12,7 +12,7 @@ class HomeController extends Controller {
         // $user->name = $name;
 
         // echo $user->name;
-        $this->view("home/index", ['name' => "eli"]);
+        $this->view("home", "index");
     }
 
     public function login() {
@@ -23,4 +23,21 @@ class HomeController extends Controller {
     public function post() {
         // echo $_POST['samp'];
     }
+
+    function send_mail(){
+		// if(isset($_POST['send']))
+        // {
+		$to_email= "lamzonelizer1@gmail.com";
+		$subject="subject";
+		$message= "Sample message.";
+			
+		$to = $to_email;
+        $subject = $subject;
+        $txt = $message;
+        $headers = "From: admin@gmail.com" . "\r\n" .
+        "CC: anymail@example.com";
+		mail($to,$subject,$txt,$headers);
+		// }
+        // $this->view->render('hello/send_mail');
+	}
 }

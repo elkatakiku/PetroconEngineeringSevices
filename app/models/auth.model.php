@@ -1,95 +1,16 @@
 <?php
 
-class Auth extends Model {
+class AuthModel extends Model {
 
-    private static $tblRegister = "tblRegister";
-    private static $tblLogin = "tblLogin";
-    private static $tblAccount = "tblAccount";
-    private static $tblLogs = "tblLog";
-
-    private $usrLastname;
-    private $usrFirstname;
-    private $usrMiddleName;
-    private $usrContactNumber;
-    private $usrBirthdate;
-    private $usrEmail;
-
-    private $usrUsername;
-    private $usrPassword;
-    private $usrPasswordRepeat;
-
-
-    // Sample data
-    private $register = [
-        [
-            "pwd" => 123, 
-            "username" => "admin1",
-            "email" => "admin1@email.com",
-            "acctType" => Account::ADMIN_TYPE
-        ], 
-        [
-            "pwd" => 123, 
-            "username" => "emp1",
-            "email" => "emp1@email.com",
-            "acctType" => Account::EMPLOYEE_TYPE
-        ],
-        [
-            "pwd" => 123, 
-            "username" => "emp2",
-            "email" => "emp2@email.com",
-            "acctType" => Account::EMPLOYEE_TYPE
-        ],
-        [
-            "pwd" => 123, 
-            "username" => "worker1",
-            "email" => "worker1@email.com",
-            "acctType" => Account::WORKER_TYPE
-        ],
-        [
-            "pwd" => 123, 
-            "username" => "worker2",
-            "email" => "worker2@email.com",
-            "acctType" => Account::WORKER_TYPE
-        ],
-        [  
-            "pwd" => 123, 
-            "username" => "client1",
-            "email" => "client1@email.com",
-            "acctType" => Account::CLIENT_TYPE
-        ],
-        [  
-            "pwd" => 123, 
-            "username" => "client2",
-            "email" => "client2@email.com",
-            "acctType" => Account::CLIENT_TYPE
-        ]
-    ];
-
-    private $acctType = [
-        "PTRCN-TYPE-20221" => "admin",
-        "PTRCN-TYPE-20222" => "employee",
-        "PTRCN-TYPE-20223" => "worker",
-        "PTRCN-TYPE-20224" => "client"
-    ];
-
-    private $accounts = [
-        // Account Type
-        // Register
-        // Login
-    ];
-
-    private $login = [
-        // username
-        // password
-    ];
-
-
-
+    private static $tblRegister = "tbl_register";
+    private static $tblLogin = "tbl_login";
+    private static $tblAccount = "tbl_account";
+    private static $tblLog = "tblLog";
 
     // Check user
     public function checkUser($username, $email) {
         // Test
-        // echo "<br>Checking user";
+        echo "<br>Checking user";
 
         $sql = "SELECT l.logUsername, r.regEmail
                 FROM ".self::$tblLogin." l INNER JOIN ".self::$tblRegister." r
@@ -113,15 +34,6 @@ class Auth extends Model {
 
         // Return if there's a gathered user from the db
         return $stmt->rowCount() > 0;
-        
-        // foreach ($this->register as $user) {
-        //     if ($user["username"] == $username || $user["email"] == $email) {
-        //         return true;
-        //     } 
-        // }
-
-        // return false;
-        
     }
 
     public function setUser(Login $login, Register $register, Account $account) {
@@ -219,6 +131,7 @@ class Auth extends Model {
     }
 
     public function getUser($username, $password) {
+        echo $username . $password;
         $sqlPass = "SELECT logID, logPassword 
                     FROM ".self::$tblLogin." 
                     WHERE logUsername = :username;";

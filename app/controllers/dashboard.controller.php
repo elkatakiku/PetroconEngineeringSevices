@@ -8,6 +8,6 @@ class DashboardController extends Controller {
     }
 
     public function index($name = '') {
-        $this->view("dashboard/dashboard", ['dashboard' => 'dashboard']);
+        $this->view("dashboard", "dashboard", ['dashboard' => 'dashboard']);
     }
 }

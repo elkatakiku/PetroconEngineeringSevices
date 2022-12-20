@@ -24,17 +24,20 @@
     <link rel="stylesheet" href="<?=STYLES_PATH?>popup.css">
     <link rel="stylesheet" href="<?=STYLES_PATH?>navbar.css">
     <link rel="stylesheet" href="<?=STYLES_PATH?>sidebar.css">
+    <link rel="stylesheet" href="<?=STYLES_PATH.$view?>.css">
     <?php
+    
 
-      switch ($this->getType()) {
-        case Controller::AUTH: 
-        case Controller::CLIENT:
-          echo '<link rel="stylesheet" href="'.STYLES_PATH.'cstyles.css">';
-          break;
-        case Controller::ADMIN:
-          echo '<link rel="stylesheet" href="'.STYLES_PATH.'astyles.css">';
-          break;
-      }
+
+      // switch ($this->getType()) {
+      //   case Controller::AUTH: 
+      //   case Controller::CLIENT:
+      //     echo '<link rel="stylesheet" href="'.STYLES_PATH.'cstyles.css">';
+      //     break;
+      //   case Controller::ADMIN:
+      //     echo '<link rel="stylesheet" href="'.STYLES_PATH.'astyles.css">';
+      //     break;
+      // }
 
     ?>
     

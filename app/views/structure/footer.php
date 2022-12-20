@@ -33,6 +33,8 @@ switch ($this->getType()) {
 
     <!-- External JS -->
     <script src="<?=SCRIPTS_PATH?>index.js"></script>
+    <script src="<?=SCRIPTS_PATH?>table.js"></script>
+    <script src="<?=SCRIPTS_PATH?>styles.js"></script>
     <script>
       let sideNavLink = $("#sidebar .components > li");
 

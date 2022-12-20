@@ -1,37 +1,42 @@
-<div class="login-background">
-    <div class="login-container">
+<div class="cover-background" data-image="header-image.jpg">
+    <div class="cover-page">
         <div class="row align-items-center">
             <div class="col-lg-7 col-md-6 col-12">
                 <div class="brand">
                     <img src="<?=IMAGES_PATH?>petrocon-icon-2.png" class="brand-icon" alt="Petrocon logo">
-                    <span class="brand-name">Petrocon Engineering Services</span>
+                    <span class="brand-name">Petrocon Engineering <br> Services</span>
                 </div>
                 <header class="login-header-content">
                     <h1>Petrocon Engineering <br> Services can help.</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <p class="subtitle">
+                        Accident precaution is our intention, 
+                        <br>
+                        For every project, we provide quality construction.
+                    </p>
                 </header>
             </div>
             
             <div class="col-lg-5 col-md-6 col-12">
-                <form class="form-login" action="<?= SITE_URL ?>/auth/loginUser" method="post">
+                <form class="form-login" action="<?= SITE_URL ?>/auth/login" method="post">
 
-                    <header class="text-center mb-5">
+                    <header class="login-header">
                         <h2>Login</h2>
-                        <p class="secondary-text">Lorem ipsum dolor sit amet.</p>
+                        <p class="subtitle">New to this site? Click create an account button below and sign up!</p>
                     </header>
 
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" name="usernameInput" id="username" aria-describedby="helpId" placeholder="Username">
-                        <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                    <label for="">Username</label>
+                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Username">
+                    <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                     </div>
 
+                    
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" name="passwordInput" id="password" placeholder="Password">
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" name="" id="" placeholder="Password">
                     </div>
 
-                    <button type="submit" name="loginSubmit" id="" class="btn btn-lg btn-block primary-btn">Login</button>
+                    <button type="submit" name="loginSubmit" id="" class="btn btn-block primary-btn">Login</button>
 
                     <div class="login-options">
                         <div class="form-check">
@@ -40,14 +45,15 @@
                                 Remember me
                             </label>
                         </div>
-                        <button type="button" id="forgotPass" class="btn btn-link" data-toggle="popup" data-target="#popupforgotPass">Forgot Password?</button>
+                        <!-- <a href="">Forgot Password?</a> -->
+                        <button type="button" class="btn btn-link" data-toggle="popup" data-target="#popupforgotPass">Forgot Password?</button>
                     </div>
 
-                    <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-lg btn-block" data-toggle="popup" data-target="#popupsignUp">Create an account</button>
+                    <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-block" data-toggle="popup" data-target="#popupLargeId">Create an account</button>
                 </form>
             </div>
         </div>
-    </div>  
+    </div>
 </div>
 
 <!-- SIGNUP -->
@@ -66,7 +72,7 @@
             </div>
 
             <div class="pbody pad-6">
-                <form action="<?= SITE_URL ?>/auth/signup" method="post" id="signupForm">
+                <form id="signupForm" action="<?= SITE_URL ?>/auth/signup" method="post">
                     <!-- Alert -->
                     <div class="alert alert-danger" role="alert">
                         A simple danger alert—check it out!
@@ -91,7 +97,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                <label for="contactNumber">Contact Number</label>
+                                    <label for="contactNumber">Contact Number</label>
                                   <input type="number" pattern="/d" class="form-control" name="contactInput" id="contactNumber" aria-describedby="helpId" placeholder="Enter contact number">
                                   <small id="helpId" class="form-text text-muted">Ex: 09123456789</small>
                                 </div>
@@ -145,24 +151,19 @@
             </div>
 
             <div class="pbody pad-6">
-                <form action="table.html">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-7 col-8 col-12">
-                                <div class="form-group">
-                                    <label for="">Enter your email address below and we'll send you further instructions on how to reset your password.</label>
-                                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Enter email address">
-                                </div>
-                            </div>
-                        </div>
+                <form id="resetForm" action="<?= SITE_URL ?>/auth/reset" method="post">
+                    <div class="form-group">
+                        <label for="">Enter your email address below and we'll send you further instructions on how to reset your password.</label>
+                        <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Enter email address">
                     </div>
                 </form>
             </div> 
 
             <div class="pfooter pad-6">
-                <button type="button" class="btn action-btn">Sign up</button>
+                <button type="submit" form="resetForm" class="btn action-btn">Sign up</button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
             </div>
             </div>
         </div>
+    </div>
 </div>

@@ -11,6 +11,10 @@ defined('SITE_ROOT') ? null : define('SITE_ROOT', DS.'xampp'.DS.'htdocs'.DS.'Pet
 // http://localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/localhost/PetroconEngineeringServices/public/auth/login
 defined('SITE_URL') ? null : define('SITE_URL', 'http:'.US.US.$_SERVER['SERVER_NAME'].US.'PetroconEngineeringServices'.US.'public');
 
+// Projects Url
+defined('PROJECT_URL') ? null : define('PROJECT_URL', SITE_URL.US.'projects/project');
+
+
 // App Path
 defined('APP_PATH') ? null : define("APP_PATH", SITE_ROOT.DS.'app');
 
@@ -39,7 +43,8 @@ require_once CORE_PATH.DS."App.php";
 require_once CORE_PATH.DS."Controller.php";
 require_once CORE_PATH.DS."Model.php";
 
-include ENTITIES_PATH."/Expose.class.php";
-include ENTITIES_PATH."/Login.class.php";
-include ENTITIES_PATH."/Register.class.php";
-include ENTITIES_PATH."/Account.class.php";
+require_once ENTITIES_PATH."/Expose.class.php";
+require_once ENTITIES_PATH."/Login.class.php";
+require_once ENTITIES_PATH."/Register.class.php";
+require_once ENTITIES_PATH."/Account.class.php";
+require_once ENTITIES_PATH."/Project.class.php";

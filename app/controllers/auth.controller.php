@@ -1,44 +1,36 @@
 <?php
 
 class AuthController extends Controller {
-    private $action;
+
+    const LOGIN = "login";
+    const SIGNUP = "signup";
+    const RESET = "reset";
 
     public function __construct() {
         $this->setType(Controller::AUTH);
+        $this->setModel(Model::AUTH);
     }
 
     public function index() {
-        $this->view("auth/login");
+        $this->view("auth", "login");
     }
 
+    // Login
     public function login() {
-        // if (!isset($_POST['loginSubmit'])) {
-        //     return;
-        // }
-        // View
-        $this->view("auth/login");
-    }
-
-    public function loginUser() {
-        // Control inputs
+        // Redirect to login if not logging in
         if (!isset($_POST['loginSubmit'])) {
-            header("Location: ".SITE_URL."/auth/login");
+            $this->view("auth", "login");
             return;
         }
 
-        require_once "login.controller.php";
+        // Gets the inputs
+        $inputs = [
+            "username" => $this->sanitizeString($_POST['usernameInput']),
+            "password" => $this->sanitizeString($_POST['passwordInput'])
+        ];
 
-        $this->action = "login";
-
-        $username = htmlspecialchars(strip_tags($_POST['usernameInput']));
-        $password = htmlspecialchars(strip_tags($_POST['passwordInput']));
-
-        $loginController = new LoginController(
-            $username, 
-            $password
-        );
-
-        if($loginController->loginUser() < 0) {
+        // Validate inputs
+        if($this->loginUser($inputs) < 0) {
             // Error Handling
             // Code here
             echo "<h1>Username or password does not match.</h1>";
@@ -65,67 +57,129 @@ class AuthController extends Controller {
                 exit();
                 break;
         }
-        
+    }
+
+    private function loginUser($inputs) {
+        echo __METHOD__;
+        if ($this->emptyInput($inputs)) {
+            echo "Checking inputs";
+            echo "<br>Please fill all required inputs.";
+            return -101;
+        }
+
+        if(!$this->getModel()->getUser($inputs["username"], $inputs["password"])) {
+            // echo '<hr>';
+            // echo "Error".__METHOD__;
+            return -1;
+        }
+
+        // Login success
+        return 1;
     }
 
     // SignUp
     public function signup() {
+        // Redirect to login if not signing up
         if (!isset($_POST['signupSubmit'])) {
-            $this->index();
+            $this->view("auth", "login", ["action" => AuthController::SIGNUP]);
             return;
         }
         
-        require_once "signup.controller.php";
+        // Gets inputs
+        $inputs = [
+            "lastname" => ucwords($this->sanitizeString($_POST['lNameInput'])),
+            "firstname" => ucwords($this->sanitizeString($_POST['fNameInput'])),
+            "middleName" => strtoupper($this->sanitizeString($_POST['mNameInput'])),
+            "contactNumber" => filter_input(INPUT_POST, 'contactInput', FILTER_SANITIZE_NUMBER_INT),
+            "birthdate" => $this->sanitizeString($_POST['dobInput']),
+            "email" => filter_input(INPUT_POST, 'emailInput', FILTER_SANITIZE_EMAIL),
 
-        $this->action = "signup";
+            "username" => $this->sanitizeString($_POST['usernameInput']),
+            "password" => $this->sanitizeString($_POST['passwordInput']),
+            "passwordRepeat" => $this->sanitizeString($_POST['passwordRepeatInput'])
+        ];
         
-        $lastname = ucwords(trim(htmlspecialchars(strip_tags($_POST['lNameInput']))));
-        $firstname = ucwords(trim(htmlspecialchars(strip_tags($_POST['fNameInput']))));
-        $middleName = strtoupper(trim(htmlspecialchars(strip_tags($_POST['mNameInput']))));
-        $contactNumber = trim(htmlspecialchars(strip_tags($_POST['contactInput'])));
-        $birthdate = trim(htmlspecialchars(strip_tags($_POST['dobInput'])));
-        $email = trim(htmlspecialchars(strip_tags($_POST['emailInput'])));
-
-        $username = trim(htmlspecialchars(strip_tags($_POST['usernameInput'])));
-        $password = trim(htmlspecialchars(strip_tags($_POST['passwordInput'])));
-        $passwordRepeat = trim(htmlspecialchars(strip_tags($_POST['passwordRepeatInput'])));
-
-        $signupController = new SignupController(
-            $lastname, 
-            $firstname, 
-            $middleName, 
-            $contactNumber, 
-            $birthdate, 
-            $email, 
-            $username, 
-            $password, 
-            $passwordRepeat
-        );
-
-
-        if($signupController->signupUser() < 0) {
+        // Validates inputs
+        if($this->signupUser($inputs) < 0) {
             // Error Handling
             // Code here
             echo "<h1>Error occured signing up</h1>"; 
            return;
         }
 
-
         // Account creation success
         header("Location: ".SITE_URL."/auth/login?signup=success");
         exit();
     }
 
+    private function signupUser($inputs) {
+
+        if ($this->emptyInput($inputs)) {
+            echo "<br>Please fill all required inputs.";
+            return -101;
+        }
+
+        if (!$this->validUsername($inputs["username"])) {
+            echo "<br>Invalid username.";
+            return -102;
+        }
+
+        if (!$this->pwdMatch($inputs["password"], $inputs["passwordRepeat"])) {
+            echo "<br>Password does not match.";
+            return -103;
+        }
+
+        if ($this->checkUser($inputs["username"], $inputs["email"])) {
+            echo "<br>Username or email is taken";
+            return -104;
+        }
+
+        if (!$this->isOldEnough($inputs["birthdate"])) {
+            echo "<br>Should be 18 and above.";
+            return -105;
+        }
+
+        // Test: Testing validations
+        // return;
+
+        $register = $this->createEntity("Register");
+        $login = $this->createEntity("Login");
+        $account = $this->createEntity("Account");
+        
+        // Create login
+        $login->createLogin($inputs["username"], $inputs["password"]);
+
+        // Create register/user
+        $register->createRegister(
+            $inputs["lastname"], $inputs["firstname"], $inputs["middleName"], $inputs["contactNumber"], 
+            $inputs["birthdate"], $inputs["email"], $login->getId()
+        );
+        
+        // Create Account
+        $account->createAccount(
+            Account::CLIENT_TYPE, $register->getId(), $login->getId()
+        );
+
+        // Insert Account
+        if (!$this->getModel()->setUser($login, $register, $account)) {
+            return -1;
+        }
+
+        return 1;
+    }
+
     public function reset() {
-        $this->action = "reset";
-        $this->view("auth/login");
+
+        if (!isset($_POST['signupSubmit'])) {
+            $this->view("auth", "login", ["action" => AuthController::RESET]);
+            return;
+        }
+
+
     }
 
     public function verify() {
-        $this->view("auth/verify");
-    }
-
-    public function recover_password() {
+        $this->view("auth", "verify");
     }
 
     public function logout() {
@@ -135,7 +189,25 @@ class AuthController extends Controller {
         header("Location: ".SITE_URL.US."home/index");
     }
 
-    public function getAction() {
-        return $this->action;
+    // Inputs validation
+    private function validUsername($username) {
+        return preg_match("/^[a-zA-Z0-9]*$/", $username);
     }
+
+    private function pwdMatch($password, $passwordRepeat) {
+        return $password === $passwordRepeat;
+    }
+
+    private function checkUser($username, $email) {
+        echo "<br>Will check user";
+        return $this->getModel()->checkUser($username, $email);
+    }
+
+    private function isOldEnough($birthdate) {
+        $birthdate = new DateTime($birthdate);
+        $currentDate =  new DateTime(date('Y-m-d'));
+        $diff = $birthdate->diff($currentDate);
+        return $diff->y >= 18;
+    }
+
 }

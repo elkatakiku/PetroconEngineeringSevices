@@ -187,7 +187,7 @@ if ($("#topbar").length > 0) {
         "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
     });
 } else {
-    console.log("Error! No topbar found.");
+    console.log("Info: No topbar found.");
 }
 
 function initSlide() {
@@ -196,7 +196,7 @@ function initSlide() {
     $(".slide-container .slide[data-side='right']").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
 }
 
-if ($(".slide").length > 0) {
+if ($(".slide[data-side]").length > 0) {
     let resizeObserver = new ResizeObserver(entries => {
         console.log("The element was resized");
         initSlide();
@@ -206,13 +206,15 @@ if ($(".slide").length > 0) {
     resizeObserver.observe($(".slide[data-side='right']")[0]);
 
     initSlide();
+} else {
+    console.log("Info: No slide found.");
 }
 
 function toggleSlide(toggle, slideElement) {
     let side = slideElement.data("side");
     console.log("toggle: " + toggle);
     console.log("side: " + side);
-    
+
     switch (toggle) {
         
       case "show": 

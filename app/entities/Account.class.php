@@ -12,18 +12,18 @@ class Account implements Expose {
     private $registerId;
     private $loginId;
 
-    public function createAccount($typeId, $registerId, $loginId) {
-
-        $this->setAccount(
-            uniqid("PTRCN-ACCT-"), $typeId, $registerId, $loginId
-        );
-    }
-
     public function setAccount($id, $typeId, $registerId, $loginId) {
         $this->id = $id;
         $this->typeId = $typeId;
         $this->registerId = $registerId;
         $this->loginId = $loginId;
+    }
+
+    public function createAccount($typeId, $registerId, $loginId) {
+
+        $this->setAccount(
+            uniqid("PTRCN-ACCT-"), $typeId, $registerId, $loginId
+        );
     }
 
     public function setId($id) {

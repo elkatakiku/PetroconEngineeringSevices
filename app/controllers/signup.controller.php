@@ -41,10 +41,10 @@ class SignupController extends Controller {
 
     public function signupUser() {
 
-        if ($this->emptyInput()) {
-            echo "<br>Please fill all required inputs.";
-            return -101;
-        }
+        // if ($this->emptyInput()) {
+        //     echo "<br>Please fill all required inputs.";
+        //     return -101;
+        // }
 
         if (!$this->validUsername()) {
             echo "<br>Invalid username.";
@@ -90,10 +90,10 @@ class SignupController extends Controller {
         return 1;
     }
 
-    private function emptyInput() {
-        return  !$this->lastname || !$this->firstname || !$this->middleName || !$this->contactNumber || 
-                !$this->birthdate || !$this->email || !$this->username || !$this->password || !$this->passwordRepeat;
-    }
+    // private function emptyInput() {
+    //     return  !$this->lastname || !$this->firstname || !$this->middleName || !$this->contactNumber || 
+    //             !$this->birthdate || !$this->email || !$this->username || !$this->password || !$this->passwordRepeat;
+    // }
 
     private function validUsername() {
         return preg_match("/^[a-zA-Z0-9]*$/", $this->username);

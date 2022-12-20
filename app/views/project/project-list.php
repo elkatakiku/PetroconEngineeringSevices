@@ -55,7 +55,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr onclick="viewData('<?= PROJECT_URL.US.'dataID' ?>');">
             <th scope="row">1</th>
             <td>
               <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
