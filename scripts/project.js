@@ -1,4 +1,17 @@
-// Gantt Chart Even Rows Background
+// || Slide
+function slideAutoHeight() {
+    var topbarHeight = $("#topbar")[0].scrollHeight;
+    let top = (topbarHeight - $(this).scrollTop() <= 0) ? 0 : topbarHeight - $(this).scrollTop();
+    $(".slide.slide-fixed")
+        .css("top", (top <= 0 ? 0 : top))
+        .find(".slide-content")
+            .css("height", 'calc(100vh - ' + top + 'px)');
+}
+
+slideAutoHeight();
+
+// || Gantt Chart 
+// Even Rows Background
 let chartRows = $(".chart-row");
 
 if (chartRows.length > 0) {
@@ -12,20 +25,12 @@ if (chartRows.length > 0) {
     }
 }
 
+// || Legend
 // Add Legend Click Event
 $("#addLegend").click(function (e) { 
     e.preventDefault();
     $("#legends").toggleClass("hide");
 });
-
-
-// $(".slide.slide-fixed").css({
-//     "top": $("#topbar")[0].scrollHeight + "px"
-// });
-
-// $(".slide.slide-fixed .slide-content").css({
-//     "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
-// });
 
 // Closes Menu when clicked anywhere
 $(document).click((e) => {
@@ -38,23 +43,7 @@ $(document).click((e) => {
     console.log(e.target);
 });
 
-// Task Menu Functions
-
-// Table row action buttons
-// $(".mesa tbody tr").on('mouseenter', (e) => {
-//     console.log("Entering row");
-//     console.log($(e.target).closest("tr"));
-
-//     let row = $(e.target).closest("tr");
-//     row.find(".action-cell-content").append(renderRowActions(row.attr("id")));
-// });
-
-// $(".mesa tbody tr").on('mouseleave', (e) => {
-//     console.log("Leaving row");
-//     console.log($(e.target));
-
-//     $(e.target).closest("tr").find(".row-action-btns").remove();
-// });
+// || Task Menu Functions
 
 // Task Row
 function renderTask(taskID, taskNumber) {
@@ -100,7 +89,6 @@ function generateRow(taskID, taskNumber) {
 
     return newRow;
 }
-
 
 // Row Actions
 function renderRowActions(rowID) {
@@ -281,7 +269,7 @@ function openTask(e) {
 }
 
 
-// Listeners
+// || Listeners
 $("#tasksTable tbody tr").on('click', openTask);
 $(".dots-menu-btn").on('click', showRowMenu);
 
@@ -296,4 +284,13 @@ $("button[data-toggle='row']").on('click', function (e) {
 $('#addSubTask').on('click', (e) => {
     console.log("Add Subtask");
     $($(e.target).data('target')).append(generateRow("taskID", ""));
+});
+
+
+// || Window
+// Scroll
+$(window).scroll(function(){
+    console.log("Scroll");
+    // Slide fixed stuff
+    slideAutoHeight();
 });

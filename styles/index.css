@@ -109,7 +109,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Header Content */
 .header-content {
-    margin-top: 60px;
     padding: 12% 40% 12% 5%;
     position: relative;
     z-index: 100;
