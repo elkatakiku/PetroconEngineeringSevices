@@ -158,7 +158,11 @@
             <img src="../../images/ic0n.jpg" class="profile-img">
             </div>
             <div class="profile-display-info">
-              <h2 class="profile-name">Kathiana Fernandez</h2> 
+              <a class="" href=""> <!--- href="../admin/profile.html"-->
+                <button type="button" class="btn icon-btn">
+              <h2>Kathiana Fernandez 
+                <i class="fa-regular fa-pen-to-square"></i></h2>
+                </button> </a>
               <!--<p >kathiana@email.com</p>
               <p class="position">Twerker</p>------>
             </div>
@@ -170,19 +174,27 @@
           <div class="container">
             <div class="form-group">
               <label for="">Full Name</label>
-              <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Full Name">
+              <input type="text" name="name" class="form-control" value="kath" required="">
             </div>
             <div class="form-group">
               <label for="">Position/Title</label>
-              <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Position/Title">
+              <input type="text" name="position" class="form-control" value="admin" required="">
             </div>
             <div class="form-group">
               <label for="">Username</label>
-              <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Username">
+              <input type="text" name="username" class="form-control" value="kath@gmail.com" required="">
             </div>
             <div class="form-group">
               <label for="">Email</label>
-              <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Edit Email">
+              <input type="email" name="email" class="form-control" value="kath@email.com" required="">
+            </div>
+            <div class="form-group">
+              <label for="">Contact Number</label>
+              <input type="text" name="name" class="form-control" value="0970778" required="">
+            </div>
+            <div class="form-group">
+              <label for="">Address</label>
+              <input type="text" name="name" class="form-control" value="0970778" required="">
             </div>
             <div class="form-group">
               <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupChangePass">
@@ -210,17 +222,17 @@
                         <div class="pbody">
                           <div class="form-group">
                             <label for=""> Current Password</label>
-                            <input type="password" class="form-control" name="" id="" placeholder="Password">
+                            <input type="password" name="password" class="form-control" value="" required="">
                           </div>
 
                           <div class="form-group">
                             <label for="">New Password</label>
-                            <input type="password" class="form-control" name="" id="" placeholder="Password">
+                            <input type="password" name="password" class="form-control" value="" required="">
                            </div>
 
                           <div class="form-group">
                             <label for="">Confirm New Password</label>
-                            <input type="password" class="form-control" name="" id="" placeholder="Password" required="required">
+                            <input type="password" name="password" class="form-control" value="" required="required">
                           </div>
                         </div>
             
@@ -233,11 +245,26 @@
             </div>
           </div>
   
-          <div class="btn-side" style="text-align: center;">
-            <button type="button" class="btn action-btn" onclick="changePage('clientprofile.html')">Save Change</button>
+          <div class="btn-side" style="text-align: center; padding-bottom: 100px;"">
+            <button type="submit" class="btn btn-success btn-save">Save</button>
             <button type="button" class="btn outline-action-btn" onclick="changePage('clientprofile.html')">Cancel</button>
           </div>
         
+          <!----
+          <table class="table table-bordered data-table">
+            <thead>
+            <th>Username</th>
+            <th>Email Address</th>
+            <th>Password</th>
+            <th>Position</th>
+            <th>Address</th>
+            <th>Contact</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>-->
       </div>
           
     </div>
@@ -257,12 +284,83 @@
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
     <!-- External JS -->
     <script src="../../scripts/index.js"></script>
-    <script >
+    <script>
    var loadFile = function (event) {
   var image = document.getElementById("output");
   image.src = URL.createObjectURL(event.target.files[0]);
   };
-
     </script>
+  <script type="text/javascript">
+     $("form").submit(function(e) {
+       e.preventDefault();
+          var name=$("input[name='name']").val();
+          var position=$("input[name='position']").val();
+          var username=$("input[name='username']").val();
+          var email=$("input[name='email']").val();
+          var contact=$("input[name='contact']").val();
+          var address=$("input[name='address']").val();
+          var password=$("input[name='password']").val();
+
+
+  //$(".data-table tbody").append("<tr data-name='"+name+"' data-email='"+email+"' data-pass='"+pass+"' data-position='"+position+"' data-address='"+address+"' data-contact='"+contact+"'><td>"+name+"</td><td>"+email+"</td><td>"+pass+"</td><td>"+position+"</td><td>"+address+"</td><td>"+contact+"</td><td><button class='btn btn-danger btn-lg btn-delete mr-3' type='button'>Delete</button><button class='btn btn-info btn-lg btn-edit' type='button'>Edit</button></td></tr>");
+
+  $("input[name='']").val("");
+  });
+
+  $('body').on('click','.btn-delete',function() {
+  $(this).parents('tr').remove();
+  });
+
+  $('body').on('click','.btn icon-btn',function() {
+  var name=$(this).parents('tr').attr('data-name');
+  var position=$(this).parents('tr').attr('data-position');
+  var username=$(this).parents('tr').attr('data-username');
+  var email=$(this).parents('tr').attr('data-email');
+  var contact=$(this).parents('tr').attr('data-contact');
+  var address=$(this).parents('tr').attr('data-address');
+  var password=$(this).parents('tr').attr('data-password');
+  
+
+  $(this).parents('tr').find('td:eq(0)').html("<input name='edit_text' value='"+name+"'>");
+  $(this).parents('tr').find('td:eq(1)').html("<input name='edit_position' value='"+position+"'>");
+  $(this).parents('tr').find('td:eq(2)').html("<input name='edit_username' value='"+username+"'>");
+  $(this).parents('tr').find('td:eq(3)').html("<input name='edit_email' value='"+email+"'>");
+  $(this).parents('tr').find('td:eq(4)').html("<input name='edit_contact' value='"+contact+"'>");
+  $(this).parents('tr').find('td:eq(5)').html("<input name='edit_address' value='"+address+"'>");
+  $(this).parents('tr').find('td:eq(6)').html("<input name='edit_password' value='"+password+"'>");
+ 
+
+  $(this).parents('tr').find('td:eq(7)').prepend("<button type='button' class='btn btn-info btn-lg btn-update mr-3'>Update</button>");
+  $(this).hide()
+  });
+
+  $('body').on('click','.btn icon-btn',function() {
+  var name=$(this).parents('tr').find("input[name='edit_text']").val();
+  var email=$(this).parents('tr').find("input[name='edit_email']").val();
+  var pass=$(this).parents('tr').find("input[name='edit_pass']").val();
+  var position=$(this).parents('tr').find("input[name='edit_position']").val();
+  var address=$(this).parents('tr').find("input[name='edit_address']").val();
+  var contact=$(this).parents('tr').find("input[name='edit_contact']").val();
+
+  $(this).parents('tr').find('td:eq(0)').text(name);
+  $(this).parents('tr').find('td:eq(1)').text(email);
+  $(this).parents('tr').find('td:eq(2)').text(pass);
+  $(this).parents('tr').find('td:eq(3)').text(position);
+  $(this).parents('tr').find('td:eq(4)').text(address);
+  $(this).parents('tr').find('td:eq(5)').text(contact);
+
+  $(this).parents('tr').attr('data-name',name);
+  $(this).parents('tr').attr('data-email',email);
+  $(this).parents('tr').attr('data-email',pass);
+  $(this).parents('tr').attr('data-email',position);
+  $(this).parents('tr').attr('data-email',address);
+  $(this).parents('tr').attr('data-email',contact);
+
+  $(this).parents('tr').find('.btn-edit').show();
+  $(this).parents('tr').find('.btn-update').remove();
+
+  })
+
+</script>
     </body>
 </html>

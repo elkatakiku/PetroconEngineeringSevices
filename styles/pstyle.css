@@ -168,3 +168,7 @@
 .profile-display-info .icon-btn:hover{
   color: #e0e0e0;
 }
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}

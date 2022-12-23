@@ -400,7 +400,6 @@ a.btn {
     color: var(--success);
 }
 
-
 /* || FORM */
 
 /* Custom Form Input Group */
@@ -1327,8 +1326,22 @@ body:has(.slide-fixed.active).slide-open {
         animation: none;
     }
 }
-
-
+.form-signup{
+    background: #fff;
+    padding: 40px;
+    margin: 100px;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);  
+}
+.form-box{
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+    width: 600px;
+     /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+    justify-content: center;
+}
 /* MD */
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
