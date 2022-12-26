@@ -7,16 +7,12 @@ class ProjectModel extends Model {
     private static $tblTask = "tbl_task";
     private static $tblTaskBar = "tbl_taskbar";
     private static $tblLegend = "tbl_legend";
+    private static $lnkProjectPlan = "lnk_project_plan";
 
     private $projectId;
 
-    public function setProjectId($projectId) {
-        $this->projectId = $projectId;
-    }
-
-    public function setProject(
-        $id, $name, $location, $buildingNumber, $purchaseOrder, $awardDate, $status, $active,
-        $company, $compRepresentative, $compContact) {
+    // Project
+    public function setProject(Project $project) {
         
         echo "Inserting project into database";
 
@@ -29,93 +25,306 @@ class ProjectModel extends Model {
 
         $stmt = $this->connect()->prepare($sql);
 
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':location', $location);
-        $stmt->bindParam(':building_number', $buildingNumber);
-        $stmt->bindParam(':status', $status);
-        $stmt->bindParam(':active', $active);
-        $stmt->bindParam(':purchase_ord', $purchaseOrder);
-        $stmt->bindParam(':award_date', $awardDate);
-        $stmt->bindParam(':company', $company);
-        $stmt->bindParam(':comp_representative', $compRepresentative);
-        $stmt->bindParam(':comp_contact', $compContact);
+        $stmt->bindValue(':id', $project->getId());
+        $stmt->bindValue(':name', $project->getName());
+        $stmt->bindValue(':location', $project->getLocation());
+        $stmt->bindValue(':building_number', $project->getBuildingNumber());
+        $stmt->bindValue(':status', $project->getStatus());
+        $stmt->bindValue(':active', $project->getActive());
+        $stmt->bindValue(':purchase_ord', $project->getPurchaseOrder());
+        $stmt->bindValue(':award_date', $project->getAwardDate());
+        $stmt->bindValue(':company', $project->getCompany());
+        $stmt->bindValue(':comp_representative', $project->getCompRepresentative());
+        $stmt->bindValue(':comp_contact', $project->getCompContact());
         
-        $stmt->execute();
+        if(!$stmt->execute()) {
+            $stmt = null;
+            return false;
+        }
+
+        return true;
     }
 
-    public function getProject() {
+    public function getProject($projectId) {
 
-        echo "Getting project <pre>";
-
-        $sqlProject = "SELECT 
-                            p.proj_NAME, p.proj_DESC, p.proj_LOC, p.proj_blgd_num, p.proj_status
+        $sqlProject = 'SELECT 
+                            id, purchase_ord, DATE_FORMAT(award_date, "%Y-%m-%d") as award_date, name, location, building_number, status, company, comp_representative, comp_contact
                         FROM   
-                            ".self::$tblProject." p INNER JOIN ".self::$tblClient." c
-                        ON 
-                            p.proj_client_ID = c.clnt_ID
+                            '.self::$tblProject.'
                         WHERE 
-                            proj_ID = :projID";
+                            id = :projID';
 
         // Prepare statement
         $stmtProject = $this->connect()->prepare($sqlProject);
 
         // Bind params
-        $stmtProject->bindParam(":projID", $this->projectId);
+        $stmtProject->bindParam(":projID", $projectId);
 
         // Execute statement
-        if($stmtProject->execute()) {
+        if(!$stmtProject->execute()) {
             return false;
         }
 
         $project = $stmtProject->fetchAll();
 
-        var_dump($project);
+        // var_dump($project);
+
+        return $project[0];
     }
 
-    private function getClient() {
-        // Client
-        $sqlClient = "  SELECT 
-                            c.clnt_name, c.clnt_company, c.clnt_contact_num, c.clnt_email
-                        FROM 
-                            ".self::$tblProject." p INNER JOIN ".self::$tblClient." c
-                        ON 
-                            p.proj_client_ID = c.clnt_ID
-                        WHERE 
-                            proj_ID = :projID";
+    public function getProjects($status) {
+        // Query
+        $sql = "SELECT id, name, location, company, status 
+                FROM ".self::$tblProject;
 
-        // Prepare statement
-        $stmtClient = $this->connect()->prepare($sqlClient);
-
-        // Bind params
-        $stmtClient->bindParam(":projID", $projectId);
-
-        // Execute statement
-        if(!$stmtClient->execute()) {
-            return false;
+        // Modify Query
+        if ($status) {
+            $sql .= " WHERE status = :status";
         }
 
-        $client = $stmtClient->fetchAll();
+        // Prepare
+        $stmt = $this->connect()->prepare($sql);
 
-        var_dump($client);
+        // Bind
+        if ($status) {
+            $stmt->bindParam(":status", $status);
+        }
+
+        // Execute
+        try {
+            if(!$stmt->execute()) {
+                throw new PDOException("Error Processing Request", 1);
+            }
+            $result = $stmt->fetchAll();
+        } catch (PDOException $PDOE) {
+            $result = -1;
+        }
+
+        // Return result
+        return $result;
     }
 
-    private function getTasks() {
-        $sql = "SELECT task_ID, task_NAME, task_order_no, task_STATUS
-                FROM ".self::$tblTask."
-                WHERE task_proj_ID = :projID";
+    // Task
+    public function setTask(Task $task) {
+        $sql = "INSERT INTO ".self::$tblTask."
+                    (id, description, order_no, status, proj_id)
+                VALUES
+                    (:id, :description, :order_no, :status, :proj_id)";
         
         $stmt = $this->connect()->prepare($sql);
 
-        $stmt->bindParam(":projID", $this->projectId);
+        $stmt->bindValue(':id', $task->getId());
+        $stmt->bindValue(':description', $task->getDesc());
+        $stmt->bindValue(':order_no', $task->getOrder());
+        $stmt->bindValue(':status', $task->getStatus());
+        $stmt->bindValue(':proj_id', $task->getProjID());
 
-        if (!$stmt->execute()) {
-            return false;
+        $result = true;
+
+        if(!$stmt->execute()) {
+            $stmt = null;
+            $result = false;
         }
 
-        $tasks = $stmt->fetchAll();
+        return $result;
+    }
 
-        var_dump($tasks);
+    public function getTasks($projectId) {
+        $sql = "SELECT 
+                    id, description, order_no, status
+                FROM 
+                    ".self::$tblTask." 
+                WHERE 
+                    proj_id = :proj_id";
+
+        // echo $sql;
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindParam(":proj_id", $projectId);
+
+        try {
+            if(!$stmt->execute()) {
+                throw new PDOException("Error Processing Sql Statement", 1);
+            }
+            $result = $stmt->fetchAll();
+        } catch (PDOException $PDOE) {
+            $result = -1;
+        }
+
+        $stmt = null;
+
+        return $result;
+    }
+
+    public function getTasksCount($projectId) {
+        $sql = "SELECT 
+                    COUNT(*) AS count
+                FROM 
+                    ".self::$tblTask." 
+                WHERE 
+                    proj_id = :proj_id";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindParam(":proj_id", $projectId);
+
+        $result = $this->executeReturn($stmt);
+
+        if($result != -1) {
+            $result = $result[0]['count'];
+        }
+
+        return $result;
+
+    }
+
+    // Legend
+    public function setLegend(Legend $legend) {
+        echo __METHOD__;
+        echo '<br>';
+        echo $legend->getTitle();
+        echo '<br>';
+        $sql = "INSERT INTO ".self::$tblLegend."
+                    (id, color, title, proj_id)
+                VALUES
+                    (:id, :color, :title, :proj_id)";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindValue(':id', $legend->getId());
+        $stmt->bindValue(':color', $legend->getColor());
+        $stmt->bindValue(':title', $legend->getTitle());
+        $stmt->bindValue(':proj_id', $legend->getProjID());
+        
+        echo '<br>';
+        var_dump($stmt);
+        echo '<br>';
+
+        $result = true;
+
+        if(!$stmt->execute()) {
+            // Closes pdo connection
+            $stmt = null;
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    // TaskBar
+    public function setTaskBar(TaskBar $taskBar) {
+        $sql = "INSERT INTO ".self::$tblTaskBar."
+                    (id, task_id, leg_id, start, end)
+                VALUES
+                    (:id, :task_id, :leg_id, :start, :end)";
+        
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindValue(':id', $taskBar->getId());
+        $stmt->bindValue(':task_id', $taskBar->getTaskId());
+        $stmt->bindValue(':leg_id', $taskBar->getLegendId());
+        $stmt->bindValue(':start', $taskBar->getStart());
+        $stmt->bindValue(':end', $taskBar->getEnd());
+
+        $result = true;
+
+        if(!$stmt->execute()) {
+            $stmt = null;
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    public function getTaskBars($taskId) {
+        $sql = "SELECT *
+                FROM ".self::$tblTaskBar."
+                WHERE task_id = :task_id";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindParam(':task_id', $taskId);
+
+        $result = false;
+
+        if($stmt->execute()) {
+            $result = $stmt->fetchAll();
+        }
+        
+        // Closes pdo connection
+        $stmt = null;
+        return $result;
+    }
+
+
+    // Project Plan
+    public function setProjectPlan($projectId, $planId) {
+        $sql = "INSERT INTO ".self::$lnkProjectPlan."
+                    (proj_id, leg_id)
+                VALUES
+                    (:proj_id, :leg_id)";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindParam(':proj_id', $projectId);
+        $stmt->bindParam(':leg_id', $planId);
+
+        $result = true;
+
+        if(!$stmt->execute()) {
+            $stmt = null;
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    public function getPlanId($projectId) {
+        $sql = "SELECT leg_id AS plan
+                FROM ".self::$lnkProjectPlan."
+                WHERE proj_id = :proj_id";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindParam(':proj_id', $projectId);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll()[0]['plan'];
+    }
+
+    // Timeline
+    public function getTimeline($projectId) {
+        $planId = $this->getPlanId($projectId);
+        $sql = "SELECT 
+                    t.id, t.description, t.order_no, t.status, tb.start, tb.end
+                FROM 
+                    ".self::$tblTask." t INNER JOIN ".self::$tblTaskBar." tb
+                ON
+                    t.id = tb.task_id
+                WHERE 
+                    t.proj_id = :proj_id AND tb.leg_id = :leg_id";
+
+        // echo $sql;
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindParam(":proj_id", $projectId);
+        $stmt->bindParam(":leg_id", $planId);
+
+        try {
+            if(!$stmt->execute()) {
+                throw new PDOException("Error Processing Sql Statement", 1);
+            }
+            $result = $stmt->fetchAll();
+        } catch (PDOException $PDOE) {
+            $result = -1;
+        }
+
+        $stmt = null;
+
+        return $result;
     }
 
     private function getLegends() {
@@ -159,6 +368,19 @@ class ProjectModel extends Model {
         $taskBars = $stmt->fetchAll();
 
         var_dump($taskBars);
+    }
+    
+    private function executeReturn($stmt) {
+        try {
+            if(!$stmt->execute()) {
+                throw new PDOException("Error Processing Sql Statement", 1);
+            }
+            $result = $stmt->fetchAll();
+        } catch (PDOException $PDOE) {
+            $result = -1;
+        }
+
+        return $result;
     }
 
 }

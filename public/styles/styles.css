@@ -217,8 +217,8 @@ hr {
 
 .main-content {
     flex: 1;
-    margin: 20px;
-    padding: 20px;
+    margin: 1rem 20px;
+    padding: 1rem 20px;
     gap: 20px;
     background-color: white;
     border-radius: 10px;
@@ -241,7 +241,7 @@ hr {
     margin-right: -15px;
 }
 
-.linear > div {
+.linear-container .linear > div {
     flex-grow: 1;
     flex-shrink: 0;
     padding: 0 15px;
@@ -339,6 +339,10 @@ hr {
 
 .btn > * {
     pointer-events: none;
+}
+
+.sm-btn {
+    font-size: .8rem;
 }
 
 a.btn {
@@ -736,7 +740,7 @@ form .row .right {
 .mesa {
     display: table;
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse !important;
     border-style: hidden; /* hide standard table (collapsed) border */
     border-radius: var(--default-border-radius) !important;
 }
@@ -759,19 +763,23 @@ form .row .right {
     border-top-right-radius: var(--default-border-radius) !important;
     background-color: var(--table-header-bg);
     color: var(--table-header-text);
-    font-size: .75rem;
+    font-size: 14px;
 }
 
-.mesa .mesa-head .tname {
+.mesa-head .tname {
     color: var(--action);
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .mesa-head th {
     vertical-align: middle;
     padding: .75rem;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 200;
+    font-weight: 400;
+}
+
+.mesa p {
+    margin: 0;
 }
 
 .mesa-container .form-input-group, .mesa-container input, .mesa-container textarea {
@@ -783,6 +791,7 @@ form .row .right {
 /* Action Cell */
 .mesa .action-cell {
     vertical-align: top;
+    min-width: 100px;
 }
 
 .mesa .action-cell-content {
@@ -862,7 +871,7 @@ span.status[data-status = "in-progress"] {
 .content .page-header {
     display: grid;
     grid-template-columns: 1fr auto;
-    margin: 24px 20px;
+    padding: 24px 20px 1rem;
     gap: 20px;
 }
 
@@ -887,17 +896,20 @@ span.status[data-status = "in-progress"] {
     overflow: hidden;
 }
   
-.content .nav-tab-container:has(.nav-tab) { 
-    padding: 0 20px;
+.content .nav-tab-container:has(.nav-tab),
+.content .nav-tab-container:has(.filter-tab) { 
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: stretch;
+}
+
+.content .nav-tab-container:has(.search-form) .search-form { 
+    margin-bottom: 5px;
 }
   
 .content .nav-tab-container {
     padding: 5px 20px;
     border-bottom: 1px solid var(--border-rgba-color);
-}
-  
-.content .nav-tab-container .search-container {
-    max-width: 250px;
 }
   
 .main-content.mesa-container {
@@ -933,17 +945,28 @@ span.status[data-status = "in-progress"] {
     color: var(--navtab-text-color);
 }
 
-.nav-tab {
+.nav-tab, .filter-tab {
     display: flex;
     list-style: none;
     margin: 0;
+}
+
+.filter-tab-item label {
+    margin: 0;
+    cursor: pointer;
+}
+
+.filter-tab-item input {
+    display: none;
 }
   
 .nav-tab .nav-tab-item {
     cursor: pointer;
 }
   
-.nav-tab .nav-tab-item button {
+.nav-tab .nav-tab-item button,
+.nav-tab .nav-tab-item input,
+.filter-tab .filter-tab-item label {
     padding: 5px 10px;
     height: 100%;
     color: inherit;
@@ -956,12 +979,14 @@ span.status[data-status = "in-progress"] {
     text-decoration: none;
 }
   
-.nav-tab .nav-tab-item:not(.active) .link-btn:hover {
+.nav-tab .nav-tab-item:not(.active) .link-btn:hover,
+.filter-tab .filter-tab-item:not(.active) label:hover {
     color: var(--navtab-active-text);
     font-weight: 400;
 }
   
-.nav-tab .nav-tab-item.active {
+.nav-tab .nav-tab-item.active,
+.filter-tab .filter-tab-item.active {
     color: var(--navtab-active-text) !important;
     font-weight: 600;
     border-bottom: 3px solid var(--navtab-active-border);
@@ -1090,7 +1115,7 @@ body:has(.slide-fixed.active).slide-open {
     width: 100%;
     background-color:  rgba(0,0,0,.03);
     border-top: 1px solid var(--border-rgba-color);
-    padding: 1rem;
+    padding: .5rem 1rem;
 }
 
 /* Slide Componenets */

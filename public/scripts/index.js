@@ -1,3 +1,15 @@
+// $.fn.hasVerticalScrollBar = function () {
+//     return this[0].clientHeight < this[0].scrollHeight;
+// }
+
+// $.fn.hasHorizontalScrollBar = function () {
+//    return this[0].clientWidth < this[0].scrollWidth;
+// }
+
+// console.log("Horizontal Scrollbar");
+// console.log($('#projectGanttChart .gantt-chart').hasHorizontalScrollBar());
+// console.log("Vretical Scrollbar");
+// console.log($('#projectGanttChart .gantt-chart').hasVerticalScrollBar());
 /*
 Carousel
 */
@@ -56,95 +68,161 @@ $('.sub-menu').on('show.bs.collapse' , () => {
     }
 });
 
-
 // Responsive to width
 $(window).on("resize", (e) => {
-    // Removes width property
-    if($(window).width() < 780) {
-        $("#sidebar .collapsible").css({
-          width: ""
-        });
-      }
+
+    // Removes sidebar collapsibles width property
+    if($(window).width() < 768) {
+        $("#sidebar .collapsible").css('width', "");
+        // $(".wrapper .content, .content > .mesa-container").css("max-width", "");
+    } else {
+        // console.log("768+");
+        // console.log($(".wrapper .content, .content > .mesa-container"));
+        // $(".wrapper .content, .content > .mesa-container").css("max-width", "calc(100% - " + $("#sidebar").width() + "px)");
+    }
+
 });
 
-$("#sidebarCollapseToggler").click((e) => {
-    expandSidebar();
-});
+// Sidebar Listener
+$("#sidebarCollapseToggler").click(() => {expandSidebar();});
 
 
-// Toggles
+
+// || Popup
 const POPUP = "popup";
-const SLIDE = "slide";
-const TAB = "custom-tab";
-const FORM = "form";
 
-// Animation Names
-const SLIDE_OUT_TOP = "slide-out-top";
-const SLIDE_DOWN = "slide-down";
+// Dismisses popup when click elsewhere
+$(".popup").click((e) => {
+    console.log("Popup clicked");
 
-// Popup 
-function showPopup(btn) {
-    $(btn.data("target")).addClass("show");
-    $("body").addClass("popup-open");
-    $("body").append("<div class='popup-backdrop'></div>");
+    // Closes popup when clicked outside popup content
+    if ($(e.target).hasClass('popup')) {
+        hidePopup(e);
+    }
+});
+
+// Animates popup container to center
+function animatePopup(popup) {
+    console.log("Animating popup");
+    popup.find('.pcontainer')
+        .css({
+            top: '-' + popup.find('.pcontainer').height() + 'px'
+        })
+        .animate({
+            top: "50%"
+        }, 300, "swing");
 }
 
-function hidePopup() {
+// Shows popup
+function showPopup(btn, popup = $(btn.data("target"))) {
+    console.log("Popup button clicked");
+    console.log(popup);
+    
+    popup.addClass("show");
+
+    if (popup.hasClass("popup-center")) {
+        console.log("Popup Center");
+        animatePopup(popup);
+    } else if(!popup.hasClass("popup-contained")) {   
+        $("body").addClass("popup-open");
+    } else {
+        let container = popup.find('.pcontainer');
+        container.css({
+            'top': container.data('top'),
+            'right': container.data('right'),
+            'bottom': container.data('bottom'),
+            'left': container.data('left'),
+        });
+    }
+
+    // if (popup.data("backdrop") !== false && $('.popup-backdrop').length < 1) {
+    //     $("body").append("<div class='popup-backdrop'></div>");
+    // }
+
+    if (btn.data("action")) {
+        editForm(btn.data("target"));
+    }
+}
+
+// Hides popup
+function hidePopup(e) {
     console.log("Hide popup");
-    let popupElement = $(".popup.show");
+    console.log(e.target);
+    let popup = $(e.target).closest(".popup.show");
+    console.log("Opened popup");
+    console.log(popup);
 
-    popupElement.on("animationend", function (e) {
-        console.log("Animation end: " + e.originalEvent.animationName);
-        const ANIMATION_NAME = e.originalEvent.animationName;
-        // removeAnimation(e.originalEvent.animationName);
-        // console.log("Animation end: " + animationName);
-        switch (ANIMATION_NAME) {
-            case SLIDE_OUT_TOP:
-                $(".popup").removeClass(SLIDE_OUT_TOP);
-                removePopup(popupElement);
-                break;
-            case SLIDE_DOWN:
-                $(".popup").removeClass(SLIDE_DOWN);
-                removePopup(popupElement);
-                break;
-            default:
-                console.log("removeAnimation: Error! " + ANIMATION_NAME + " name not valid.");
-                break;
-        }
-
-    });
-
-    if (popupElement.hasClass("fade")) {
-        console.log("Is fade");
-        popupElement.addClass(SLIDE_OUT_TOP);
-    } else if (popupElement.hasClass("popup-below")) {
-        console.log("Is popup below");
-        popupElement.addClass(SLIDE_DOWN);
+    if (popup.hasClass("popup-center")) {
+        popup.find('.pcontainer').animate({
+                top: '-' + popup.find('.pcontainer').height() + 'px'
+            }, 300, "swing", () => {
+                removePopup(popup);
+            });
+        return;
     }
+
+    removePopup(popup);
 }
 
-function removeAnimation(animationName) {
-    console.log("Animation end: " + animationName);
-    switch (animationName) {
-        case SLIDE_OUT_TOP:
-            $(".popup").removeClass(SLIDE_OUT_TOP);
-            break;
-        case SLIDE_DOWN:
-            $(".popup").removeClass(SLIDE_DOWN);
-            break;
-        default:
-            console.log("removeAnimation: Error! " + animationName + " name not valid.");
-            break;
-    }
-}
-
-function removePopup(popupElement) {
+// Removes popup
+function removePopup(popup, remove = false) {
     $("body").removeClass("popup-open");
-    popupElement.removeClass("show");
+    popup.removeClass("show");
     $(".popup-backdrop").remove();
+
+    if (popup.is($('#deletePopup, #legendPopup'))) {
+        popup.remove();
+    }
+    // $('#deletePopup, #legendPopup').remove();    
 }
 
-// Tab
+// Initialize Popup Listeners
+function initializePopup(popup) {
+    popup.find('button[data-dismiss]').on('click', hidePopup);
+    popup.find('button[data-action="delete"]').on('click', promptDelete);
+}
+
+// || Delete Popup
+function generateDeletePopup(item) { 
+    return '<div class="popup show popup-center popup-delete" id="deletePopup" tabindex="-1" aria-hidden="true">' +
+                '<div class="pcontainer popup-sm">' +
+                    '<div class="pcontent">' +
+                        '<div class="pheader">' +
+                            '<h2 class="ptitle">Delete ' + item + '</h2>' +
+                            '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
+                                '<span class="material-icons">close</span>' +
+                            '</button>' +
+                        '</div>' +
+            
+                        '<div class="pbody">' +
+                            '<p>Are you sure you want to delete this ' + item + '?</p>' +
+                        '</div>' +
+            
+                        '<div class="pfooter">' +
+                            '<button type="button" class="btn danger-btn">Delete</button>' +
+                            '<button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+}
+
+function promptDelete(e) { 
+    console.log("Delete chuchu");
+    let popup = $(generateDeletePopup("task"));
+
+    $('body').append(popup);
+    showPopup($(this), popup);
+
+    // Listeners
+    initializePopup(popup);
+}
+
+
+
+// || Tab
+const TAB = "custom-tab";
+
 function switchTab (btn) {
     const activeNavItem = $(".nav-tab-item.active");
     const targetNavItem = btn.parent();
@@ -178,22 +256,18 @@ function switchTab (btn) {
 }
 
 // Slide
-if ($("#topbar").length > 0) {
-    $(".slide.slide-fixed").css({
-        "top": $("#topbar")[0].scrollHeight + "px"
-    });
-    
-    $(".slide.slide-fixed .slide-content").css({
-        "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
-    });
-} else {
-    console.log("Info: No topbar found.");
-}
+const SLIDE = "slide";
 
 function initSlide() {
     console.log("Initializing slide");
     $(".slide-container .slide[data-side='left']").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
     $(".slide-container .slide[data-side='right']").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
+
+    $(".slide-fixed[data-side='right']:not(.active)").css("right", "-" + $(".slide[data-side='right']").width() + "px");
+    $(".slide-fixed.active[data-side='right']").css("right", 0);
+
+    $(".slide-container .slide.active[data-side='left']").css("left", $(".slide[data-side='left']").width() + "px");
+    $(".slide-container .slide.active[data-side='right']").css("right", $(".slide[data-side='right']").width() + "px");
 }
 
 if ($(".slide[data-side]").length > 0) {
@@ -201,47 +275,43 @@ if ($(".slide[data-side]").length > 0) {
         console.log("The element was resized");
         initSlide();
     });
-    
-    resizeObserver.observe($(".slide[data-side='left']")[0]);
-    resizeObserver.observe($(".slide[data-side='right']")[0]);
+
+    $(".slide[data-side]").each((index, element) => {
+        console.log("Element Each");
+        console.log(element);
+        resizeObserver.observe(element);
+    });
 
     initSlide();
 } else {
     console.log("Info: No slide found.");
 }
 
-function toggleSlide(toggle, slideElement) {
-    let side = slideElement.data("side");
-    console.log("toggle: " + toggle);
+function toggleSlide(isShow, slide, isAnotherSlide = false) {
+    let side = slide.data("side");
+    console.log("isShow: " + isShow);
     console.log("side: " + side);
 
-    switch (toggle) {
-        
-      case "show": 
+    if (isShow) {
         console.log("Opening slide");
 
-        $(slideElement).addClass("active");
-        $("body").addClass("slide-open");
+        $(slide).addClass("active");
+
+        if (!isAnotherSlide) {
+            $("body").addClass("slide-open");
+        }
 
         // Fixed slide
-        if (slideElement.hasClass("slide-fixed")) {
+        if (slide.hasClass("slide-fixed")) {
             switch (side) {
                 case "left":
-                    slideElement.animate({
-                        "left": 0
-                    }, 150);
+                    slide.animate({left: 0}, 150);
                     break;
             
                 case "right":
-                    slideElement.animate({
-                        "right": 0
-                    }, 150);
-                    
+                    slide.animate({right: 0}, 150);
                     break;
             }
-            
-            return;
-            break;
         }
         // Contained slide
         else {
@@ -252,28 +322,25 @@ function toggleSlide(toggle, slideElement) {
             console.log("right: " + rightPos);
             
             $(".slide-container .slide[data-side='" + side + "']").animate({
-            "left": leftPos,
-            "right": rightPos
+                left: leftPos,
+                right: rightPos
             }, 150);
         }
-
-        break;
-
-      case "hide":
+    } else {
         console.log("Closing slide");
 
         // Fixed slide
-        if (slideElement.hasClass("slide-fixed")) {
+        if (slide.hasClass("slide-fixed")) {
             switch (side) {
                 case "left":
-                    slideElement.animate({
-                        "left": "-" + $(".slide.slide-fixed.active[data-side='" + side + "']").width()
+                    slide.animate({
+                        left: "-" + $(".slide.slide-fixed.active[data-side='" + side + "']").width()
                     }, 150);
                     break;
             
                 case "right":
-                    slideElement.animate({
-                        "right": "-" + $(".slide.slide-fixed.active[data-side='" + side + "']").width()
+                    slide.animate({
+                        right: "-" + $(".slide.slide-fixed.active[data-side='" + side + "']").width()
                     }, 150);
                     break;
             }
@@ -284,21 +351,32 @@ function toggleSlide(toggle, slideElement) {
             let hidePosR = (side === "right") ? 0 : "auto";
             
             $(".slide-container .slide.active[data-side='" + side + "']").animate({
-                "left" : hidePosL,
-                "right" : hidePosR
+                left : hidePosL,
+                right : hidePosR
             }, 150);
         }
 
         $(".slide.active[data-side='" + side + "']").removeClass("active");
-        $("body").removeClass("slide-open");
-        break;
+        if (!isAnotherSlide) {
+            $("body").removeClass("slide-open");
+        }
     }
-    
 }
 
+// || Form
+const FORM = "form";
+
+function editForm (formId) { 
+    console.log($(formId));
+    form = $(formId).find("form");
+
+    form.addClass("edit");
+    console.log(form.attr("action", "./link/submit"));
+}
+
+// || Buttons Listeners
 $("button[data-toggle]").on("click", function (e) {
     console.log("Button clicked");
-    console.log($(this).attr("id"));
 
     const btnCLicked = $(this);
     const toggleElement = btnCLicked.data("toggle");
@@ -306,20 +384,35 @@ $("button[data-toggle]").on("click", function (e) {
     
     switch (toggleElement) {
         case POPUP:
-            showPopup(btnCLicked);
+            console.log("Popup type");
+            if (btnCLicked.data('type') === "delete") {
+
+            } else {
+                showPopup(btnCLicked);
+            }
             break;
         case SLIDE:
             const targetSlide = $(targetElementId);
 
             if ($("body").hasClass("slide-open")) {
+                console.log("A slide is open");
+
+                let slideToClose = targetSlide;
+                let isAnotherSlide = false;
+
+                if (!$('.slide.active').is(targetSlide)) {
+                    slideToClose = $('.slide.active');
+                    isAnotherSlide = true;
+                    toggleSlide(true, targetSlide, isAnotherSlide);
+                }
+                
                 // Hides slide
                 console.log("hide slide");
-                toggleSlide("hide", targetSlide);
-
+                toggleSlide(false, slideToClose, isAnotherSlide);
               } else {
                 // Show slide
                 console.log("show slide");
-                toggleSlide("show", targetSlide);
+                toggleSlide(true, targetSlide);
               }
             break;
         case TAB:
@@ -328,35 +421,26 @@ $("button[data-toggle]").on("click", function (e) {
             break;
         case FORM:
             console.log("Form button");
-              let form = $(btnCLicked.data("target"));
+            let form = $("#" + btnCLicked.attr("form"));
 
               switch(btnCLicked.data("action")) {
 
                 case "edit":
-                    
-                    let submitBtn = $("button[data-toggle='form'][data-action='submit'][data-target='" + targetElementId + "']");
-                    
-                    btnCLicked.removeClass("show");
-                    btnCLicked.addClass("hide");
+                    console.log("Edit Form");
+                    form.find("textarea, input").removeAttr("readonly");
 
-                    submitBtn.addClass("show");
-                    submitBtn.removeClass("hide");
-
-                    form.addClass("form-open");
-                    form.find(".form-input-group").removeClass("display");
-
+                    btnCLicked.text("Done");
+                    btnCLicked.data("action", "submit");
+                    btnCLicked.attr("type", "button");
                     break;
 
                 case "submit": 
-                    let editBtn = $("button[data-toggle='form'][data-action='edit'][data-target='" + targetElementId + "']");
-                    btnCLicked.removeClass("show");
-                    btnCLicked.addClass("hide");
+                    console.log("Submit");
+                    form.find("textarea, input").attr("readonly", true);
 
-                    editBtn.addClass("show");
-                    editBtn.removeClass("hide");
-
-                    form.removeClass("form-open");
-                    form.find(".form-input-group").addClass("display");
+                    btnCLicked.text("Edit");
+                    btnCLicked.data("action", "edit");
+                    btnCLicked.attr("type", "submit");
                     break;
               }
             break;
@@ -369,19 +453,34 @@ $("button[data-dismiss]").on("click", function (e) {
     console.log(dismissElement);
     switch (dismissElement) {
         case POPUP:
-            hidePopup();
+            hidePopup(e);
             break;
         case SLIDE:
             console.log("Dismiss slide");
-            toggleSlide("hide", $(".slide.active"));
+            toggleSlide(false, $(".slide.active"));
             break;
     }
 });
 
+$('button[data-action="delete"]').click(promptDelete);
+
+
+
+// Textarea
+let textAreas = document.getElementsByTagName("textarea");
+for (let i = 0; i < textAreas.length; i++) {
+    autoHeight(textAreas[i]);
+}
+
+function autoHeight(input) {
+    console.log("AutoHeight");
+    console.log(input);
+    input.style.minHeight = "1rem";
+    input.style.height = "auto";
+    input.style.height = (input.scrollHeight) + "px";
+    input.style.overflowY = "hidden";
+}
 
 $("textarea").on("input", function() {
-    this.style.minHeight = "1rem";
-    this.style.height = "auto";
-    this.style.height = (this.scrollHeight) + "px";
-    this.style.overflowY = "hidden";
+    autoHeight(this);
 });

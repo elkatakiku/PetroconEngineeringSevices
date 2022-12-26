@@ -26,14 +26,13 @@
 
                     <div class="form-group">
                     <label for="">Username</label>
-                    <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Username">
-                    <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                    <input type="text" class="form-control" name="usernameInput" id="" aria-describedby="helpId" placeholder="Username">
                     </div>
 
                     
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" class="form-control" name="" id="" placeholder="Password">
+                        <input type="password" class="form-control" name="passwordInput" id="" placeholder="Password">
                     </div>
 
                     <button type="submit" name="loginSubmit" id="" class="btn btn-block primary-btn">Login</button>

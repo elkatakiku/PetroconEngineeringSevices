@@ -24,17 +24,17 @@ class Controller {
     }
 
     protected function setModel($model) {
-        echo __METHOD__;
-        echo "<br>Model<br>";
+        // echo __METHOD__;
+        // echo "<br>Model<br>";
         require_once '../app/models/' . $model . '.model.php';
         $this->model = new ($model . "Model")();
-        var_dump($this->model);
+        // var_dump($this->model);
     }
 
     protected function getModel() {
-        echo __METHOD__;
-        echo "<br>Model<br>";
-        var_dump($this->model);
+        // echo __METHOD__;
+        // echo "<br>Model<br>";
+        // var_dump($this->model);
         return $this->model;
     }
 
@@ -80,18 +80,18 @@ class Controller {
 
     // Validate Inputs
     protected function emptyInput($inputs) {
-        echo "<BR>";
+        // echo "<BR>";
         echo __METHOD__;
         echo "<BR>";
-        var_dump($inputs);
+        // var_dump($inputs);
         foreach ($inputs as $key => $value) {
-            echo "<br>";
+            // echo "<br>";
             var_dump($key);
             var_dump($value);
-            var_dump(!$value);
+            // var_dump(!$value);
             if (is_array($value)) {
-                echo "<br>is array, Checking: <BR>";
-                var_dump($key);
+                // echo "<br>is array, Checking: <BR>";
+                // var_dump($key);
                 if($this->emptyInput($value)) {
                     return true;
                 }

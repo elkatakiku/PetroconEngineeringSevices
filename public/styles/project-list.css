@@ -1,0 +1,41 @@
+.main-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.mesa-container {
+    flex: 1;
+}
+
+#projectsTable td:first-child, #projectsTable th:first-child {
+    width: 10px;
+}
+
+th.projectName {
+    width: 80%;
+}
+
+th.company {
+    min-width: 150px;
+    width: 150px;
+    max-width: 150px;
+}
+
+/* New Project Popup */
+#projectPopup .pheader .linear-center {
+    gap: 25px;
+}
+  
+#projectPopup .form-group .linear {
+    margin-bottom: .5rem;
+}
+  
+#projectPopup .form-group .linear label {
+    margin-bottom: 0;
+}
+  
+#projectPopup .form-group .linear hr {
+    border-top: 1px solid var(--border-rgba-color);
+    flex-grow: 1;
+    margin: 0;
+}

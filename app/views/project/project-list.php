@@ -1,61 +1,186 @@
 
 <main class="content"> 
-  
-    <!-- Header -->
-    <div class="page-header">
+  <!-- Header -->
+  <div class="page-header">
+    <!-- <div class="linear"> -->
       <h1 class="page-title">Projects</h1>
-      
+
       <!-- New Projects -->
-      <button type="button" class="btn primary-btn align-self-center" 
-            data-toggle="popup" data-target="#projectPopup">
-        Create Project
+      <a href="<?= SITE_URL ?>/projects/new">
+        <button type="button" class="btn sm-btn action-btn">
+          Create Project
+        </button>
+      </a>
+    <!-- </div> -->
+
+    <!-- <div class="dropdown">         
+      <button class="btn btn-sm dropdown-toggle neutral-outline-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+          Filter
       </button>
-    </div>
 
-    <!-- Navigation Tab -->
-    <nav class="nav-tab-container">
-      <ul class="nav-tab">
-          <li class="nav-tab-item active">
-            <button class="link-btn">All</button>
-          </li>
-          <li class="nav-tab-item">
-            <button class="link-btn">Ongoing</button>
-          </li>
-          <li class="nav-tab-item">
-            <button class="link-btn">Done</button>
-          </li>
-          <li class="nav-tab-item">
-            <button class="link-btn">Pending</button>
-          </li>
-      </ul>
-
-      <!-- Search -->
-      <div class="search-container">
-        <form action="" class="search-form">
-          <div class="input-container">
-            <div class="input-prepend">
-              <i class="fa fa-search icon" aria-hidden="true"></i>
-            </div>
-            <input type="text" name="" id="" placeholder="Search Project">
-          </div>
-        </form>
+      <div class="dropdown-menu dropdown-menu-right">
+          <span class="dropdown-item">All</span>
+          <span class="dropdown-item">Done</span>
+          <span class="dropdown-item">Ongoing</span>
       </div>
-    </nav>
+    </div> -->
+    <!-- <form id="filterTable" action="" class="linear">
+      <div class="input-container">
+        <select id="statusSelect" class="input-type" name="status" title="Filter projects by status">
+          <option value="" disabled>Select Status</option>
+          <option value="all">All</option>
+          <option value="done">Done</option>
+          <option value="ongoing">Ongoing</option>
+        </select>
+
+        <div class="input-append">
+          <span class="material-icons icon">
+              filter_alt
+          </span>
+        </div>
+      </div>
+    </form> -->
+  </div>
+
+  <!-- Navigation Tab -->
+  <nav class="nav-tab-container">
+    <form id="filterTable" action="" class="filter-tab">
+      <span class="filter-tab-item active">
+        <label for="allStat">All</label>
+        <input id="allStat" class="link-btn" type="radio" name="status" value="all" checked>
+      </span>
+      <span class="filter-tab-item">
+        <label for="doneStat">Done</label>
+        <input id="doneStat" class="link-btn" type="radio" name="status" value="done">
+      </span>
+      <span class="filter-tab-item">
+        <label for="ongoingStat">Ongoing</label>
+        <input id="ongoingStat" class="link-btn" type="radio" name="status" value="ongoing">
+      </span>
+    </form>
+
+    <!-- Search -->
+    <div>
+      <div class="search-form">
+        <div class="input-container">
+          <div class="input-prepend">
+            <i class="fa fa-search icon" aria-hidden="true"></i>
+          </div>
+          <input type="text" name="" id="searchProject" placeholder="Search Project">
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <div id="samp">
+    
+  </div>
+
+    <style>
+
+      .main-content {
+        padding-top: 0;
+      }
+
+      .dataTables_length label {
+        /* font-size: 14px; */
+      }
+
+      .dataTables_wrapper {
+        /* overflow: auto; */
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .dataTables_length {
+
+      }
+
+      .dataTables_filter input {
+        padding: .375rem .75rem;
+        font-size: .8rem;
+        font-weight: normal;
+        color: var(--primary-text);
+      }
+
+      .dataTables_filter input:focus, .dataTables_length select:focus {
+        outline: none;
+        background-clip: content-box;
+        box-shadow: 0 0 0 3px var(--border-rgba-color);
+      }
+
+      .dataTable {
+      }
+
+      .dataTables_length, .dataTables_info, .dataTables_paginate {
+        /* position: sticky;
+        left: 0; */
+      }
+
+      .dataTables_paginate {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .dataTables_paginate .paginate_button {
+        color: var(--primary-text) !important;
+        padding: 5px 15px;
+        cursor: pointer;
+      }
+
+      .paginate_button.disabled {
+        color: var(--secondary-text) !important;
+        cursor: default;
+        text-decoration: none;
+      }
+
+      .paginate_button.previous, .paginate_button.next {
+        font-weight: 800;
+      }
+
+      .dataTables_paginate > span {
+        display: flex;
+        gap: 10px;
+      }
+
+      .paginate_button.current {
+        background-color: var(--primary);
+        color: white !important;
+      }
+
+      @media screen and (max-width: 767px) {
+        /* .dataTables_length, .dataTables_filter, .dataTables_info, .dataTables_paginate {
+          float: none !important;
+          text-align: center !important;
+          position: sticky !important;
+          left: 0 !important;
+        } */
+      }
+
+      .dataTables_empty {
+        text-align: center !important;
+      }
+    </style>
 
     <!-- Project Table -->
-    <div class="mesa-container">
-      <table class="mesa">
+    <div class="main-content">
+      <table class="mesa" id="projectsTable">
         <thead class="mesa-head">
           <tr>
-            <th scope="col">#</th>
-            <th scope="col" class="tname projectName">Project</th>
-            <th scope="col">Last change</th>
-            <th scope="col">Status</th>
             <th scope="col"></th>
+            <th scope="col" class="tname projectName">Project</th>
+            <th scope="col" class="company">Company</th>
+            <th scope="col">Status</th>
+            <!-- <th scope="col"></th> -->
           </tr>
         </thead>
-        <tbody>
-          <tr onclick="viewData('<?= PROJECT_URL.US.'dataID' ?>');">
+        <!-- <tbody>
+          <tr onclick="viewData('');">
             <th scope="row">1</th>
             <td>
               <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
@@ -155,107 +280,7 @@
             <td>Done</td>
             <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
           </tr>
-        </tbody>
+        </tbody> -->
       </table>
     </div>
-
 </main>
-
-<!-- Popup -->
-<div class="popup popup-below" id="projectPopup" tabindex="-1" aria-hidden="true">
-  <div class="pcontainer">
-    <div class="pcontent">
-      <div class="pheader">
-        <div class="linear-center">
-          <i class="fas fa-layer-group fa-lg"></i>
-          <h2 class="ptitle">Create a new project</h2>
-        </div>
-        <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <div class="pbody pad-lg">
-        <form action="">
-
-          <div class="form-group">
-            <label for="">Project name</label>
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Type the project name here">
-          </div>
-
-          <div class="form-group">
-            <label for="">Location</label>
-            <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Type the location here">
-          </div>
-
-          <div class="form-group">
-            <label for="">Project name</label>
-            <input type="date" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Type the project name here">
-          </div>
-
-          <div class="form-group">
-            <div class="linear-center">
-              <label for="">Working days</label>
-              <hr>
-              <small># d</small>
-            </div>
-            <div class="input-options">
-              <label for="mon" class="option-box">
-                Mon
-                <input type="checkbox" name="" id="mon">
-              </label>
-              <label for="tue" class="option-box">
-                Tue
-                <input type="checkbox" name="" id="tue">
-              </label>
-              <label for="wed" class="option-box">
-                Wed
-                <input type="checkbox" name="" id="wed">
-              </label>
-              <label for="thu" class="option-box">
-                Thu
-                <input type="checkbox" name="" id="thu">
-              </label>
-              <label for="fri" class="option-box">
-                Fri
-                <input type="checkbox" name="" id="fri">
-              </label>
-              <label for="sat" class="option-box">
-                Sat
-                <input type="checkbox" name="" id="sat">
-              </label>
-              <label for="sun" class="option-box">
-                Sun
-                <input type="checkbox" name="" id="sun">
-              </label>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="linear-center">
-              <label for="">Working hours</label>
-              <hr>
-              <small># h</small>
-            </div>
-            <div class="input-options">
-              <label for="morn" class="option-box">
-                09:00 - 12:00
-                <input type="checkbox" name="" id="morn">
-              </label>
-              <label for="aft" class="option-box">
-                14:00 - 18:00
-                <input type="checkbox" name="" id="aft">
-              </label>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="pfooter pad-lg">
-        <button type="button" class="btn action-btn">Create new project</button>
-        <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-    

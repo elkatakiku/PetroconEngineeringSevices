@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="page-header">
         <span>                
-        <a id="backBtn" href="projects.html" class="link-btn">
+        <a id="backBtn" href="<?= SITE_URL ?>/projects/projects" class="link-btn">
             <span class="material-icons">
             arrow_back
             </span>
@@ -35,8 +35,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Project name</label>
-                        <input type="text" class="form-control" name="prjName" id="" aria-describedby="helpId" placeholder="Type the project name here">
+                        <label for="">Description</label>
+                        <textarea class="form-control" name="prjDescription" id="" rows="1"  placeholder="Type the project name here"></textarea>
                     </div>
 
                     <div class="form-group">
@@ -47,60 +47,6 @@
                     <div class="form-group">
                         <label for="">Building no.</label>
                         <input type="text" class="form-control" name="prjBuildingNo" id="" aria-describedby="helpId" placeholder="Type the building number here">
-                    </div>
-        
-                    <div class="form-group">
-                        <div class="linear-label">
-                            <label for="">Working days</label>
-                            <small># d</small>
-                        </div>
-                        <div class="input-options scroll-x">
-                            <label for="mon" class="option-box">
-                                Mon
-                                <input type="checkbox" name="prjWorkDay[]" id="mon" value="1">
-                            </label>
-                            <label for="tue" class="option-box">
-                                Tue
-                                <input type="checkbox" name="prjWorkDay[]" id="tue" value="2">
-                            </label>
-                            <label for="wed" class="option-box">
-                                Wed
-                                <input type="checkbox" name="prjWorkDay[]" id="wed" value="3">
-                            </label>
-                            <label for="thu" class="option-box">
-                                Thu
-                                <input type="checkbox" name="prjWorkDay[]" id="thu" value="4">
-                            </label>
-                            <label for="fri" class="option-box">
-                                Fri
-                                <input type="checkbox" name="prjWorkDay[]" id="fri" value="5">
-                            </label>
-                            <label for="sat" class="option-box">
-                                Sat
-                                <input type="checkbox" name="prjWorkDay[]" id="sat" value="6">
-                            </label>
-                            <label for="sun" class="option-box">
-                                Sun
-                                <input type="checkbox" name="prjWorkDay[]" id="sun" value="7">
-                            </label>
-                        </div>
-                    </div>
-        
-                    <div class="form-group">
-                        <div class="linear-label">
-                            <label for="">Working hours</label>
-                            <small># h</small>
-                        </div>
-                        <div class="input-options scroll-x">
-                            <label for="morn" class="option-box">
-                                09:00 - 12:00
-                                <input type="checkbox" name="prjWorkHour[]" value="1" id="morn">
-                            </label>
-                            <label for="aft" class="option-box">
-                                14:00 - 18:00
-                                <input type="checkbox" name="prjWorkHour[]" value="2" id="aft">
-                            </label>
-                        </div>
                     </div>
                 </div>
 
