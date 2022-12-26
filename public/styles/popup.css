@@ -135,13 +135,15 @@
 
 
 /* Popup Center */
+.popup.popup-center.show {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
 .popup.popup-center .pcontainer {
     width: 100%;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 12px 0;
 }
 
 /* Popup Contained */
@@ -210,3 +212,11 @@
         max-width: 1140px;
     }
 }
+
+
+/* Height */
+/* @media (min-height: 400px) {
+    .pcontainer.popup-xl {
+        max-width: 1140px;
+    }
+} */

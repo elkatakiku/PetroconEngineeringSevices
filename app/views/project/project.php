@@ -243,14 +243,14 @@
                                     <!-- Plan Start -->
                                     <td class="dateCell">
                                         <div class="form-input-group">
-                                            <input type="date" name="planStart">
+                                            <input type="date" name="planStart" value="<?= date('Y-m-d') ?>">
                                         </div>
                                     </td>
 
                                     <!-- Plan End -->
                                     <td class="dateCell">
                                         <div class="form-input-group">
-                                            <input type="date" name="planEnd">
+                                            <input type="date" name="planEnd" value="<?= date('Y-m-d') ?>">
                                         </div>
                                     </td>
 
@@ -291,9 +291,9 @@
                         <div class="form-input-group">
                             <label for="">Plan</label>
                             <div class="tb-date">
-                                <input type="date" name="" id="">
+                                <input type="date" name="" id="" value="<?= date('Y-m-d') ?>">
                                 <hr>
-                                <input type="date" name="" id="">
+                                <input type="date" name="" id="" value="<?= date('Y-m-d') ?>">
                             </div>
                         </div>
 
@@ -901,5 +901,5 @@
 </main>
 
 <script>
-    let Settings.projectId = '<?= $data['id'] ?>'
+    let projectId = '<?= $data['id'] ?>'
 </script>

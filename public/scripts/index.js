@@ -71,6 +71,20 @@ $('.sub-menu').on('show.bs.collapse' , () => {
 // Responsive to width
 $(window).on("resize", (e) => {
 
+    console.log($('.popup-center')[0]);
+
+    // if ($('.popup-center')[0].scrollHeight > $(window).height()) {
+    //     $('.popup-center').find('.pcontainer').css({
+    //         top : 0,
+    //         transform : "translate(-50%, 0%)"
+    //     });
+    // } else {
+    //     $('.popup-center').find('.pcontainer').css({
+    //         top : '50%',
+    //         transform : "translate(-50%, -50%)"
+    //     });
+    // }
+
     // Removes sidebar collapsibles width property
     if($(window).width() < 768) {
         $("#sidebar .collapsible").css('width', "");
@@ -109,7 +123,7 @@ function animatePopup(popup) {
             top: '-' + popup.find('.pcontainer').height() + 'px'
         })
         .animate({
-            top: "50%"
+            top: "0"
         }, 300, "swing");
 }
 
@@ -123,6 +137,7 @@ function showPopup(btn, popup = $(btn.data("target"))) {
     if (popup.hasClass("popup-center")) {
         console.log("Popup Center");
         animatePopup(popup);
+        $("body").addClass("popup-open");
     } else if(!popup.hasClass("popup-contained")) {   
         $("body").addClass("popup-open");
     } else {

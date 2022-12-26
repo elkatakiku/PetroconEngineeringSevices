@@ -48,7 +48,7 @@
                         <button type="button" class="btn btn-link" data-toggle="popup" data-target="#popupforgotPass">Forgot Password?</button>
                     </div>
 
-                    <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-block" data-toggle="popup" data-target="#popupLargeId">Create an account</button>
+                    <button type="button" id="createAccountBtn" class="btn outline-primary-btn btn-block" data-toggle="popup" data-target="#popupsignUp">Create an account</button>
                 </form>
             </div>
         </div>
@@ -56,7 +56,7 @@
 </div>
 
 <!-- SIGNUP -->
-<div class="popup fade" id="popupsignUp" tabindex="-1" aria-hidden="true">
+<div class="popup popup-center fade" id="popupsignUp" tabindex="-1" aria-hidden="true">
     <div class="pcontainer">
         <div class="pcontent">
             <div class="pheader">

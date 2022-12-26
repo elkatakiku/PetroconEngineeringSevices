@@ -37,12 +37,13 @@ switch ($this->getType()) {
     <!-- External JS -->
     <script src="<?=SCRIPTS_PATH?>index.js"></script>
     <script src="<?=SCRIPTS_PATH?>table.js"></script>
-    <script src="<?=SCRIPTS_PATH?>styles.js"></script>
     
     <script>
       var Settings = {
         base_url: '<?= SITE_URL ?>'
       }
+
+      <?php if (!$this->getType() == Controller::AUTH) { ?>
 
       let sideNavLink = $("#sidebar .components > li");
 
@@ -53,8 +54,12 @@ switch ($this->getType()) {
           $(navLink).addClass("active");
         }
       }
+
+      <?php } ?>
     
     </script>
+
+    <script src="<?=SCRIPTS_PATH?>styles.js"></script>
     <script src="<?=SCRIPTS_PATH.$view?>.js"></script>
   </body>
 </html>
