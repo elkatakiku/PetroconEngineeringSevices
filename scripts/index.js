@@ -88,7 +88,7 @@ $("#sidebarCollapseToggler").click(() => {expandSidebar();});
 
 
 
-// || Popup 
+// || Popup
 const POPUP = "popup";
 
 // Dismisses popup when click elsewhere
@@ -257,18 +257,6 @@ function switchTab (btn) {
 
 // Slide
 const SLIDE = "slide";
-
-if ($("#topbar").length > 0) {
-    $(".slide.slide-fixed").css({
-        "top": $("#topbar")[0].scrollHeight + "px"
-    });
-    
-    $(".slide.slide-fixed .slide-content").css({
-        "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
-    });
-} else {
-    console.log("Info: No topbar found.");
-}
 
 function initSlide() {
     console.log("Initializing slide");

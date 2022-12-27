@@ -76,15 +76,29 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	color: #fff;
+	text-align: center;
+}
+.welcome-center h2{
+	font-size: 50px;
 }
 
 .abt-info{
 	color: #47289d;
 	padding-bottom: 30px;
 	
+	
 }
 .abt-info h2{
-	font-size: 40px;
+	font-size: 50px;
+}
+.abt-info p{
+	font-size: 25px;
+}
+.info-serv p {
+	font-size: 20px;
+}
+.info-serv li{
+	font-size: 20px;
 }
 .our-team{
 	padding-top: 50px;

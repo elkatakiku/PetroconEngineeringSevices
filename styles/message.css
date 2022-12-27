@@ -159,14 +159,14 @@ body{
     color: #111;
 
 }
-.chatlist .block .details .listhead .time{
+.chatlist .block .details .listhead .myDiv{
     font-size: 0.75em;
     color: #aaa;
 }
-.chatlist .block .details .listhead .time{
+.chatlist .block .details .listhead .myDiv{
     color: #111;
 }
-.chatlist .block.unread .details .listhead .time{
+.chatlist .block.unread .details .listhead .myDiv{
     color: #22fb4f;
 }
 .message_p{
@@ -206,7 +206,7 @@ body{
     margin-left: 15px;
     color: #E2D1FF;
     font-size: 1em;
-
+    
 }
 .imgtxt h4 span{
     font-size: 0.8em;
@@ -322,6 +322,12 @@ body{
     outline: none;
     border-radius: 30px;
     font-size: 1em;
+}
+.name-position{
+    margin-left: -350px; 
+    font-style: italic; 
+    font-size: 5px; 
+    color: var(--sidebar-bg);
 }
 /* */
 
