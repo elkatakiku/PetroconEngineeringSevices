@@ -1,0 +1,102 @@
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+/* || Login Page */
+.cover-background {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: white;
+    /* background-image:  url('../images/header-image.jpg'); */
+    background-repeat: no-repeat;
+    /* background: white url('../images/header-image.jpg') no-repeat; */
+    background-size: cover;
+}
+
+.cover-page {
+    flex: 1;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem 4rem;
+    background-color: var(--backdrop);
+    color: white;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    overflow: hidden;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.login-header-content {
+    padding: 2rem 0;
+}
+
+.form-login {
+    padding: 3rem 2rem;
+    color: var(--primary-text);
+    background-color: white;
+    box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.3);
+    transition: .2s all linear;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-header h2 {
+    color: var(--palette1);
+}
+
+.form-login .primary-btn {
+    margin-top: 2.5rem;
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 0 1rem;
+    font-size: .75rem;
+}
+
+#forgotPass {
+    padding: 0;
+    color: var(--primary-text);
+}
+
+
+/* || Media Queries */
+@media (min-width: 576px) {
+    .cover-page > div, .container, .container-sm {
+        max-width: 540px;
+    } 
+}
+
+@media (min-width: 768px) {
+    .cover-page > div, .container, .container-md, .container-sm {
+        max-width: 720px;
+    } 
+}
+
+@media (min-width: 992px) {
+    .cover-page > div, .container, .container-lg, .container-md, .container-sm {
+        max-width: 960px;
+    } 
+}
+
+@media (min-width: 1200px) {
+    .cover-page > div, .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1140px;
+    }
+}

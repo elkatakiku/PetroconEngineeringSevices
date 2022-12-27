@@ -1,0 +1,1451 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Petrocon | Project Gantt Chart</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
+    <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
+    <link rel="stylesheet" href="../../styles/project.css">
+  </head>
+
+  <body class="body-wrapper">
+    
+    <nav id="topbar" class="navbar navbar-expand-md navbar-light">
+        <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
+            <span class="material-icons">menu</span>
+        </button>
+        <strong class="user-type flex-grow-1">Petrocon</strong>
+        <span class="material-icons">circle_notifications</span>
+        <p class="user-name">Eli Lamzon</p>
+        <span id="user-display" class="material-icons">account_circle</span>
+    </nav>
+
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar">
+          <nav>
+            <ul class="list-unstyled components">
+              <li class="">
+                <a class="d-flex align-content-start" href="../dashboard.html">
+                  <span class="material-icons">dashboard</span>
+                  <div class="collapsible">
+                    <span>Dashboard</span>
+                  </div> 
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="item-dropdown">
+                <div class="dropdown-tile">
+                  <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId"> 
+                    <span class="material-icons">handyman</span>
+                    <div class="collapsible">
+                      <span>
+                        Projects
+                        <span class="material-icons">arrow_drop_down</span>
+                      </span>
+                    </div>
+                  </a>
+                </div>
+                <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
+                  <li class="active">
+                    <a class="" href="/app/admin/projects.html">All</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="#">Done</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="#">Ongoing</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="#">Pending</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="">
+                <a class="d-flex align-content-start" href="message.html">
+                  <span class="material-icons">chat_bubble</span>
+                  <div class="collapsible">
+                    <span>Messages</span>
+                  </div>
+                </a>
+              </li>
+              <li class="item-dropdown">
+                <div class="dropdown-tile">
+                  <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
+                    <span class="material-icons">workspaces</span>
+                    <div class="collapsible">
+                      <span>
+                        Users
+                        <span class="material-icons">arrow_drop_down</span>
+                      </span>
+                    </div>
+                  </a>
+                </div>
+                <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
+                  <li class="">
+                    <a class="" href="employees-admin.html">Employees</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="workers-admin.html">Workers</a>
+                  </li>
+                  <li class="">
+                    <a class="" href="clients-admin.html">Clients</a>
+                  </li>
+                </ul>
+              </li>
+    
+              <hr>
+    
+              <li class="">
+                <a class="d-flex align-content-start" href="profile.html">
+                  <span class="material-icons">person</span>
+                  <div class="collapsible">
+                    <span>Profile</span>
+                  </div>
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="">
+                <a class="d-flex align-content-start" href="/app/login/login.html">
+                  <span class="material-icons">logout</span>
+                  <div class="collapsible">
+                    <span>Logout</span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <main class="content">
+            <!-- Header -->
+            <div class="page-header">
+                <div class="project-info">
+                    <div>
+                        <h1 class="page-title">Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</h1>
+                        <small>Robinson Palace, Antipolo City</small>
+                    </div>
+                </div>
+                <button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
+                    <span class="material-icons-outlined">info</span>
+                </button>
+            </div>
+
+            <!-- Project Info -->
+            <div class="slide slide-fixed" id="projectInfo" data-side="right">
+                <div class="slide-content">
+                    <div class="slide-header">
+                        <button class="btn icon-btn" data-dismiss="slide">
+                            <span class="material-icons">navigate_next</span>
+                        </button>
+                        <h2 class="slide-title">Details</h2>
+                        <button type="button" class="link-btn show" form="projectDetailForm" data-toggle="form" data-action="edit">
+                            Edit
+                        </button>
+                    </div>
+    
+                    <div class="slide-body">
+                        <form action="/index.html" method="post" id="projectDetailForm">
+        
+                            <h3 class="detail-header">Project</h3>
+
+                            <div class="linear">
+                
+                                <div class="form-input-group">
+                                    <label for="">Purchase Order #</label>
+                                    <input type="number" value="20221526" readonly>
+                                </div>
+                
+                                <div class="form-input-group">
+                                    <label for="">Date of Award</label>
+                                    <input type="date" value="11/26/2022" readonly>
+                                </div>
+
+                            </div>
+
+                            <div class="form-input-group">
+                                <label for="">Work Description</label>
+                                <textarea name="" id="" rows="1" readonly>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
+                            </div>
+
+                            <div class="form-input-group">
+                                <label for="">Building no.</label>
+                                <input type="text" value="Building 1, 2, 3" readonly>
+                            </div>
+            
+                            <div class="form-input-group">
+                                <label for="">Location</label>
+                                <input type="text" value="Rosario, Batangas" readonly>
+                            </div>         
+                            
+            
+                            <h3 class="detail-header">Client</h3>
+
+                            <div class="form-input-group">
+                                <label for="">Representative</label>
+                                <input type="text" value="Yvana Eunice Magno" readonly>
+                            </div>
+
+                            <div class="form-input-group">
+                                <label for="">Company</label>
+                                <input type="text" value="Pheonix Inc." readonly>
+                            </div>
+
+                            <div class="form-input-group">
+                                <label for="">Contact</label>
+                                <input type="tel" value="09123456789" readonly>
+                            </div>
+
+
+            
+                        </form>
+                    </div>
+        
+                    <div class="slide-footer">
+                        <button class="btn sm-btn success-btn">Mark as done</button>
+                        <button class="btn sm-btn danger-btn">Remove project</button>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav-tab-container border-bottom">
+                <ul class="nav-tab">
+                    <li class="nav-tab-item active">
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#projectGanttChart">Gantt Chart</button>
+                    </li>
+                    <li class="nav-tab-item">
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#projectResources">Resources</button>
+                    </li>
+                    <li class="nav-tab-item">
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#projectPeople">People</button>
+                    </li>
+                    <li class="nav-tab-item">
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#projectPayment">Payment</button>
+                    </li>
+                </ul>
+
+                <div>                   
+                    <!--
+                    <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectInvoice">Invoice</button>
+                    <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectTurnOver">Turn Over</button>
+                        -->
+                    
+                    <a class="btn action-btn" data-toggle="custom-tab" href="invoice-admin.html">Invoice</a>
+                    <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
+            
+                </div>
+
+            </nav>
+
+            <div class="slide-container">
+                <div class="custom-tab-container">
+
+                    <!-- Timeline Slide -->
+                    <div class="slide" id="timelineSlide" data-side="left">
+                        <div class="slide-content">
+                            <div class="mesa-container">
+                                <form action="" method="POST" id="tasksTableForm">
+                                <table class="mesa" id="tasksTable">
+                                    <thead class="mesa-header">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col" class="taskCell">Task</th>
+                                            <th scope="col">Plan Start</th>
+                                            <th scope="col">Plan Due</th>
+                                            <th scope="col" class="action-cell">
+                                                <button class="btn" type="button" data-dismiss="slide">
+                                                    <span class="material-icons">navigate_before</span>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                            
+                                    <tbody>
+                                        <tr id="task1">
+                                            <th scope="row">1</th>
+                                            <td class="taskCell">
+                                                <div class="form-input-group">
+                                                    <textarea name="" rows="1" readonly>Procurement</textarea>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" value="2014-02-09" readonly>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" value="2014-02-15" readonly>
+                                                </div>
+                                            </td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <div class="dots-menu">
+                                                        <button type="button" class="dots-menu-btn">
+                                                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                        </button>
+                                                        <!-- <ul class="dots-menu-popup">
+                                                            <li onclick="saveTask(this, event)" data-form="#tasksTableForm">Save</li>
+                                                            <li onclick="closeEdit(this, event)">Cancel</li>
+                                                            <hr>
+                                                            <li onclick="editTask(this, event)">Edit</li>
+                                                            <li onclick="removeTask(this, event)">Remove</li>
+                                                            <hr>
+                                                            <li onclick="addTask('taskID', this, event)" data-position="subtask">Add sub task</li>
+                                                            <li onclick="addTask('taskID', this, event)" data-position="top">Add task before</li>
+                                                            <li onclick="addTask('taskID', this, event)" data-position="bottom">Add task after</li>
+                                                        </ul> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td class="taskCell">Tool Box Meeting</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <div class="dots-menu">
+                                                        <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td class="taskCell">Actual visit at site for measurementActual visit at site for measurementActual visit at site for measurementActual visit at site for measurement</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td>dd/mm/YYYY</td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <div class="dots-menu">
+                                                        <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">#</th>
+                                            <td class="taskCell">
+                                                <div class="form-input-group">
+                                                    <textarea name="" id=""  rows="1"></textarea>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" id="">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" id="">
+                                                </div>
+                                            </td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <div class="dots-menu">
+                                                        <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </form>
+
+                                <div class="table-action-row">
+                                    <button type="button" class="btn action-btn slim-btn" data-toggle="row" data-target="#tasksTable">
+                                        <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                                        Add a task
+                                    </button>
+                                    
+                                    <button id="addSubTask" data-position="subtask" data-target="#tasksTable" type="button" class="btn outline-action-btn slim-btn">
+                                        <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                                        Add a sub task
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="taskBar" class="hide">
+                                <h5 class="tb-title">Task Title</h5>
+
+                                <div class="form-input-group">
+                                    <label for="">Plan</label>
+                                    <div class="tb-date">
+                                        <input type="date" name="" id="">
+                                        <hr>
+                                        <input type="date" name="" id="">
+                                    </div>
+                                </div>
+
+                                <div class="form-input-group">
+                                    <label for="">Actual</label>
+                                    <div class="tb-date">
+                                        <input type="date" name="" id="">
+                                        <hr>
+                                        <input type="date" name="" id="">
+                                    </div>
+                                </div>
+
+                                <button id="addLegend" class="btn light-btn slim-btn">
+                                    <span class="material-icons btn-icon">label</span>
+                                    Add legend
+                                </button>
+
+                                <div id="legends" class="legends-container hide">
+                                    <div class="task-legend">
+                                        <span class="leg-color" data-color="#026aa7"></span>
+                                        <span class="leg-title">Plan</span>
+                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
+                                            <span class="material-icons">edit</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="task-legend">
+                                        <span class="leg-color" data-color="#5aac44"></span>
+                                        <span class="leg-title">Actual</span>
+                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
+                                            <span class="material-icons">edit</span>
+                                        </button>
+                                    </div>
+
+                                    <div class="task-legend">
+                                        <span class="leg-color" data-color="#f5dd29"></span>
+                                        <span class="leg-title">Sample</span>
+                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
+                                            <span class="material-icons">edit</span>
+                                        </button>
+                                    </div>
+
+                                    <button class="btn light-btn slim-btn" data-toggle="legend">
+                                        Create legend
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gantt Chart -->
+                    <div id="projectGanttChart" class="main-content custom-tab-content show chart-container">
+                        <div class="gantt-chart">                        
+                            <div class="chart">
+                                <div class="chart-row chart-header">
+                                    <div class="chart-row-item" id="timelineToggler">
+                                        <button type="button" class="btn icon-btn" data-toggle="slide" data-target="#timelineSlide">
+                                            <span class="material-icons">edit_note</span>
+                                        </button>
+                                        Tasks
+                                    </div>
+                                    <div>
+                                        <div class="chart-months">
+                                            <span class="startMonth">December</span>
+                                            <!-- <span class="month30">January</span> -->
+                                        </div>
+                                        <div class="chart-days">
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="chart-body">
+                                    <div class="chart-lines"> 
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>1</strong>
+                                            Procurement
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-one"></li>
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>2</strong>
+                                            Tool Box Meeting
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-two-a"></li>
+                                            <li class="actual chart-li-two-b"></li>          
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>3</strong>
+                                            Actual visit at site for measurement
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-three"></li>
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>4</strong>
+                                            Mobilization
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-four"></li>
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>5</strong>
+                                            Repainting of pipe
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-five"></li>
+                                        </ul>
+                                    </div>
+    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>6</strong>
+                                            Relocation of 2" Distribution line from Handyman's area (removal and Reinstall with 55 meter located at Upper ground)
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-six"></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>7</strong>
+                                            Modification of 2" B.I. pipe (step-up for x 600mm 10meter long) due to modification of wall from concrete to glass wall at Second floor.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-seven-t1"></li>
+                                        </ul>
+
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Modification of 2" Distribution pipe line second floor due to aircon   ducting conflict with 15 meter long.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-seven-t2"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>8</strong>
+                                            Additional stub-out for 6 tenants and additional pipe line for 12- tenats  from existing stub-outs to meter location inside the tenant area.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-8-t1"></li>
+                                        </ul>
+
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Leak Test and commissioning  at 2F, UGF, LGF
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-8-t2"></li>
+                                        </ul>
+
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Additional 2-1/2"  LPG mainline and stubouts for Vikings, Tongyang and 3 tenants
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="yellow-bar chart-li-8-t3"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <span class="expanding-btn">
+                            <button class="btn action-btn icon-btn" data-toggle="popup" data-target="#viewLegends">
+                                <span class="material-icons">legend_toggle</span>
+                            </button>
+                        </span>
+
+                        <!-- View Legends Popup -->
+                        <div id="viewLegends" class="popup popup-contained" tabindex="-1" aria-hidden="true">
+                            <div class="pcontainer popup-sm" data-right="15" data-bottom="35">
+                                <div class="pcontent">
+                                    <div class="pheader">
+                                        <h2 class="ptitle">Legends</h2>
+                                        <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                                            <span class="material-icons">close</span>
+                                        </button>
+                                    </div>
+                        
+                                    <div class="pbody">
+                                        <div class="legends-container">
+                                            <div class="task-legend">
+                                                <span class="leg-color" data-color="#026aa7"></span>
+                                                <span class="leg-title">Plan</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+        
+                                            <div class="task-legend">
+                                                <span class="leg-color" data-color="#5aac44"></span>
+                                                <span class="leg-title">Actual</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+        
+                                            <div class="task-legend">
+                                                <span class="leg-color" data-color="#f5dd29"></span>
+                                                <span class="leg-title">Sample</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <button class="btn light-btn slim-btn" data-toggle="legend">
+                                                <span class="material-icons btn-icon">label</span>
+                                                Create legend
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resources -->
+                    <div id="projectResources" class="main-content custom-tab-content">
+
+                        <!-- Resources Table -->
+                        <div class="mesa-container">                
+                            <table class="mesa">
+                                <thead class="mesa-head">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col" class="tname"><strong>Item Name</strong></th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Price per item (PHP)</th>
+                                        <th scope="col">Total Amount</th>
+                                        <th scope="col">Notes</th>
+                                        <th scope="col" class="table-action-col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td><strong>Patatas</strong></td>
+                                        <td>8</td>
+                                        <td>300</td>
+                                        <td>2,400</td>
+                                        <td>Mahal lods</td>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td><strong>Patatas</strong></td>
+                                        <td>8</td>
+                                        <td>300</td>
+                                        <td>2,400</td>
+                                        <td>Mahal lods</td>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td><strong>Patatas</strong></td>
+                                        <td>8</td>
+                                        <td>300</td>
+                                        <td>2,400</td>
+                                        <td>Mahal lods</td>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td><strong>Patatas</strong></td>
+                                        <td>8</td>
+                                        <td>300</td>
+                                        <td>2,400</td>
+                                        <td>Mahal lods</td>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td><strong>Patatas</strong></td>
+                                        <td>8</td>
+                                        <td>300</td>
+                                        <td>2,400</td>
+                                        <td>Mahal lods</td>
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <button type="button" class="btn action-btn slim-btn align-self-start">
+                            <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                            Add resource
+                        </button>
+                    </div>
+                    
+                    <!-- People -->
+                    <div id="projectPeople" class="main-content custom-tab-content">
+
+                        <nav class="linear w-100">
+                            <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">
+                                Pending invitations
+                            </button>
+                            <a class="" href="../admin/generateslip.html">
+                            <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
+                                Generate Slip
+                            </button></a>
+                            <div class="dropdown ml-auto">
+                                
+                                <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    Add people
+                                </button>
+
+                                <div class="dropdown-menu dropdown-menu-lg-right">
+                                    <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
+                                    Invite
+                                    </button>
+                                    <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
+                                        Choose from team
+                                    </button>   
+                                </div>
+                            </div>
+                        </nav>
+                        <!-- <div class="linear"> -->
+                            <!-- <form action="" class=""> -->
+                            <!-- <div class="input-container">
+                                <input type="text" placeholder="Enter an email address or number of a person you want to invite.">
+                                <div class="input-append">
+                                    <button type="button" class="btn action-btn slim-btn">Invite person</button>
+                                </div>
+                            </div>
+
+                            <span class="align-self-center">or</span>
+
+                            <button class="btn action-btn slim-btn  ">Choose from Team</button> -->
+                            <!-- </form> -->
+                        <!-- </div> -->
+
+                        <!-- People Table -->
+                        <div class="mesa-container">
+                            <table class="mesa">
+                                <thead class="mesa-head">
+                                    <tr>
+                                        <th scope="col" class="tname"><strong>Name</strong></th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Contact</th>
+                                        <th scope="col">Priviledge</th>
+                                        <th scope="col" class="table-action-col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Eli Lamzon</strong></td>
+                                        <td>elilamzon@email.com</td>
+                                        <td>09xxxxxxxxx</td>
+                                        <td>Admin</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td><strong>Effer Adaza</strong></td>
+                                        <td>EfferAdaza@email.com</td>
+                                        <td>09xxxxxxxxx</td>
+                                        <td>Admin</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Yva Magno</strong></td>
+                                        <td>YvaMagno@email.com</td>
+                                        <td>09xxxxxxxxx</td>
+                                        <td>Admin</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Gale Fernandez</strong></td>
+                                        <td>GaleFernandez@email.com</td>
+                                        <td>09xxxxxxxxx</td>
+                                        <td>Admin</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Payment -->
+                    <div id="projectPayment" class="main-content custom-tab-content">
+
+
+                        <!-- Payment Table -->
+                        <div class="mesa-container">
+                            <table class="mesa">
+                                <thead class="mesa-head">
+                                    <tr>
+                                        <th scope="col" class="tname"><strong>Description</strong></th>
+                                        <th scope="col">Payment</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col" class="table-action-col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Tank Requalification Fire Protection System</strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Centralized LPG Pipeline Installation</strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong></strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong></strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong></strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong></strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Legend Popup -->
+    <!-- <div class="popup show popup-center" id="legendPopup" data-legend="edit" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer popup-sm">
+            <div class="pcontent">
+                <div class="pheader">
+                    <h2 class="ptitle">Legend</h2>
+                    <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                        <span class="material-icons">close</span>
+                    </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="legend-preview">
+                        <span></span>
+                        <span id="color-preview"></span>
+                        <span></span>
+                    </div>
+
+                    <form action=".?action=create" method="POST" id="legendForm">
+                        <div class="form-group">
+                          <label for="">Title</label>
+                          <input type="text"
+                            class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+                        </div>
+
+                        <label for="">Select a color</label>
+                        <div class="color-selection">
+                            <label for="row1.1" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.1" value="#7bc86c">
+                            </label>
+                            <label for="row1.2" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.2" value="#f5dd29">
+                            </label>
+                            <label for="row1.3" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.3" value="#ffaf3f">
+                            </label>
+                            <label for="row1.4" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.4" value="#ef7564">
+                            </label>
+                            <label for="row1.5" class="option-box">
+                              <input type="radio" name="legendColor" id="row1.5" value="#cd8de5">
+                            </label>
+
+                            <label for="row2.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.1" value="#5aac44">
+                            </label>
+                            <label for="row2.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.2" value="#e6c60d">
+                            </label>
+                            <label for="row2.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.3" value="#e79217">
+                            </label>
+                            <label for="row2.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.4" value="#cf513d">
+                            </label>
+                            <label for="row2.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row2.5" value="#a86cc1">
+                            </label>
+
+                            <label for="row3.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.1" value="#5ba4cf">
+                            </label>
+                            <label for="row3.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.2" value="#29cce5">
+                            </label>
+                            <label for="row3.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.3" value="#6deca9">
+                            </label>
+                            <label for="row3.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.4" value="#ff8ed4">
+                            </label>
+                            <label for="row3.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row3.5" value="#344563">
+                            </label>
+
+                            <label for="row4.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.1" value="#026aa7">
+                            </label>
+                            <label for="row4.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.2" value="#00aecc">
+                            </label>
+                            <label for="row4.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.3" value="#4ed583">
+                            </label>
+                            <label for="row4.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.4" value="#e568af">
+                            </label>
+                            <label for="row4.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.5" value="#091e42">
+                            </label>
+                        </div>
+                    </form>
+                </div>
+    
+                <div class="pfooter">
+                    <button type="submit" form="legendForm" class="btn action-btn">Save</button>
+                    <button type="button" class="btn danger-btn" data-action="delete" data-toggle="popup" data-type="delete">
+                        Delete
+                    </button>
+                    <button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+
+
+    <!--POPUP INVITE PEOPLE-->
+    <div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <h2 class="ptitle">Invite People</h2>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" class="form-control" name="" id="" placeholder="Type the name here">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email / Phone</label>
+                            <div class="input-container">
+                                <input type="text" placeholder="Enter an email address or phone number.">
+                                <div class="input-append">  
+                                    <button type="button" class="btn action-btn slim-btn">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>                     
+                    </div>
+                    <div class="form-group">
+                        
+                        <label for="">Selected Person</label>
+                        
+                            <div class="selected">
+                                <p>Add a person to the list</p>
+                            </div> 
+                    </div>
+                </div>
+    
+                <div class="pfooter">
+                    <button type="button" class="btn action-btn">Send Invitation</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--POPUP CHOOSE FROM TEAM-->
+    <div class="popup popup-center" id="ChooseFromTeam" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                    <i class="fa-solid fa-people-group"></i>
+                    <h2 class="ptitle">Choose from team</h2>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group">
+                        <label for="">Email / Phone</label>
+                        <div class="input-container">
+                            <input type="text" placeholder="Enter an email address or phone number.">
+                            <div class="input-append">  
+                                <button type="button" class="btn action-btn slim-btn">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>                     
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Selected Person</label>
+                        <div class="selected">
+                            <p>Add a person to the list</p>
+                        </div> 
+                    </div>
+                </div>
+    
+                <div class="pfooter">
+                    <button type="button" class="btn action-btn">Send Invitation</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--PENDING INVI-->
+    <div class="popup popup-center" id="Pending" tabindex="-1" aria-hidden="true">
+        <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                    <h2 class="ptitle">Pending Invitation</h2>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div class="pbody">
+                    <div class="form-group"> 
+                        <label for="">Invitations</label>
+                        <div class="selected" style="overflow: auto;max-height: 250px;">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>vana</td>
+                                        <td>09152934627</td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>vana</td>
+                                        <td>09152934627</td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>vana</td>
+                                        <td>09152934627</td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>vana</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>effer</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>elkatakiki</td>
+                                    <td>elimarimae@emailcom</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>kath</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pfooter">
+                    <button type="button" class="btn action-btn" data-dismiss="popup">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
+
+    <!-- External JS -->
+    <script src="../../scripts/index.js"></script>
+    <script src="../../scripts/table.js"></script>
+    <script src="../../scripts/project.js"></script>
+
+    <script>
+
+        function generateLegendForm(legendID = "legendPopup") {
+            let legend =    $('<div class="popup show popup-center" id="legendPopup" data-legend="' + legendID + '" tabindex="-1" aria-hidden="true">' +
+                                '<div class="pcontainer popup-sm">' +
+                                    '<div class="pcontent">' +
+                                        '<div class="pheader">' +
+                                            '<h2 class="ptitle">Legend</h2>' +
+                                            '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
+                                                '<span class="material-icons">close</span>' +
+                                            '</button>' +
+                                        '</div>' +
+                            
+                                        '<div class="pbody">' +
+                                            '<div class="legend-preview">' +
+                                                '<span></span>' +
+                                                '<span id="color-preview"></span>' +
+                                                '<span></span>' +
+                                            '</div>' +
+
+                                            '<form action=".?action=create" method="POST" id="legendForm">' +
+                                                '<div class="form-group">' +
+                                                '<label for="">Title</label>' +
+                                                '<input type="text"' +
+                                                    'class="form-control" name="" id="" aria-describedby="helpId" placeholder="">' +
+                                                '</div>' +
+
+                                                '<label for="">Select a color</label>' +
+                                                '<div class="color-selection">' +
+                                                    '<label for="row1.1" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.1"  value="#7bc86c">' +
+                                                    '</label>' +
+                                                    '<label for="row1.2" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.2"  value="#f5dd29">' +
+                                                    '</label>' +
+                                                    '<label for="row1.3" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.3"  value="#ffaf3f">' +
+                                                    '</label>' +
+                                                    '<label for="row1.4" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.4"  value="#ef7564">' +
+                                                    '</label>' +
+                                                    '<label for="row1.5" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.5"  value="#cd8de5">' +
+                                                    '</label>' +
+
+                                                    '<label for="row2.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.1"  value="#5aac44">' +
+                                                    '</label>' +
+                                                    '<label for="row2.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.2"  value="#e6c60d">' +
+                                                    '</label>' +
+                                                    '<label for="row2.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.3"  value="#e79217">' +
+                                                    '</label>' +
+                                                    '<label for="row2.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.4"  value="#cf513d">' +
+                                                    '</label>' +
+                                                    '<label for="row2.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.5"  value="#a86cc1">' +
+                                                    '</label>' +
+
+                                                    '<label for="row3.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.1"  value="#5ba4cf">' +
+                                                    '</label>' +
+                                                    '<label for="row3.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.2"  value="#29cce5">' +
+                                                    '</label>' +
+                                                    '<label for="row3.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.3"  value="#6deca9">' +
+                                                    '</label>' +
+                                                    '<label for="row3.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.4"  value="#ff8ed4">' +
+                                                    '</label>' +
+                                                    '<label for="row3.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.5"  value="#344563">' +
+                                                    '</label>' +
+
+                                                    '<label for="row4.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.1"  value="#026aa7">' +
+                                                    '</label>' +
+                                                    '<label for="row4.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.2"  value="#00aecc">' +
+                                                    '</label>' +
+                                                    '<label for="row4.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.3"  value="#4ed583">' +
+                                                    '</label>' +
+                                                    '<label for="row4.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.4"  value="#e568af">' +
+                                                    '</label>' +
+                                                    '<label for="row4.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.5"  value="#091e42">' +
+                                                    '</label>' +
+                                                '</div>' +
+                                            '</form>' +
+                                        '</div>' +
+                            
+                                        '<div class="pfooter">' +
+                                            '<button type="submit" form="legendForm" class="btn action-btn">Save</button>' +
+                                            '<button type="button" class="btn danger-btn" data-action="delete" data-toggle="popup" data-type="delete">' +
+                                                'Delete' +
+                                            '</button>' +
+                                            '<button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>');
+
+            legend.find('.option-box').each((index, element) => {
+                $(element).css('background-color', $(element).find('input').val());
+                $(element).find('input').change((e) => {
+                    console.log("Input change");
+                    if (e.target.checked) {
+                        $('#color-preview').css('background-color', $(e.target).val());
+                    }
+                });
+            });
+
+            initializePopup(legend);
+
+            return legend;
+        }
+
+        $("button[data-toggle='legend']").on('click', (e) => {
+            console.log("Legend button");
+            let btn = $(e.target);
+            let legendForm = generateLegendForm();
+
+            console.log(btn);
+            console.log(legendForm);
+
+            if (btn.data("target") != null) {
+                console.log("Target is not null");
+                console.log(btn.data("target"));
+                legendForm = $(generateLegendForm(btn.data("target")));
+                legendForm.attr('data-legend', 'edit' );
+
+            } else {
+                legendForm.find(".ptitle").text("Create legend");
+                legendForm.find(".pfooter .btn.danger-btn").remove();
+            }
+
+            console.log(legendForm);
+            $('body').append(legendForm);
+            showPopup(btn, legendForm);
+        });
+    
+        $('.task-legend').each((index, element) => {
+            console.log("Task Legend");
+            let color = $(element).find('.leg-color');
+            console.log(color.css('background-color', color.data('color')));
+            $(element).find('.leg-title').css('background-color', color.data('color'));
+
+        });
+    </script>
+  </body>
+</html>

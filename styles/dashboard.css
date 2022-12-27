@@ -1,0 +1,353 @@
+/* Main */
+#dashboard.content {
+    flex-direction: row;
+}
+  
+#dashboard.content .db-content {
+    flex: 2;
+    padding: 0 20px;
+}
+  
+#dashboard.content .db-content .page-header {
+    margin: 24px 0 !important;
+}
+
+/* Overview */
+.ov-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+  
+.ov-card-container .custom-card {
+    width: calc((100% - (5px * 3)) / 4);
+}
+  
+.overview-card {
+    margin: 1rem 1rem .75rem 1rem;
+    position: relative;
+}
+  
+.overview-card .ov-icon {
+    font-size: 1.25rem;
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+  
+.overview-card .ov-title {
+    font-size: 1rem;
+    color: var(--palette2);
+    font-weight: 700;
+    line-height: 16px;
+    margin: 0;
+}
+  
+.overview-card .ov-desc {
+    font-size: .75rem;
+    margin: 0;
+}
+
+/* Project Chart */
+.db-project-count {
+    font-size: 1rem;
+    color: var(--palette2);
+    font-weight: 700;
+    line-height: 16px;
+    margin: 0;
+}
+
+/* Chart */
+.chart-container {
+    position: relative;
+    width: 100%;
+    padding: 5px 10px;
+}
+
+.chart {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(100, 1fr);
+    grid-column-gap: 5px;
+    height: 250px;
+    
+}
+
+.bar {
+    border-radius: 5px 5px 0 0;
+    background-color: #3d3dbb;
+    grid-row-start: 1;
+    grid-row-end: 101; 
+}
+
+.grid {
+    grid-gap: 5px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+}
+
+.special-col {
+    grid-row: 2 / 4;
+    background-color: #222;
+}
+
+.bar[data-value="1"] {
+    grid-row-start: 50;
+} 
+.bar[data-value="4"] {
+    grid-row-start: 50;
+}
+.bar[data-value="5"] {
+    grid-row-start: 30;
+}
+.bar[data-value="7"] {
+    grid-row-start: 50;
+}
+.bar[data-value="11"] {
+    grid-row-start: 70;
+}
+
+/* Side */
+#dashboard.content .db-side {
+    display: grid;
+    align-content: start;
+    min-width: 250px;
+    max-width: 500px;
+    flex-basis: 25%;
+    flex-shrink: 0;
+    padding: 24px 20px;
+    background-color: white;
+    border-left: 1px solid var(--border-rgba-color);
+    box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
+}
+
+.db-side-header {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.db-sec-header {
+    font-size: .75rem;
+    font-weight: 500;
+}
+
+.side-content {
+    color: var(--primary-text);
+}
+  
+.side-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+  
+.side-content-header h5, .side-content-header .link-btn {
+    margin: 0;
+    padding: 0;
+    font-size: .75rem;
+}
+
+/* || Calendar */
+.month {
+    width: 100%;
+    background: white;
+    text-align: center;
+    border-style: solid none;
+    border-width: 1px;
+    border-color: var(--border-rgba-color);
+}
+
+.month ul {
+    margin: 0;
+    padding: 0;
+}
+  
+.month ul li {
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.month-name {
+    color: var(--palette2);
+    font-size: .75rem;
+    font-weight: 700;
+    margin: 0;
+}
+  
+.weekdays {
+    display: flex;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+  
+.weekdays li, .days li  {
+    flex-basis: 14.28571428571429%;
+    font-size: 12px;
+    text-align: center;
+}
+  
+.days {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.days li:hover {
+    background-color: rgb(221, 221, 221);
+    cursor: pointer;
+}
+  
+.days li.active {
+    padding: 5px;
+    background: var(--action);
+    color: white !important
+}
+  
+.month ul li, .weekdays, .days li {
+    padding: 5px 0;
+}
+  
+  #events ul {
+    list-style-type: none;
+}
+
+/* || Messages Chat Box */
+#messages {
+    background-color: var(--border-rgba-color);
+    gap: 1px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-width: 1px;
+    border-color: var(--border-rgba-color);
+    border-style: solid none;
+
+    scrollbar-color: rebeccapurple green;
+    scrollbar-width: thin;
+}
+
+/* Messages scroll width */
+#messages::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Messages scroll Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+  
+/* Messages scroll Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--palette4);
+}
+  
+/* Messages scroll Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--action);
+}
+
+.chat-box {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    padding: 10px 0;
+    cursor: pointer;
+    gap: 10px;
+}
+  
+.chat-box:hover .name {
+    color: var(--palette3);
+}
+  
+.chat-box .chat-content {
+    overflow: hidden;
+}
+  
+.chat-box .diplay-image {
+    background-color: rebeccapurple;
+    width: 0;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    object-fit: cover;
+}
+  
+.chat-box .name {
+    color: var(--palette2);
+    font-size: .75rem;
+    font-weight: 700;
+    margin: 0;
+}
+  
+.chat-box .message {
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: .75rem;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
+/* || Media Queries */
+/* XS */
+/* Extra small devices (phones, 576px and down) */
+@media only screen and (max-width: 576px) {
+    .ov-card-container .custom-card  {
+      width: 100%;
+    }
+}
+
+/* SM */
+/* Small devices (portrait tablets and large phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+    .ov-card-container .custom-card  {
+      width: calc((100% - (5px * 1)) / 2);
+    }
+}
+  
+/* Small devices (portrait tablets and large phones, 768px and below ) */
+@media only screen and (max-width: 768px) {
+    #dashboard.content {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    #dashboard.content .db-side {
+      min-width: 90%;
+      margin: 20px auto;
+    }
+}
+
+/* MD */
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .ov-card-container .custom-card  {
+      width: calc((100% - (5px * 1)) / 2);
+    }
+}
+
+/* LG */
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .ov-card-container .custom-card  {
+      width: calc((100% - (5px * 3)) / 4);
+    }
+} 
+
+
+/* XL */
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) { 
+    .ov-card-container .custom-card  {
+      width: calc((100% - (5px * 4)) / 5);
+      max-width: 250px;
+    }
+}
+  

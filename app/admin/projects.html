@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Petrocon | Project Lists</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
+    <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
+    <link rel="stylesheet" href="../../styles/projects.css">
+  </head>
+  <body class="body-wrapper">
+
+    <nav id="topbar" class="navbar navbar-expand-md navbar-light">
+      <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
+          <span class="material-icons">menu</span>
+      </button>
+      <strong class="user-type flex-grow-1">Petrocon</strong>
+      <span class="material-icons">circle_notifications</span>
+      <p class="user-name">Eli Lamzon</p>
+      <span id="user-display" class="material-icons">account_circle</span>
+    </nav>
+
+    <div class="wrapper">
+      <div id="sidebar">
+        <nav>
+          <ul class="list-unstyled components">
+            <li class="">
+              <a class="d-flex align-content-start" href="../dashboard.html">
+                <span class="material-icons">dashboard</span>
+                <div class="collapsible">
+                  <span>Dashboard</span>
+                </div> 
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="item-dropdown active">
+              <div class="dropdown-tile">
+                <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId"> 
+                  <span class="material-icons">handyman</span>
+                  <div class="collapsible">
+                    <span>
+                      Projects
+                      <span class="material-icons">arrow_drop_down</span>
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
+                <li class="active">
+                  <a class="" href="/app/admin/projects.html">All</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Done</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Ongoing</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Pending</a>
+                </li>
+              </ul>
+            </li>
+            <li class="">
+              <a class="d-flex align-content-start" href="message.html">
+                <span class="material-icons">chat_bubble</span>
+                <div class="collapsible">
+                  <span>Messages</span>
+                </div>
+              </a>
+            </li>
+            <li class="item-dropdown">
+              <div class="dropdown-tile">
+                <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
+                  <span class="material-icons">workspaces</span>
+                  <div class="collapsible">
+                    <span>
+                      Users
+                      <span class="material-icons">arrow_drop_down</span>
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
+                <li class="">
+                  <a class="" href="employees-admin.html">Employees</a>
+                </li>
+                <li class="">
+                  <a class="" href="workers-admin.html">Workers</a>
+                </li>
+                <li class="">
+                  <a class="" href="clients-admin.html">Clients</a>
+                </li>
+              </ul>
+            </li>
+  
+            <hr>
+  
+            <li class="">
+              <a class="d-flex align-content-start" href="profile.html">
+                <span class="material-icons">person</span>
+                <div class="collapsible">
+                  <span>Profile</span>
+                </div>
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="">
+              <a class="d-flex align-content-start" href="/app/login/login.html">
+                <span class="material-icons">logout</span>
+                <div class="collapsible">
+                  <span>Logout</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="content"> 
+        
+          <!-- Header -->
+          <div class="page-header">
+            <h1 class="page-title">Projects</h1>
+            
+            <!-- New Projects -->
+            <a href="new-project.html">
+              <button type="button" class="btn sm-btn action-btn">
+                Create Project
+              </button>
+            </a>
+          </div>
+
+          <!-- Navigation Tab -->
+          <nav class="nav-tab-container">
+            <ul class="nav-tab">
+                <li class="nav-tab-item active">
+                  <button class="link-btn">All</button>
+                </li>
+                <li class="nav-tab-item">
+                  <button class="link-btn">Ongoing</button>
+                </li>
+                <li class="nav-tab-item">
+                  <button class="link-btn">Done</button>
+                </li>
+            </ul>
+
+            <!-- Search -->
+            <div>
+              <form action="" class="search-form">
+                <div class="input-container">
+                  <div class="input-prepend">
+                    <i class="fa fa-search icon" aria-hidden="true"></i>
+                  </div>
+                  <input type="text" name="" id="" placeholder="Search Project">
+                </div>
+              </form>
+            </div>
+          </nav>
+
+          <!-- Project Table -->
+          <div class="main-content mesa-container">
+            <table class="mesa">
+              <thead class="mesa-head">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col" class="tname projectName">Project</th>
+                  <th scope="col">Company</th>
+                  <th scope="col">Status</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr onclick="viewData()">
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr class="">
+                  <th scope="row">2</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr class="">
+                  <th scope="row">2</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr class="">
+                  <th scope="row">2</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+                <tr class="">
+                  <th scope="row">2</th>
+                  <td>
+                    <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
+                    <small>Robinsons Palace, Antipolo City</small>
+                  </td>
+                  <td>Pheonix</td>
+                  <td>Done</td>
+                  <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+      </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup popup-center" id="projectPopup" tabindex="-1" aria-hidden="true">
+      <div class="pcontainer">
+        <div class="pcontent">
+          <div class="pheader">
+            <div class="linear-center">
+              <i class="fas fa-layer-group fa-lg"></i>
+              <h2 class="ptitle">Create a new project</h2>
+            </div>
+            <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="pbody">
+            <form action="">
+
+              <div class="form-group">
+                <label for="">Project name</label>
+                <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Type the project name here">
+              </div>
+
+              <div class="form-group">
+                <label for="">Location</label>
+                <input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Type the location here">
+              </div>
+
+              <div class="form-group">
+                <label for="">Project name</label>
+                <input type="date" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Type the project name here">
+              </div>
+
+              <div class="form-group">
+                <div class="linear-center">
+                  <label for="">Working days</label>
+                  <hr>
+                  <small># d</small>
+                </div>
+                <div class="input-options scroll-x">
+                  <label for="mon" class="option-box">
+                    Mon
+                    <input type="checkbox" name="" id="mon">
+                  </label>
+                  <label for="tue" class="option-box">
+                    Tue
+                    <input type="checkbox" name="" id="tue">
+                  </label>
+                  <label for="wed" class="option-box">
+                    Wed
+                    <input type="checkbox" name="" id="wed">
+                  </label>
+                  <label for="thu" class="option-box">
+                    Thu
+                    <input type="checkbox" name="" id="thu">
+                  </label>
+                  <label for="fri" class="option-box">
+                    Fri
+                    <input type="checkbox" name="" id="fri">
+                  </label>
+                  <label for="sat" class="option-box">
+                    Sat
+                    <input type="checkbox" name="" id="sat">
+                  </label>
+                  <label for="sun" class="option-box">
+                    Sun
+                    <input type="checkbox" name="" id="sun">
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="linear-center">
+                  <label for="">Working hours</label>
+                  <hr>
+                  <small># h</small>
+                </div>
+                <div class="input-options scroll-x">
+                  <label for="morn" class="option-box">
+                    09:00 - 12:00
+                    <input type="checkbox" name="" id="morn">
+                  </label>
+                  <label for="aft" class="option-box">
+                    14:00 - 18:00
+                    <input type="checkbox" name="" id="aft">
+                  </label>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="pfooter">
+            <button type="button" class="btn action-btn">Create new project</button>
+            <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
+
+    <!-- External JS -->
+    <script src="../../scripts/popup.js"></script>
+    <script src="../../scripts/table.js"></script>
+    <script src="../../scripts/index.js"></script>
+
+    <script>
+      // const thead = $("#content main .mesa .mesa-head");
+
+      // function setNavTab() {
+      //   if ($(window).width() > 768) {
+      //     thead.css("top", $("#content main .nav-tab-container").height());
+      //   } else {
+      //     thead.css("top", "0");
+      //   }
+      // }
+
+      // let popup = new Popup();
+      // popup.render();
+
+      // setNavTab();
+
+      // $(window).on("resize", () => {
+      //   setNavTab();
+      // });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+/* Header */
+.content .page-header {
+    margin: 0;
+    padding: 24px 20px;
+    border-bottom: 1px solid var(--border-rgba-color);
+}
+
+#backBtn > * {
+    font-size: 12px; 
+}
+
+/* Content */
+#newProject .form-group .linear-center {
+    height: auto;
+}
+
+/* Form */
+.form-header {
+    font-size: 1.12rem;
+    margin-bottom: 1rem;
+}
+
+.linear-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+}
+
+.linear-label label {
+    margin: 0;
+}
+
+/* Media Queries */
+/* LG */
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+    .project-form {
+        border-right: 1px solid var(--border-rgba-color);
+    }
+}
