@@ -347,8 +347,9 @@ h1, h2, h3, h4, h5, h6 {
         display: block;
         visibility: visible;
       }
-    }
-    @media (min-width: 576px) and (max-width: 768px) {
+}
+
+@media (min-width: 576px) and (max-width: 768px) {
     /* Show 3rd slide on sm if col-sm-6*/
     .carousel-inner .active.col-sm-6.carousel-item + .carousel-item + .carousel-item {
         position: absolute;

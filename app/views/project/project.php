@@ -118,520 +118,432 @@
 
     </nav>
 
-    <div class="slide-container">
+    <!-- <div class="slide-container"> -->
         <div class="custom-tab-container">
 
-            <!-- Timeline Slide -->
-            <div class="slide" id="timelineSlide" data-side="left">
-                <div class="slide-content">
-                    <div class="mesa-container">
-                        <table class="mesa" id="tasksTable">
-                            <thead class="mesa-header">
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col" class="taskCell">Task</th>
-                                    <th scope="col">Plan Start</th>
-                                    <th scope="col">Plan Due</th>
-                                    <th scope="col" class="action-cell">
-                                        <button class="btn" type="button" data-dismiss="slide">
-                                            <span class="material-icons">navigate_before</span>
-                                        </button>
-                                    </th>
-                                </tr>
-                            </thead>
-                    
-                            <!-- <tbody>
-                                <tr id="task1">
-                                    <th scope="row">1</th>
-                                    <td class="taskCell">
-                                        <div class="form-input-group">
-                                            <textarea name="" rows="1" readonly>Procurement</textarea>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-input-group">
-                                            <input type="date" name="" value="2014-02-09" readonly>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-input-group">
-                                            <input type="date" name="" value="2014-02-15" readonly>
-                                        </div>
-                                    </td>
-                                    <td class="action-cell">
-                                        <div class="action-cell-content">
-                                            <div class="dots-menu">
-                                                <button type="button" class="dots-menu-btn">
-                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                        
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td class="taskCell">Tool Box Meeting</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td class="action-cell">
-                                        <div class="action-cell-content">
-                                            <div class="dots-menu">
-                                                <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                        
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td class="taskCell">Actual visit at site for measurementActual visit at site for measurementActual visit at site for measurementActual visit at site for measurement</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td>dd/mm/YYYY</td>
-                                    <td class="action-cell">
-                                        <div class="action-cell-content">
-                                            <div class="dots-menu">
-                                                <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+            <style>
+                .slider {
+                    height: 100%;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: row;
+                }
 
-                                <tr>
-                                    <th scope="row">#</th>
-                                    <td class="taskCell">
-                                        <div class="form-input-group">
-                                            <textarea name="" id=""  rows="1"></textarea>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-input-group">
-                                            <input type="date" name="" id="">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-input-group">
-                                            <input type="date" name="" id="">
-                                        </div>
-                                    </td>
-                                    <td class="action-cell">
-                                        <div class="action-cell-content">
-                                            <div class="dots-menu">
-                                                <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody> -->
-                        </table>
+                .slider > div {
+                    flex-grow: 1;
+                    flex-shrink: 0;
+                }
 
-                        <form action="<?= SITE_URL ?>/projects/newTask/<?= $data['id'] ?>" method="POST" id="newTask">
-                            <table class="mesa">
-                                <tr>
-                                    <!-- Task Number -->
-                                    <th scope="row" class="rowNum"> 
-                                        <!-- <input type="hidden" name="taskNum" value="1"> -->
-                                    </th>
+                .timeline {
+                    display: grid;
+                    gap: 10px;
+                    margin-left: -100%;
+                    width: 100%;
+                    overflow-y: auto;
+                }
 
-                                    <!-- Description -->
-                                    <td class="taskCell">
-                                        <div class="form-input-group">
-                                            <textarea oninput="autoHeight(this)" name="taskDesc" rows="1"></textarea>
-                                        </div>
-                                    </td>
+                /* #timelineTable.mesa-container {
+                    overflow: auto;
+                } */
 
-                                    <!-- Plan Start -->
-                                    <td class="dateCell">
-                                        <div class="form-input-group">
-                                            <input type="date" name="planStart" value="<?= date('Y-m-d') ?>">
-                                        </div>
-                                    </td>
 
-                                    <!-- Plan End -->
-                                    <td class="dateCell">
-                                        <div class="form-input-group">
-                                            <input type="date" name="planEnd" value="<?= date('Y-m-d') ?>">
-                                        </div>
-                                    </td>
+                .chart-container {  
+                    width: 100%;
+                    overflow: hidden;
+                }
 
-                                    <!-- Actions -->
-                                    <td class="action-cell">
-                                        <div class="action-cell-content">
-                                            <span class="row-action-btns">
-                                                <button class="btn icon-btn neutral-btn" type="button">
-                                                    <span class="material-icons">cancel</span>
-                                                </button>
-                                                <button class="btn icon-btn" type="submit" name="createTask">
-                                                    <span class="material-icons success-text">check_circle</span>
-                                                </button>
-                                            </span>
-                                        </div>                                            
-                                    </td>
+                #tasksTable thead {
+                    position: sticky;
+                    top: 0;
+                }
 
-                                </tr>
-                            </table>
-                        </form>
+                td .form-input-group {
+                    margin: 0;
+                }
 
-                        <div class="table-action-row">
-                            <button type="button" class="btn action-btn slim-btn" data-toggle="row" data-target="#tasksTable">
+                .main-content header, .main-content footer {
+                    padding: 1rem 20px;
+                }
+            </style>
+
+            <!-- Gantt Chart -->
+            <section id="projectGanttChart" class="main-content custom-tab-content show">
+                <div class="slider">
+                    <div class="timeline">
+                        <header class="linear-center">
+                            <h5>Tasks</h5>
+                            
+                            <button id="addTask" data-target="#newTask" type="button" class="btn action-btn sm-btn">
                                 <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
                                 Add a task
                             </button>
-                            
-                            <button id="addSubTask" data-position="subtask" data-target="#tasksTable" type="button" class="btn outline-action-btn slim-btn">
-                                <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
-                                Add a sub task
+
+                            <button class="btn icon-btn ml-auto back-btn" type="button">
+                                <span class="material-icons">navigate_before</span>
                             </button>
+                        </header>
+
+                        <div class="mesa-container" id="timelineTable">
+                            <table class="mesa" id="tasksTable">
+                                <thead class="mesa-head">
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col" class="taskCell">Task</th>
+                                        <th scope="col">Plan Start</th>
+                                        <th scope="col">Plan Due</th>
+                                        <th scope="col" class="action-cell">
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <div id="samp"></div>
                         </div>
+
+                        <footer class="hide">
+                            <form data-row="#timelineTable" id="newTask">
+                                <table class="mesa">
+                                    <tr>
+                                        <!-- Task Number -->
+                                        <th scope="row" class="rowNum"> 
+                                            <!-- <input type="hidden" name="taskNum" value="1"> -->
+                                        </th>
+
+                                        <!-- Description -->
+                                        <td class="taskCell">
+                                            <div class="form-input-group">
+                                                <textarea oninput="autoHeight(this)" name="taskDesc" rows="1"></textarea>
+                                            </div>
+                                        </td>
+
+                                        <!-- Plan Start -->
+                                        <td class="dateCell">
+                                            <div class="form-input-group">
+                                                <input type="date" name="planStart" value="<?= date('Y-m-d') ?>">
+                                            </div>
+                                        </td>
+
+                                        <!-- Plan End -->
+                                        <td class="dateCell">
+                                            <div class="form-input-group">
+                                                <input type="date" name="planEnd" value="<?= date('Y-m-d') ?>">
+                                            </div>
+                                        </td>
+
+                                        <!-- Actions -->
+                                        <td class="action-cell">
+                                            <div class="action-cell-content">
+                                                <span class="row-action-btns">
+                                                    <button class="btn icon-btn neutral-btn" type="button">
+                                                        <span class="material-icons">cancel</span>
+                                                    </button>
+                                                    <button class="btn icon-btn" type="submit" name="createTask">
+                                                        <span class="material-icons success-text">check_circle</span>
+                                                    </button>
+                                                </span>
+                                            </div>                                            
+                                        </td>
+
+                                    </tr>
+                                </table>
+                                
+                                <!-- Alert -->
+                                <div class="alert alert-danger mb-0" role="alert">
+                                    A simple danger alert—check it out!
+                                </div>
+                            </form>
+                        </footer>
                     </div>
 
-                    <div id="taskBar" class="hide">
-                        <h5 class="tb-title">Task Title</h5>
+                    <div class="chart-container">
+                        <div class="gantt-chart">                        
+                            <div class="chart">
+                                <div class="chart-row chart-header">
+                                    <div class="chart-row-item" id="timelineToggler">
+                                        <button type="button" class="btn icon-btn">
+                                            <span class="material-icons">edit_note</span>
+                                        </button>
+                                        Tasks
+                                    </div>
+                                    <div>
+                                        <div class="chart-months">
+                                            <span class="startMonth">December</span>
+                                            <!-- <span class="month30">January</span> -->
+                                        </div>
+                                        <div class="chart-days">
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                            <span>##</span>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-input-group">
-                            <label for="">Plan</label>
-                            <div class="tb-date">
-                                <input type="date" name="" id="" value="<?= date('Y-m-d') ?>">
-                                <hr>
-                                <input type="date" name="" id="" value="<?= date('Y-m-d') ?>">
+                                <div class="chart-body">
+                                    <div class="chart-lines"> 
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>1</strong>
+                                            Procurement
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-one"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>2</strong>
+                                            Tool Box Meeting
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-two-a"></li>
+                                            <li class="actual chart-li-two-b"></li>          
+                                        </ul>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>3</strong>
+                                            Actual visit at site for measurement
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-three"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>4</strong>
+                                            Mobilization
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-four"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>5</strong>
+                                            Repainting of pipe
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-five"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>6</strong>
+                                            Relocation of 2" Distribution line from Handyman's area (removal and Reinstall with 55 meter located at Upper ground)
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-six"></li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>7</strong>
+                                            Modification of 2" B.I. pipe (step-up for x 600mm 10meter long) due to modification of wall from concrete to glass wall at Second floor.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-seven-t1"></li>
+                                        </ul>
+
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Modification of 2" Distribution pipe line second floor due to aircon   ducting conflict with 15 meter long.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-seven-t2"></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="chart-row">
+                                        <div class="chart-row-item">
+                                            <strong>8</strong>
+                                            Additional stub-out for 6 tenants and additional pipe line for 12- tenats  from existing stub-outs to meter location inside the tenant area.
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-8-t1"></li>
+                                        </ul>
+
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Leak Test and commissioning  at 2F, UGF, LGF
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="plan chart-li-8-t2"></li>
+                                        </ul>
+
+                                        <div class="chart-row-item">
+                                            <strong></strong>
+                                            Additional 2-1/2"  LPG mainline and stubouts for Vikings, Tongyang and 3 tenants
+                                        </div>
+                                        <ul class="chart-row-bars">
+                                            <li class="yellow-bar chart-li-8-t3"></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-input-group">
-                            <label for="">Actual</label>
-                            <div class="tb-date">
-                                <input type="date" name="" id="">
-                                <hr>
-                                <input type="date" name="" id="">
-                            </div>
-                        </div>
-
-                        <button id="addLegend" class="btn light-btn slim-btn">
-                            <span class="material-icons btn-icon">label</span>
-                            Add legend
-                        </button>
-
-                        <div id="legends" class="legends-container hide">
-                            <div class="task-legend">
-                                <span class="leg-color" data-color="#026aa7"></span>
-                                <span class="leg-title">Plan</span>
-                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
-                                    <span class="material-icons">edit</span>
-                                </button>
-                            </div>
-
-                            <div class="task-legend">
-                                <span class="leg-color" data-color="#5aac44"></span>
-                                <span class="leg-title">Actual</span>
-                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
-                                    <span class="material-icons">edit</span>
-                                </button>
-                            </div>
-
-                            <div class="task-legend">
-                                <span class="leg-color" data-color="#f5dd29"></span>
-                                <span class="leg-title">Sample</span>
-                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
-                                    <span class="material-icons">edit</span>
-                                </button>
-                            </div>
-
-                            <button class="btn light-btn slim-btn" data-toggle="legend">
-                                Create legend
+                        <span class="expanding-btn">
+                            <button class="btn action-btn icon-btn" data-toggle="popup" data-target="#viewLegends">
+                                <span class="material-icons">legend_toggle</span>
                             </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </span>
 
-            <!-- Gantt Chart -->
-            <div id="projectGanttChart" class="main-content custom-tab-content show chart-container">
-                <div class="gantt-chart">                        
-                    <div class="chart">
-                        <div class="chart-row chart-header">
-                            <div class="chart-row-item" id="timelineToggler">
-                                <button type="button" class="btn icon-btn" data-toggle="slide" data-target="#timelineSlide">
-                                    <span class="material-icons">edit_note</span>
-                                </button>
-                                Tasks
-                            </div>
-                            <div>
-                                <div class="chart-months">
-                                    <span class="startMonth">December</span>
-                                    <!-- <span class="month30">January</span> -->
-                                </div>
-                                <div class="chart-days">
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                    <span>##</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="chart-body">
-                            <div class="chart-lines"> 
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-
-                            <div class="chart-row">
-                                <div class="chart-row-item">
-                                    <strong>1</strong>
-                                    Procurement
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-one"></li>
-                                </ul>
-                            </div>
-
-                            <div class="chart-row">
-                                <div class="chart-row-item">
-                                    <strong>2</strong>
-                                    Tool Box Meeting
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-two-a"></li>
-                                    <li class="actual chart-li-two-b"></li>          
-                                </ul>
-                            </div>
-
-                            <div class="chart-row">
-                                <div class="chart-row-item">
-                                    <strong>3</strong>
-                                    Actual visit at site for measurement
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-three"></li>
-                                </ul>
-                            </div>
-
-                            <div class="chart-row">
-                                <div class="chart-row-item">
-                                    <strong>4</strong>
-                                    Mobilization
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-four"></li>
-                                </ul>
-                            </div>
-
-                            <div class="chart-row">
-                                <div class="chart-row-item">
-                                    <strong>5</strong>
-                                    Repainting of pipe
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-five"></li>
-                                </ul>
-                            </div>
-
-                            <div class="chart-row">
-                                <div class="chart-row-item">
-                                    <strong>6</strong>
-                                    Relocation of 2" Distribution line from Handyman's area (removal and Reinstall with 55 meter located at Upper ground)
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-six"></li>
-                                </ul>
-                            </div>
-                            
-                            <div class="chart-row">
-                                <div class="chart-row-item">
-                                    <strong>7</strong>
-                                    Modification of 2" B.I. pipe (step-up for x 600mm 10meter long) due to modification of wall from concrete to glass wall at Second floor.
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-seven-t1"></li>
-                                </ul>
-
-                                <div class="chart-row-item">
-                                    <strong></strong>
-                                    Modification of 2" Distribution pipe line second floor due to aircon   ducting conflict with 15 meter long.
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-seven-t2"></li>
-                                </ul>
-                            </div>
-
-                            <div class="chart-row">
-                                <div class="chart-row-item">
-                                    <strong>8</strong>
-                                    Additional stub-out for 6 tenants and additional pipe line for 12- tenats  from existing stub-outs to meter location inside the tenant area.
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-8-t1"></li>
-                                </ul>
-
-                                <div class="chart-row-item">
-                                    <strong></strong>
-                                    Leak Test and commissioning  at 2F, UGF, LGF
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="plan chart-li-8-t2"></li>
-                                </ul>
-
-                                <div class="chart-row-item">
-                                    <strong></strong>
-                                    Additional 2-1/2"  LPG mainline and stubouts for Vikings, Tongyang and 3 tenants
-                                </div>
-                                <ul class="chart-row-bars">
-                                    <li class="yellow-bar chart-li-8-t3"></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <span class="expanding-btn">
-                    <button class="btn action-btn icon-btn" data-toggle="popup" data-target="#viewLegends">
-                        <span class="material-icons">legend_toggle</span>
-                    </button>
-                </span>
-
-                <!-- View Legends Popup -->
-                <div id="viewLegends" class="popup popup-contained" tabindex="-1" aria-hidden="true">
-                    <div class="pcontainer popup-sm" data-right="15" data-bottom="35">
-                        <div class="pcontent">
-                            <div class="pheader">
-                                <h2 class="ptitle">Legends</h2>
-                                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
-                                    <span class="material-icons">close</span>
-                                </button>
-                            </div>
-                
-                            <div class="pbody">
-                                <div class="legends-container">
-                                    <div class="task-legend">
-                                        <span class="leg-color" data-color="#026aa7"></span>
-                                        <span class="leg-title">Plan</span>
-                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
-                                            <span class="material-icons">edit</span>
+                        <!-- View Legends Popup -->
+                        <div id="viewLegends" class="popup popup-contained" tabindex="-1" aria-hidden="true">
+                            <div class="pcontainer popup-sm" data-right="15" data-bottom="35">
+                                <div class="pcontent">
+                                    <div class="pheader">
+                                        <h2 class="ptitle">Legends</h2>
+                                        <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                                            <span class="material-icons">close</span>
                                         </button>
                                     </div>
+                        
+                                    <div class="pbody">
+                                        <div class="legends-container">
+                                            <div class="task-legend">
+                                                <span class="leg-color" data-color="#026aa7"></span>
+                                                <span class="leg-title">Plan</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
 
-                                    <div class="task-legend">
-                                        <span class="leg-color" data-color="#5aac44"></span>
-                                        <span class="leg-title">Actual</span>
-                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
-                                            <span class="material-icons">edit</span>
-                                        </button>
+                                            <div class="task-legend">
+                                                <span class="leg-color" data-color="#5aac44"></span>
+                                                <span class="leg-title">Actual</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="task-legend">
+                                                <span class="leg-color" data-color="#f5dd29"></span>
+                                                <span class="leg-title">Sample</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <button class="btn light-btn slim-btn" data-toggle="legend">
+                                                <span class="material-icons btn-icon">label</span>
+                                                Create legend
+                                            </button>
+                                        </div>
                                     </div>
-
-                                    <div class="task-legend">
-                                        <span class="leg-color" data-color="#f5dd29"></span>
-                                        <span class="leg-title">Sample</span>
-                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
-                                            <span class="material-icons">edit</span>
-                                        </button>
-                                    </div>
-
-                                    <button class="btn light-btn slim-btn" data-toggle="legend">
-                                        <span class="material-icons btn-icon">label</span>
-                                        Create legend
-                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- Resources -->
-            <div id="projectResources" class="main-content custom-tab-content">
+            <section id="projectResources" class="main-content custom-tab-content">
 
                 <!-- Resources Table -->
                 <div class="mesa-container">                
@@ -736,10 +648,10 @@
                     <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
                     Add resource
                 </button>
-            </div>
+            </section>
             
             <!-- People -->
-            <div id="projectPeople" class="main-content custom-tab-content">
+            <section id="projectPeople" class="main-content custom-tab-content">
 
                 <nav class="linear w-100">
                     <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">
@@ -825,10 +737,10 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </section>
 
             <!-- Payment -->
-            <div id="projectPayment" class="main-content custom-tab-content">
+            <section id="projectPayment" class="main-content custom-tab-content">
 
 
                 <!-- Payment Table -->
@@ -894,12 +806,213 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </section>
 
         </div>
-    </div>
+    <!-- </div> -->
 </main>
 
+<style>
+    #taskPopup .pcontent {
+        flex-direction: row;
+    }
+
+    .pmain {
+        flex-basis: 65%;
+        padding: 1rem;
+
+        background-color: #f4f4f4;
+    }
+
+    .pmain .pheader {
+        border: none;
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+
+    .pmain .pfooter {
+        padding: 0;
+        margin-top: 1rem;
+        padding-top: 1rem;
+    }
+
+    .pmain .pheader .close-btn {
+        top: 0;
+        right: 0;
+    }
+
+    .pmain h5 {
+        font-size: 14px;
+        color: #172b4d;
+    }
+
+    .pmain textarea, .pmain input {
+        padding: 5px 10px;
+    }
+
+    .pside {
+        flex-basis: 35%;
+
+        display: flex;
+        flex-direction: column;
+
+        box-shadow: -1px 0 10px rgba(0, 0, 0, 0.15);
+        position: relative;
+    }
+
+    @media (max-width: 992px) {
+        #taskPopup .pcontent {
+            flex-direction: column;
+        }
+
+        #sideCollapse {
+            height: 0;
+        }
+
+        .pmain {
+            background-color: white;
+        }
+    }
+
+    @media (min-width: 992px) {
+        #activityCollapse {
+            display: none;
+        }
+
+        #sideCollapse {
+            height: 100%;
+        }
+    }
+        
+    #activityCollapse {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        z-index: 2005;
+        transform: translateX(-50%);
+        background: #ffffff;
+        border-radius: 500px;
+        padding: 5px;
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    #sideCollapse {
+        overflow: hidden;
+    }
+</style>
+
+<!-- Task -->
+<div class="popup slide-right" id="taskPopup" tabindex="-1" aria-hidden="true">
+    <div class="pcontainer popup-lg">
+        <div class="pcontent">
+            <div class="pmain">
+
+                <header class="pheader">
+                    <h2 class="ptitle">Task #</h2>
+                    <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                        <span class="material-icons">close</span>
+                    </button>
+                </header>
+                
+                <h5>Description</h5> 
+                <div class="form-input-group">
+                    <textarea class="form-control" name="taskDesc" id="" rows="1"  placeholder="Type the project description here">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras justo massa, suscipit eu ultricies sit amet, aliquet at neque. Duis dictum, ipsum suscipit blandit interdum, </textarea>
+                </div>
+                
+                <h5 for="">Activity</h5>
+
+                <div id="taskActivities">
+
+                </div>
+                <div id="newActivities">
+
+                </div>
+
+                <!-- <div class="form-input-group task-activity">
+                    <span class="linear-label">
+                        <label for="">Plan</label>
+                        <button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">
+                            <span class="material-icons">close</span>
+                        </button>
+                    </span>
+                    <div class="tb-date">
+                        <input type="date" name="planStart" id="" value="<?= date('Y-m-d') ?>">
+                        -
+                        <input type="date" name="planEnd" id="" value="<?= date('Y-m-d') ?>">
+                    </div>
+                </div>
+
+                <div class="form-input-group task-activity">
+                    <label for="">Actual</label>
+                    <div class="tb-date">
+                        <input type="date" name="" id="">
+                        -
+                        <input type="date" name="" id="">
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="pside">
+                <button class="btn icon-btn" id="activityCollapse" data-target="#sideCollapse">
+                    <span class="material-icons" title="Add activity">
+                        keyboard_double_arrow_up
+                    </span>
+                </button>
+
+                <div id="sideCollapse">
+                    <div class="pheader">
+                        <h2 class="ptitle">Activities</h2>
+                        <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                            <span class="material-icons">close</span>
+                        </button>
+                    </div>
+
+                    <div class="pbody">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+
+                        <div id="legends" class="legends-container">
+                            <div class="task-legend">
+                                <span class="leg-color" data-color="#026aa7"></span>
+                                <span class="leg-title">Plan</span>
+                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
+                                    <span class="material-icons">edit</span>
+                                </button>
+                            </div>
+
+                            <div class="task-legend">
+                                <span class="leg-color" data-color="#5aac44"></span>
+                                <span class="leg-title">Actual</span>
+                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
+                                    <span class="material-icons">edit</span>
+                                </button>
+                            </div>
+
+                            <div class="task-legend">
+                                <span class="leg-color" data-color="#f5dd29"></span>
+                                <span class="leg-title">Sample</span>
+                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
+                                    <span class="material-icons">edit</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button class="btn light-btn btn-block slim-btn" data-toggle="legend">
+                            Create legend
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="pfooter">
+                    <button type="submit" form="legendForm" class="btn action-btn">Save</button>
+                    <button type="button" class="btn danger-btn">Delete</button>
+                    <button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    let projectId = '<?= $data['id'] ?>'
+    let projectId = '<?= $data['id'] ?>';
 </script>

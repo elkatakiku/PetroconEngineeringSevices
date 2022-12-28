@@ -52,9 +52,9 @@ class ProjectsController extends Controller {
         $projects = $this->getModel()->getProjects($filter);
         if ($projects != -1) {
             $json_data['data'] = $projects;
-            $json_data['response'] = 200;
+            $json_data['statusCode'] = 200;
         } else {
-            $json_data['response'] = 400;
+            $json_data['statusCode'] = 400;
         }
         
         echo json_encode($json_data);
@@ -195,16 +195,21 @@ class ProjectsController extends Controller {
         $tasks = $this->getModel()->getTasks($projectId);
         if ($tasks != -1) {
             $json_data['data'] = $tasks;
-            $json_data['response'] = 200;
+            $json_data['statusCode'] = 200;
         } else {
-            $json_data['response'] = 400;
+            $json_data['statusCode'] = 400;
         }
         
         echo json_encode($json_data);
     }
 
     // Creates a task
-    public function newTask($projectId) {
+    public function newTask() {
+        if (isset($_POST['projId']) && isset($_POST['form'])) {
+            $projectId = $_POST['projId'];
+            parse_str($_POST['form'], $form);
+        }
+
         $cleanId = $this->sanitizeString($projectId);
 
         if (!$cleanId) {
@@ -212,20 +217,10 @@ class ProjectsController extends Controller {
             exit();
         }
 
-        if (!isset($_POST['createTask'])) {
-            echo "Not set";
-            header("Location: ".SITE_URL."/projects/project/".$projectId);
-            exit();
-            return;
-        }
-
-        echo "New task";
-
         $inputs = [
-            // 'taskNum' => filter_input(INPUT_POST, 'taskNum', FILTER_SANITIZE_NUMBER_INT),
-            'taskDesc' => $this->sanitizeString($_POST['taskDesc']),
-            'planStart' => $this->sanitizeString($_POST['planStart']),
-            'planEnd' => $this->sanitizeString($_POST['planEnd'])
+            'taskDesc' => $this->sanitizeString($form['taskDesc']),
+            'planStart' => $this->sanitizeString($form['planStart']),
+            'planEnd' => $this->sanitizeString($form['planEnd'])
         ];
 
         if(!$this->emptyInput($inputs)) {
@@ -248,81 +243,100 @@ class ProjectsController extends Controller {
                 $inputs['planEnd']
             );
 
-            echo "<pre>";
-            echo "<br>";
-            var_dump($planTask);
-            echo "<br>";
-    
-            // $result = 
-            $this->getModel()->setTask($task);
-            $this->getModel()->setTaskBar($planTask);
-    
-    
-            // echo "<pre>";
-            // var_dump($inputs);
-            // echo "<br>";
-            // var_dump($this->getModel()->getTasks($cleanId));
-            // echo "<br>";
-            // var_dump($this->getModel()->getTasksCount($cleanId));
+            if ($this->getModel()->setTask($task) && $this->getModel()->setTaskBar($planTask)) {
+                $json_data['statusCode'] = 200;
+            } else {
+                $json_data['statusCode'] = 500;
+                $json_data['message'] = 'An error occurred. Please try again.';
+            }
+
         } else {
             // Error Handling
-            // Code here
-            echo "<br>Please fill all required project inputs.";
+            $json_data['statusCode'] = 400;
+            $json_data['message'] = 'Fill all required project inputs.';
         }
+
+        echo json_encode($json_data);
     }
 
-    public function newLegend($projectId) {
-        echo '<pre>';
-        echo __METHOD__;
+    // Gets activities of a task
+    public function taskActivities() {
+        if (isset($_GET['taskId'])) {
+            $activities = $this->getModel()->getTaskActivities($_GET['taskId']);
+            if ($activities != -1) {
+                $json_data['data'] = $activities;
+                $json_data['statusCode'] = 200;
+            } else {
+                $json_data['statusCode'] = 500;
+            }
+        } else {
+            $json_data['message'] = "No task id found";
+            $json_data['statusCode'] = 404;
+        }
 
-        echo '<br>';
-        echo $projectId;
-        echo '<br>';
-
-        $planLegend = $this->createEntity("Legend");
-        $planLegend->createLegend(
-            Legend::PLAN,
-            "plan",
-            $projectId
-        );
-
-        var_dump($planLegend);
-        echo '<br>';
-
-        $this->getModel()->setLegend($planLegend);
+        echo json_encode($json_data);
     }
 
-    public function taskBars($projectId) {
-        // $cleanId = $this->sanitizeString($projectId);
-
-        // if (!$cleanId) {
-        //     header("Location: ".SITE_URL.US."projects");
-        //     exit();
-        // }
-
-        // if (!isset($_POST['createTaskBar'])) {
-        //     echo "Not set";
-        //     // header("Location: ".SITE_URL."/projects/project/".$projectId);
-        //     // $this->view("project", "new-project");
-        //     exit();
-        //     return;
-        // }
-
-        // $inputs
-
-        // var_dump($this->getModel()->getTaskBars($projectId));
-    }
-
-    // Timeline
+    // || Timeline
     public function timeline($projectId) {
         $tasks = $this->getModel()->getTimeline($projectId);
         if ($tasks != -1) {
             $json_data['data'] = $tasks;
-            $json_data['response'] = 200;
+            $json_data['statusCode'] = 200;
         } else {
-            $json_data['response'] = 400;
+            $json_data['statusCode'] = 400;
         }
         
+        echo json_encode($json_data);
+    }
+
+    // || Legend
+    public function legends() {
+        if (isset($_GET['id'])) {
+            $legends = $this->getModel()->getLegends($_GET['id']);
+            if ($legends != -1) {
+                $json_data['data'] = $legends;
+                $json_data['statusCode'] = 200;
+            } else {
+                $json_data['statusCode'] = 500;
+            }
+        } else {
+            $json_data['message'] = "No project id found";
+            $json_data['statusCode'] = 404;
+        }
+
+        echo json_encode($json_data);
+    }
+
+    public function newLegend() {
+
+        if (isset($_POST['projId']) && isset($_POST['form'])) {
+            $projectId = $this->sanitizeString($_POST['projId']);
+            parse_str($_POST['form'], $form);
+
+            if (!$this->emptyInput($form) && $projectId) {
+                $legend = $this->createEntity("Legend");
+                $legend->createLegend(
+                    $form['color'],
+                    $form['title'],
+                    $projectId
+                );
+    
+                if ($this->getModel()->setLegend($legend)) {
+                    $json_data['statusCode'] = 200;
+                } else {
+                    $json_data['statusCode'] = 500;
+                }
+            } else {
+                $json_data['message'] = "Fill all the required inputs.";
+                $json_data['statusCode'] = 400;
+            }
+
+        } else {
+            $json_data['message'] = "No project id or form found";
+            $json_data['statusCode'] = 404;
+        }
+
         echo json_encode($json_data);
     }
 }
