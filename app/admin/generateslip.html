@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <!-- Change the 'Page' to current page  -->
-    <title>Petrocon | Invoice</title>
+    <title>Petrocon | Payslip</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -106,12 +106,12 @@
                   <li class="">
                     <a class="" href="workers-admin.html">Workers</a>
                   </li>
-                  <li class="">
+                   <li class="">
                     <a class="" href="clients-admin.html">Clients</a>
                   </li>
                 </ul>
               </li>
-
+    
               <hr>
     
               <li class="">
@@ -137,21 +137,14 @@
         
         <main class="content">
           <!-- Header -->
-          <div class="page-header">
-            <div class="project-info">
-              <div>
-                <h1 class="page-title">Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</h1>
-                <small>Robinson Palace, Antipolo City</small>
-              </div>
-            </div>
-          </div>
 
           <div class="print-actions linear space-between border=bottom">
             <button class="btn link-btn"><a href="projectganttchart.html">Go Back</a></button>
-            <button type="button" onclick="printDocument('invoiceform')" class="btn action-btn">Print</button>
+            <button type="button" onclick="printDocument('slipform')" class="btn action-btn">Print</button>
           </div>
           
-          <form action="#" method="POST" id="invoiceform" onload="window.print(); window.close()">
+          <form action="#" method="POST" id="slipform" onload="window.print(); window.close()">
+   
             <div>
               <div class="invoice-page-title">
                 <a class="brand print-brand" href="#">
@@ -167,70 +160,132 @@
                     petroconphil@gmail.com 
                 </div> 
               </div>
-              <div class="invoice-page-info">
-                <div>
-                  <input type="date" id="dateToday" /> <br> 
+            </div> 
+
+          <!-- Users Table -->
+          <div class="mesa-container">
+            <table class="mesa">
+              <thead class="mesa-head text-wrap">
+                <tr>
+                  <th scope="col">Employee Name</th>
+                  <th scope="col">Position</th>
+                  <th scope="col">No. of Days</th>
+                  <th scope="col">Basic Rate Per Day</th>
+                  <th scope="col">T. Amount Basic Pay</th>
+                  <th scope="col">Overtime Hours</th>
+                  <th scope="col">Amount Per Hour</th>
+                  <th scope="col">Amount Of Overtime</th>
+                  <th scope="col">Total Amount</th>
+                  <th scope="col">Pakyaw Amount</th>
+                  <th scope="col">Net Amount</th>
+                  <th scope="col">Signature</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <tr>
+                    <th scope="row">Kolas</th>
+                    <td>Dri/Fab</td>
+                    <td>3</td>
+                    <td>650</td>
+                    <td>1950</td>
+                    <td>4</td>
+                    <td>81.5</td>
+                    <td>325</td>
+                    <td>2275</td>
+                    <td>0</td>
+                    <td>2275</td>
+                    <td></td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Effer Adaza</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Kath Fernandez</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>
+
+                <tr>
+                    <th scope="row">Eli Lamzon</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                </tr>         
+              </tbody>
+            </table>
+          </div>
+
+            <br><br>
+            <div class=""> 
+                <p>&emsp;&emsp;&emsp;Prepared by:
                   <br>
-                </div>
-                <br>
-                <p>
-                  <p><span class="text" role="textbox" contenteditable>Name of Client</span></p>
-                  <p><span class="text" role="textbox" contenteditable>Position</span></p>
-                  <p><span class="text" role="textbox" contenteditable>Company Name</span></p>
-                  <p><span class="text" role="textbox" contenteditable>Company Address</span></p>
-
+                  <br>
+                  &emsp;&emsp;<strong style="text-decoration: underline;">Vhal B. Albaciete</strong>
+                  <br>
+                  &emsp;&emsp;&emsp;&nbsp;Contractor
                 </p>
-                <br>
-              </div> 
+            </div>
 
-              <div class="invoice-msmr">
-                Mr.Ms.
-                <p><span class="fill" contenteditable="true"></span></p>
-              </div>
-              <br>
-
-              <div class="page-description">
-                <p>
-                  I would like to bill hundred percent completion for the
-                  <span class="fill" contenteditable="true">&nbsp;</span>&nbsp;
-                  For the total cost including labor and mobilization is
-                  &nbsp;<span class="fill" contenteditable="true">&nbsp;&nbsp; </span>
-                  VAT Inclusive. See attached Service report and inspection report.
-                </p>
-              </div>
-            </div> 
-
-            <br>
-            <div class="page-amount">
-              <strong>Material Cost: </strong>
-              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
-
-              <strong>Labor and Mobilization: </strong>
-              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
-
-              <strong>Total: </strong>
-              <p>-&nbsp;<span class="fill" contenteditable="true"></span></p>
-              </p>
-            </div> 
-            <br>
-            Thank you!
+          </div>
 
            <style>
+              .slipform {
+                size: A4 landscape;
+                size: 100mm 200mm landscape;
+                size: 4in 6in landscape;
+              }
               .print-brand {
-                    display: block;
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                  }
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+              }
 
-                  .print-brand .brand-icon {
-                    width: 100px;
-                    height: 100px;
-                  }
+              .print-brand .brand-icon {
+                width: 100px;
+                height: 100px;
+              }
 
-                  .print-brand .brand-name {
-                    font-size: 1rem;
-                  }
+              .print-brand .brand-name {
+                font-size: 1rem;
+              }
+              @media print{@page {size: landscape}}
             </style>
             
           </form> 

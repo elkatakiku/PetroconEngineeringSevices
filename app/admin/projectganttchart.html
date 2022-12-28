@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="../../styles/navbar.css">
     <link rel="stylesheet" href="../../styles/sidebar.css">
     <link rel="stylesheet" href="../../styles/popup.css">
-    <link rel="stylesheet" href="../../styles/astyles.css">
+    <link rel="stylesheet" href="../../styles/project.css">
   </head>
 
   <body class="body-wrapper">
@@ -44,7 +44,7 @@
           <nav>
             <ul class="list-unstyled components">
               <li class="">
-                <a class="d-flex align-content-start" href="/app/index.html">
+                <a class="d-flex align-content-start" href="../dashboard.html">
                   <span class="material-icons">dashboard</span>
                   <div class="collapsible">
                     <span>Dashboard</span>
@@ -80,7 +80,7 @@
                 </ul>
               </li>
               <li class="">
-                <a class="d-flex align-content-start" href="#">
+                <a class="d-flex align-content-start" href="message.html">
                   <span class="material-icons">chat_bubble</span>
                   <div class="collapsible">
                     <span>Messages</span>
@@ -115,7 +115,7 @@
               <hr>
     
               <li class="">
-                <a class="d-flex align-content-start" href="#">
+                <a class="d-flex align-content-start" href="profile.html">
                   <span class="material-icons">person</span>
                   <div class="collapsible">
                     <span>Profile</span>
@@ -154,65 +154,66 @@
                 <div class="slide-content">
                     <div class="slide-header">
                         <button class="btn icon-btn" data-dismiss="slide">
-                        <span class="material-icons">navigate_next</span>
+                            <span class="material-icons">navigate_next</span>
                         </button>
                         <h2 class="slide-title">Details</h2>
-                        <div>
-                        <button class="btn link-btn show" data-toggle="form" data-action="edit" data-target="#projectDetailForm">
+                        <button type="button" class="btn link-btn show" form="projectDetailForm" data-toggle="form" data-action="edit">
                             Edit
                         </button>
-                        <button class="btn link-btn" type="submit" form="#projectDetailForm" data-toggle="form" data-action="submit" id="projectDetailSubmit" data-target="#projectDetailForm">
-                            Done
-                        </button>
-                        </div>
                     </div>
     
                     <div class="slide-body">
-                        <form action="" id="projectDetailForm">
+                        <form action="/index.html" method="post" id="projectDetailForm">
         
-                            <h3 class="detail-header">General</h3>
-            
-                            <div class="form-input-group display">
-                                <label for="">Name of Client</label>
-                                <p>Yvana Eunice Magno</p>
-                                <input type="text" value="Yvana Eunice Magno" autofocus>
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Building no.</label>
-                                <p>Building 1, 2, 3</p>
-                                <input type="text" value="Building 1, 2, 3">
-                            </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Work Description</label>
-                                <p>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</p>
-                                <textarea name="" id="">Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
-                            </div>
-            
                             <h3 class="detail-header">Project</h3>
 
                             <div class="linear">
                 
-                                <div class="form-input-group display">
+                                <div class="form-input-group">
                                     <label for="">Purchase Order #</label>
-                                    <p>20221526</p>
-                                    <input type="number" value="20221526">
+                                    <input type="number" value="20221526" readonly>
                                 </div>
                 
-                                <div class="form-input-group display">
+                                <div class="form-input-group">
                                     <label for="">Date of Award</label>
-                                    <p>11/26/2022</p>
-                                    <input type="date" value="11/26/2022">
+                                    <input type="date" value="11/26/2022" readonly>
                                 </div>
 
                             </div>
-            
-                            <div class="form-input-group display">
-                                <label for="">Location</label>
-                                <p>Rosario, Batangas</p>
-                                <input type="text" value="Rosario, Batangas">
+
+                            <div class="form-input-group">
+                                <label for="">Building no.</label>
+                                <input type="text" value="Building 1, 2, 3" readonly>
                             </div>
+            
+                            <div class="form-input-group">
+                                <label for="">Location</label>
+                                <input type="text" value="Rosario, Batangas" readonly>
+                            </div>         
+                            
+                            <div class="form-input-group">
+                                <label for="">Work Description</label>
+                                <textarea name="" id="" rows="1" readonly>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
+                            </div>
+            
+                            <h3 class="detail-header">Client</h3>
+
+                            <div class="form-input-group">
+                                <label for="">Representative</label>
+                                <input type="text" value="Yvana Eunice Magno" readonly>
+                            </div>
+
+                            <div class="form-input-group">
+                                <label for="">Company</label>
+                                <input type="text" value="Pheonix Inc." readonly>
+                            </div>
+
+                            <div class="form-input-group">
+                                <label for="">Contact</label>
+                                <input type="tel" value="09123456789" readonly>
+                            </div>
+
+
             
                         </form>
                     </div>
@@ -255,17 +256,17 @@
                     <!-- Timeline Slide -->
                     <div class="slide" id="timelineSlide" data-side="left">
                         <div class="slide-content">
-                            <div class="mesa-container" id="tasksTable">
-                                <table class="mesa">
+                            <div class="mesa-container">
+                                <form action="" method="POST" id="tasksTableForm">
+                                <table class="mesa" id="tasksTable">
                                     <thead class="mesa-header">
                                         <tr>
                                             <th scope="col">#</th>
                                             <th scope="col" class="taskCell">Task</th>
-                                            <th scope="col">Start</th>
-                                            <th scope="col">Due</th>
-                                            <th scope="col" class="status-cell">Status</th>
+                                            <th scope="col">Plan Start</th>
+                                            <th scope="col">Plan Due</th>
                                             <th scope="col" class="action-cell">
-                                                <button class="btn" data-dismiss="slide">
+                                                <button class="btn" type="button" data-dismiss="slide">
                                                     <span class="material-icons">navigate_before</span>
                                                 </button>
                                             </th>
@@ -273,63 +274,109 @@
                                     </thead>
                             
                                     <tbody>
-                                        <tr onclick="openTask()">
+                                        <tr id="task1">
                                             <th scope="row">1</th>
-                                            <td class="taskCell">Procurement</td>
-                                            <td>dd/mm/YYYY</td>
-                                            <td>dd/mm/YYYY</td>
-                                            <td><span class="status" data-status="done">Done</span></td>
+                                            <td class="taskCell">
+                                                <div class="form-input-group">
+                                                    <textarea name="" rows="1" readonly>Procurement</textarea>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" value="2014-02-09" readonly>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" value="2014-02-15" readonly>
+                                                </div>
+                                            </td>
                                             <td class="action-cell">
                                                 <div class="action-cell-content">
-                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                                    <span class="row-action-btns">
-                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                                    </span>
+                                                    <div class="dots-menu">
+                                                        <button type="button" class="dots-menu-btn">
+                                                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                        </button>
+                                                        <!-- <ul class="dots-menu-popup">
+                                                            <li onclick="saveTask(this, event)" data-form="#tasksTableForm">Save</li>
+                                                            <li onclick="closeEdit(this, event)">Cancel</li>
+                                                            <hr>
+                                                            <li onclick="editTask(this, event)">Edit</li>
+                                                            <li onclick="removeTask(this, event)">Remove</li>
+                                                            <hr>
+                                                            <li onclick="addTask('taskID', this, event)" data-position="subtask">Add sub task</li>
+                                                            <li onclick="addTask('taskID', this, event)" data-position="top">Add task before</li>
+                                                            <li onclick="addTask('taskID', this, event)" data-position="bottom">Add task after</li>
+                                                        </ul> -->
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
                                 
-                                        <tr onclick="openTask()">
+                                        <tr>
                                             <th scope="row">2</th>
                                             <td class="taskCell">Tool Box Meeting</td>
                                             <td>dd/mm/YYYY</td>
                                             <td>dd/mm/YYYY</td>
-                                            <td><span class="status" data-status="in-progress">In progress</span></td>
                                             <td class="action-cell">
                                                 <div class="action-cell-content">
-                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                                    <span class="row-action-btns">
-                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                                    </span>
+                                                    <div class="dots-menu">
+                                                        <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
                                 
-                                        <tr onclick="openTask()">
+                                        <tr>
                                             <th scope="row">3</th>
                                             <td class="taskCell">Actual visit at site for measurementActual visit at site for measurementActual visit at site for measurementActual visit at site for measurement</td>
                                             <td>dd/mm/YYYY</td>
                                             <td>dd/mm/YYYY</td>
-                                            <td><span class="status" data-status="in-progress">In progress</span></td>
                                             <td class="action-cell">
                                                 <div class="action-cell-content">
-                                                    <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                                    <span class="row-action-btns">
-                                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                                    </span>
+                                                    <div class="dots-menu">
+                                                        <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row">#</th>
+                                            <td class="taskCell">
+                                                <div class="form-input-group">
+                                                    <textarea name="" id=""  rows="1"></textarea>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" id="">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-input-group">
+                                                    <input type="date" name="" id="">
+                                                </div>
+                                            </td>
+                                            <td class="action-cell">
+                                                <div class="action-cell-content">
+                                                    <div class="dots-menu">
+                                                        <button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                                </form>
 
                                 <div class="table-action-row">
-                                    <button type="button" class="btn action-btn slim-btn">
+                                    <button type="button" class="btn action-btn slim-btn" data-toggle="row" data-target="#tasksTable">
                                         <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
                                         Add a task
                                     </button>
                                     
-                                    <button type="button" class="btn outline-action-btn slim-btn">
+                                    <button id="addSubTask" data-position="subtask" data-target="#tasksTable" type="button" class="btn outline-action-btn slim-btn">
                                         <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
                                         Add a sub task
                                     </button>
@@ -358,11 +405,11 @@
                                 </div>
 
                                 <button id="addLegend" class="btn light-btn slim-btn">
-                                    <i class="fa fa-tag btn-icon" aria-hidden="true"></i>
+                                    <span class="material-icons btn-icon">label</span>
                                     Add legend
                                 </button>
 
-                                <div id="legends" class="hide">
+                                <div id="legends" class="legends-container hide">
                                     <div class="task-legend">
                                         <span class="leg-color"></span>
                                         <span class="leg-title">Plan</span>
@@ -394,263 +441,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <style>
-
-                        .chart-container {
-                            display: grid;
-                            padding: 0 !important;
-                        }
-
-                        .gantt-chart {  
-                            position: relative;
-                            overflow: auto;
-                        }
-
-                        .gantt-chart .chart { 
-                            display: grid;  
-
-                        }
-
-                        :root {
-                            --chart-row-head: 250px;
-                            --chart-grid-width: 30px;
-                            --week-days: 7;
-                            --chart-header-bg: var(--palette1);
-                        }
-
-                        .chart-header {
-                            background-color:  var(--chart-header-bg) !important;
-                            color:  white;
-                        }
-
-                        .chart-body {
-                            position: relative;
-                            background-color: white;
-                        }
-
-                        .gantt-chart .chart-row {  
-                            display: grid; 
-                            grid-template-columns: var(--chart-row-head) 1fr; 
-                            /* background-color: #DCDCDC; */
-                        }
-
-                        /* .chart-row:nth-child(even) {
-                            background-color: #EEF4ED !important;
-                        } */
-
-                        /* Grid width */
-                        .chart-lines {
-                            display: grid;
-                            grid-template-columns: var(--chart-row-head) repeat(50, 1fr) !important;
-                        }
-
-                        .chart-months, .chart-days,
-                        .gantt-chart .chart-row-bars { 
-                            display: grid;
-                            grid-template-columns: repeat(50, minmax(var(--chart-grid-width), 1fr)); 
-                        }
-
-                        /* Grid Components */
-                        #timelineToggler {
-                            padding: 0;
-                            background-color:  var(--chart-header-bg);
-                            border-right: none;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            color: white;
-                            font-size: 1rem;
-                            text-align: center;
-                            position: relative;
-                        }
-
-                        #timelineToggler .btn {
-                            position: absolute;
-                            left: 10px;
-                            height: 100%;
-                            color: white;
-                        }
-
-                        #timelineToggler .btn .material-icons {
-                            align-self: center;
-                        }
-
-                        .chart-months {
-                            text-transform: uppercase;
-                            font-weight: 500;
-                            border-bottom: 1px solid white;
-                        }
-
-                        .startMonth, .month31, .month30 {
-                            border-left: 1px solid white;
-                            padding: 5px 0;
-                        }
-
-                        .startMonth {
-                            grid-column: 1 / span 22;
-                            justify-self: center;
-                            align-self: stretch;
-                            width: 100%;
-                            text-align: center;
-                        }
-
-                        .month31 {
-                            grid-column: 1 / span 31;
-                        }
-
-                        .month30 {
-                            grid-column: 1 / span 30;
-                        }
-
-                        .gantt-chart .chart-days {
-                            padding: 2px 0;
-                            border-left: 1px solid white;
-                        }
-
-                        .gantt-chart .chart-days > span {
-                            font-size: .75rem;  
-                            display: block;
-                            text-align: center;
-                            align-self: center;  
-                        }
-        
-                        .gantt-chart .chart-lines { 
-                            display: grid; 
-                            position: absolute;  
-                            height: 100%;
-                            width: 100%; 
-                            background-color: transparent;
-                        }
-        
-                        .gantt-chart .chart-lines > span {  
-                            display: block;  
-                            border-right: 1px solid rgba(13, 13, 13, 0.4);
-                        }
-
-                        .gantt-chart .chart-days > span, 
-                        .gantt-chart .chart-lines > span {
-                            min-width: var(--chart-grid-width);
-                        }
-
-                        .gantt-chart .chart-lines > span:nth-child(3),
-                        .gantt-chart .chart-lines > span:nth-child(10),
-                        .gantt-chart .chart-lines > span:nth-child(17) {
-                            background-color: rgb(255, 70, 70);
-                            position: relative;
-                            z-index: 50;
-                        }
-        
-                        .gantt-chart .chart-row-item { 
-                            align-self: stretch;
-                            display: grid;
-                            grid-template-columns: minmax(5px, auto) 1fr;
-                            gap: 10px;
-                            padding: 10px;
-                            min-height: 20px;
-                            background-color: white;
-                            font-size: .75rem;
-                            color: var(--primary-text);
-                            border-right: 1px solid black;
-                            border-bottom: 1px solid var(--border-rgba-color);
-
-                            position: sticky;
-                            left: 0;
-                            z-index: 60;
-                        }
-        
-                        .gantt-chart .chart-row-bars { 
-                            list-style: none; 
-                            padding: 10px 0;
-                            margin: 0;  
-                            grid-gap: 10px 0;
-                            border-bottom: 1px solid var(--border-rgba-color);
-                        }
-                        
-                        .gantt-chart li {  
-                            min-width: 30px;
-                            min-height: 30px;
-                            max-height: 30px;
-                            cursor: pointer;
-                            overflow: hidden;
-
-                            position: relative;
-                            z-index: 40;
-                        }
-                        
-                        .gantt-chart li.plan {
-                            background-color: var(--palette1) !important;
-                        }
-
-                        .gantt-chart li.actual {
-                            background-color: green !important;
-                        }
-                        
-                        .gantt-chart li.yellow-bar {
-                            background-color: yellow !important;
-                        }
-
-                        
-
-                        /* .gantt-chart li.actual {
-                            background-color: yellow !important;
-                        } */
-
-                        .gantt-chart ul .chart-li-one { 
-                            grid-column: 1 / span 1;  
-                            /* background-color: #588BAE; */
-                        }
-
-                        .chart-li-two-a {
-                            grid-column: 1 / span 1;  
-                        }
-        
-                        ul .chart-li-two-b {
-                            grid-column: 1 / span 1;  
-                            /* background-color:#4682B4; */
-                        } 
-
-                        ul .chart-li-three {
-                            grid-column: 1 / span 1; 
-                            /* background-color:#57A0D3; */
-                        }
-
-                        ul .chart-li-four {
-                            grid-column: 3 / span 1; 
-                            /* background-color:#0E4D92; */
-                        }
-
-                        ul .chart-li-five {
-                            grid-column: 3 / span 4; 
-                            /* background-color:#4F97A3; */
-                        }
-
-                        ul .chart-li-six {
-                            grid-column: 3 / span 13; 
-                            /* background-color:#73C2FB; */
-                        }
-
-                        ul .chart-li-seven-t1 {
-                            grid-column: 3 / span 13; 
-                        }
-
-                        ul .chart-li-seven-t2 {
-                            grid-column: 3 / span 9; 
-                            /* background-color:#0080FF; */
-                        }
-
-                        .chart-li-8-t1 {
-                            grid-column: 3 / span 13; 
-                        }
-
-                        .chart-li-8-t2 {
-                            grid-column: 13 / span 3; 
-                        }
-
-                        .chart-li-8-t3 {
-                            grid-column: 17 / span 3; 
-                        }
-                    </style>
 
                     <!-- Gantt Chart -->
                     <div id="projectGanttChart" class="custom-tab-content show chart-container">
@@ -883,6 +673,59 @@
                                 </div>
                             </div>
                         </div>
+
+                        <span class="expanding-btn">
+                            <button class="btn action-btn icon-btn" data-toggle="popup" data-target="#viewLegends">
+                                <span class="material-icons">legend_toggle</span>
+                            </button>
+                        </span>
+
+                        <!-- View Legends Popup -->
+                        <div id="viewLegends" class="popup popup-contained" data-backdrop="false" tabindex="-1" aria-hidden="true">
+                            <div class="pcontainer popup-sm" data-right="15" data-bottom="35">
+                                <div class="pcontent">
+                                    <div class="pheader">
+                                        <h2 class="ptitle">Legends</h2>
+                                        <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                                            <span class="material-icons">close</span>
+                                        </button>
+                                    </div>
+                        
+                                    <div class="pbody">
+                                        <div class="legends-container">
+                                            <div class="task-legend">
+                                                <span class="leg-color"></span>
+                                                <span class="leg-title">Plan</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="task-legend">
+                                                <span class="leg-color"></span>
+                                                <span class="leg-title">Plan</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <div class="task-legend">
+                                                <span class="leg-color"></span>
+                                                <span class="leg-title">Plan</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                    <span class="material-icons">edit</span>
+                                                </button>
+                                            </div>
+
+                                            <button class="btn light-btn slim-btn" data-toggle="popup" data-target="#legendPopup">
+                                                <span class="material-icons btn-icon">label</span>
+                                                Create legend
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Resources -->
@@ -912,7 +755,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -928,7 +771,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -944,7 +787,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -960,7 +803,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -976,7 +819,7 @@
                                         <td>Mahal lods</td>
                                         <td class="action-cell">
                                             <div class="action-cell-content">
-                                                <button class="dots-menu"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                                                <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                                                 <span class="row-action-btns">
                                                     <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                                 </span>
@@ -992,31 +835,30 @@
                             Add resource
                         </button>
                     </div>
-
+                    
                     <!-- People -->
                     <div id="projectPeople" class="custom-tab-content">
-                        <nav class="nav-tab-container">
-                            <div class="space-between">
-                                <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">Pending invitations</button>
-                            </div>
-                            <div class="linear">
-                                <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
-                                    Generate Slip
-                                </button>
-                                <div class="dropdown">
-                                    
-                                    <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
-                                        Add people
-                                    </button>
 
-                                    <div class="dropdown-menu dropdown-menu-lg-right">
-                                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
-                                        Invite
-                                        </button>
-                                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
-                                            Choose from team
-                                        </button>   
-                                    </div>
+                        <nav class="linear w-100">
+                            <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">
+                                Pending invitations
+                            </button>
+                            <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
+                                Generate Slip
+                            </button>
+                            <div class="dropdown ml-auto">
+                                
+                                <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    Add people
+                                </button>
+
+                                <div class="dropdown-menu dropdown-menu-lg-right">
+                                    <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
+                                    Invite
+                                    </button>
+                                    <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
+                                        Choose from team
+                                    </button>   
                                 </div>
                             </div>
                         </nav>
@@ -1081,17 +923,16 @@
                             </table>
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </main>
-        
     </div>
 
-
-    <!-- POPUP FOR LEGEND -->
-    <div class="popup fade popup-center" id="legendPopup" tabindex="-1" aria-hidden="true">
+    <!-- Legend Popup -->
+    <div class="popup popup-center" id="legendPopup" tabindex="-1" aria-hidden="true">
         <div class="pcontainer popup-sm">
-            <div class="pcontent popup2">
+            <div class="pcontent">
                 <div class="pheader">
                     <h2 class="ptitle">Create legend</h2>
                     <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
@@ -1168,36 +1009,22 @@
     
                 <div class="pfooter">
                 <button type="submit" form="legendForm" class="btn action-btn">Save</button>
-                <button type="button" class="btn neutral-btn" data-dismiss="popup">Cancel</button>
+                <button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
-        <!--------STYLES FOR POPUPS------->
-    <style>
-        .selected{
-            min-height: 150px;
-            border: 1px solid black;
-            text-align: center;
-            display: grid;
-            align-items: center;
-            
-        }
-    </style>
     <!--POPUP INVITE PEOPLE-->
-    <div class="popup fade popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
+    <div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
         <div class="pcontainer">
             <div class="pcontent">
                 <div class="pheader">
-                <div class="linear-center">
-                    <!-- Can add icon here -->
                     <i class="fa-solid fa-envelope-open-text"></i>
                     <h2 class="ptitle">Invite People</h2>
-                </div>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
     
                 <div class="pbody">
@@ -1227,137 +1054,131 @@
                 </div>
     
                 <div class="pfooter">
-                <button type="button" class="btn action-btn">Send Invitation</button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    <button type="button" class="btn action-btn">Send Invitation</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!--POPUP CHOOSE FROM TEAM-->
-    <div class="popup fade popup-center" id="ChooseFromTeam" tabindex="-1" aria-hidden="true">
+    <div class="popup popup-center" id="ChooseFromTeam" tabindex="-1" aria-hidden="true">
         <div class="pcontainer">
             <div class="pcontent">
                 <div class="pheader">
-                <div class="linear-center">
-                    <!-- Can add icon here -->
                     <i class="fa-solid fa-people-group"></i>
                     <h2 class="ptitle">Choose from team</h2>
-                </div>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
     
                 <div class="pbody">
                     <div class="form-group">
                         <label for="">Email / Phone</label>
-                            <div class="input-container">
-                                <input type="text" placeholder="Enter an email address or phone number.">
-                                <div class="input-append">  
-                                    <button type="button" class="btn action-btn slim-btn">
-                                        <i class="fa-solid fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>                     
+                        <div class="input-container">
+                            <input type="text" placeholder="Enter an email address or phone number.">
+                            <div class="input-append">  
+                                <button type="button" class="btn action-btn slim-btn">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>                     
                     </div>
+
                     <div class="form-group">
-                        
                         <label for="">Selected Person</label>
-                        
-                            <div class="selected">
-                                <p>Add a person to the list</p>
-                            </div> 
+                        <div class="selected">
+                            <p>Add a person to the list</p>
+                        </div> 
                     </div>
                 </div>
     
                 <div class="pfooter">
-                <button type="button" class="btn action-btn">Send Invitation</button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    <button type="button" class="btn action-btn">Send Invitation</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!--PENDING INVI-->
-    <div class="popup fade popup-center" id="Pending" tabindex="-1" aria-hidden="true">
+    <div class="popup popup-center" id="Pending" tabindex="-1" aria-hidden="true">
         <div class="pcontainer">
             <div class="pcontent">
                 <div class="pheader">
-                <div class="linear-center">
-                    <!-- Can add icon here -->
                     <h2 class="ptitle">Pending Invitation</h2>
-                </div>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
     
                 <div class="pbody">
                     <div class="form-group"> 
-                        <label for="">Invitation</label>
-                            <div class="selected" style="overflow: auto;max-height: 250px;">
-                                
-                                    <table class="mesa">
-                                      <table class="table table-hover">
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row"></th>
-                                                <td>vana</td>
-                                                <td>09152934627</td>
-                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                              </tr>
-                                            <tr>
-                                                <th scope="row"></th>
-                                                <td>vana</td>
-                                                <td>09152934627</td>
-                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                              </tr>
-                                            <tr>
-                                                <th scope="row"></th>
-                                                <td>vana</td>
-                                                <td>09152934627</td>
-                                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                            </tr>
-                                            
-                                          <tr>
-                                            <th scope="row"></th>
-                                            <td>vana</td>
-                                            <td>09152934627</td>
-                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row"></th>
-                                            <td>effer</td>
-                                            <td>09152934627</td>
-                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row"></th>
-                                            <td>elkatakiki</td>
-                                            <td>elimarimae@emailcom</td>
-                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                          </tr>
-                                          <tr>
-                                            <th scope="row"></th>
-                                            <td>kath</td>
-                                            <td>09152934627</td>
-                                            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                          </tr>
-                                        </tbody>
-                                      </table>
-                                    </div>
-                                
-                            </div>
-                    </div>
-                        <div class="pfooter">
-                        <button type="button" class="btn link-btn" data-dismiss="popup">Okay</button>
+                        <label for="">Invitations</label>
+                        <div class="selected" style="overflow: auto;max-height: 250px;">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>vana</td>
+                                        <td>09152934627</td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>vana</td>
+                                        <td>09152934627</td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>vana</td>
+                                        <td>09152934627</td>
+                                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>vana</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>effer</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>elkatakiki</td>
+                                    <td>elimarimae@emailcom</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                    
+                                    <tr>
+                                    <th scope="row"></th>
+                                    <td>kath</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
+                </div>
+
+                <div class="pfooter">
+                    <button type="button" class="btn action-btn" data-dismiss="popup">Okay</button>
                 </div>
             </div>
         </div>
     </div>
-
 
 
     <!-- Optional JavaScript -->
@@ -1373,37 +1194,5 @@
     <script src="../../scripts/index.js"></script>
     <script src="../../scripts/table.js"></script>
     <script src="../../scripts/project.js"></script>
-
-    <script>
-
-        let chartRows = $(".chart-row");
-        // let chartItems = $(".chart-row-item");
-
-        if (chartRows.length > 0) {
-            for (let i = 0; i < chartRows.length; i++) {
-                if (i % 2===0) {
-                    if (i !== 0) {
-                        $(chartRows[i]).css("background-color", "#EEF4ED");
-                        $(chartRows[i]).find(".chart-row-item").css("background-color", "#EEF4ED");
-                    }
-                }
-            }
-        }
-
-        $("#addLegend").click(function (e) { 
-            e.preventDefault();
-            $("#legends").toggleClass("hide");
-        });
-        
-
-        // $(".slide.slide-fixed").css({
-        //     "top": $("#topbar")[0].scrollHeight + "px"
-        // });
-
-        // $(".slide.slide-fixed .slide-content").css({
-        //     "height": 'calc(100vh - ' + $("#topbar")[0].scrollHeight + "px" + ')'
-        // });
-
-    </script>
   </body>
 </html>

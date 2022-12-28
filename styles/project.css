@@ -1,0 +1,312 @@
+/* || Project Details */
+#projectInfo {
+    max-width: 250px;
+}
+
+.detail-header {
+    font-size: 16px;
+}
+
+#projectDetailForm label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #5e6c84;
+}
+
+/* || Gantt Chart */
+.chart-container {
+    display: grid;
+    padding: 0 !important;
+    position: relative;
+}
+
+.gantt-chart {  
+    position: relative;
+    overflow: auto;
+}
+
+.gantt-chart .chart { 
+    display: grid;  
+}
+
+:root {
+    --chart-row-head: 250px;
+    --chart-grid-width: 30px;
+    --week-days: 7;
+    --chart-header-bg: var(--palette1);
+}
+
+.chart-header {
+    background-color:  var(--chart-header-bg) !important;
+    color:  white;
+}
+
+.chart-body {
+    position: relative;
+    background-color: white;
+}
+
+.gantt-chart .chart-row {  
+    display: grid; 
+    grid-template-columns: var(--chart-row-head) 1fr; 
+}
+
+
+/* Grid width */
+.chart-lines {
+    display: grid;
+    grid-template-columns: var(--chart-row-head) repeat(50, 1fr) !important;
+}
+
+.chart-months, .chart-days,
+.gantt-chart .chart-row-bars { 
+    display: grid;
+    grid-template-columns: repeat(50, minmax(var(--chart-grid-width), 1fr)); 
+}
+
+/* Grid Components */
+#timelineToggler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border-right: none;
+    background-color:  var(--chart-header-bg);
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#timelineToggler .btn {
+    position: absolute;
+    left: 10px;
+    height: 100%;
+    color: white;
+}
+
+#timelineToggler .btn .material-icons {
+    align-self: center;
+}
+
+.chart-months {
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 1px solid white;
+}
+
+.startMonth, .month31, .month30 {
+    border-left: 1px solid white;
+    padding: 5px 0;
+}
+
+.startMonth {
+    grid-column: 1 / span 22;
+    justify-self: center;
+    align-self: stretch;
+    width: 100%;
+    text-align: center;
+}
+
+.month31 {
+    grid-column: 1 / span 31;
+}
+
+.month30 {
+    grid-column: 1 / span 30;
+}
+
+.gantt-chart .chart-days {
+    padding: 2px 0;
+    border-left: 1px solid white;
+}
+
+.gantt-chart .chart-days > span {
+    font-size: .75rem;  
+    display: block;
+    text-align: center;
+    align-self: center;  
+}
+
+.gantt-chart .chart-lines { 
+    display: grid; 
+    position: absolute;  
+    height: 100%;
+    width: 100%; 
+    background-color: transparent;
+}
+
+.gantt-chart .chart-lines > span {  
+    display: block;  
+    border-right: 1px solid rgba(13, 13, 13, 0.4);
+}
+
+.gantt-chart .chart-days > span, 
+.gantt-chart .chart-lines > span {
+    min-width: var(--chart-grid-width);
+}
+
+.gantt-chart .chart-lines > span:nth-child(3),
+.gantt-chart .chart-lines > span:nth-child(10),
+.gantt-chart .chart-lines > span:nth-child(17) {
+    background-color: rgb(255, 70, 70);
+    position: relative;
+    z-index: 50;
+}
+
+.gantt-chart .chart-row-item { 
+    align-self: stretch;
+    display: grid;
+    grid-template-columns: minmax(5px, auto) 1fr;
+    gap: 10px;
+    padding: 10px;
+    min-height: 20px;
+    background-color: white;
+    font-size: .75rem;
+    color: var(--primary-text);
+    border-right: 1px solid black;
+    border-bottom: 1px solid var(--border-rgba-color);
+
+    position: sticky;
+    left: 0;
+    z-index: 60;
+}
+
+.gantt-chart .chart-row-bars { 
+    list-style: none; 
+    padding: 10px 0;
+    margin: 0;  
+    grid-gap: 10px 0;
+    border-bottom: 1px solid var(--border-rgba-color);
+}
+
+.gantt-chart li {  
+    min-width: 30px;
+    min-height: 30px;
+    max-height: 30px;
+    cursor: pointer;
+    overflow: hidden;
+
+    position: relative;
+    z-index: 40;
+}
+
+.gantt-chart li.plan {
+    background-color: var(--palette1) !important;
+}
+
+.gantt-chart li.actual {
+    background-color: green !important;
+}
+
+.gantt-chart li.yellow-bar {
+    background-color: yellow !important;
+}
+
+.gantt-chart ul .chart-li-one { 
+    grid-column: 1 / span 1;  
+    /* background-color: #588BAE; */
+}
+
+.chart-li-two-a {
+    grid-column: 1 / span 1;  
+}
+
+ul .chart-li-two-b {
+    grid-column: 1 / span 1;  
+    /* background-color:#4682B4; */
+} 
+
+ul .chart-li-three {
+    grid-column: 1 / span 1; 
+    /* background-color:#57A0D3; */
+}
+
+ul .chart-li-four {
+    grid-column: 3 / span 1; 
+    /* background-color:#0E4D92; */
+}
+
+ul .chart-li-five {
+    grid-column: 3 / span 4; 
+    /* background-color:#4F97A3; */
+}
+
+ul .chart-li-six {
+    grid-column: 3 / span 13; 
+    /* background-color:#73C2FB; */
+}
+
+ul .chart-li-seven-t1 {
+    grid-column: 3 / span 13; 
+}
+
+ul .chart-li-seven-t2 {
+    grid-column: 3 / span 9; 
+    /* background-color:#0080FF; */
+}
+
+.chart-li-8-t1 {
+    grid-column: 3 / span 13; 
+}
+
+.chart-li-8-t2 {
+    grid-column: 13 / span 3; 
+}
+
+.chart-li-8-t3 {
+    grid-column: 17 / span 3; 
+}
+
+.expanding-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 40px;
+}
+
+.expanding-btn button {
+    border-radius: 100px;
+    padding: 5px;
+    transition: all .3s linear;
+}
+
+.expanding-btn button::before {
+    content: "Legends";
+    display: none;
+    transition: all .3s;
+}
+
+.expanding-btn:hover button {
+    padding: 5px 10px;
+}
+
+.expanding-btn:hover button::before {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+
+/* || Table */
+.row-actions {
+    display: none;
+}
+
+
+/* || Legends */
+#viewLegends .pcontainer{
+    right: 15px;
+    bottom: 35px;
+}
+
+#viewLegends .pbody {
+    min-height: 300px;
+}
+
+
+/* Popup */
+.selected {
+    min-height: 150px;
+    border: 1px solid black;
+    text-align: center;
+    display: grid;
+    align-items: center;
+}
