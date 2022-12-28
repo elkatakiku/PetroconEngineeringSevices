@@ -186,7 +186,7 @@ function generateTaskActivity(activity, color, start, end, newAct = false) {
 }
 
 // Ajax response callback
-function loadActivities(id, activities) { 
+unction loadActivities(id, activities) { 
     $.get(
         Settings.base_url + "/projects/taskActivities", 
         {taskId : id},
@@ -197,9 +197,6 @@ function loadActivities(id, activities) {
 
             for (let i = 0; i < jsonResponse.data.length; i++) {
                 const activity = jsonResponse.data[i];
-                // console.log("Activity color :");
-                // console.log(activity);
-                // console.log(activity.color);
                 activities.append(generateTaskActivity(
                     activity.title, 
                     activity.color, 
@@ -207,9 +204,10 @@ function loadActivities(id, activities) {
                     activity.end
                 ));
             }
+
+
         }
     );
-    
 }
 
 function loadLegends(activities, legends) {
