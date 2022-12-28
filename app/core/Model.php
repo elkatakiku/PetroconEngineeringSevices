@@ -5,4 +5,5 @@ class Model extends Dbh {
     const PROJECT = "project";
     const USERS = "users";
     const SAMP = "samp";
+    const PROFILE = "profile";
 }
