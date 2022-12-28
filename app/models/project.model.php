@@ -3,13 +3,10 @@
 class ProjectModel extends Model {
 
     private static $tblProject = "tbl_project";
-    private static $tblClient = "tbl_client";
     private static $tblTask = "tbl_task";
     private static $tblTaskBar = "tbl_taskbar";
     private static $tblLegend = "tbl_legend";
     private static $lnkProjectPlan = "lnk_project_plan";
-
-    private $projectId;
 
     // Project
     public function setProject(Project $project) {
@@ -36,13 +33,16 @@ class ProjectModel extends Model {
         $stmt->bindValue(':company', $project->getCompany());
         $stmt->bindValue(':comp_representative', $project->getCompRepresentative());
         $stmt->bindValue(':comp_contact', $project->getCompContact());
-        
-        if(!$stmt->execute()) {
-            $stmt = null;
-            return false;
-        }
 
-        return true;
+        $result = true;
+
+        if(!$stmt->execute()) {
+            // Closes pdo connection
+            $result = false;
+        }
+        
+        $stmt = null;
+        return $result;
     }
 
     public function getProject($projectId) {
@@ -122,10 +122,10 @@ class ProjectModel extends Model {
         $result = true;
 
         if(!$stmt->execute()) {
-            $stmt = null;
             $result = false;
         }
-
+        
+        $stmt = null;
         return $result;
     }
 
@@ -136,8 +136,6 @@ class ProjectModel extends Model {
                     ".self::$tblTask." 
                 WHERE 
                     proj_id = :proj_id";
-
-        // echo $sql;
 
         $stmt = $this->connect()->prepare($sql);
 
@@ -153,7 +151,6 @@ class ProjectModel extends Model {
         }
 
         $stmt = null;
-
         return $result;
     }
 
@@ -181,10 +178,6 @@ class ProjectModel extends Model {
 
     // Legend
     public function setLegend(Legend $legend) {
-        echo __METHOD__;
-        echo '<br>';
-        echo $legend->getTitle();
-        echo '<br>';
         $sql = "INSERT INTO ".self::$tblLegend."
                     (id, color, title, proj_id)
                 VALUES
@@ -196,19 +189,37 @@ class ProjectModel extends Model {
         $stmt->bindValue(':color', $legend->getColor());
         $stmt->bindValue(':title', $legend->getTitle());
         $stmt->bindValue(':proj_id', $legend->getProjID());
-        
-        echo '<br>';
-        var_dump($stmt);
-        echo '<br>';
 
         $result = true;
 
         if(!$stmt->execute()) {
             // Closes pdo connection
-            $stmt = null;
             $result = false;
         }
+        
+        $stmt = null;
+        return $result;
+    }
 
+    public function getLegends($projectId) {
+        $sql = "SELECT id, color, title
+                FROM ".self::$tblLegend."
+                WHERE proj_id = :proj_id";
+        
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindParam(":proj_id", $projectId);
+
+        try {
+            if(!$stmt->execute()) {
+                throw new PDOException("Error Processing Sql Statement", 1);
+            }
+            $result = $stmt->fetchAll();
+        } catch (PDOException $PDOE) {
+            $result = -1;
+        }
+
+        $stmt = null;
         return $result;
     }
 
@@ -230,10 +241,10 @@ class ProjectModel extends Model {
         $result = true;
 
         if(!$stmt->execute()) {
-            $stmt = null;
             $result = false;
         }
-
+        
+        $stmt = null;
         return $result;
     }
 
@@ -257,6 +268,33 @@ class ProjectModel extends Model {
         return $result;
     }
 
+    public function getTaskActivities($taskId) {
+        $sql = "SELECT l.title,  l.color, DATE_FORMAT(tb.start, '%Y-%m-%d') AS 'start', DATE_FORMAT(tb.end, '%Y-%m-%d') AS 'end'
+                FROM ".self::$tblTask." t
+                    INNER JOIN ".self::$tblTaskBar." tb
+                        ON t.id = tb.task_id
+                    INNER JOIN ".self::$tblLegend." l
+                        ON tb.leg_id = l.id
+                WHERE 
+                    t.id = :id";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->bindParam(':id', $taskId);
+        
+        try {
+            if(!$stmt->execute()) {
+                throw new PDOException("Error Processing Sql Statement", 1);
+            }
+            $result = $stmt->fetchAll();
+        } catch (PDOException $PDOE) {
+            $result = -1;
+        }
+
+        $stmt = null;
+        return $result;
+    }
+
 
     // Project Plan
     public function setProjectPlan($projectId, $planId) {
@@ -273,10 +311,10 @@ class ProjectModel extends Model {
         $result = true;
 
         if(!$stmt->execute()) {
-            $stmt = null;
             $result = false;
         }
-
+        
+        $stmt = null;
         return $result;
     }
 
@@ -289,24 +327,29 @@ class ProjectModel extends Model {
 
         $stmt->bindParam(':proj_id', $projectId);
 
-        $stmt->execute();
+        $result = false;
 
-        return $stmt->fetchAll()[0]['plan'];
+        if($stmt->execute()) {
+            $result = $stmt->fetchAll()[0]['plan'];
+        }
+        
+        // Closes pdo connection
+        $stmt = null;
+        return $result;
     }
 
     // Timeline
     public function getTimeline($projectId) {
         $planId = $this->getPlanId($projectId);
         $sql = "SELECT 
-                    t.id, t.description, t.order_no, t.status, tb.start, tb.end
+                    t.id, t.description, t.order_no, t.status, 
+                    DATE_FORMAT(tb.start, '%m-%d-%Y') AS plan_start, DATE_FORMAT(tb.end, '%m-%d-%Y') AS plan_end
                 FROM 
                     ".self::$tblTask." t INNER JOIN ".self::$tblTaskBar." tb
                 ON
                     t.id = tb.task_id
                 WHERE 
                     t.proj_id = :proj_id AND tb.leg_id = :leg_id";
-
-        // echo $sql;
 
         $stmt = $this->connect()->prepare($sql);
 
@@ -327,24 +370,6 @@ class ProjectModel extends Model {
         return $result;
     }
 
-    private function getLegends() {
-        $sql = "SELECT leg_Color, leg_Title
-                FROM ".self::$tblLegend."
-                WHERE leg_proj_ID = :projID";
-        
-        $stmt = $this->connect()->prepare($sql);
-
-        $stmt->bindParam(":projID", $this->projectId);
-
-        if (!$stmt->execute()) {
-            return false;
-        }
-
-        $legends = $stmt->fetchAll();
-
-        var_dump($legends);
-    }
-
     private function getTaskBar() {
         $sql = "SELECT 
                     tb.tbar_ID, tb.tbar_start, tb.tbar_end, 
@@ -358,7 +383,7 @@ class ProjectModel extends Model {
         
         $stmt = $this->connect()->prepare($sql);
 
-        $stmt->bindParam(":projID", $this->projectId);
+        $stmt->bindParam(":projID", $projectId);
 
         if (!$stmt->execute()) {
 

@@ -81,13 +81,13 @@ class Controller {
     // Validate Inputs
     protected function emptyInput($inputs) {
         // echo "<BR>";
-        echo __METHOD__;
-        echo "<BR>";
+        // echo __METHOD__;
+        // echo "<BR>";
         // var_dump($inputs);
         foreach ($inputs as $key => $value) {
             // echo "<br>";
-            var_dump($key);
-            var_dump($value);
+            // var_dump($key);
+            // var_dump($value);
             // var_dump(!$value);
             if (is_array($value)) {
                 // echo "<br>is array, Checking: <BR>";

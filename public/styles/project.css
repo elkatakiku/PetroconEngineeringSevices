@@ -58,6 +58,11 @@
     grid-template-columns: 50px  1fr 40px;
 }
 
+.task-legend .leg-color,
+.task-legend .leg-title {
+    cursor: pointer;
+}
+
 .task-legend .leg-color {
     background-color: #5050FF;
 }
@@ -97,9 +102,18 @@
 }
 
 /* || Gantt Chart */
+#projectGanttChart {
+    --chart-row-head: 250px;
+    --chart-grid-width: 30px;
+    --week-days: 7;
+    --chart-header-bg: var(--palette1);
+
+    max-height: 100vh;
+    padding: 0;
+}
+
 .chart-container {
     display: grid;
-    padding: 0 !important;
     position: relative;
 }
 
@@ -112,16 +126,12 @@
     display: grid;  
 }
 
-:root {
-    --chart-row-head: 250px;
-    --chart-grid-width: 30px;
-    --week-days: 7;
-    --chart-header-bg: var(--palette1);
-}
-
 .chart-header {
     background-color:  var(--chart-header-bg) !important;
     color:  white;
+    position: sticky;
+    top: 0;
+    z-index: 105;
 }
 
 .chart-body {
@@ -457,10 +467,34 @@ ul .chart-li-seven-t2 {
     padding: 12px;
 }
 
-#legendPopup[data-legend="edit"] .pfooter .btn {
+#legendPopup[data-legend="edit"] .pfooter .btn, 
+.pside .pfooter .btn {
     width: calc(50% - (.75rem/2));
 }
 
-#legendPopup[data-legend="edit"] .pfooter .btn.neutral-outline-btn {
+#legendPopup[data-legend="edit"] .pfooter .btn.neutral-outline-btn,
+.pside .pfooter .btn.neutral-outline-btn {
     width: 100%;
+}
+
+/* || Task Popup */
+#taskPopup .task-activity {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.30);
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30);
+}
+
+.task-activity .close-btn .material-icons {
+    font-size: 1rem;
+}
+
+#taskPopup .task-activity label  {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
+#taskPopup .task-activity input  {
+    border-bottom-color: rgb(0, 0, 0);
 }

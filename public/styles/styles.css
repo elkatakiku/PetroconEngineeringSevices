@@ -97,68 +97,6 @@ hr {
     border-top: 1px solid rgba(0,0,0,.1);
 }
 
-/* || Utilities */
-.show {
-    display: block;
-}
-
-.show-block {
-    display: block !important;
-}
-
-.hide {
-    display: none !important;
-}
-
-.scroll-x {
-    overflow-x: auto;
-}
-
-.unscrollable {
-    overflow: hidden !important;
-}
-
-.text-wrap {
-    white-space: wrap;
-}
-
-.align-right {
-    text-align: right;
-}
-
-.round {
-    border-radius: 100px !important;
-}
-
-.column {
-    flex-direction: column;
-}
-
-.border-bottom {
-    border-bottom: 1px solid var(--border-rgba-color);
-}
-
-.pad-4 {
-    padding: 4rem !important;
-}
-
-.primary-bg {
-    background-color: var(--primary);
-    color: white;
-}
-
-.bg-light-blue {
-    background-color: #AFC9EF;
-}
-
-.bg-light-yellow {
-    background-color: #E8D1AC;
-}
-
-.bg-light-violet {
-    background-color: #FFBAD7;
-}
-
 /* || Containers */
 .wrapper {
     display: flex;
@@ -457,6 +395,17 @@ a.btn {
 
 
 /* || FORM */
+
+/* Label */
+.linear-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+}
+
+.linear-label label {
+    margin: 0;
+}
 
 /* Custom Form Input Group */
 .form-input-group {
@@ -1213,6 +1162,11 @@ body:has(.slide-fixed.active).slide-open {
 }
 
 
+/* || Alert */
+.alert {
+    display: none;
+}
+
 
 /* Utilities */
 .basis-1 {
@@ -1261,6 +1215,67 @@ body:has(.slide-fixed.active).slide-open {
 
 .basis-12 {
     flex-basis: 100%;
+}
+
+.show {
+    display: block;
+}
+
+.show-block {
+    display: block !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+.scroll-x {
+    overflow-x: auto;
+}
+
+.unscrollable {
+    overflow: hidden !important;
+}
+
+.text-wrap {
+    white-space: wrap;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.round {
+    border-radius: 100px !important;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--border-rgba-color);
+}
+
+.pad-4 {
+    padding: 4rem !important;
+}
+
+.primary-bg {
+    background-color: var(--primary);
+    color: white;
+}
+
+.bg-light-blue {
+    background-color: #AFC9EF;
+}
+
+.bg-light-yellow {
+    background-color: #E8D1AC;
+}
+
+.bg-light-violet {
+    background-color: #FFBAD7;
 }
 
 /* || MEDIA QUERIES */

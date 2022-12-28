@@ -20,16 +20,6 @@
     margin-bottom: 1rem;
 }
 
-.linear-label {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: .5rem;
-}
-
-.linear-label label {
-    margin: 0;
-}
-
 /* Media Queries */
 /* LG */
 /* Large devices (laptops/desktops, 992px and up) */

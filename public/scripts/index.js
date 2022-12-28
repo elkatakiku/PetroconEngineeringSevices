@@ -128,7 +128,7 @@ function animatePopup(popup) {
 }
 
 // Shows popup
-function showPopup(btn, popup = $(btn.data("target"))) {
+function showPopup(popup) {
     console.log("Popup button clicked");
     console.log(popup);
     
@@ -154,18 +154,18 @@ function showPopup(btn, popup = $(btn.data("target"))) {
     //     $("body").append("<div class='popup-backdrop'></div>");
     // }
 
-    if (btn.data("action")) {
-        editForm(btn.data("target"));
-    }
+    // if (btn.data("action")) {
+    //     editForm(btn.data("target"));
+    // }
 }
 
 // Hides popup
 function hidePopup(e) {
     console.log("Hide popup");
-    console.log(e.target);
+    // console.log(e.target);
     let popup = $(e.target).closest(".popup.show");
-    console.log("Opened popup");
-    console.log(popup);
+    // console.log("Opened popup");
+    // console.log(popup);
 
     if (popup.hasClass("popup-center")) {
         popup.find('.pcontainer').animate({
@@ -180,15 +180,18 @@ function hidePopup(e) {
 }
 
 // Removes popup
-function removePopup(popup, remove = false) {
-    $("body").removeClass("popup-open");
+function removePopup(popup) {
+    if ($('.popup.show').length <= 1) {
+        $("body").removeClass("popup-open");
+    }
+
     popup.removeClass("show");
     $(".popup-backdrop").remove();
 
+    // Dynamic Popup
     if (popup.is($('#deletePopup, #legendPopup'))) {
         popup.remove();
     }
-    // $('#deletePopup, #legendPopup').remove();    
 }
 
 // Initialize Popup Listeners
@@ -227,7 +230,7 @@ function promptDelete(e) {
     let popup = $(generateDeletePopup("task"));
 
     $('body').append(popup);
-    showPopup($(this), popup);
+    showPopup(popup);
 
     // Listeners
     initializePopup(popup);
@@ -403,7 +406,7 @@ $("button[data-toggle]").on("click", function (e) {
             if (btnCLicked.data('type') === "delete") {
 
             } else {
-                showPopup(btnCLicked);
+                showPopup($(btnCLicked.data("target")));
             }
             break;
         case SLIDE:
