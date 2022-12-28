@@ -166,14 +166,17 @@ class ProjectModel extends Model {
 
         $stmt->bindParam(":proj_id", $projectId);
 
-        $result = $this->executeReturn($stmt);
-
-        if($result != -1) {
-            $result = $result[0]['count'];
+        try {
+            if(!$stmt->execute()) {
+                throw new PDOException("Error Processing Sql Statement", 1);
+            }
+            $result = $stmt->fetchAll()[0]['count'];
+        } catch (PDOException $PDOE) {
+            $result = -1;
         }
 
+        $stmt = null;
         return $result;
-
     }
 
     // Legend
@@ -269,7 +272,7 @@ class ProjectModel extends Model {
     }
 
     public function getTaskActivities($taskId) {
-        $sql = "SELECT l.title,  l.color, DATE_FORMAT(tb.start, '%Y-%m-%d') AS 'start', DATE_FORMAT(tb.end, '%Y-%m-%d') AS 'end'
+        $sql = "SELECT t.id, l.title,  l.color, DATE_FORMAT(tb.start, '%Y-%m-%d') AS 'start', DATE_FORMAT(tb.end, '%Y-%m-%d') AS 'end'
                 FROM ".self::$tblTask." t
                     INNER JOIN ".self::$tblTaskBar." tb
                         ON t.id = tb.task_id

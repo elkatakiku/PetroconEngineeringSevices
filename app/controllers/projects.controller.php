@@ -205,6 +205,7 @@ class ProjectsController extends Controller {
 
     // Creates a task
     public function newTask() {
+        // WIP : Validation might trigger error
         if (isset($_POST['projId']) && isset($_POST['form'])) {
             $projectId = $_POST['projId'];
             parse_str($_POST['form'], $form);
@@ -272,6 +273,24 @@ class ProjectsController extends Controller {
         } else {
             $json_data['message'] = "No task id found";
             $json_data['statusCode'] = 404;
+        }
+
+        echo json_encode($json_data);
+    }
+
+    // Gets tasks' count
+    public function taskCount() {
+        if (isset($_POST['projId'])) {
+            $taskCount = $this->getModel()->getTasksCount($this->sanitizeString($_POST['projId']));
+            if ($taskCount >= 0) {
+                $json_data['data'] = $taskCount;
+                $json_data['statusCode'] = 200;
+            } else {
+                $json_data['statusCode'] = 500;
+            }
+        }
+        else {
+            $json_data['statusCode'] = 400;
         }
 
         echo json_encode($json_data);

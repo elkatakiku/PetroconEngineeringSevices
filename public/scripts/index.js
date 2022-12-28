@@ -192,6 +192,8 @@ function removePopup(popup) {
     if (popup.is($('#deletePopup, #legendPopup'))) {
         popup.remove();
     }
+
+    popup.trigger('dismissPopup');
 }
 
 // Initialize Popup Listeners
@@ -494,9 +496,16 @@ function autoHeight(input) {
     console.log("AutoHeight");
     console.log(input);
     input.style.minHeight = "1rem";
+    console.log(input.style.minHeight);
     input.style.height = "auto";
+    console.log(input.style.height);
     input.style.height = (input.scrollHeight) + "px";
+    console.log(input.scrollHeight);
     input.style.overflowY = "hidden";
+    console.log(input.style.overflowY);
+
+    console.log(input.innerHTML);
+    console.log($(input).val());
 }
 
 $("textarea").on("input", function() {

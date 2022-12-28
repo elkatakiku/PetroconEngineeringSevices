@@ -148,19 +148,16 @@ let dtTable = {
 
 // Tasks Table
 let tasksTable = $(table).DataTable(dtTable);
+let isDeleted = [];
 
 // Generate Activity
-function generateTaskActivity(activity, color, start, end, newAct = false) {  
-    let activityElement = $('<div class="form-input-group task-activity">' +
+function generateTaskActivity(activity, color, start, end, id = '') {  
+    let activityElement = $('<div class="form-input-group task-activity" id="' + id + '">' +
                                 '<span class="linear-label">' +
                                     '<label for="">' + activity + '</label>' +
-                                    (newAct ?
-                                        '<button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">' +
-                                            '<span class="material-icons">close</span>' +
-                                        '</button>'
-                                        :
-                                        ''
-                                    ) +
+                                    '<button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">' +
+                                        '<span class="material-icons">close</span>' +
+                                    '</button>' +
                                 '</span>' +
                                 '<div class="tb-date">' +
                                     '<input type="date" name="planStart" id="" value="' + start + '">' +
@@ -170,13 +167,16 @@ function generateTaskActivity(activity, color, start, end, newAct = false) {
                             '</div>');
 
     activityElement.find('.close-btn').click((e) => {
-        console.log("Close activity");
+        if (id && ($.inArray(id, isDeleted) <= -1)) {
+            isDeleted.push(id);
+        }
+
         activityElement.remove();
     });
 
     activityElement.css({
         'border-color' : hexToRGB ( color, 0.4 ),
-        'box-shadow' : hexToRGB ( color, 0.4 )
+        'box-shadow' : '0 5px 5px ' + hexToRGB ( color, 0.4 )
     });
 
     activityElement.find('label').css('color', pSBC(-0.4, color));
@@ -185,8 +185,16 @@ function generateTaskActivity(activity, color, start, end, newAct = false) {
     return activityElement;
 }
 
-// Ajax response callback
+function resetTaskPopup(popup) {
+    isDeleted = [];
+    popup.find('.ptitle').empty();
+    popup.find('[name="taskDesc"]').empty();
+    popup.find('#taskActivities').empty();
+    popup.find('#newActivities').empty();
+    popup.find('#legends').empty();
+}
 
+// Ajax response callback
 function loadActivities(id, activities) { 
     $.get(
         Settings.base_url + "/projects/taskActivities", 
@@ -198,12 +206,15 @@ function loadActivities(id, activities) {
 
             for (let i = 0; i < jsonResponse.data.length; i++) {
                 const activity = jsonResponse.data[i];
-                activities.append(generateTaskActivity(
-                    activity.title, 
-                    activity.color, 
-                    activity.start, 
-                    activity.end
-                ));
+                if ($.inArray(id, isDeleted) <= -1) {
+                    activities.append(generateTaskActivity(
+                        activity.title, 
+                        activity.color, 
+                        activity.start, 
+                        activity.end,
+                        activity.id
+                    ));
+                }
             }
 
 
@@ -268,56 +279,96 @@ function loadLegends(activities, legends) {
 // Row click. Open task activities
 $(table + ' tbody').on('click', 'tr', function (e) {
     let rowData = tasksTable.row(this).data();
-
-    // console.log("Row data");
-    // console.log(rowData);
-    // console.log("id");
-    // console.log(rowData.id);
-    
-    // console.log("This");
-    // console.log(this);
-    // console.log("Row cells");
-    // console.log(tasksTable.cells(this, null).render('display'));
-
     let rowDisplay = tasksTable.cells( this, '' ).render( 'display' );    
     let popup = $('#taskPopup');
+    resetTaskPopup(popup);
 
     popup.find('.pmain .ptitle').text('Task ' + rowDisplay[0]);
     popup.find('.pmain textarea[name="taskDesc"]').val(rowDisplay[1]);
 
     let activities = popup.find('#taskActivities');
     activities.empty();
+
     let newActivities = popup.find('#newActivities');
     newActivities.empty();
 
-    // Get task activities
+    // Gets task activities
     loadActivities(rowData.id, activities);
-    // Refresh Activities
-    setInterval(() => {
+    // Refreshes Activities
+    let taskInterval = setInterval(() => {
         console.log("Activities reload");
         loadActivities(rowData.id, activities);
     }, 3000);
 
-    $('#legends').empty();
+    // console.log("Load Interval");
+    // console.log(taskInterval);
 
-    // Get project legends
-    loadLegends(newActivities, $('#legends'));
-    // Refresh legends
-    setInterval(() => {
+    let legends = popup.find('#legends');
+    legends.empty();
+
+    // Gets project legends
+    loadLegends(newActivities, legends);
+    // Refreshes legends
+    let legendsInterval = setInterval(() => {
         console.log("Legends reload");
-        loadLegends(newActivities, $('#legends'));
+        loadLegends(newActivities, legends);
     }, 3000);
    
     showPopup(popup);
+    popup.find('.pmain textarea[name="taskDesc"]').each((index, element) => {
+        autoHeight(element);
+    });
+
+    popup.on('dismissPopup', (e) => {
+        console.log("Popup dismissed");
+        
+        clearInterval(taskInterval);
+        clearInterval(legendsInterval);
+        resetTaskPopup(popup);
+    });
 });
 
 $('#addTask').click((e) => {
     console.log("Add task");
     console.log(e.target);
-    let btn = $(e.target);
-    // console.log($(btn.data('target')));
-    $(btn.data('target')).parent().removeClass('hide');
-    // btn.parent('.table-action-row').addClass('hide');
+
+    // $(btn.data('target')).parent().removeClass('hide');
+
+    let popup = $('#taskPopup');
+
+    let activities = popup.find('#taskActivities');
+    activities.empty();
+    let newActivities = popup.find('#newActivities');
+    newActivities.empty();
+
+    $.post(
+        Settings.base_url + "/projects/taskCount", 
+        { projId : projectId },
+        function (data, textStatus) {
+            let jsonData = JSON.parse(data);
+            popup.find('.pmain .ptitle').text('Task ' + ++jsonData.data);
+        }
+    );
+
+    let legends = popup.find('#legends');
+    legends.empty();
+
+    // Get project legends
+    loadLegends(newActivities, legends);
+    // Refresh legends
+    let legendsInterval = setInterval(() => {
+        console.log("Legends reload");
+        loadLegends(newActivities, legends);
+    }, 3000);
+   
+    showPopup(popup);
+
+    popup.on('dismissPopup', (e) => {
+        console.log("Popup dismissed");
+        
+        clearInterval(legendsInterval);
+        resetTaskPopup(popup);
+    });
 });
 
 function hideAddRow(e) {  
