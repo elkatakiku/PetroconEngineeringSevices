@@ -8,7 +8,54 @@
 /* SM */
 /* Small devices (portrait tablets and large phones, 576px and up) */
 @media only screen and (min-width: 576px) {
-  .example {background: green;}
+  /* Utilities */
+  .basis-sm-1 {
+    flex-basis: 8.33333333333333%;
+  }
+
+  .basis-sm-2 {
+    flex-basis: 16.66666666666667%;
+  }
+
+  .basis-sm-3 {
+    flex-basis: 25%;
+  }
+
+  .basis-sm-4 {
+    flex-basis: 33.33333333333333%;
+  }
+
+  .basis-sm-5 {
+    flex-basis: 41.66666666666667%;
+  }
+
+  .basis-sm-6 {
+    flex-basis: 50%;
+  }
+
+  .basis-sm-7 {
+    flex-basis: 58.33333333333333%;
+  }
+
+  .basis-sm-8 {
+    flex-basis: 66.66666666666667%;
+  }
+
+  .basis-sm-9 {
+    flex-basis: 75%;
+  }
+
+  .basis-sm-10 {
+    flex-basis: 83.33333333333333%;
+  }
+
+  .basis-sm-11 {
+    flex-basis: 91.66666666666667%;
+  }
+
+  .basis-sm-12 {
+    flex-basis: 100%;
+  }
 }
 
 @media only screen and (max-width: 768px) {

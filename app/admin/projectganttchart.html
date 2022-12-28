@@ -157,7 +157,7 @@
                             <span class="material-icons">navigate_next</span>
                         </button>
                         <h2 class="slide-title">Details</h2>
-                        <button type="button" class="btn link-btn show" form="projectDetailForm" data-toggle="form" data-action="edit">
+                        <button type="button" class="link-btn show" form="projectDetailForm" data-toggle="form" data-action="edit">
                             Edit
                         </button>
                     </div>
@@ -182,6 +182,11 @@
                             </div>
 
                             <div class="form-input-group">
+                                <label for="">Work Description</label>
+                                <textarea name="" id="" rows="1" readonly>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
+                            </div>
+
+                            <div class="form-input-group">
                                 <label for="">Building no.</label>
                                 <input type="text" value="Building 1, 2, 3" readonly>
                             </div>
@@ -191,10 +196,6 @@
                                 <input type="text" value="Rosario, Batangas" readonly>
                             </div>         
                             
-                            <div class="form-input-group">
-                                <label for="">Work Description</label>
-                                <textarea name="" id="" rows="1" readonly>Conduct preventive maintenance for Gasline from Manifold to distribution line up to burnes equipment.</textarea>
-                            </div>
             
                             <h3 class="detail-header">Client</h3>
 
@@ -219,7 +220,8 @@
                     </div>
         
                     <div class="slide-footer">
-                        footer
+                        <button class="btn sm-btn success-btn">Mark as done</button>
+                        <button class="btn sm-btn danger-btn">Remove project</button>
                     </div>
                 </div>
             </div>
@@ -234,6 +236,9 @@
                     </li>
                     <li class="nav-tab-item">
                         <button class="link-btn" data-toggle="custom-tab" data-target="#projectPeople">People</button>
+                    </li>
+                    <li class="nav-tab-item">
+                        <button class="link-btn" data-toggle="custom-tab" data-target="#projectPayment">Payment</button>
                     </li>
                 </ul>
 
@@ -411,30 +416,30 @@
 
                                 <div id="legends" class="legends-container hide">
                                     <div class="task-legend">
-                                        <span class="leg-color"></span>
+                                        <span class="leg-color" data-color="#026aa7"></span>
                                         <span class="leg-title">Plan</span>
-                                        <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
                                             <span class="material-icons">edit</span>
                                         </button>
                                     </div>
 
                                     <div class="task-legend">
-                                        <span class="leg-color"></span>
-                                        <span class="leg-title">Plan</span>
-                                        <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                        <span class="leg-color" data-color="#5aac44"></span>
+                                        <span class="leg-title">Actual</span>
+                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
                                             <span class="material-icons">edit</span>
                                         </button>
                                     </div>
 
                                     <div class="task-legend">
-                                        <span class="leg-color"></span>
-                                        <span class="leg-title">Plan</span>
-                                        <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                        <span class="leg-color" data-color="#f5dd29"></span>
+                                        <span class="leg-title">Sample</span>
+                                        <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
                                             <span class="material-icons">edit</span>
                                         </button>
                                     </div>
 
-                                    <button class="btn light-btn slim-btn" data-toggle="popup" data-target="#legendPopup">
+                                    <button class="btn light-btn slim-btn" data-toggle="legend">
                                         Create legend
                                     </button>
                                 </div>
@@ -443,7 +448,7 @@
                     </div>
 
                     <!-- Gantt Chart -->
-                    <div id="projectGanttChart" class="custom-tab-content show chart-container">
+                    <div id="projectGanttChart" class="main-content custom-tab-content show chart-container">
                         <div class="gantt-chart">                        
                             <div class="chart">
                                 <div class="chart-row chart-header">
@@ -681,7 +686,7 @@
                         </span>
 
                         <!-- View Legends Popup -->
-                        <div id="viewLegends" class="popup popup-contained" data-backdrop="false" tabindex="-1" aria-hidden="true">
+                        <div id="viewLegends" class="popup popup-contained" tabindex="-1" aria-hidden="true">
                             <div class="pcontainer popup-sm" data-right="15" data-bottom="35">
                                 <div class="pcontent">
                                     <div class="pheader">
@@ -694,30 +699,30 @@
                                     <div class="pbody">
                                         <div class="legends-container">
                                             <div class="task-legend">
-                                                <span class="leg-color"></span>
+                                                <span class="leg-color" data-color="#026aa7"></span>
                                                 <span class="leg-title">Plan</span>
-                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
                                                     <span class="material-icons">edit</span>
                                                 </button>
                                             </div>
-
+        
                                             <div class="task-legend">
-                                                <span class="leg-color"></span>
-                                                <span class="leg-title">Plan</span>
-                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                <span class="leg-color" data-color="#5aac44"></span>
+                                                <span class="leg-title">Actual</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
                                                     <span class="material-icons">edit</span>
                                                 </button>
                                             </div>
-
+        
                                             <div class="task-legend">
-                                                <span class="leg-color"></span>
-                                                <span class="leg-title">Plan</span>
-                                                <button class="btn icon-btn leg-edit" data-toggle="popup" data-action="edit" data-target="#legendPopup">
+                                                <span class="leg-color" data-color="#f5dd29"></span>
+                                                <span class="leg-title">Sample</span>
+                                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
                                                     <span class="material-icons">edit</span>
                                                 </button>
                                             </div>
 
-                                            <button class="btn light-btn slim-btn" data-toggle="popup" data-target="#legendPopup">
+                                            <button class="btn light-btn slim-btn" data-toggle="legend">
                                                 <span class="material-icons btn-icon">label</span>
                                                 Create legend
                                             </button>
@@ -729,7 +734,7 @@
                     </div>
 
                     <!-- Resources -->
-                    <div id="projectResources" class="custom-tab-content">
+                    <div id="projectResources" class="main-content custom-tab-content">
 
                         <!-- Resources Table -->
                         <div class="mesa-container">                
@@ -837,15 +842,16 @@
                     </div>
                     
                     <!-- People -->
-                    <div id="projectPeople" class="custom-tab-content">
+                    <div id="projectPeople" class="main-content custom-tab-content">
 
                         <nav class="linear w-100">
                             <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">
                                 Pending invitations
                             </button>
+                            <a class="" href="../admin/generateslip.html">
                             <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
                                 Generate Slip
-                            </button>
+                            </button></a>
                             <div class="dropdown ml-auto">
                                 
                                 <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -923,18 +929,87 @@
                             </table>
                         </div>
                     </div>
-                    
+
+                    <!-- Payment -->
+                    <div id="projectPayment" class="main-content custom-tab-content">
+
+
+                        <!-- Payment Table -->
+                        <div class="mesa-container">
+                            <table class="mesa">
+                                <thead class="mesa-head">
+                                    <tr>
+                                        <th scope="col" class="tname"><strong>Description</strong></th>
+                                        <th scope="col">Payment</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col" class="table-action-col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Tank Requalification Fire Protection System</strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Centralized LPG Pipeline Installation</strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong></strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong></strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong></strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong></strong><br>
+                                            <small>Phoenix</small>
+                                        </td>
+                                        <td>PHP 12,000</td>
+                                        <td>dd/mm/YYYY</td>
+                                        <td>Remove</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </main>
     </div>
 
     <!-- Legend Popup -->
-    <div class="popup popup-center" id="legendPopup" tabindex="-1" aria-hidden="true">
+    <!-- <div class="popup show popup-center" id="legendPopup" data-legend="edit" tabindex="-1" aria-hidden="true">
         <div class="pcontainer popup-sm">
             <div class="pcontent">
                 <div class="pheader">
-                    <h2 class="ptitle">Create legend</h2>
+                    <h2 class="ptitle">Legend</h2>
                     <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
                         <span class="material-icons">close</span>
                     </button>
@@ -943,7 +1018,7 @@
                 <div class="pbody">
                     <div class="legend-preview">
                         <span></span>
-                        <span class="color-preview"></span>
+                        <span id="color-preview"></span>
                         <span></span>
                     </div>
 
@@ -957,63 +1032,86 @@
                         <label for="">Select a color</label>
                         <div class="color-selection">
                             <label for="row1.1" class="option-box">
-                              <input type="radio" name="legendColor" id="row1.1">
+                              <input type="radio" name="legendColor" id="row1.1" value="#7bc86c">
                             </label>
                             <label for="row1.2" class="option-box">
-                              <input type="radio" name="legendColor" id="row1.2">
+                              <input type="radio" name="legendColor" id="row1.2" value="#f5dd29">
                             </label>
                             <label for="row1.3" class="option-box">
-                              <input type="radio" name="legendColor" id="row1.3">
+                              <input type="radio" name="legendColor" id="row1.3" value="#ffaf3f">
                             </label>
                             <label for="row1.4" class="option-box">
-                              <input type="radio" name="legendColor" id="row1.4">
+                              <input type="radio" name="legendColor" id="row1.4" value="#ef7564">
                             </label>
                             <label for="row1.5" class="option-box">
-                              <input type="radio" name="legendColor" id="row1.5">
+                              <input type="radio" name="legendColor" id="row1.5" value="#cd8de5">
                             </label>
 
                             <label for="row2.1" class="option-box">
-                                <input type="radio" name="legendColor" id="row2.1">
+                                <input type="radio" name="legendColor" id="row2.1" value="#5aac44">
                             </label>
                             <label for="row2.2" class="option-box">
-                                <input type="radio" name="legendColor" id="row2.2">
+                                <input type="radio" name="legendColor" id="row2.2" value="#e6c60d">
                             </label>
                             <label for="row2.3" class="option-box">
-                                <input type="radio" name="legendColor" id="row2.3">
+                                <input type="radio" name="legendColor" id="row2.3" value="#e79217">
                             </label>
                             <label for="row2.4" class="option-box">
-                                <input type="radio" name="legendColor" id="row2.4">
+                                <input type="radio" name="legendColor" id="row2.4" value="#cf513d">
                             </label>
                             <label for="row2.5" class="option-box">
-                                <input type="radio" name="legendColor" id="row2.5">
+                                <input type="radio" name="legendColor" id="row2.5" value="#a86cc1">
                             </label>
 
                             <label for="row3.1" class="option-box">
-                                <input type="radio" name="legendColor" id="row3.1">
+                                <input type="radio" name="legendColor" id="row3.1" value="#5ba4cf">
                             </label>
                             <label for="row3.2" class="option-box">
-                                <input type="radio" name="legendColor" id="row3.2">
+                                <input type="radio" name="legendColor" id="row3.2" value="#29cce5">
                             </label>
                             <label for="row3.3" class="option-box">
-                                <input type="radio" name="legendColor" id="row3.3">
+                                <input type="radio" name="legendColor" id="row3.3" value="#6deca9">
                             </label>
                             <label for="row3.4" class="option-box">
-                                <input type="radio" name="legendColor" id="row3.4">
+                                <input type="radio" name="legendColor" id="row3.4" value="#ff8ed4">
                             </label>
                             <label for="row3.5" class="option-box">
-                                <input type="radio" name="legendColor" id="row3.5">
+                                <input type="radio" name="legendColor" id="row3.5" value="#344563">
+                            </label>
+
+                            <label for="row4.1" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.1" value="#026aa7">
+                            </label>
+                            <label for="row4.2" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.2" value="#00aecc">
+                            </label>
+                            <label for="row4.3" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.3" value="#4ed583">
+                            </label>
+                            <label for="row4.4" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.4" value="#e568af">
+                            </label>
+                            <label for="row4.5" class="option-box">
+                                <input type="radio" name="legendColor" id="row4.5" value="#091e42">
                             </label>
                         </div>
                     </form>
                 </div>
     
                 <div class="pfooter">
-                <button type="submit" form="legendForm" class="btn action-btn">Save</button>
-                <button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>
+                    <button type="submit" form="legendForm" class="btn action-btn">Save</button>
+                    <button type="button" class="btn danger-btn" data-action="delete" data-toggle="popup" data-type="delete">
+                        Delete
+                    </button>
+                    <button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>
+
+
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+
+
 
     <!--POPUP INVITE PEOPLE-->
     <div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
@@ -1194,5 +1292,160 @@
     <script src="../../scripts/index.js"></script>
     <script src="../../scripts/table.js"></script>
     <script src="../../scripts/project.js"></script>
+
+    <script>
+
+        function generateLegendForm(legendID = "legendPopup") {
+            let legend =    $('<div class="popup show popup-center" id="legendPopup" data-legend="' + legendID + '" tabindex="-1" aria-hidden="true">' +
+                                '<div class="pcontainer popup-sm">' +
+                                    '<div class="pcontent">' +
+                                        '<div class="pheader">' +
+                                            '<h2 class="ptitle">Legend</h2>' +
+                                            '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
+                                                '<span class="material-icons">close</span>' +
+                                            '</button>' +
+                                        '</div>' +
+                            
+                                        '<div class="pbody">' +
+                                            '<div class="legend-preview">' +
+                                                '<span></span>' +
+                                                '<span id="color-preview"></span>' +
+                                                '<span></span>' +
+                                            '</div>' +
+
+                                            '<form action=".?action=create" method="POST" id="legendForm">' +
+                                                '<div class="form-group">' +
+                                                '<label for="">Title</label>' +
+                                                '<input type="text"' +
+                                                    'class="form-control" name="" id="" aria-describedby="helpId" placeholder="">' +
+                                                '</div>' +
+
+                                                '<label for="">Select a color</label>' +
+                                                '<div class="color-selection">' +
+                                                    '<label for="row1.1" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.1"  value="#7bc86c">' +
+                                                    '</label>' +
+                                                    '<label for="row1.2" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.2"  value="#f5dd29">' +
+                                                    '</label>' +
+                                                    '<label for="row1.3" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.3"  value="#ffaf3f">' +
+                                                    '</label>' +
+                                                    '<label for="row1.4" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.4"  value="#ef7564">' +
+                                                    '</label>' +
+                                                    '<label for="row1.5" class="option-box">' +
+                                                    '<input type="radio" name="legendColor" id="row1.5"  value="#cd8de5">' +
+                                                    '</label>' +
+
+                                                    '<label for="row2.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.1"  value="#5aac44">' +
+                                                    '</label>' +
+                                                    '<label for="row2.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.2"  value="#e6c60d">' +
+                                                    '</label>' +
+                                                    '<label for="row2.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.3"  value="#e79217">' +
+                                                    '</label>' +
+                                                    '<label for="row2.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.4"  value="#cf513d">' +
+                                                    '</label>' +
+                                                    '<label for="row2.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row2.5"  value="#a86cc1">' +
+                                                    '</label>' +
+
+                                                    '<label for="row3.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.1"  value="#5ba4cf">' +
+                                                    '</label>' +
+                                                    '<label for="row3.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.2"  value="#29cce5">' +
+                                                    '</label>' +
+                                                    '<label for="row3.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.3"  value="#6deca9">' +
+                                                    '</label>' +
+                                                    '<label for="row3.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.4"  value="#ff8ed4">' +
+                                                    '</label>' +
+                                                    '<label for="row3.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row3.5"  value="#344563">' +
+                                                    '</label>' +
+
+                                                    '<label for="row4.1" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.1"  value="#026aa7">' +
+                                                    '</label>' +
+                                                    '<label for="row4.2" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.2"  value="#00aecc">' +
+                                                    '</label>' +
+                                                    '<label for="row4.3" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.3"  value="#4ed583">' +
+                                                    '</label>' +
+                                                    '<label for="row4.4" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.4"  value="#e568af">' +
+                                                    '</label>' +
+                                                    '<label for="row4.5" class="option-box">' +
+                                                        '<input type="radio" name="legendColor" id="row4.5"  value="#091e42">' +
+                                                    '</label>' +
+                                                '</div>' +
+                                            '</form>' +
+                                        '</div>' +
+                            
+                                        '<div class="pfooter">' +
+                                            '<button type="submit" form="legendForm" class="btn action-btn">Save</button>' +
+                                            '<button type="button" class="btn danger-btn" data-action="delete" data-toggle="popup" data-type="delete">' +
+                                                'Delete' +
+                                            '</button>' +
+                                            '<button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>');
+
+            legend.find('.option-box').each((index, element) => {
+                $(element).css('background-color', $(element).find('input').val());
+                $(element).find('input').change((e) => {
+                    console.log("Input change");
+                    if (e.target.checked) {
+                        $('#color-preview').css('background-color', $(e.target).val());
+                    }
+                });
+            });
+
+            initializePopup(legend);
+
+            return legend;
+        }
+
+        $("button[data-toggle='legend']").on('click', (e) => {
+            console.log("Legend button");
+            let btn = $(e.target);
+            let legendForm = generateLegendForm();
+
+            console.log(btn);
+            console.log(legendForm);
+
+            if (btn.data("target") != null) {
+                console.log("Target is not null");
+                console.log(btn.data("target"));
+                legendForm = $(generateLegendForm(btn.data("target")));
+                legendForm.attr('data-legend', 'edit' );
+
+            } else {
+                legendForm.find(".ptitle").text("Create legend");
+                legendForm.find(".pfooter .btn.danger-btn").remove();
+            }
+
+            console.log(legendForm);
+            $('body').append(legendForm);
+            showPopup(btn, legendForm);
+        });
+    
+        $('.task-legend').each((index, element) => {
+            console.log("Task Legend");
+            let color = $(element).find('.leg-color');
+            console.log(color.css('background-color', color.data('color')));
+            $(element).find('.leg-title').css('background-color', color.data('color'));
+
+        });
+    </script>
   </body>
 </html>

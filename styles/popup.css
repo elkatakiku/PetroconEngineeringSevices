@@ -146,6 +146,7 @@
 
 /* Popup Contained */
 .popup-contained {
+    background-color: transparent !important;
     position: absolute;
     bottom: 0;
     right: 0;
@@ -161,7 +162,12 @@
 }
 
 /* Popup Delete */
+.popup {
+    background-color: rgba(0, 0, 0, .3);
+}
+
 .popup-delete .pcontainer {
+    backdrop-filter: blur(2px);
     pointer-events: none;
     position: absolute;
     width: 100%;
@@ -170,6 +176,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 .popup-delete .pheader {
     border-top: 5px solid var(--danger);
 }

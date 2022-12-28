@@ -7,7 +7,10 @@ h1, h2, h3, h4, h5, h6 {
     flex: 1;
     display: grid;
     grid-template-columns: 1fr;
-    background: white url('../images/header-image.jpg') no-repeat;
+    background-color: white;
+    /* background-image:  url('../images/header-image.jpg'); */
+    background-repeat: no-repeat;
+    /* background: white url('../images/header-image.jpg') no-repeat; */
     background-size: cover;
 }
 
@@ -39,28 +42,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-login {
-    padding: 3rem 2rem 10%;
+    padding: 3rem 2rem;
     color: var(--primary-text);
     background-color: white;
+    box-shadow: 8px 8px 5px rgba(0, 0, 0, 0.3);
+    transition: .2s all linear;
 }
 
-.form-login {
-    padding: 3rem 2rem 10%;
-    color: var(--primary-text);
-    background-color: white;
-    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.3);
-    transition: .2s all linear;
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.login-header h2 {
+    color: var(--palette1);
 }
 
 .form-login .primary-btn {
     margin-top: 2.5rem;
 }
 
-.form-login .login-options {
+.login-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5% 0 12%;
+    padding: .5rem 0 1rem;
     font-size: .75rem;
 }
 
@@ -68,8 +74,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
     color: var(--primary-text);
 }
-
-
 
 
 /* || Media Queries */
