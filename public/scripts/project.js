@@ -186,7 +186,8 @@ function generateTaskActivity(activity, color, start, end, newAct = false) {
 }
 
 // Ajax response callback
-unction loadActivities(id, activities) { 
+
+function loadActivities(id, activities) { 
     $.get(
         Settings.base_url + "/projects/taskActivities", 
         {taskId : id},
