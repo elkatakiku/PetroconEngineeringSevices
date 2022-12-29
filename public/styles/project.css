@@ -480,10 +480,10 @@ ul .chart-li-seven-t2 {
 /* || Task Popup */
 #taskPopup .task-activity {
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.30);
+    /* border: 1px solid rgba(0, 0, 0, 0.30); */
     border-radius: 5px;
     background-color: white;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.30);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.30);
 }
 
 .task-activity .close-btn .material-icons {

@@ -30,7 +30,7 @@ class AuthController extends Controller {
         ];
 
         // Validate inputs
-        if($this->loginUser($inputs) < 0) {
+        if($this->loginUser($inputs) < 1) {
             // Error Handling
             // Code here
             echo "<h1>Username or password does not match.</h1>";
@@ -60,21 +60,19 @@ class AuthController extends Controller {
     }
 
     private function loginUser($inputs) {
-        echo __METHOD__;
+        $result = 1;
+
         if ($this->emptyInput($inputs)) {
-            echo "Checking inputs";
             echo "<br>Please fill all required inputs.";
-            return -101;
+            $result =  -101;
         }
 
         if(!$this->getModel()->getUser($inputs["username"], $inputs["password"])) {
-            // echo '<hr>';
-            // echo "Error".__METHOD__;
-            return -1;
+            $result =  -404;
         }
 
         // Login success
-        return 1;
+        return $result;
     }
 
     // SignUp

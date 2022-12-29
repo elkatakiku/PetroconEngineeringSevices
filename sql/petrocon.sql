@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2022 at 11:40 AM
+-- Generation Time: Dec 28, 2022 at 09:54 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -48,16 +48,16 @@ INSERT INTO `lnk_project_plan` (`proj_id`, `leg_id`) VALUES
 --
 
 CREATE TABLE `pltbl_account_type` (
-  `actyID` varchar(100) NOT NULL,
-  `actyName` varchar(255) NOT NULL,
-  `actyDescription` varchar(255) NOT NULL
+  `id` varchar(100) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pltbl_account_type`
 --
 
-INSERT INTO `pltbl_account_type` (`actyID`, `actyName`, `actyDescription`) VALUES
+INSERT INTO `pltbl_account_type` (`id`, `name`, `description`) VALUES
 ('PTRCN-TYPE-20221', 'Admin', ''),
 ('PTRCN-TYPE-20222', 'Employee', ''),
 ('PTRCN-TYPE-20223', 'Worker', ''),
@@ -70,20 +70,21 @@ INSERT INTO `pltbl_account_type` (`actyID`, `actyName`, `actyDescription`) VALUE
 --
 
 CREATE TABLE `tbl_account` (
-  `accID` varchar(100) NOT NULL,
-  `accTypeID` varchar(100) NOT NULL,
-  `accRegisterID` varchar(100) NOT NULL,
-  `accLoginID` varchar(100) NOT NULL
+  `id` varchar(100) NOT NULL,
+  `type_id` varchar(100) NOT NULL,
+  `register_id` varchar(100) NOT NULL,
+  `login_id` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_account`
 --
 
-INSERT INTO `tbl_account` (`accID`, `accTypeID`, `accRegisterID`, `accLoginID`) VALUES
+INSERT INTO `tbl_account` (`id`, `type_id`, `register_id`, `login_id`) VALUES
 ('PTRCN-ACCT-638e56ea9b617', 'PTRCN-TYPE-20221', 'PTRCN-RGSTR-638e56ea9b610', 'PTRCN-USR-638e56ea86b8c'),
 ('PTRCN-ACCT-638f7d443068f', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-638f7d4430689', 'PTRCN-USR-638f7d441d81e'),
-('PTRCN-ACCT-6390b2b8ee631', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-6390b2b8ee625', 'PTRCN-USR-6390b2b8d9892');
+('PTRCN-ACCT-6390b2b8ee631', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-6390b2b8ee625', 'PTRCN-USR-6390b2b8d9892'),
+('PTRCN-ACCT-63aca07cd1916', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63aca07cd18fe', 'PTRCN-USR-63aca07cbe658');
 
 -- --------------------------------------------------------
 
@@ -148,19 +149,20 @@ INSERT INTO `tbl_legend` (`id`, `color`, `title`, `proj_id`, `created_at`) VALUE
 --
 
 CREATE TABLE `tbl_login` (
-  `logID` varchar(50) NOT NULL,
-  `logUsername` varchar(255) NOT NULL,
-  `logPassword` longtext NOT NULL
+  `id` varchar(50) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_login`
 --
 
-INSERT INTO `tbl_login` (`logID`, `logUsername`, `logPassword`) VALUES
+INSERT INTO `tbl_login` (`id`, `username`, `password`) VALUES
 ('PTRCN-USR-638e56ea86b8c', 'admin', '$2y$10$j0RTpWXgj/EkfuV1BBFvfuFv66Qw8HlvzWI1Ku4yYZxLujvNuhHaO'),
 ('PTRCN-USR-638f7d441d81e', 'elkatakiku', '$2y$10$EovMtaNz4MD9y6Ogj4V/WenneruwBZbjGsA2EAc/aDxb7HbRpHgs.'),
-('PTRCN-USR-6390b2b8d9892', 'sample', '$2y$10$1TTUs1tCgIJVe/Pjt8PTZuTTmY3elKPYHucXwRGWn2QBlzK9Xpsp.');
+('PTRCN-USR-6390b2b8d9892', 'sample', '$2y$10$1TTUs1tCgIJVe/Pjt8PTZuTTmY3elKPYHucXwRGWn2QBlzK9Xpsp.'),
+('PTRCN-USR-63aca07cbe658', 'asd', '$2y$10$SjtuhylIieY27PSJyFQ74uMBxLplJCGWe2Cb3kPgwiiRIAecY8aKi');
 
 -- --------------------------------------------------------
 
@@ -207,24 +209,26 @@ INSERT INTO `tbl_project` (`id`, `name`, `location`, `building_number`, `status`
 --
 
 CREATE TABLE `tbl_register` (
-  `regID` varchar(100) NOT NULL,
-  `regLastname` varchar(255) NOT NULL,
-  `regFirstname` varchar(255) NOT NULL,
-  `regMiddlename` varchar(255) NOT NULL,
-  `regContactNumber` varchar(255) NOT NULL,
-  `regDob` date NOT NULL,
-  `regEmail` varchar(255) NOT NULL,
-  `regLoginID` varchar(100) NOT NULL
+  `id` varchar(100) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `middlename` varchar(255) NOT NULL,
+  `contact_number` varchar(255) NOT NULL,
+  `dob` date NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `log_ID` varchar(100) NOT NULL,
+  `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_register`
 --
 
-INSERT INTO `tbl_register` (`regID`, `regLastname`, `regFirstname`, `regMiddlename`, `regContactNumber`, `regDob`, `regEmail`, `regLoginID`) VALUES
-('PTRCN-RGSTR-638e56ea9b610', 'admin', 'admin', 'admin', '09123456789', '2022-12-06', 'admin@email.com', 'PTRCN-USR-638e56ea86b8c'),
-('PTRCN-RGSTR-638f7d4430689', 'Elkatakiku', 'El', 'M', '09123456789', '2000-06-30', 'lamzonelizer1@gmail.com', 'PTRCN-USR-638f7d441d81e'),
-('PTRCN-RGSTR-6390b2b8ee625', 'Lastname', 'Firstname', 'M', '09123456789', '2000-12-07', 'sample@email.com', 'PTRCN-USR-6390b2b8d9892');
+INSERT INTO `tbl_register` (`id`, `lastname`, `firstname`, `middlename`, `contact_number`, `dob`, `email`, `log_ID`, `address`) VALUES
+('PTRCN-RGSTR-638e56ea9b610', 'admin', 'admin', 'admin', '09123456789', '2022-12-06', 'admin@email.com', 'PTRCN-USR-638e56ea86b8c', ''),
+('PTRCN-RGSTR-638f7d4430689', 'Elkatakiku', 'El', 'M', '09123456789', '2000-06-30', 'lamzonelizer1@gmail.com', 'PTRCN-USR-638f7d441d81e', ''),
+('PTRCN-RGSTR-6390b2b8ee625', 'Lastname', 'Firstname', 'M', '09123456789', '2000-12-07', 'sample@email.com', 'PTRCN-USR-6390b2b8d9892', ''),
+('PTRCN-RGSTR-63aca07cd18fe', 'Cooper', 'Bradley', 'D', '09234567891', '2002-07-04', 'email@email.com', 'PTRCN-USR-63aca07cbe658', '');
 
 -- --------------------------------------------------------
 
@@ -268,6 +272,8 @@ INSERT INTO `tbl_task` (`id`, `description`, `order_no`, `status`, `created_at`,
 ('PTRCN-TSK-63aa135f97bfa', 'Leak Test and commissioning  at 2F, UGF, LGF', '19.0000', 0, '2022-12-26 21:34:23', 1, 'PTRCN-PRJCT-63a8b223e533c'),
 ('PTRCN-TSK-63aa13656951c', 'Additional 2-1/2&quot;  LPG mainline and stubouts for Vikings, Tongyang', '20.0000', 0, '2022-12-26 21:34:29', 1, 'PTRCN-PRJCT-63a8b223e533c'),
 ('PTRCN-TSK-63aa136c9ba8a', 'Leak test on 2-1/2 addition mainline and stubouts', '21.0000', 0, '2022-12-26 21:34:36', 1, 'PTRCN-PRJCT-63a8b223e533c'),
+('PTRCN-TSK-63ac433d1ce13', 'nagana ka ba', '22.0000', 0, '2022-12-28 13:23:09', 1, 'PTRCN-PRJCT-63a8b223e533c'),
+('PTRCN-TSK-63ac53319b61f', 'Isa pa', '23.0000', 0, '2022-12-28 14:31:13', 1, 'PTRCN-PRJCT-63a8b223e533c'),
 ('sampID', 'Task 1', '1.0000', 0, '2022-12-25 14:00:03', 1, 'PTRCN-PRJCT-63a613bd48f75');
 
 -- --------------------------------------------------------
@@ -311,7 +317,9 @@ INSERT INTO `tbl_taskbar` (`id`, `task_id`, `leg_id`, `start`, `end`, `created_a
 ('PTRCN-TSKBR-63aa135acb5a6', 'PTRCN-TSK-63aa135acabaa', 'PTRCN-LGND-63a8b223e5724', '2022-12-26 00:00:00', '2022-12-26 00:00:00', '2022-12-26 21:34:18', 1),
 ('PTRCN-TSKBR-63aa135f982ed', 'PTRCN-TSK-63aa135f97bfa', 'PTRCN-LGND-63a8b223e5724', '2022-12-26 00:00:00', '2022-12-26 00:00:00', '2022-12-26 21:34:23', 1),
 ('PTRCN-TSKBR-63aa136569f6a', 'PTRCN-TSK-63aa13656951c', 'PTRCN-LGND-63a8b223e5724', '2022-12-26 00:00:00', '2022-12-26 00:00:00', '2022-12-26 21:34:29', 1),
-('PTRCN-TSKBR-63aa136c9feff', 'PTRCN-TSK-63aa136c9ba8a', 'PTRCN-LGND-63a8b223e5724', '2022-12-26 00:00:00', '2022-12-26 00:00:00', '2022-12-26 21:34:36', 1);
+('PTRCN-TSKBR-63aa136c9feff', 'PTRCN-TSK-63aa136c9ba8a', 'PTRCN-LGND-63a8b223e5724', '2022-12-26 00:00:00', '2022-12-26 00:00:00', '2022-12-26 21:34:36', 1),
+('PTRCN-TSKBR-63ac433d20c09', 'PTRCN-TSK-63ac433d1ce13', 'PTRCN-LGND-63a8b223e5724', '2022-12-28 00:00:00', '2022-12-28 00:00:00', '2022-12-28 13:23:09', 1),
+('PTRCN-TSKBR-63ac53319be2a', 'PTRCN-TSK-63ac53319b61f', 'PTRCN-LGND-63a8b223e5724', '2022-12-28 00:00:00', '2022-12-28 00:00:00', '2022-12-28 14:31:13', 1);
 
 --
 -- Indexes for dumped tables
@@ -328,16 +336,16 @@ ALTER TABLE `lnk_project_plan`
 -- Indexes for table `pltbl_account_type`
 --
 ALTER TABLE `pltbl_account_type`
-  ADD PRIMARY KEY (`actyID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_account`
 --
 ALTER TABLE `tbl_account`
-  ADD PRIMARY KEY (`accID`),
-  ADD KEY `accLoginID` (`accLoginID`),
-  ADD KEY `accTypeID` (`accTypeID`),
-  ADD KEY `accRegisterID` (`accRegisterID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `accLoginID` (`login_id`),
+  ADD KEY `accTypeID` (`type_id`),
+  ADD KEY `accRegisterID` (`register_id`);
 
 --
 -- Indexes for table `tbl_client`
@@ -356,7 +364,7 @@ ALTER TABLE `tbl_legend`
 -- Indexes for table `tbl_login`
 --
 ALTER TABLE `tbl_login`
-  ADD PRIMARY KEY (`logID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_project`
@@ -368,8 +376,8 @@ ALTER TABLE `tbl_project`
 -- Indexes for table `tbl_register`
 --
 ALTER TABLE `tbl_register`
-  ADD PRIMARY KEY (`regID`),
-  ADD KEY `regLoginID` (`regLoginID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `regLoginID` (`log_ID`);
 
 --
 -- Indexes for table `tbl_task`
@@ -401,9 +409,9 @@ ALTER TABLE `lnk_project_plan`
 -- Constraints for table `tbl_account`
 --
 ALTER TABLE `tbl_account`
-  ADD CONSTRAINT `tbl_account_ibfk_1` FOREIGN KEY (`accLoginID`) REFERENCES `tbl_login` (`logID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `tbl_account_ibfk_2` FOREIGN KEY (`accTypeID`) REFERENCES `pltbl_account_type` (`actyID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `tbl_account_ibfk_3` FOREIGN KEY (`accRegisterID`) REFERENCES `tbl_register` (`regID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tbl_account_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `tbl_login` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tbl_account_ibfk_2` FOREIGN KEY (`type_id`) REFERENCES `pltbl_account_type` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tbl_account_ibfk_3` FOREIGN KEY (`register_id`) REFERENCES `tbl_register` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_legend`
@@ -415,8 +423,8 @@ ALTER TABLE `tbl_legend`
 -- Constraints for table `tbl_register`
 --
 ALTER TABLE `tbl_register`
-  ADD CONSTRAINT `tbl_register_ibfk_1` FOREIGN KEY (`regLoginID`) REFERENCES `tbl_login` (`logID`),
-  ADD CONSTRAINT `tbl_register_ibfk_2` FOREIGN KEY (`regLoginID`) REFERENCES `tbl_login` (`logID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tbl_register_ibfk_1` FOREIGN KEY (`log_ID`) REFERENCES `tbl_login` (`id`),
+  ADD CONSTRAINT `tbl_register_ibfk_2` FOREIGN KEY (`log_ID`) REFERENCES `tbl_login` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `tbl_task`
