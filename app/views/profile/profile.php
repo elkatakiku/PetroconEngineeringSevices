@@ -14,35 +14,46 @@
             </div>
           </div>
 
-          <form action="<?= SITE_URL.US.'profile/profiles' ?>" method="POST" id="proform">
-              <div class="form-group">
-                <label for="">Full Name</label>
-                <input type="text" class="form-control" name="fullname" id="" aria-describedby="helpId" placeholder="Edit Full Name">
-              </div>
-              <div class="form-group">
-                <label for="">Position/Title</label>
-                <input type="text" class="form-control" name="position" id="" aria-describedby="helpId" placeholder="Edit Position/Title">
-              </div>
-              <div class="form-group">
-                <label for="">Username</label>
-                <input type="text" class="form-control" name="username" id="" aria-describedby="helpId" placeholder="Edit Username">
-              </div>
-              <div class="form-group">
-                <label for="">Email</label>
-                <input type="text" class="form-control" name="email" id="" aria-describedby="helpId" placeholder="Edit Email">
-              </div>
-              <div class="form-group">
-                <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupChangePass">
-                  Change Password</button> <!---pop up to----->
-              </div>
+          <form action="<?= SITE_URL.US.'profile/profiles'?>" method="POST" id="proform">
+            <div class="form-group">
+              <label for="">First Name</label>
+              <input type="text" class="form-control" name="firstName" id="" aria-describedby="helpId" placeholder="Edit First Name">
+            </div>
+            <div class="form-group">
+              <label for="">Middle Name</label>
+              <input type="text" class="form-control" name="middleName" id="" aria-describedby="helpId" placeholder="Edit Middle Name">
+            </div>
+            <div class="form-group">
+              <label for="">Last Name</label>
+              <input type="text" class="form-control" name="lastName" id="" aria-describedby="helpId" placeholder="Edit Last Name">
+            </div>
+            <div class="form-group">
+              <label for="">Email</label>
+              <input type="text" class="form-control" name="email" id="" aria-describedby="helpId" placeholder="Edit Email">
+            </div>
+            <div class="form-group">
+              <label for="">Address</label>
+              <input type="text" class="form-control" name="address" id="" aria-describedby="helpId" placeholder="Edit Address">
+            </div>
+            <div class="form-group">
+              <label for="">Contact no.</label>
+              <input type="text" class="form-control" name="contactNo" id="" aria-describedby="helpId" placeholder="Edit Contact no.">
+            </div>
+            <div class="form-group">
+              <label for="">Birthdate</label>
+              <input type="date" class="form-control" name="birthdate" id="" aria-describedby="helpId" placeholder="">
+            </div>
+            <div class="form-group">
+              <button type="button" class="btn action-btn" data-toggle="popup" data-target="#popupChangePass"> Change Password</button>
+              <!---pop up to----->
+            </div>
           </form>
-
           <div class="btn-side" style="text-align: center;">
-            <button type="submit" form="proform" class="btn action-btn" onclick="changePage('clientprofile.html')">Save Change</button>
+            <button type="submit" form="proform" name="modifyProfile" class="btn action-btn">Save Change</button>
             <button type="button" class="btn outline-action-btn" onclick="changePage('clientprofile.html')">Cancel</button>
           </div>
         </div>
-      </main>
+      </main> 
 
 <!-- Popup -->
 <div class="popup popup-center" id="popupChangePass" tabindex="-1" aria-hidden="true">
@@ -57,22 +68,24 @@
             </div>
 
             <div class="pbody">
+              <form action="<?= SITE_URL.US.'profile/profilesChangePass' ?>" method="POST" id="changePassForm">
                 <div class="form-group">
                     <label for=""> Current Password</label>
-                    <input type="password" class="form-control" name="currentpass" id="" placeholder="Password">
+                    <input type="password" class="form-control" name="currentPass" id="" placeholder="Password">
                 </div>
                 <div class="form-group">
                     <label for="">New Password</label>
-                    <input type="password" class="form-control" name="newpass" id="" placeholder="Password">
+                    <input type="password" class="form-control" name="newPass" id="" placeholder="Password">
                 </div>
                 <div class="form-group">
                     <label for="">Confirm New Password</label>
-                    <input type="password" class="form-control" name="confirmnew" id="" placeholder="Password">
+                    <input type="password" class="form-control" name="confirmNew" id="" placeholder="Password">
                 </div>
+              </form>
             </div>
             
             <div class="pfooter">
-                <button type="submit" class="btn action-btn">Save Changes</button>
+                <button type="submit" name="changePassword" form="changePassForm" class="btn action-btn">Save Changes</button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
             </div>
         </div>

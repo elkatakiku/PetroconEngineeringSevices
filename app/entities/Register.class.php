@@ -10,20 +10,21 @@ class Register implements Expose {
     private $birthdate;
     private $email;
     private $loginId;
+    private $address;
 
     public function createRegister(
         $lastname, $firstname, $middleName, 
-        $contactNumber, $birthdate, $email, $loginId) {
+        $contactNumber, $birthdate, $email, $loginId, $address) {
         
         $this->setRegister(
             uniqid("PTRCN-RGSTR-"), $lastname, $firstname, $middleName, 
-            $contactNumber, $birthdate, $email, $loginId
+            $contactNumber, $birthdate, $email, $loginId, $address
         );
     }
 
     public function setRegister(
         $id, $lastname, $firstname, $middleName, 
-        $contactNumber, $birthdate, $email, $loginId) {
+        $contactNumber, $birthdate, $email, $loginId, $address) {
         
         $this->id = $id;
         $this->lastname = $lastname;
@@ -33,6 +34,7 @@ class Register implements Expose {
         $this->birthdate = $birthdate;
         $this->email = $email;
         $this->loginId = $loginId;
+        $this->address = $address;
     }
 
     public function setId($id) {
@@ -97,6 +99,14 @@ class Register implements Expose {
     
     public function getLoginId() {
         return $this->loginId;
+    }
+
+    public function setAddress($address) {
+        $this->id = $address;
+    }
+
+    public function getAddress() {
+        return $this->address;
     }
 
     public function expose() {
