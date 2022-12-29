@@ -108,7 +108,7 @@ class ProjectsController extends Controller {
             ]
         ];
 
-        var_dump($inputs);
+        // var_dump($inputs);
 
         // echo "<br>Project Details<br>";
         // var_dump($inputs);

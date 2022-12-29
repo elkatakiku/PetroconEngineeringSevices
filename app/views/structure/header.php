@@ -170,7 +170,7 @@
                   <span class="material-icons">workspaces</span>
                   <div class="collapsible">
                     <span>
-                      Team
+                      Users
                       <span class="material-icons">arrow_drop_down</span>
                     </span>
                   </div>
@@ -178,23 +178,17 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
                 <li class="">
-                  <a class="" href="<?= SITE_URL.US.'team/employees' ?>">Employees</a>
+                  <a class="" href="<?= SITE_URL ?>/users/list/employees">Employees</a>
                 </li>
                 <li class="">
-                  <a class="" href="<?= SITE_URL.US.'team/workers' ?>">Workers</a>
+                  <a class="" href="<?= SITE_URL ?>/users/list/workers">Workers</a>
+                </li>
+                <li class="active">
+                  <a class="" href="<?= SITE_URL ?>/users/list/clients">Clients</a>
                 </li>
               </ul>
             </li>
 
-            <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'users' ?>">
-                <span class="material-icons">people</span>
-                <div class="collapsible">
-                  <span>Users</span>
-                </div>
-              </a>
-            </li>
-  
             <hr>
   
             <li class="">
