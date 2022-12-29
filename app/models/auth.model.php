@@ -9,12 +9,13 @@ class AuthModel extends Model {
 
     // Check user
     public function checkUser($username, $email) {
-        // Test
-        echo "<br>Checking user";
 
-        $sql = "SELECT l.logUsername, r.regEmail
-                FROM ".self::$tblLogin." l INNER JOIN ".self::$tblRegister." r
-                WHERE l.logUsername = :username OR r.regEmail = :email;";
+        $sql = "SELECT 
+                    l.username, r.email
+                FROM 
+                    ".self::$tblLogin." l INNER JOIN ".self::$tblRegister." r
+                WHERE 
+                    l.username = :username OR r.email = :email;";
 
         // Preparing Statement
         $stmt = $this->connect()->prepare($sql);
@@ -23,200 +24,191 @@ class AuthModel extends Model {
         $stmt->bindParam(":username", $username);
         $stmt->bindParam(":email", $email);
 
-        // Execute 
-        if (!$stmt->execute()) {
-            $stmt = null;
-            return -1;
-            // Redirect
-            // header('Location: .');
-            // exit();
+        // Execute
+        if(!$stmt->execute()) {
+            $result = false;
         }
 
-        // Return if there's a gathered user from the db
-        return $stmt->rowCount() > 0;
+        $result = $stmt->rowCount() > 0;
+        
+        // Closes PDO and returns result
+        $stmt = null;
+        return $result;
     }
 
     public function setUser(Login $login, Register $register, Account $account) {
 
-        if (!$this->setLogin($login->getId(), $login->getUsername(), $login->getPassword())) {
+        if (!$this->setLogin($login)) {
             return -101;
         }
 
-        if (!$this->setRegister(
-            $register->getId(), $register->getLastname(), $register->getFirstname(), $register->getMiddlename(), 
-            $register->getContactNumber(), $register->getBirthdate(), $register->getEmail(), $register->getLoginId()
-        )) {
+        if (!$this->setRegister($register)) {
             return -102;
         }
 
-        if (!$this->setAccount($account->getId(), $account->getTypeId(), $account->getRegisterId(), $account->getLoginId())) {
+        if (!$this->setAccount($account)) {
             return -103;
         }
 
         return 1;
     }
 
-    private function setLogin($id, $username, $password) {
+    private function setLogin(Login $login) {
         // Insert into login
         $sqlLogin = '   INSERT INTO '.self::$tblLogin.'
-                            (logID, logUsername, logPassword)
+                            (id, username, password)
                         VALUES
                             (:id, :username, :password);';
 
-        $stmtLogin = $this->connect()->prepare($sqlLogin);
+        $stmt = $this->connect()->prepare($sqlLogin);
 
-        $stmtLogin->bindParam(":id", $id);
-        $stmtLogin->bindValue(":username", $username);
-        $stmtLogin->bindValue(":password", $password);
+        $stmt->bindValue(":id", $login->getId());
+        $stmt->bindValue(":username", $login->getUsername());
+        $stmt->bindValue(":password", $login->getPassword());
 
-        if ($stmtLogin->execute()) {
-            $stmtLogin = null;
-            return true;
+        $result = true;
+
+        if(!$stmt->execute()) {
+            $result = false;
         }
-
-        return false;
+        
+        $stmt = null;
+        return $result;
     }
 
-    private function setRegister(
-            $id, $lastname, $firstname, $middleName, 
-            $contactNumber, $birthdate, $email, $loginId
-        ) {
+    private function setRegister(Register $register) {
 
         $sqlRegister = 'INSERT INTO '.self::$tblRegister.'
-                            (regID, regLastname, regFirstname, regMiddlename, regContactNumber, regDob, regEmail, regLoginID)
+                            (id, lastname, firstname, middlename, contact_number, dob, email, log_id)
                         VALUES 
                             (:regID, :lastname, :firstname, :middlename, :contactNumber, :dob, :email, :regLoginID)';
 
-        $stmtRegister = $this->connect()->prepare($sqlRegister);
-        
+        $stmt = $this->connect()->prepare($sqlRegister);
 
-        $stmtRegister->bindParam(":regID", $id);
-        $stmtRegister->bindParam(":lastname", $lastname);
-        $stmtRegister->bindParam(":firstname", $firstname);
-        $stmtRegister->bindParam(":middlename", $middleName);
-        $stmtRegister->bindParam(":contactNumber", $contactNumber);
-        $stmtRegister->bindParam(":dob", $birthdate);
-        $stmtRegister->bindParam(":email", $email);
-        $stmtRegister->bindParam(":regLoginID", $loginId);
+        $stmt->bindValue(":regID", $register->getId());
+        $stmt->bindValue(":lastname", $register->getLastname());
+        $stmt->bindValue(":firstname", $register->getFirstname());
+        $stmt->bindValue(":middlename", $register->getMiddlename());
+        $stmt->bindValue(":contactNumber", $register->getContactNumber());
+        $stmt->bindValue(":dob", $register->getBirthdate());
+        $stmt->bindValue(":email", $register->getEmail());
+        $stmt->bindValue(":regLoginID", $register->getLoginId());
 
-        if ($stmtRegister->execute()) {
-            $stmtRegister = null;
-            return true;
+        $result = true;
+
+        if(!$stmt->execute()) {
+            $result = false;
         }
-
-        return false;
+        
+        $stmt = null;
+        return $result;
     }
 
-    private function setAccount($id, $typeId, $regId, $logId) {
-
+    private function setAccount(Account $account) {
         // // Insert into accounts
         $sqlAccount = " INSERT INTO ".self::$tblAccount." 
-                            (accID, accTypeID, accRegisterID, accLoginID)
+                            (id, type_id , register_id, login_id)
                         VALUES 
                             (:acctID, :accTypeID, :accRegisterID, :accLoginID);";
 
-        $stmtAccount = $this->connect()->prepare($sqlAccount);
+        $stmt = $this->connect()->prepare($sqlAccount);
 
-        $stmtAccount->bindParam(":acctID", $id);
-        $stmtAccount->bindParam(":accTypeID", $typeId);
-        $stmtAccount->bindParam(":accRegisterID", $regId);
-        $stmtAccount->bindParam(":accLoginID", $logId);
+        $stmt->bindValue(":acctID", $account->getId());
+        $stmt->bindValue(":accTypeID", $account->getTypeId());
+        $stmt->bindValue(":accRegisterID", $account->getRegisterId());
+        $stmt->bindValue(":accLoginID", $account->getLoginId());
 
-        if ($stmtAccount->execute()) {
-            $stmtAccount = null;
-            return true;
+        $result = true;
+
+        if(!$stmt->execute()) {
+            $result = false;
         }
-
-        return false;
+        
+        $stmt = null;
+        return $result;
     }
 
     public function getUser($username, $password) {
-        echo $username . $password;
-        $sqlPass = "SELECT logID, logPassword 
-                    FROM ".self::$tblLogin." 
-                    WHERE logUsername = :username;";
+        $result = false;
+
+        if ($login = $this->getLogin($username)) {
+            
+            if (password_verify($password, $login["password"])) {
+
+                $account = $this->getAccount($login["id"]);
+
+                $_SESSION["accID"] = $account['id'];
+                $_SESSION["accType"] = $account['type_id'];
+                $_SESSION["accRegister"] = $account['register_id'];
+
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
+
+    private function getLogin($username) {
+        $sql = "SELECT *
+                FROM ".self::$tblLogin." 
+                WHERE username = :username;";
 
         // Prepare
-        $stmtPass = $this->connect()->prepare($sqlPass);
+        $stmt = $this->connect()->prepare($sql);
 
         // Bind
-        // $stmtPass->bindParam(':tblLogin', self::$tblLogin);
-        $stmtPass->bindParam(':username', $username);
+        $stmt->bindParam(':username', $username);
 
-        // echo '<hr>';
-        // print_r($stmtPass);
+        $result = false;
 
-        // Execute
-        if (!$stmtPass->execute()) {
-            $stmtPass = null;
-            // echo '<hr>';
-            // echo "Error in executing pass statement";
-            // return some error
-            return false;
-        }
-
-        if($stmtPass->rowCount() <= 0) {
-            $stmtPass = null;
-            // echo '<hr>';
-            // echo "No matching username";
-            // return some error
-            return false;
-        }
-
+        if($stmt->execute()) {
+            if($stmt->rowCount() == 1) {
+                $result = $stmt->fetchAll()[0];
+            } else {
+                echo $stmt->rowCount();
+                // echo "No matching username";
+                // return some error
+                $result = false;
+            }
+        } 
+        // echo "Error in executing pass statement";
         
-        $pwdHashed = $stmtPass->fetchAll();
-        // print_r($pwdHashed);
-        $checkPwd = password_verify($password, $pwdHashed[0]["logPassword"]);
-        // echo $pwdHashed[0]["logPassword"];
-        // echo "<br>";
-        // var_dump(password_verify($password, $pwdHashed[0]["logPassword"]));
+        // Closes pdo connection
+        $stmt = null;
+        return $result;
+    }
 
-        if (!$checkPwd) {
-            // echo '<hr>';
-            // echo "Password does not match";
-            $stmtPass = null;
-            return false;
-        }
+    private function getAccount($logId) {
+        $sql = "SELECT *
+                FROM
+                    ".self::$tblAccount." tA  INNER JOIN ".self::$tblLogin." tL
+                ON
+                    tA.login_id = tL.id
+                WHERE
+                    tL.id = :logID";
 
-        $stmtPass = null;
-
-        $sqlAccount = " SELECT *
-                        FROM
-                            ".self::$tblAccount." tA  INNER JOIN ".self::$tblLogin." tL
-                        ON
-                            tA.accLoginID = tL.logID
-                        WHERE
-                            tL.logID = :logID";
-
-        $stmtAccount = $this->connect()->prepare($sqlAccount);
+        $stmt = $this->connect()->prepare($sql);
         
         // Bind
-        $stmtAccount->bindParam(":logID", $pwdHashed[0]["logID"]);
+        $stmt->bindParam(":logID", $logId);
+
+        // Error handling
+        $result = false;
+
+        if($stmt->execute()) {
+            if($stmt->rowCount() == 1) {
+                $result = $stmt->fetchAll()[0];
+            } else {
+                echo $stmt->rowCount();
+                // echo "No matching login id";
+                // return some error
+                $result = false;
+            }
+        }
+        // echo "Error in executing account statement";
         
-        // Execute
-        if (!$stmtAccount->execute()) {
-            $stmtAccount = null;
-            // echo '<hr>';
-            // echo "Error in executing account statement";
-            // return some error
-            return false;
-        }
-
-        if($stmtAccount->rowCount() <= 0) {
-            // echo '<hr>';
-            // echo "No matching login id";
-            $stmtPass = null;
-            // return some error
-            return false;
-        }
-
-        $account = $stmtAccount->fetchAll(PDO::FETCH_ASSOC);
-
-        $_SESSION["accID"] = $account[0]['accID'];
-        $_SESSION["accType"] = $account[0]['accTypeID'];
-        $_SESSION["accRegister"] = $account[0]['accRegisterID'];
-
-        $stmtAccount = null;
-        return true;
+        // Closes pdo connection
+        $stmt = null;
+        return $result;
     }
 }
