@@ -12,6 +12,48 @@
     margin: 24px 0 !important;
 }
 
+/* Side */
+#dashboard.content .db-side {
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    max-width: 500px;
+    flex-basis: 30%;
+    flex-shrink: 0;
+    padding: 24px 20px;
+    background-color: white;
+    border-left: 1px solid var(--border-rgba-color);
+    box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
+}
+
+.db-side-header {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.db-sec-header {
+    font-size: .75rem;
+    font-weight: 500;
+}
+
+.side-content {
+    margin: 20px 0;
+    color: var(--primary-text);
+}
+  
+.side-content .side-content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+  
+.side-content-header h5, .side-content-header .link-btn {
+    margin: 0;
+    padding: 0;
+    font-size: .75rem;
+}
+
 /* Overview */
 .ov-card-container {
     display: flex;
@@ -108,46 +150,6 @@
     grid-row-start: 70;
 }
 
-/* Side */
-#dashboard.content .db-side {
-    display: grid;
-    align-content: start;
-    min-width: 250px;
-    max-width: 500px;
-    flex-basis: 25%;
-    flex-shrink: 0;
-    padding: 24px 20px;
-    background-color: white;
-    border-left: 1px solid var(--border-rgba-color);
-    box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
-}
-
-.db-side-header {
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.db-sec-header {
-    font-size: .75rem;
-    font-weight: 500;
-}
-
-.side-content {
-    color: var(--primary-text);
-}
-  
-.side-content-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: .5rem;
-}
-  
-.side-content-header h5, .side-content-header .link-btn {
-    margin: 0;
-    padding: 0;
-    font-size: .75rem;
-}
 
 /* || Calendar */
 .month {
@@ -158,7 +160,7 @@
     border-width: 1px;
     border-color: var(--border-rgba-color);
 }
-
+  
 .month ul {
     margin: 0;
     padding: 0;
@@ -167,13 +169,6 @@
 .month ul li {
     font-size: 12px;
     text-transform: uppercase;
-}
-
-.month-name {
-    color: var(--palette2);
-    font-size: .75rem;
-    font-weight: 700;
-    margin: 0;
 }
   
 .weekdays {
@@ -194,11 +189,6 @@
     margin: 0;
     padding: 0;
 }
-
-.days li:hover {
-    background-color: rgb(221, 221, 221);
-    cursor: pointer;
-}
   
 .days li.active {
     padding: 5px;
@@ -215,45 +205,13 @@
 }
 
 /* || Messages Chat Box */
-#messages {
-    background-color: var(--border-rgba-color);
-    gap: 1px;
-    overflow-y: auto;
+.chat-box {
     display: flex;
-    flex-direction: column;
+    justify-content: stretch;
+    padding: 10px 0;
     border-width: 1px;
     border-color: var(--border-rgba-color);
     border-style: solid none;
-
-    scrollbar-color: rebeccapurple green;
-    scrollbar-width: thin;
-}
-
-/* Messages scroll width */
-#messages::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Messages scroll Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-  
-/* Messages scroll Handle */
-::-webkit-scrollbar-thumb {
-    background: var(--palette4);
-}
-  
-/* Messages scroll Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: var(--action);
-}
-
-.chat-box {
-    background-color: white;
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    padding: 10px 0;
     cursor: pointer;
     gap: 10px;
 }
@@ -264,10 +222,11 @@
   
 .chat-box .chat-content {
     overflow: hidden;
+    flex: 1 0;
 }
   
 .chat-box .diplay-image {
-    background-color: rebeccapurple;
+    flex-basis: 20%;
     width: 0;
     min-width: 40px;
     max-width: 40px;
@@ -322,6 +281,14 @@
     #dashboard.content .db-side {
       min-width: 90%;
       margin: 20px auto;
+    }
+  
+    #dashboard.content .db-side #messages {
+      order: 1;
+    }
+  
+    #dashboard.content .db-side #events {
+      order: 2;
     }
 }
 

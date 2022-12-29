@@ -93,7 +93,7 @@
                     <span class="material-icons">workspaces</span>
                     <div class="collapsible">
                       <span>
-                        Users
+                        Team
                         <span class="material-icons">arrow_drop_down</span>
                       </span>
                     </div>
@@ -106,12 +106,17 @@
                   <li class="">
                     <a class="" href="workers-admin.html">Workers</a>
                   </li>
-                  <li class="">
-                    <a class="" href="clients-admin.html">Clients</a>
-                  </li>
                 </ul>
               </li>
-
+              <li class="">
+                <a class="d-flex align-content-start" href="users-admin.html">
+                  <span class="material-icons">people</span>
+                  <div class="collapsible">
+                    <span>Users</span>
+                  </div>
+                </a>
+              </li>
+    
               <hr>
     
               <li class="">
@@ -252,7 +257,7 @@
 <script src="../../scripts/project.js"></script>  
 
 <script>
-      function getTodayDate() {
+    function getTodayDate() {
       var tdate = new Date();
       var dd = tdate.getDate(); //yields day
       var MM = tdate.getMonth(); //yields month
@@ -265,6 +270,7 @@
     console.log(getTodayDate());
 
     $('#dateToday').text(getTodayDate());  
+
   // function printDocument(printId){
   //     var printdata = document.getElementById(printId);
   //     newwin = window.open("");

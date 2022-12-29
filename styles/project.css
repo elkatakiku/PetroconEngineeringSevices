@@ -1,86 +1,3 @@
-/* || Timeline Slide */
-#timelineSlide .mesa-container {
-    height: 100%;
-    border-right: 1px solid var(--border-rgba-color);
-}
-
-#timelineSlide td {
-    font-size: 14px;
-}
-
-#timelineSlide .slide-content {
-    display: grid;
-    grid-template-columns: auto auto;
-}
-
-#taskBar {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 1rem;
-}
-
-.tb-title {
-    font-size: 14px;
-}
-
-.tb-date {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tb-date input {
-    font-size: 14px;
-}
-
-.light-btn:has(.btn-icon) {
-    position: relative;
-}
-
-.light-btn:has(.btn-icon) .btn-icon {
-    font-size: 18px;
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.legends-container {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: 14px;
-}
-
-.task-legend {
-    display: grid;
-    grid-template-columns: 50px  1fr 40px;
-}
-
-.task-legend .leg-color {
-    background-color: #5050FF;
-}
-
-.task-legend .leg-title {
-    background-color: #5050FF;
-    background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
-    color: white;
-    padding: 5px 10px;
-}
-
-.task-legend .leg-edit, .task-legend .leg-edit .material-icons {
-    align-self: center;
-    justify-self: center;
-    padding: 0;
-    margin: 0;
-    font-size: 1rem;
-}
-
-.light-btn {
-    margin-top: 5px;
-}
-
 /* || Project Details */
 #projectInfo {
     max-width: 250px;
@@ -340,31 +257,29 @@ ul .chart-li-seven-t2 {
     grid-column: 17 / span 3; 
 }
 
-#projectGanttChart .expanding-btn {
+.expanding-btn {
     position: absolute;
     right: 20px;
     bottom: 40px;
-
-    z-index: 100;
 }
 
-#projectGanttChart .expanding-btn button {
+.expanding-btn button {
     border-radius: 100px;
     padding: 5px;
     transition: all .3s linear;
 }
 
-#projectGanttChart .expanding-btn button::before {
+.expanding-btn button::before {
     content: "Legends";
     display: none;
     transition: all .3s;
 }
 
-#projectGanttChart .expanding-btn:hover button {
+.expanding-btn:hover button {
     padding: 5px 10px;
 }
 
-#projectGanttChart .expanding-btn:hover button::before {
+.expanding-btn:hover button::before {
     display: inline-block;
     margin: 0 10px;
 }
@@ -394,73 +309,4 @@ ul .chart-li-seven-t2 {
     text-align: center;
     display: grid;
     align-items: center;
-}
-
-
-/* Create Legend */
-#legendPopup .pbody {
-    margin: 0;
-    padding: 0;
-}
-
-.legend-preview {
-    background-color: #f4f5f7;
-    margin-top: 10px;
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.legend-preview span {
-    display: block;
-    width: 50%;
-    min-height: 20px;
-    background-color: #7B7B7B;
-}
-
-.legend-preview span:first-child {
-    align-self: flex-start;
-}
-
-.legend-preview span:last-child {
-    align-self: flex-end;
-}
-
-#color-preview {
-    align-self: center;
-    background-color: #7bc86c;
-}
-
-.color-selection {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.color-selection .option-box {
-    min-height: 25px;
-    flex-grow: 0;
-    min-width: calc((100% - ((5px * 5)+24px)) / 5);;
-}
-
-.color-selection .option-box:has(input:not(:checked)):hover {
-    background-image: linear-gradient(rgb(0 0 0/40%) 0 0);
-}
-
-.color-selection .option-box:has(input:checked) {
-    box-shadow: 0 0 0 2px rgba(145, 135, 255, 0.599);
-}
-
-
-#legendForm {
-    padding: 12px;
-}
-
-#legendPopup[data-legend="edit"] .pfooter .btn {
-    width: calc(50% - (.75rem/2));
-}
-
-#legendPopup[data-legend="edit"] .pfooter .btn.neutral-outline-btn {
-    width: 100%;
 }
