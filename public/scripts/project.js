@@ -43,7 +43,6 @@ function hexToRGB(hex, alpha) {
     }
 }
 
-
 // ==========================================================================
 
 
@@ -146,137 +145,77 @@ let dtTable = {
     ]
 }
 
+$('#addTask').click((e) => {
+    console.log("Add task");
+    console.log(e.target);
+
+    let popup = $('#taskPopup');
+
+    let activities = popup.find('#taskActivities');
+    activities.empty();
+    let newActivities = popup.find('#newActivities');
+    newActivities.empty();
+
+    $.post(
+        Settings.base_url + "/projects/taskCount", 
+        { projId : projectId },
+        function (data, textStatus) {
+            let jsonData = JSON.parse(data);
+            popup.find('.pmain .ptitle').text('Task ' + (++jsonData.data));
+        }
+    );
+
+    let legends = popup.find('#legends');
+    legends.empty();
+
+    // Get project legends
+    loadLegends(newActivities, legends);
+    // Refresh legends
+    let legendsInterval = setInterval(() => {
+        console.log("Legends reload");
+        loadLegends(newActivities, legends);
+    }, 3000);
+   
+    showPopup(popup);
+    popup.find('.pmain textarea[name="taskDesc"]').each((index, element) => {
+        autoHeight(element);
+    });
+
+    popup.on('dismissPopup', (e) => {
+        console.log("Popup dismissed");
+        
+        clearInterval(legendsInterval);
+        resetTaskPopup(popup);
+    });
+});
+
+$('#taskForm').submit((e) => {
+    e.preventDefault();
+    console.log("Submit form");
+    let form = $(e.target);
+
+    let description = form.find('[name="taskDesc"]');
+
+    let formData = {};
+
+    let oldActs = form.find('#taskActivities').children();
+    let newActs = form.find('#newActivities').children();
+
+    newActs.each((index, element) => {
+        let activity = $(element);
+        formData['activity' + (index+1)]['legendId'] = activity.find('[name="legendId"]');
+        formData['activity' + (index+1)]['start'] = activity.find('[name="start"]');
+        formData['activity' + (index+1)]['end'] = activity.find('[name="end"]');
+        console.log(index);
+    });
+
+    console.log(formData);
+});
+
 // Tasks Table
 let tasksTable = $(table).DataTable(dtTable);
-let isDeleted = [];
 
-// Generate Activity
-function generateTaskActivity(activity, color, start, end, id = '') {  
-    let activityElement = $('<div class="form-input-group task-activity" id="' + id + '">' +
-                                '<span class="linear-label">' +
-                                    '<label for="">' + activity + '</label>' +
-                                    '<button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">' +
-                                        '<span class="material-icons">close</span>' +
-                                    '</button>' +
-                                '</span>' +
-                                '<div class="tb-date">' +
-                                    '<input type="date" name="planStart" id="" value="' + start + '">' +
-                                    '-' +
-                                    '<input type="date" name="planEnd" id="" value="' + end + '">' +
-                                '</div>' +
-                            '</div>');
-
-    activityElement.find('.close-btn').click((e) => {
-        if (id && ($.inArray(id, isDeleted) <= -1)) {
-            isDeleted.push(id);
-        }
-
-        activityElement.remove();
-    });
-
-    activityElement.css({
-        'border-color' : hexToRGB ( color, 0.4 ),
-        'box-shadow' : '0 5px 5px ' + hexToRGB ( color, 0.4 )
-    });
-
-    activityElement.find('label').css('color', pSBC(-0.4, color));
-    activityElement.find('input').css('border-bottom-color', pSBC(-0.4, color));
-
-    return activityElement;
-}
-
-function resetTaskPopup(popup) {
-    isDeleted = [];
-    popup.find('.ptitle').empty();
-    popup.find('[name="taskDesc"]').empty();
-    popup.find('#taskActivities').empty();
-    popup.find('#newActivities').empty();
-    popup.find('#legends').empty();
-}
-
-// Ajax response callback
-function loadActivities(id, activities) { 
-    $.get(
-        Settings.base_url + "/projects/taskActivities", 
-        {taskId : id},
-        function (data, status) {
-            activities.empty();
-    
-            let jsonResponse = JSON.parse(data);
-
-            for (let i = 0; i < jsonResponse.data.length; i++) {
-                const activity = jsonResponse.data[i];
-                if ($.inArray(id, isDeleted) <= -1) {
-                    activities.append(generateTaskActivity(
-                        activity.title, 
-                        activity.color, 
-                        activity.start, 
-                        activity.end,
-                        activity.id
-                    ));
-                }
-            }
-
-
-        }
-    );
-}
-
-function loadLegends(activities, legends) {
-    $.get(
-        Settings.base_url + "/projects/legends", 
-        {id : projectId},
-        function (response) {
-            let jsonResponse = JSON.parse(response);
-            if (jsonResponse.statusCode == 200) {
-
-                legends.empty();
-
-                for (let i = 0; i < jsonResponse.data.length; i++) {
-                    const legendData = jsonResponse.data[i];
-
-                        // console.log(legendData);
-                        // console.log(legendData.color);
-
-                    const legend = $('<div class="task-legend">' +
-                                        '<span class="leg-color" data-color="' + legendData.color + '"></span>' +
-                                        '<span class="leg-title">' + legendData.title + '</span>' +
-                                        '<button class="btn icon-btn leg-edit" data-toggle="legend" data-target="' + legendData['id'] + '">' +
-                                            '<span class="material-icons">edit</span>' +
-                                        '</button>' +
-                                    '</div>');
-
-                    // console.log("Colors");
-                    // console.log(legend.find('.leg-color').data('color'));
-                    // console.log(pSBC(-0.4, legend.find('.leg-color').data('color')));
-                    // console.log(hexToRGB ( color, 0.3 ));
-                            
-                    legend
-                        .find('.leg-color, .leg-title')
-                        .css('background-color', legend.find('.leg-color').data('color'))
-                        .click((e) => {
-                            let date = new Date();
-                            let currentDate =   date.getFullYear() + '-' +
-                                                ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' +
-                                                (date.getDay() < 10 ? '0' : '') + date.getDay();
-
-                            activities.append(generateTaskActivity(
-                                legendData.title, 
-                                legendData.color, 
-                                currentDate, 
-                                currentDate,
-                                true)
-                            );
-                        });
-
-                    legends.append(legend);
-                }
-            }
-        }
-    );
-}
-
-// Row click. Open task activities
+// Row click / Open task activities
 $(table + ' tbody').on('click', 'tr', function (e) {
     let rowData = tasksTable.row(this).data();
     let rowDisplay = tasksTable.cells( this, '' ).render( 'display' );    
@@ -299,10 +238,7 @@ $(table + ' tbody').on('click', 'tr', function (e) {
         console.log("Activities reload");
         loadActivities(rowData.id, activities);
     }, 3000);
-
-    // console.log("Load Interval");
-    // console.log(taskInterval);
-
+    
     let legends = popup.find('#legends');
     legends.empty();
 
@@ -328,59 +264,80 @@ $(table + ' tbody').on('click', 'tr', function (e) {
     });
 });
 
-$('#addTask').click((e) => {
-    console.log("Add task");
-    console.log(e.target);
+// Ajax response callback
+function loadActivities(id, activities) { 
+    $.get(
+        Settings.base_url + "/projects/taskActivities", 
+        {taskId : id},
+        function (data, status) {
+            activities.empty();
+    
+            let jsonResponse = JSON.parse(data);
 
-    // $(btn.data('target')).parent().removeClass('hide');
+            for (let i = 0; i < jsonResponse.data.length; i++) {
+                const activity = jsonResponse.data[i];
 
-    let popup = $('#taskPopup');
+                if ($.inArray(id, isDeleted) <= -1) {
+                    activities.append(generateTaskActivity(
+                        {
+                            id : activity.legendId,
+                            title : activity.title,
+                            color : activity.color
+                        },
+                        activity.start, 
+                        activity.end,
+                        activity.id
+                    ));
+                }
+            }
 
-    let activities = popup.find('#taskActivities');
-    activities.empty();
-    let newActivities = popup.find('#newActivities');
-    newActivities.empty();
 
-    $.post(
-        Settings.base_url + "/projects/taskCount", 
-        { projId : projectId },
-        function (data, textStatus) {
-            let jsonData = JSON.parse(data);
-            popup.find('.pmain .ptitle').text('Task ' + ++jsonData.data);
         }
     );
+}
 
-    let legends = popup.find('#legends');
-    legends.empty();
+function loadLegends(activities, legends) {
+    $.get(
+        Settings.base_url + "/projects/legends", 
+        {id : projectId},
+        function (response) {
+            let jsonResponse = JSON.parse(response);
+            if (jsonResponse.statusCode == 200) {
 
-    // Get project legends
-    loadLegends(newActivities, legends);
-    // Refresh legends
-    let legendsInterval = setInterval(() => {
-        console.log("Legends reload");
-        loadLegends(newActivities, legends);
-    }, 3000);
-   
-    showPopup(popup);
+                legends.empty();
 
-    popup.on('dismissPopup', (e) => {
-        console.log("Popup dismissed");
-        
-        clearInterval(legendsInterval);
-        resetTaskPopup(popup);
-    });
-});
+                for (let i = 0; i < jsonResponse.data.length; i++) {
+                    const legendData = jsonResponse.data[i];
+                    const legend = $('<div class="task-legend">' +
+                                        '<span class="leg-color" data-color="' + legendData.color + '"></span>' +
+                                        '<span class="leg-title">' + legendData.title + '</span>' +
+                                        '<button class="btn icon-btn leg-edit" data-toggle="legend" data-target="' + legendData['id'] + '">' +
+                                            '<span class="material-icons">edit</span>' +
+                                        '</button>' +
+                                    '</div>');
 
-function hideAddRow(e) {  
-    console.log("Hide row");
-    let form = '';
-    if ($(e.target).is('form[data-row]')) {
-        form = $(e.target);
-    } else {
-        form = $(e.target).parents('form[data-row]');
-    }
-    $(form.data('row')).find('.table-action-row').removeClass('hide');
-    form.addClass('hide');
+                    legend
+                        .find('.leg-color, .leg-title')
+                        .css('background-color', legend.find('.leg-color').data('color'))
+                        .click((e) => {
+                            let date = new Date();
+                            let currentDate =   date.getFullYear() + '-' +
+                                                ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' +
+                                                (date.getDay() < 10 ? '0' : '') + date.getDay();
+
+                            activities.append(generateTaskActivity(
+                                legendData,
+                                currentDate, 
+                                currentDate,
+                                true)
+                            );
+                        });
+
+                    legends.append(legend);
+                }
+            }
+        }
+    );
 }
 
 // New Row
@@ -397,14 +354,10 @@ $('form[data-row]').submit((e) => {
         },
         // On success
         function (data, textStatus) {
-            console.log(data);
-            console.log(JSON.parse(data));
             let jsonData = JSON.parse(data);
             
             if (jsonData.statusCode != 200) {
                 $(e.target).find('.alert').html(jsonData.message);
-            } else {
-                hideAddRow(e);
             }
             console.log(textStatus);
 
@@ -414,17 +367,62 @@ $('form[data-row]').submit((e) => {
     );
 });
 
-$('form[data-row] .neutral-btn').click(hideAddRow);
-
 $('form[data-row] button[type="submit"]').click((e) => {
     e.preventDefault();
-
-    console.log("Add new task");
-
     $(e.target).parents('form[data-row]').submit();
 });
 
+// Task Activity
+let isDeleted = [];
+
+// Reset task content
+function resetTaskPopup(popup) {
+    isDeleted = [];
+    popup.find('.ptitle').empty();
+    popup.find('[name="taskDesc"]').empty();
+    popup.find('#taskActivities').empty();
+    popup.find('#newActivities').empty();
+    popup.find('#legends').empty();
+}
+
+// Activity Element
+function generateTaskActivity(legend, start, end, id = '') {  
+    let activityElement = $('<div class="form-input-group task-activity" id="' + id + '">' +
+                                '<span class="linear-label">' +
+                                    '<label for="">' + legend.title + '</label>' +
+                                    '<button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">' +
+                                        '<span class="material-icons">close</span>' +
+                                    '</button>' +
+                                '</span>' +
+                                '<input type="hidden" name="legendId" value="' + legend.id + '">' +
+                                '<div class="tb-date">' +
+                                    '<input type="date" name="start" value="' + start + '">' +
+                                    '-' +
+                                    '<input type="date" name="end" value="' + end + '">' +
+                                '</div>' +
+                            '</div>');
+
+    activityElement.find('.close-btn').click((e) => {
+        if (id && ($.inArray(id, isDeleted) <= -1)) {
+            isDeleted.push(id);
+        }
+
+        activityElement.remove();
+    });
+
+    activityElement.css({
+        'border-color' : hexToRGB ( legend.color, 0.4 ),
+        'box-shadow' : '0 1px 5px ' + hexToRGB ( legend.color, 0.4 )
+    });
+
+    activityElement.find('label').css('color', pSBC(-0.4, legend.color));
+    activityElement.find('input').css('border-bottom-color', pSBC(-0.4, legend.color));
+
+    return activityElement;
+}
+
 // || Gantt Chart 
+
 // Even Rows Background
 let chartRows = $(".chart-row");
 
@@ -632,18 +630,6 @@ $("button[data-toggle='legend']").on('click', (e) => {
                         }
                     }
                 );
-                // console.log(JSON.parse(data));
-                // let jsonData = JSON.parse(data);
-                
-                // if (jsonData.statusCode != 200) {
-                //     $(e.target).find('.alert').html(jsonData.message);
-                // } else {
-                //     hideAddRow(e);
-                // }
-                // console.log(textStatus);
-    
-                // tasksTable.ajax.reload(null, false);
-                // $(e.target)[0].reset();
             }
         );
     });
