@@ -1,3 +1,7 @@
+<div id="sampEvent">
+    
+    </div>
+
 <?php 
 
 switch ($this->getType()) {
@@ -21,7 +25,6 @@ switch ($this->getType()) {
 ?>
 
     </div>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -35,7 +38,7 @@ switch ($this->getType()) {
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
 
     <!-- External JS -->
-    <script src="<?=SCRIPTS_PATH?>index.js"></script>
+    <script type="module" src="<?=SCRIPTS_PATH?>index.js"></script>
     <script src="<?=SCRIPTS_PATH?>table.js"></script>
     
     <script>
@@ -60,6 +63,6 @@ switch ($this->getType()) {
     </script>
 
     <script src="<?=SCRIPTS_PATH?>styles.js"></script>
-    <script src="<?=SCRIPTS_PATH.$view?>.js"></script>
+    <script type="module" src="<?=SCRIPTS_PATH.$view?>.js"></script>
   </body>
 </html>

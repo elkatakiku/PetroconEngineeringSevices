@@ -6,7 +6,7 @@
       <h1 class="page-title">Projects</h1>
 
       <!-- New Projects -->
-      <a href="<?= SITE_URL ?>/projects/new">
+      <a href="<?= SITE_URL ?>/project/new">
         <button type="button" class="btn sm-btn action-btn">
           Create Project
         </button>
@@ -83,10 +83,6 @@
         padding-top: 0;
       }
 
-      .dataTables_length label {
-        /* font-size: 14px; */
-      }
-
       .dataTables_wrapper {
         /* overflow: auto; */
         flex: 1;
@@ -94,9 +90,6 @@
         flex-direction: column;
       }
 
-      .dataTables_length {
-
-      }
 
       .dataTables_filter input {
         padding: .375rem .75rem;
@@ -109,14 +102,6 @@
         outline: none;
         background-clip: content-box;
         box-shadow: 0 0 0 3px var(--border-rgba-color);
-      }
-
-      .dataTable {
-      }
-
-      .dataTables_length, .dataTables_info, .dataTables_paginate {
-        /* position: sticky;
-        left: 0; */
       }
 
       .dataTables_paginate {

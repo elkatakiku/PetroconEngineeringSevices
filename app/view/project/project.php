@@ -135,6 +135,7 @@
 
             .timeline {
                 display: grid;
+                /* grid-auto-rows: 1fr 100fr; */
                 gap: 10px;
                 margin-left: -100%;
                 width: 100%;
@@ -190,8 +191,33 @@
                                 </tr>
                             </thead>
                         </table>
+                    </div>
 
-                        <div id="samp"></div>
+                    <div class="mesa-container">
+                        <table class="mesa" id="tasksTable">
+                            <thead class="mesa-head">
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col" class="taskCell">Task</th>
+                                    <th scope="col">Activities</th>
+                                    <th scope="col" class="action-cell">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="col"></th>
+                                <td scope="col" class="taskCell">Task</td>
+                                <td scope="col">
+                                    <div class="linear">
+                                        <span style="width: 100px; height: 50px; background-color: red;">
+                                        </span>
+                                    </div>
+                                </td>
+                                <td scope="col" class="action-cell"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
@@ -841,7 +867,7 @@
 </style>
 
 <!-- Task -->
-<div class="popup slide-right" id="taskPopup" tabindex="-1" aria-hidden="true">
+<div class="popup" id="taskPopup" tabindex="-1" aria-hidden="true">
     <div class="pcontainer popup-lg">
         <div class="pcontent">
             <div class="pmain">
@@ -859,6 +885,9 @@
                 </div>
                 
                 <form id="taskForm">
+                    <input type="hidden" name="id">
+                    <input type="hidden" name="order">
+
                     <h5>Description</h5> 
                     <div class="form-input-group">
                         <textarea class="form-control" name="taskDesc" rows="1"  placeholder="Type the task description here"></textarea>
@@ -872,6 +901,8 @@
                     <div id="newActivities">
 
                     </div>
+
+                    <div id="samp"></div>
                 </form>
 
                 <!-- <div class="form-input-group task-activity">
@@ -951,7 +982,9 @@
 
                 <div class="pfooter">
                     <button type="submit" form="taskForm" class="btn action-btn">Save</button>
-                    <button type="button" class="btn danger-btn">Delete</button>
+                    <button type="button" class="btn danger-btn delete-btn">
+                        Delete
+                    </button>
                     <button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>
                 </div>
             </div>

@@ -16,7 +16,7 @@ class Project implements Expose {
     private $compRepresentative;
     private $compContact;
 
-    public function setProject(
+    public function set(
         $id, $name, $location, $buildingNumber, $purchaseOrder, $awardDate, $status, $active,
         $company, $compRepresentative, $compContact) {
 
@@ -33,11 +33,11 @@ class Project implements Expose {
         $this->compContact = $compContact;
     }
 
-    public function createProject(
+    public function create(
         $name, $location, $buildingNumber, $purchaseOrder, $awardDate, 
         $company, $compRepresentative, $compContact) {
 
-        $this->setProject(
+        $this->set(
             uniqid("PTRCN-PRJCT-"), $name, $location, $buildingNumber, $purchaseOrder, $awardDate, false, true, 
             $company, $compRepresentative, $compContact
         );
@@ -133,5 +133,27 @@ class Project implements Expose {
 
     public function expose() {
         
+    }
+
+    public static function build(
+        $id, $name, $location, $buildingNumber, $purchaseOrder, $awardDate, $status, $active,
+        $company, $compRepresentative, $compContact) {
+        
+        $project = new self;
+        $project->set(
+            $id, 
+            $name, 
+            $location, 
+            $buildingNumber, 
+            $purchaseOrder, 
+            $awardDate, 
+            $status, 
+            $active, 
+            $company, 
+            $compRepresentative, 
+            $compContact
+        );
+
+        return $project;
     }
 }

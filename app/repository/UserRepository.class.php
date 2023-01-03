@@ -14,7 +14,7 @@ use \Model\Account as Account;
 // Tools
 use \PDO;
 
-class User extends Repository {
+class UserRepository extends Repository {
 
     private static $tblRegister = "tbl_register";
     private static $tblLogin = "tbl_login";

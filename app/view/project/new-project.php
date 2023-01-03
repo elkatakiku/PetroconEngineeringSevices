@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="page-header">
         <span>                
-        <a id="backBtn" href="<?= SITE_URL ?>/projects/projects" class="link-btn">
+        <a id="backBtn" href="<?= SITE_URL ?>/project" class="link-btn">
             <span class="material-icons">
             arrow_back
             </span>
@@ -12,7 +12,13 @@
         </span>
     </div>
 
-    <form id="newProject" action="<?= SITE_URL ?>/projects/new" method="POST" class="main-content">
+    <form id="newProject" class="main-content">
+        <!-- Alert -->
+        <div class="alert alert-danger" role="alert">
+            A simple danger alert—check it out!
+        </div>
+
+        <!-- Content -->
         <div class="linear-container">
             <div class="linear">
                 <div class="project-form basis-lg-8" data-basis="">

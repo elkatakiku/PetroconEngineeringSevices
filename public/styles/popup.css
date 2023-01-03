@@ -12,6 +12,7 @@
     display: none;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, .3);
     overflow: hidden;
     outline: 0;
 
@@ -164,19 +165,14 @@
 }
 
 /* Popup Delete */
-.popup {
-    background-color: rgba(0, 0, 0, .3);
-}
-
 .popup-delete .pcontainer {
     backdrop-filter: blur(2px);
-    pointer-events: none;
-    position: absolute;
-    width: 100%;
-    margin: 0;
+    /* position: absolute; */
+    /* width: 100%; */
+    /* margin: 0; */
     z-index: 2010;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
 }
 
 .popup-delete .pheader {

@@ -12,7 +12,7 @@ class TaskBar implements Expose {
     private $createdAt;
     private $active;
 
-    public function setTaskBar(
+    public function set(
         $id, $taskID, $legID, $start, $end,
         $createdAt, $active) {
 
@@ -25,10 +25,10 @@ class TaskBar implements Expose {
         $this->active = $active;
     }
 
-    public function createTaskBar(
+    public function create(
         $taskID, $legID, $start, $end) {
 
-        $this->setTaskBar(
+        $this->set(
             uniqid("PTRCN-TSKBR-"), $taskID, $legID, $start, 
             $end, '', true
         );

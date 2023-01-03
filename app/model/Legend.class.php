@@ -23,9 +23,7 @@ class Legend implements Expose {
         $this->projID = $projID;
     }
 
-    public function createLegend(
-        $color, $title, $projID) {
-
+    public function create($color, $title, $projID) {
         $this->setLegend(
             uniqid("PTRCN-LGND-"), $color, ucwords($title), '', $projID
         );

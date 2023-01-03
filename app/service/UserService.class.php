@@ -12,12 +12,12 @@ use \Model\Account as Account;
 use DateTime;
 
 
-class UserManagement {
+class UserService {
 
     private $userRepository;
 
     public function __construct() {
-        $this->userRepository = new \Repository\User;
+        $this->userRepository = new \Repository\UserRepository;
     }
 
     // Login

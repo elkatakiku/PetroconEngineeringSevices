@@ -20,7 +20,7 @@ class Auth extends MainController {
 
     public function __construct() {
         $this->setType(MainController::AUTH);
-        $this->userService = new \Service\UserManagement();
+        $this->userService = new \Service\UserService();
     }
 
     public function index() {

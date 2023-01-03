@@ -11,8 +11,6 @@ class Controller {
     private $type;
     private $pageNumber;
 
-    private $model;
-
     private $isLogin;
 
     protected function __construct() {
@@ -21,28 +19,13 @@ class Controller {
         }
     }
 
+    protected function goToLanding() {
+        header("Location: ".SITE_URL);
+        exit();
+    }
+
     protected function isLogin() {
         return $this->isLogin;
-    }
-
-    protected function setModel($model) {
-        // echo __METHOD__;
-        // echo "<br>Model<br>";
-        // require_once 'app/model/' . $model . '.class.php';
-        $this->model = new $model();
-        // var_dump($this->model);
-    }
-
-    protected function getModel() {
-        // echo __METHOD__;
-        // echo "<br>Model<br>";
-        // var_dump($this->model);
-        return $this->model;
-    }
-
-    protected function createEntity($entity) {
-        // require_once 'app/entity/' . $entity . '.class.php';
-        return new $entity();
     }
 
     public function view($viewFolder, $view, $data = []) {
@@ -82,18 +65,8 @@ class Controller {
 
     // Validate Inputs
     protected function emptyInput($inputs) {
-        // echo "<BR>";
-        // echo __METHOD__;
-        // echo "<BR>";
-        // var_dump($inputs);
         foreach ($inputs as $key => $value) {
-            // echo "<br>";
-            // var_dump($key);
-            // var_dump($value);
-            // var_dump(!$value);
             if (is_array($value)) {
-                // echo "<br>is array, Checking: <BR>";
-                // var_dump($key);
                 if($this->emptyInput($value)) {
                     return true;
                 }

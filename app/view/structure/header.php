@@ -141,16 +141,16 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
                 <li class="">
-                  <a class="" href="<?= SITE_URL.US.'projects/all' ?>">All</a>
+                  <a class="" href="<?= SITE_URL.US.'project#all' ?>">All</a>
                 </li>
                 <li class="">
-                  <a class="" href="<?= SITE_URL.US.'projects/done' ?>">Done</a>
+                  <a class="" href="<?= SITE_URL.US.'project#done' ?>">Done</a>
                 </li>
                 <li class="">
-                  <a class="" href="<?= SITE_URL.US.'projects/ongoing' ?>">Ongoing</a>
+                  <a class="" href="<?= SITE_URL.US.'project#ongoing' ?>">Ongoing</a>
                 </li>
                 <li class="">
-                  <a class="" href="<?= SITE_URL.US.'projects/pending' ?>">Pending</a>
+                  <a class="" href="<?= SITE_URL.US.'project#pending' ?>">Pending</a>
                 </li>
               </ul>
             </li>

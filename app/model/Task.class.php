@@ -12,7 +12,7 @@ class Task implements Expose {
     private $active;
     private $projID;
 
-    public function setTask(
+    public function set(
         $id, $desc, $orderNo, $status, 
         $createdAt, $active, $projID) {
 
@@ -25,10 +25,10 @@ class Task implements Expose {
         $this->projID = $projID;
     }
 
-    public function createTask(
+    public function create(
         $desc, $orderNo, $projID) {
 
-        $this->setTask(
+        $this->set(
             uniqid("PTRCN-TSK-"), $desc, $orderNo, false, 
             '', true, $projID
         );
@@ -92,5 +92,14 @@ class Task implements Expose {
 
     public function expose() {
         
+    }
+
+    public static function build(
+        $id, $desc, $orderNo, $status, 
+        $createdAt, $active, $projID
+    ) {
+        $task = new self;
+        $task->set($id, $desc, $orderNo, $status, $createdAt, $active, $projID);
+        return $task;
     }
 }

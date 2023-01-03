@@ -1,17 +1,18 @@
 <?php
 
 namespace Repository;
-use \Core\Model as MainModel;
 
-use \Model\Project as ProjectModel;
-use \Model\Task as TaskModel;
-use \Model\Legend as LegendModel;
-use \Model\TaskBar as TaskBarModel;
+use Core\Repository;
+
+use \Model\Project as Project;
+use \Model\Task as Task;
+use \Model\Legend as Legend;
+use \Model\TaskBar as TaskBar;
 
 use \PDO;
 use \PDOException;
 
-class Project extends MainModel {
+class ProjectRepository extends Repository {
 
     private static $tblProject = "tbl_project";
     private static $tblTask = "tbl_task";
@@ -19,11 +20,9 @@ class Project extends MainModel {
     private static $tblLegend = "tbl_legend";
     private static $lnkProjectPlan = "lnk_project_plan";
 
-    // Project
-    public function setProject(ProjectModel $project) {
-        
-        echo "Inserting project into database";
 
+    // Project
+    public function setProject(Project $project) {
         $sql = "INSERT INTO ".self::$tblProject."
                     (id, name, location, building_number, status, active, purchase_ord, award_date,
                     company, comp_representative, comp_contact)
@@ -45,47 +44,49 @@ class Project extends MainModel {
         $stmt->bindValue(':comp_representative', $project->getCompRepresentative());
         $stmt->bindValue(':comp_contact', $project->getCompContact());
 
-        $result = true;
+        $result = false;
 
-        if(!$stmt->execute()) {
+        if($stmt->execute()) {
             // Closes pdo connection
-            $result = false;
+            $result = true;
         }
         
         $stmt = null;
         return $result;
     }
 
-    public function getProject($projectId) {
+    public function getProject($id) {
 
-        $sqlProject = 'SELECT 
-                            id, purchase_ord, DATE_FORMAT(award_date, "%Y-%m-%d") as award_date, name, location, building_number, status, company, comp_representative, comp_contact
-                        FROM   
-                            '.self::$tblProject.'
-                        WHERE 
-                            id = :projID';
+        $sql = 'SELECT 
+                    id, purchase_ord, DATE_FORMAT(award_date, "%Y-%m-%d") as award_date, 
+                    name, location, building_number, status, company, comp_representative, 
+                    comp_contact, active
+                FROM   
+                    '.self::$tblProject.'
+                WHERE 
+                    id = :projID';
 
         // Prepare statement
-        $stmtProject = $this->connect()->prepare($sqlProject);
+        $stmt = $this->connect()->prepare($sql);
 
         // Bind params
-        $stmtProject->bindParam(":projID", $projectId);
+        $stmt->bindParam(":projID", $id);
+ 
+        $result = false;
 
         // Execute statement
-        if(!$stmtProject->execute()) {
-            return false;
+        if($stmt->execute()) {
+            $result = $stmt->fetch();
         }
-
-        $project = $stmtProject->fetchAll();
-
-        // var_dump($project);
-
-        return $project[0];
+        
+        // Closes pdo connection
+        $stmt = null;
+        return $result;
     }
 
     public function getProjects($status) {
         // Query
-        $sql = "SELECT id, name, location, company, status 
+        $sql = "SELECT *
                 FROM ".self::$tblProject;
 
         // Modify Query
@@ -106,6 +107,7 @@ class Project extends MainModel {
             if(!$stmt->execute()) {
                 throw new PDOException("Error Processing Request", 1);
             }
+
             $result = $stmt->fetchAll();
         } catch (PDOException $PDOE) {
             $result = -1;
@@ -115,8 +117,9 @@ class Project extends MainModel {
         return $result;
     }
 
+
     // Task
-    public function setTask(TaskModel $task) {
+    public function setTask(Task $task) {
         $sql = "INSERT INTO ".self::$tblTask."
                     (id, description, order_no, status, proj_id)
                 VALUES
@@ -190,8 +193,9 @@ class Project extends MainModel {
         return $result;
     }
 
+
     // Legend
-    public function setLegend(LegendModel $legend) {
+    public function setLegend(Legend $legend) {
         $sql = "INSERT INTO ".self::$tblLegend."
                     (id, color, title, proj_id)
                 VALUES
@@ -238,7 +242,7 @@ class Project extends MainModel {
     }
 
     // TaskBar
-    public function setTaskBar(TaskBarModel $taskBar) {
+    public function setTaskBar(TaskBar $taskBar) {
         $sql = "INSERT INTO ".self::$tblTaskBar."
                     (id, task_id, leg_id, start, end)
                 VALUES
@@ -352,36 +356,11 @@ class Project extends MainModel {
         return $result;
     }
 
+    
     // Timeline
     public function getTimeline($projectId) {
-        $planId = $this->getPlanId($projectId);
-        $sql = "SELECT 
-                    t.id, t.description, t.order_no, t.status, 
-                    DATE_FORMAT(tb.start, '%m-%d-%Y') AS plan_start, DATE_FORMAT(tb.end, '%m-%d-%Y') AS plan_end
-                FROM 
-                    ".self::$tblTask." t INNER JOIN ".self::$tblTaskBar." tb
-                ON
-                    t.id = tb.task_id
-                WHERE 
-                    t.proj_id = :proj_id AND tb.leg_id = :leg_id";
 
-        $stmt = $this->connect()->prepare($sql);
-
-        $stmt->bindParam(":proj_id", $projectId);
-        $stmt->bindParam(":leg_id", $planId);
-
-        try {
-            if(!$stmt->execute()) {
-                throw new PDOException("Error Processing Sql Statement", 1);
-            }
-            $result = $stmt->fetchAll();
-        } catch (PDOException $PDOE) {
-            $result = -1;
-        }
-
-        $stmt = null;
-
-        return $result;
+        
     }
 
     private function getTaskBar() {
