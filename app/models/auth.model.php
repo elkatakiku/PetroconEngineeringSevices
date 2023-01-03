@@ -179,7 +179,7 @@ class AuthModel extends Model {
     }
 
     private function getAccount($logId) {
-        $sql = "SELECT *
+        $sql = "SELECT tA.id, tA.type_id, tA.register_id, tA.login_id   
                 FROM
                     ".self::$tblAccount." tA  INNER JOIN ".self::$tblLogin." tL
                 ON

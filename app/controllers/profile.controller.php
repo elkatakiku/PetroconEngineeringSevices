@@ -36,10 +36,26 @@ class ProfileController extends Controller {
             echo "<br>Please fill all required user inputs.";
             return;
         }
+
         echo "Modifying user profile";
 
         echo $_SESSION["accID"];
+        $this->getModel();
         echo "<br>";
+        echo "<pre>";
+        
+        var_dump($this->getModel()->getUserAccount($_SESSION["accID"]));
+
+        // CREATE AN ACCOUNT TO EXPERIMENT TO (SIGN UP)
+
+        // Get registration id from account data
+
+        // Createa register object and set properties to registration info
+
+        // Set the changed input to register property
+
+        // Update the register info in the db
+    
         echo "<br>";
         // var_dump($inputs);
 
