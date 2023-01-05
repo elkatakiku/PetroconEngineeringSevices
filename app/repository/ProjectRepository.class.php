@@ -57,64 +57,144 @@ class ProjectRepository extends Repository {
 
     public function getProject($id) {
 
+        // var_dump($id);
+
         $sql = 'SELECT 
                     id, purchase_ord, DATE_FORMAT(award_date, "%Y-%m-%d") as award_date, 
-                    name, location, building_number, status, company, comp_representative, 
+                    description, location, building_number, done, company, comp_representative, 
                     comp_contact, active
                 FROM   
                     '.self::$tblProject.'
                 WHERE 
                     id = :projID';
+        
+        $params = [":projID" => $id];
 
-        // Prepare statement
-        $stmt = $this->connect()->prepare($sql);
+        // var_dump($this->query($sql, $params));
+
+        return $this->query($sql, $params)[0];
+
+        // // Prepare statement
+        // $stmt = $this->connect()->prepare($sql);
 
         // Bind params
-        $stmt->bindParam(":projID", $id);
+        // $stmt->bindParam(":projID", $id);
  
-        $result = false;
+        // $result = false;
 
-        // Execute statement
-        if($stmt->execute()) {
-            $result = $stmt->fetch();
-        }
+        // // Execute statement
+        // if($stmt->execute()) {
+        //     $result = $stmt->fetch();
+        // }
         
-        // Closes pdo connection
-        $stmt = null;
-        return $result;
+        // // Closes pdo connection
+        // $stmt = null;
+        // return $result;
     }
 
     public function getProjects($status) {
         // Query
         $sql = "SELECT *
-                FROM ".self::$tblProject;
+                FROM ".self::$tblProject."
+                WHERE active = :active
+                ORDER BY created_at DESC";
 
-        // Modify Query
-        if ($status) {
-            $sql .= " WHERE status = :status";
-        }
+        $params = [':active' => true];
 
-        // Prepare
-        $stmt = $this->connect()->prepare($sql);
+        return $this->query($sql, $params);
 
-        // Bind
-        if ($status) {
-            $stmt->bindParam(":status", $status);
-        }
+        // // Modify Query
+        // if ($status) {
+        //     $sql .= " WHERE status = :status";
+        // }
 
-        // Execute
-        try {
-            if(!$stmt->execute()) {
-                throw new PDOException("Error Processing Request", 1);
-            }
+        // // Prepare
+        // $stmt = $this->connect()->prepare($sql);
 
-            $result = $stmt->fetchAll();
-        } catch (PDOException $PDOE) {
-            $result = -1;
-        }
+        // // Bind
+        // if ($status) {
+        //     $stmt->bindParam(":status", $status);
+        // }
 
-        // Return result
-        return $result;
+        // // Execute
+        // try {
+        //     if(!$stmt->execute()) {
+        //         throw new PDOException("Error Processing Request", 1);
+        //     }
+
+        //     $result = $stmt->fetchAll();
+        // } catch (PDOException $PDOE) {
+        //     $result = -1;
+        // }
+
+        // // Return result
+        // return $result;
+    }
+
+    public function update($project) {
+        $sql = 'UPDATE 
+                    '.self::$tblProject.'
+                SET 
+                    name = :name, 
+                    location = :location, 
+                    building_number = :building_number, 
+                    purchase_ord = :purchase_ord, 
+                    award_date = :award_date, 
+                    company = :company, 
+                    comp_representative = :comp_representative, 
+                    comp_contact = :comp_contact
+                WHERE 
+                    id = :id';
+
+        // Parameters' (:parameter) value
+        $params = [
+            ':id' => $project['id'],
+            ':name' => $project['description'],
+            ':location' => $project['location'],
+            ':building_number' => $project['buildingNo'],
+            ':purchase_ord' => $project['purchaseOrd'],
+            ':award_date' => $project['awardDate'],
+            ':company' => $project['company'],
+            ':comp_representative' => $project['representative'],
+            ':comp_contact' => $project['contact']
+        ];
+
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function mark($id, $status) {
+        $sql = 'UPDATE 
+                    '.self::$tblProject.'
+                SET 
+                    done = :done
+                WHERE 
+                    id = :id';
+
+        // Parameters' (:parameter) value
+        $params = [
+            ':id' => $id,
+            ':done' => $status
+        ];
+
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function delete(string $id) {
+        $sql = 'UPDATE 
+                    '.self::$tblProject.'
+                SET 
+                    active = :active
+                WHERE 
+                    id = :id';
+
+        $params = [
+            ':id' => $id,
+            ':active' => false
+        ];
+
+        return $this->query($sql, $params);
     }
 
 

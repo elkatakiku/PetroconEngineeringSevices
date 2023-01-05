@@ -35,11 +35,11 @@ class Task extends MainController {
         // echo "<br>";
 
         if (isset($_POST['form']) && isset($_POST['deleted'])) {
-            echo "<pre>";
-            echo "<br>";
-            echo $_POST['form'];
-            echo "<br>";
-            echo $_POST['deleted'];
+            // echo "<pre>";
+            // echo "<br>";
+            // echo $_POST['form'];
+            // echo "<br>";
+            // echo $_POST['deleted'];
             echo $this->taskService->updateTask($_POST['form'], $_POST['deleted']);
         }
     }
@@ -70,6 +70,18 @@ class Task extends MainController {
         // echo "<pre>";
         if (isset($_GET['projId'])) {
             echo $this->taskService->getTaskCount($_GET['projId']);
+        }
+    }
+
+    public function plans() {
+        if (isset($_GET['projId'])) {
+            echo $this->taskService->getTasksPlan($_GET['projId']);
+        }
+    }
+
+    public function chart() {
+        if (isset($_GET['projId'])) {
+            echo $this->taskService->getTasksDetails($_GET['projId']);
         }
     }
 

@@ -4,13 +4,12 @@ namespace Service;
 
 // Core
 use Core\Service;
+use DateTime;
 // Repository
 use Repository\TaskRepository;
 // Models
-use Model\Legend;
-use Model\Project;
 use Model\Task;
-use Repository\ProjectRepository;
+use Repository\ActivityRepository;
 
 
 class TaskService extends Service{
@@ -144,6 +143,150 @@ class TaskService extends Service{
 
         if ($cleanId) {
             if ($tasks = $this->taskRepository->getActiveTasks($cleanId)) {
+                $result['data'] = $tasks;
+                $result['statusCode'] = 200;
+            } else {
+                $result['statusCode'] = 500;
+            }
+        } else {
+            $result['statusCode'] = 400;
+        }
+
+        return json_encode($result);
+    }
+
+    public function getTasksDetails(string $projectId)
+    {
+        $cleanId = $this->sanitizeString($projectId);
+
+        if ($cleanId) {
+
+            if ($tasks = $this->taskRepository->getActiveTasks($cleanId)) {
+
+                $startDates = [];
+                $endDates = [];
+
+
+                $activityRepository = new ActivityRepository;
+                $activities = [];
+
+                for ($i=0; $i < count($tasks); $i++) 
+                {
+                    $tasks[$i]['activity'] = $activityRepository->getActiveActivities($tasks[$i]['id']);
+
+                    $activities = array_merge($activities, $tasks[$i]['activity']);
+                }
+                
+
+                foreach ($activities as $activity) {
+                    $startDates[] = $activity['start'];
+                    $endDates[] = $activity['end'];
+                }
+
+                $startDates = array_map('strtotime', $startDates);
+                $endDates = array_map('strtotime', $endDates);
+
+                // Project start
+                $startDate = date('Y-m-j', (min($startDates)));
+                // Project end
+                $endDate = date('Y-m-j', (max($endDates)));
+
+                $dStart = new DateTime($startDate);
+                $dEnd  = new DateTime($endDate);
+                $dDiff = $dStart->diff($dEnd);
+
+                $numDays = ((int) $dDiff->format('%r%a')) + 1;
+                $header = $this->getDates($startDates, $endDates);
+
+
+                // var_dump($tasks);
+
+                // echo "Start diff";
+                for ($i=0; $i < count($tasks); $i++) { 
+                    for ($j=0; $j < count($tasks[$i]['activity']); $j++) { 
+                        
+                        // var_dump($tasks[$i]['activity'][$j]['start']);
+                        // var_dump($tasks[$i]['activity'][$j]['end']);
+                        $actStart = new DateTime($tasks[$i]['activity'][$j]['start']);
+                        $startDiff = $dStart->diff($actStart);
+
+                        $actEnd = new DateTime($tasks[$i]['activity'][$j]['end']);
+                        $span = $actStart->diff($actEnd);
+
+                        $tasks[$i]['activity'][$j]['grid'] = ((int) $startDiff->format('%r%a')) + 1;
+                        $tasks[$i]['activity'][$j]['span'] = (int) $span->format('%r%a') + 1;
+                    }
+                }
+
+                // var_dump($tasks);
+
+                // var_dump($endDates);
+                // var_dump($activities);
+
+                // echo "End";
+                // var_dump(end($tasks)['activity']);
+
+                $result['data']['content'] = $tasks;
+                $result['data']['header'] = $header;
+                $result['data']['start'] = $startDate;
+                $result['data']['end'] = $endDate;
+                $result['data']['total_days'] = $numDays;
+
+                $result['statusCode'] = 200;
+            } else {
+                $result['statusCode'] = 500;
+            }
+        } else {
+            $result['statusCode'] = 400;
+        }
+
+        return json_encode($result);
+    }
+
+    private function getDates(array $startDates, array $endDates) {
+        $months = [[], [], []];
+        
+        for ($i=0; $i < count($startDates); $i++) { 
+            $start = date("n", $startDates[$i]);
+            $end = date("n", $endDates[$i]);
+            if (!in_array($start, $months[0])) {
+                $months[0][] = $start;
+                $months[2][] = date("Y", $startDates[$i]);
+            } else if(!in_array($end, $months[0])) {
+                $months[0][] = $end;
+                $months[2][] = date("Y", $endDates[$i]);
+            } 
+            // else {
+            //     var_dump("Nandun na");
+            // }
+        }
+
+        
+        $months[1][] = date('t', min($startDates)) - (date('j', min($startDates)) - 1);
+        
+        // echo "Looping";
+        
+        // var_dump((count($months[0])-1));
+        
+        for ($i=1; $i < (count($months[0])-1); $i++) { 
+            // echo "Days in month";
+            $months[1][] = cal_days_in_month(CAL_GREGORIAN, $months[0][$i], $months[2][$i]);
+        }
+
+        $months[1][] = (int)date('j', max($endDates));
+
+        // var_dump($months);
+        // echo "End get months";
+
+        return $months;
+    }
+
+    // Gets all tasks of a project
+    public function getTasksPlan($request) {
+        $cleanId = $this->sanitizeString($request);
+
+        if ($cleanId) {
+            if ($tasks = $this->taskRepository->getPlans($cleanId)) {
                 $result['data'] = $tasks;
                 $result['statusCode'] = 200;
             } else {

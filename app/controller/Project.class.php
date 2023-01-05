@@ -53,36 +53,32 @@ class Project extends MainController {
     // }
 
     // || Projects
-    // Get the projects
+    // Gets the projects
     public function list() {
-
         if (isset($_POST['form'])) {
-            parse_str($_POST['form'], $form);
-
-            $json_data = $this->projectService->getProjectList($form['status']);
+            echo $this->projectService->getProjectList($_POST['form']);
         }
-        
-        $json_data['statusCode'] = 200;
-        echo json_encode($json_data);
     }
 
     // Gets a project
     public function details($projectId) {
-        
-        $cleanId = $this->sanitizeString($projectId);
-        if (!$cleanId) {
-            $this->goToIndex();
+        // echo "<pre>";
+        // var_dump($projectId);
+        $project = json_decode($this->projectService->getProjectDetails($projectId), true);
+
+        if ($project['statusCode'] == 200) {
+            $this->view("project", "project", $project['data']);
             return;
-        }
-
-        // Get project
-        $project = $this->projectService->getProjectDetails($cleanId);
-
-        // View
-        if ($project) {
-            $this->view("project", "project", $project);
         } else {
+            // echo "Error";
             $this->goToIndex();
+        }
+    }
+
+    // Gets project info
+    public function get() {
+        if (isset($_GET['projId'])) {
+            echo $this->projectService->getProjectDetails($_GET['projId']);
         }
     }
 
@@ -138,6 +134,43 @@ class Project extends MainController {
         $json_data['statusCode'] = 400;
         $json_data['message'] = 'Please fill all required inputs.';
         echo json_encode($json_data);
+    }
+
+    public function update() {
+        if (isset($_POST['form'])) {
+            // echo "<pre>";
+            // echo "<br>";
+            // var_dump($_POST['form']);
+            echo $this->projectService->update($_POST['form']);
+        }
+    }
+
+    public function mark() {
+
+        var_dump($_POST['id'], $_POST['done']);
+
+        if (isset($_POST['doneSubmit'])) {
+            if($this->projectService->mark($_POST['id'], $_POST['done'])) {
+                header("Location: ".SITE_URL.US."project/details/".$_POST['id']);
+                exit();
+                return;
+            }
+
+            echo "False";
+        }
+
+        echo "Error";
+
+        // $this->goToIndex();
+    }
+
+    public function remove() {
+        if (isset($_POST['form'])) {
+            // echo "<pre>";
+            // echo "<br>";
+            // echo $_POST['form'];
+            echo $this->projectService->remove($_POST['form']);
+        }
     }
 
     // || Task

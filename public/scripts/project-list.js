@@ -81,14 +81,25 @@ let projectTable = $("#projectsTable").DataTable({
     "columns" : [
         {'defaultContent' : ''}, 
         {
-            'data' : 'name',
+            'data' : 'description',
             'render' : function (data, type, row) { 
                 return '<p><strong>' + data + '</strong></p>' +
                         '<small>' + row.location + '</small>';
             }
         }, 
         {'data' : 'company'},
-        {'data' : 'status'}
+        {
+            'data' : 'done',
+            'render' : function (data, type, row) {
+                let display;
+                if (data === 1) {
+                    display = '<span class="status" data-status="done">Done</span>'
+                } else {
+                    display = '<span class="status" data-status="in-progress">Ongoing</span>'
+                }
+                return display;
+            }
+        }
     ],
     
     order: [
@@ -136,7 +147,6 @@ $('#projectsTable tbody').on('click', 'tr', function (e) {
 $('#filterTable')
     .submit(function (e) { 
         e.preventDefault();
-        // counter = 1;
         projectTable.ajax.reload();
     })
     .find('input[name="status"]')
@@ -179,19 +189,10 @@ $('#searchProject').keyup(function (e) {
 });
 
 // Table reload
-setInterval(() => {
-    console.log("Table reload");
-    projectTable.ajax.reload(null, false);
-}, 3000);
-
-// $('#asd').click((e) => {
-//     e.preventDefault();
-//     $('#samp').load(Settings.base_url + "/projects/samp", {
-//         filterStatus : function () {return $('#filterTable').serialize();}
-//     }, () => {
-//         alert("Alert");
-//     });
-// });
+// setInterval(() => {
+//     console.log("Table reload");
+//     projectTable.ajax.reload(null, false);
+// }, 3000);
 
 $(window).on( 'hashchange', function( e ) {
     changeFilter();

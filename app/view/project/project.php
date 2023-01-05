@@ -3,11 +3,11 @@
     <div class="page-header">
         <div class="project-info">
             <div>
-                <h1 class="page-title"><?= $data['name'] ?></h1>
+                <h1 class="page-title"><?= $data['description'] ?></h1>
                 <small><?= $data['location'] ?></small>
             </div>
         </div>
-        <button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
+        <button id="projectInfoToggller" type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
             <span class="material-icons-outlined">info</span>
         </button>
     </div>
@@ -16,17 +16,41 @@
     <div class="slide slide-fixed" id="projectInfo" data-side="right">
         <div class="slide-content">
             <div class="slide-header">
-                <button class="btn icon-btn" data-dismiss="slide">
-                    <span class="material-icons">navigate_next</span>
-                </button>
+                <div>
+                    <button class="btn icon-btn" data-dismiss="slide">
+                        <span class="material-icons">navigate_next</span>
+                    </button>
+                    
+                    <button
+                        type="button"
+                        class="link-btn"
+                        data-toggle="form"
+                        data-action="cancel"
+                        form="projectDetailForm"
+                    >
+                        Cancel
+                    </button>
+                </div>
+
                 <h2 class="slide-title">Details</h2>
-                <button type="button" class="link-btn show" form="projectDetailForm" data-toggle="form" data-action="edit">
+
+                <button
+                    type="button"
+                    class="link-btn" 
+                    form="projectDetailForm"
+                    data-toggle="form" 
+                    data-action="edit"
+                >
                     Edit
                 </button>
             </div>
 
             <div class="slide-body">
-                <form action="/index.html" method="post" id="projectDetailForm">
+                <form id="projectDetailForm">
+                    <!-- Alert -->
+                    <div class="alert alert-danger mb-2" role="alert"></div>
+
+                    <input type="hidden" name="id" value="<?= $data['id'] ?>">
 
                     <h3 class="detail-header">Project</h3>
 
@@ -34,29 +58,29 @@
         
                         <div class="form-input-group">
                             <label for="">Purchase Order #</label>
-                            <input type="text" value="<?= $data['purchase_ord'] ?>" readonly>
+                            <input type="text" name="purchaseOrd" value="<?= $data['purchase_ord'] ?>" readonly>
                         </div>
         
                         <div class="form-input-group">
                             <label for="">Date of Award</label>
-                            <input type="date" value="<?= $data['award_date'] ?>" readonly>
+                            <input type="date" name="awardDate" value="<?= $data['award_date'] ?>" readonly>
                         </div>
 
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Work Description</label>
-                        <textarea name="" id="" rows="1" readonly><?= $data['name'] ?></textarea>
+                        <textarea name="description" id="" rows="1" readonly><?= $data['description'] ?></textarea>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Building no.</label>
-                        <input type="text" value="<?= $data['building_number'] ?>" readonly>
+                        <input type="text" name="buildingNo" value="<?= $data['building_number'] ?>" readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Location</label>
-                        <input type="text" value="<?= $data['location'] ?>" readonly>
+                        <input type="text" name="location" value="<?= $data['location'] ?>" readonly>
                     </div>         
                     
 
@@ -64,17 +88,17 @@
 
                     <div class="form-input-group">
                         <label for="">Company</label>
-                        <input type="text" value="<?= $data['company'] ?>" readonly>
+                        <input type="text" name="company" value="<?= $data['company'] ?>" readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Representative</label>
-                        <input type="text" value="<?= $data['comp_representative'] ?>" readonly>
+                        <input type="text" name="representative" value="<?= $data['comp_representative'] ?>" readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Contact</label>
-                        <input type="tel" value="<?= $data['comp_contact'] ?>" readonly>
+                        <input type="tel" name="contact" value="<?= $data['comp_contact'] ?>" readonly>
                     </div>
 
 
@@ -83,8 +107,12 @@
             </div>
 
             <div class="slide-footer">
-                <button class="btn sm-btn success-btn">Mark as done</button>
-                <button class="btn sm-btn danger-btn">Remove project</button>
+                <button class="btn sm-btn <?= $data['done'] == 1 ? 'outline-action' : 'success' ?>-btn done-btn" data-toggle="popup" data-target="#markDone">
+                    <?= $data['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?>
+                </button>
+                <button type="button" class="btn sm-btn danger-btn delete-btn">
+                    Remove project
+                </button>
             </div>
         </div>
     </div>
@@ -105,24 +133,34 @@
             </li>
         </ul>
 
-        <div>                   
-            <!--
-            <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectInvoice">Invoice</button>
-            <button class="btn action-btn" data-toggle="custom-tab" data-target="#projectTurnOver">Turn Over</button>
-                -->
-            
-            <a class="btn action-btn" data-toggle="custom-tab" href="invoice-admin.html">Invoice</a>
-            <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
-    
+    <?php
+    if ($data['done'] == 1) { ?>
+            <!-- <div>
+                <a class="btn action-btn" data-toggle="custom-tab" href="invoice-admin.html">Invoice</a>
+                <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
+            </div> -->
+        <div class="projectDone">
+            <a class="btn sm-btn action-btn" href="invoice-admin.html">Invoice</a>
+            <a class="btn sm-btn action-btn" href="turnover-admin.html">Turn Over</a>
         </div>
 
+        <div class="projectDone dropdown">
+            <button class="btn sm-btn action-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                Print
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="invoice-admin.html">Invoice</a>
+                <a class="dropdown-item" href="turnover-admin.html">Turn Over</a>
+            </div>
+        </div>
+    <?php } ?>  
     </nav>
 
     <div class="custom-tab-container">
 
         <style>
             .slider {
-                height: 100%;
+                max-height: 100%;
                 overflow: hidden;
                 display: flex;
                 flex-direction: row;
@@ -135,14 +173,15 @@
 
             .timeline {
                 display: grid;
-                /* grid-auto-rows: 1fr 100fr; */
-                gap: 10px;
+                grid-auto-rows: auto 1fr;
+                /* gap: 10px; */
                 margin-left: -100%;
                 width: 100%;
                 overflow-y: auto;
             }
 
             .chart-container {  
+                visibility: hidden;
                 width: 100%;
                 overflow: hidden;
             }
@@ -158,6 +197,18 @@
 
             .main-content header, .main-content footer {
                 padding: 1rem 20px;
+            }
+
+            #projectGanttChart .spinner {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: var(--palette1);
+                position: absolute;
+                top: 0;
+                left: 0;
             }
         </style>
 
@@ -193,7 +244,7 @@
                         </table>
                     </div>
 
-                    <div class="mesa-container">
+                    <!-- <div class="mesa-container">
                         <table class="mesa" id="tasksTable">
                             <thead class="mesa-head">
                                 <tr>
@@ -218,11 +269,11 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="chart-container">
-                    <div class="gantt-chart">                        
+                    <div class="gantt-chart">
                         <div class="chart">
                             <div class="chart-row chart-header">
                                 <div class="chart-row-item" id="timelineToggler">
@@ -233,10 +284,11 @@
                                 </div>
                                 <div>
                                     <div class="chart-months">
-                                        <span class="startMonth">December</span>
-                                        <!-- <span class="month30">January</span> -->
+                                        <!-- <span class="startMonth">December</span> -->
+                                        <!-- <span class="chart-month"><?= date('F') ?></span> -->
                                     </div>
                                     <div class="chart-days">
+                                        <!-- <span>##</span>
                                         <span>##</span>
                                         <span>##</span>
                                         <span>##</span>
@@ -284,14 +336,14 @@
                                         <span>##</span>
                                         <span>##</span>
                                         <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
+                                        <span>##</span> -->
                                     </div>
                                 </div>
                             </div>
 
                             <div class="chart-body">
                                 <div class="chart-lines"> 
+                                    <!-- <span></span>
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -340,11 +392,10 @@
                                     <span></span>
                                     <span></span>
                                     <span></span>
-                                    <span></span>
-                                    <span></span>
+                                    <span></span> -->
                                 </div>
 
-                                <div class="chart-row">
+                                <!-- <div class="chart-row">
                                     <div class="chart-row-item">
                                         <strong>1</strong>
                                         Procurement
@@ -447,17 +498,17 @@
                                     <ul class="chart-row-bars">
                                         <li class="yellow-bar chart-li-8-t3"></li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
-
+                    
                     <span class="expanding-btn">
                         <button class="btn action-btn icon-btn" data-toggle="popup" data-target="#viewLegends">
                             <span class="material-icons">legend_toggle</span>
                         </button>
                     </span>
-
+                    
                     <!-- View Legends Popup -->
                     <div id="viewLegends" class="popup popup-contained" tabindex="-1" aria-hidden="true">
                         <div class="pcontainer popup-sm" data-right="15" data-bottom="35">
@@ -471,7 +522,8 @@
                     
                                 <div class="pbody">
                                     <div class="legends-container">
-                                        <div class="task-legend">
+
+                                        <!-- <div class="task-legend">
                                             <span class="leg-color" data-color="#026aa7"></span>
                                             <span class="leg-title">Plan</span>
                                             <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
@@ -493,16 +545,22 @@
                                             <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
                                                 <span class="material-icons">edit</span>
                                             </button>
-                                        </div>
+                                        </div> -->
 
-                                        <button class="btn light-btn slim-btn" data-toggle="legend">
-                                            <span class="material-icons btn-icon">label</span>
-                                            Create legend
-                                        </button>
                                     </div>
+                                    <button class="btn light-btn btn-block slim-btn" data-toggle="legend">
+                                        <span class="material-icons btn-icon">label</span>
+                                        Create legend
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="spinner">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -775,6 +833,54 @@
         </section>
 
     </div>
+
+    <style>
+        .toast-container {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+
+            background-color: red;
+
+            z-index: 2500;
+        }
+
+        .toast {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Toasts -->
+    <!-- <div class="toast-container">
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="..." class="rounded mr-2" alt="...">
+                <strong class="mr-auto">Bootstrap</strong>
+                <small class="text-muted">just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                See? Just like this.
+            </div>
+        </div>
+
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="..." class="rounded mr-2" alt="...">
+                <strong class="mr-auto">Bootstrap</strong>
+                <small class="text-muted">2 seconds ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Heads up, toasts will stack automatically
+            </div>
+        </div>
+    </div> -->
 </main>
 
 <style>
@@ -987,6 +1093,33 @@
                     </button>
                     <button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mark as done -->
+<div class="popup popup-center popup-prompt" id="markDone" tabindex="-1" aria-hidden="true">
+    <div class="pcontainer popup-sucess popup-sm">
+        <div class="pcontent">
+            <div class="pheader">
+                <h2 class="ptitle"><?= $data['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?></h2>
+                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <div class="pbody">
+                <form id="doneForm" action="<?= SITE_URL ?>/project/mark" method="POST">
+                    <input type="hidden" name="id" value="<?= $data['id'] ?>">
+                    <input type="hidden" name="done" value="<?= $data['done'] == 0 ? 1 : 0 ?>">
+                </form>
+                <?= $data['done'] == 1 ? 'Unmark' : 'Mark' ?> this project done?
+            </div>
+
+            <div class="pfooter">
+                <button type="submit" name="doneSubmit" form="doneForm" class="btn success-btn">Confirm</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
             </div>
         </div>
     </div>

@@ -892,13 +892,37 @@ span.status[data-status = "in-progress"] {
     z-index: 120;
     background-color: var(--background-color);
     color: var(--navtab-text-color);
+    gap: 10px;
 }
 
 .nav-tab, .filter-tab {
     display: flex;
     list-style: none;
     margin: 0;
+    overflow: auto;
 }
+
+/* Nav tab scroll width */
+/* .nav-tab::-webkit-scrollbar {
+    width: 1px;
+} */
+
+/* Nav tab scroll Track */
+/* .nav-tab::-webkit-scrollbar-track {
+    background: #f1f1f1;
+} */
+  
+/* Nav tab scroll Handle */
+/* .nav-tab::-webkit-scrollbar-thumb {
+    background: var(--palette4);
+    border-radius: 10px;
+    width: 1px;
+} */
+  
+/* Nav tab scroll Handle on hover */
+/* .nav-tab::-webkit-scrollbar-thumb:hover {
+    background: var(--action);
+} */
 
 .filter-tab-item label {
     margin: 0;
@@ -921,6 +945,8 @@ span.status[data-status = "in-progress"] {
     color: inherit;
     font-weight: inherit;
     font-size: 14px;
+
+    white-space: nowrap;
 }
   
 .nav-tab .nav-tab-item .link-btn:hover,

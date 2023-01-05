@@ -149,9 +149,9 @@
                 <li class="">
                   <a class="" href="<?= SITE_URL.US.'project#ongoing' ?>">Ongoing</a>
                 </li>
-                <li class="">
+                <!-- <li class="">
                   <a class="" href="<?= SITE_URL.US.'project#pending' ?>">Pending</a>
-                </li>
+                </li> -->
               </ul>
             </li>
 
@@ -191,6 +191,24 @@
                 <span class="material-icons">people</span>
                 <div class="collapsible">
                   <span>Users</span>
+                </div>
+              </a>
+            </li>
+
+            <li class="">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'users' ?>">
+                <span class="material-icons">people</span>
+                <div class="collapsible">
+                  <span>Payment</span>
+                </div>
+              </a>
+            </li>
+
+            <li class="">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'users' ?>">
+                <span class="material-icons">people</span>
+                <div class="collapsible">
+                  <span>Invoice</span>
                 </div>
               </a>
             </li>
