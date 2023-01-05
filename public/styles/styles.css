@@ -783,7 +783,9 @@ form .row .right {
 
 span.status {
     display: inline-block;
+    width: 100%;
     padding: 5px 10px;
+    text-align: center;
 }
 
 span.status[data-status = "done"] {

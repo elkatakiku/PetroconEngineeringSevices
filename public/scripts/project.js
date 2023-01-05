@@ -517,33 +517,6 @@ function getActivityData(element, actsArr, isNew = false) {
     actsArr.push(JSON.stringify(actObj));
 }
 
-// New Row
-$('form[data-row]').submit((e) => {
-    e.preventDefault();
-
-    $.post(
-        // Url
-        Settings.base_url + "/project/newTask", 
-        // Data
-        { 
-            projId : projectId,
-            form : function () {return $(e.target).serialize();}
-        },
-        // On success
-        function (data, textStatus) {
-            let jsonData = JSON.parse(data);
-            
-            if (jsonData.statusCode != 200) {
-                $(e.target).find('.alert').html(jsonData.message);
-            }
-            console.log(textStatus);
-
-            tasksTable.ajax.reload(null, false);
-            $(e.target)[0].reset();
-        }
-    );
-});
-
 $('form[data-row] button[type="submit"]').click((e) => {
     e.preventDefault();
     $(e.target).parents('form[data-row]').submit();

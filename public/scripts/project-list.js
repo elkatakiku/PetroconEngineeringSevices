@@ -20,15 +20,6 @@ function getUrlVars()
     return queryParam;
 }
 
-// console.log(getUrlVars());
-// console.log( typeof getUrlVars());
-
-
-// console.log("filter" in getUrlVars());
-// console.log(getUrlVars().hasOwnProperty("filter"));
-
-// console.log(getUrlVars().filter);
-
 /* ================================================================== */
 
 // let query = getUrlVars();
@@ -38,21 +29,17 @@ function getUrlVars()
 
 // Datatable
 let projectTable = $("#projectsTable").DataTable({
-    'dom' : '<"mesa-container"t>p',
+    'dom' : '<"mesa-container"t><"linear"ip>',
     "autoWidth": false,
     "lengthChange": false,
     'paging' : true,
     'sort' : false,
     // 'searching' : false,
-    'info' : false,
+    // 'info' : false,
     "ajax" : {
         url : Settings.base_url + "/project/list",
         type : 'POST',
-        data : {
-            form : function () { 
-                return $('#filterTable').serialize();
-            }
-        }
+        data : {form : function () { return $('#filterTable').serialize();}}
         // ,
         // success : function (data) {
         //     console.log(data);
@@ -107,6 +94,7 @@ let projectTable = $("#projectsTable").DataTable({
     ]
 });
 
+// Incrementing number of table rows
 projectTable.on('order.dt search.dt', function () {
     let i = 1;
 
@@ -160,12 +148,6 @@ $('#filterTable')
                     .removeClass('active');
 
             window.location.hash = $(this).val();
-
-            // $('#samp').load(Settings.base_url + "/projects/samp", {
-            //     filterStatus : function () {return $('#filterTable').serialize();}
-            // }, () => {
-            //     alert("Alert");
-            // });
         });
 
 function changeFilter() {
@@ -189,10 +171,10 @@ $('#searchProject').keyup(function (e) {
 });
 
 // Table reload
-// setInterval(() => {
-//     console.log("Table reload");
-//     projectTable.ajax.reload(null, false);
-// }, 3000);
+setInterval(() => {
+    console.log("Table reload");
+    projectTable.ajax.reload(null, false);
+}, 3000);
 
 $(window).on( 'hashchange', function( e ) {
     changeFilter();

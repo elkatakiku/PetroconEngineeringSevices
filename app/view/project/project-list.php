@@ -105,7 +105,8 @@
       }
 
       .dataTables_paginate {
-        margin-top: 1rem;
+        margin-left: auto;
+        /* margin-top: 1rem; */
         display: flex;
         justify-content: center;
         align-items: center;

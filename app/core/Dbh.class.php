@@ -46,7 +46,7 @@ class Dbh {
             switch(trim(explode(' ', $sql)[0])) 
             {
                 case 'SELECT' :
-                    // echo "Select toh";
+                    // echo "Select toh";  
                     $result = $stmt->fetchAll();
                     break;
                 case 'UPDATE' :

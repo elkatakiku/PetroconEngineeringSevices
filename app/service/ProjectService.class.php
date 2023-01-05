@@ -24,21 +24,23 @@ class ProjectService extends Service{
     public function getProjectList($form) {
         parse_str($form, $input);
 
-        if (!$this->emptyInput($input)) {
-            
-            if (!$input['status'] || $input['status'] == "all") {
-                $input['status'] = '';
+        if (!$this->emptyInput($input)) 
+        {            
+            if ($input['status'] == "done") {
+                $input['status'] = 1;
+            } else if ($input['status'] == "ongoing") {
+                $input['status'] = 0;
             }
 
             if ($projects = $this->projectRepository->getProjects($input['status'])) {
-                $response['statusCode'] = 200;
                 $response['data'] = $projects;
+                $response['statusCode'] = 200;
             } else {
                 $response['statusCode'] = 500;
                 $response['message'] = 'An error occured';
             }
         } else {
-            $response['statusCode'] = 500;
+            $response['statusCode'] = 400;
         }
     
         return json_encode($response);
@@ -186,21 +188,11 @@ class ProjectService extends Service{
     }
 
     public function mark($id, $status) {
-        // parse_str($form, $input);
-        echo "<br>";
-        // var_dump(empty($status));
-        var_dump(!empty($id));
-        var_dump(($status == 1 || $status == 0));
-
         if ($id && ($status == 1 || $status == 0)) {
             $this->projectRepository->mark($id, $status);
-            // $response['statusCode'] = 200;
-            echo "Updated";
             $response = true;
         } else {
-            echo "No status";
             $response = false;
-            // $response['statusCode'] = 400;
         }
 
         return $response;

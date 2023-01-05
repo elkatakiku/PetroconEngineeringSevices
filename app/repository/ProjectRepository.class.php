@@ -57,8 +57,6 @@ class ProjectRepository extends Repository {
 
     public function getProject($id) {
 
-        // var_dump($id);
-
         $sql = 'SELECT 
                     id, purchase_ord, DATE_FORMAT(award_date, "%Y-%m-%d") as award_date, 
                     description, location, building_number, done, company, comp_representative, 
@@ -70,65 +68,31 @@ class ProjectRepository extends Repository {
         
         $params = [":projID" => $id];
 
-        // var_dump($this->query($sql, $params));
-
         return $this->query($sql, $params)[0];
-
-        // // Prepare statement
-        // $stmt = $this->connect()->prepare($sql);
-
-        // Bind params
-        // $stmt->bindParam(":projID", $id);
- 
-        // $result = false;
-
-        // // Execute statement
-        // if($stmt->execute()) {
-        //     $result = $stmt->fetch();
-        // }
-        
-        // // Closes pdo connection
-        // $stmt = null;
-        // return $result;
     }
 
     public function getProjects($status) {
-        // Query
-        $sql = "SELECT *
-                FROM ".self::$tblProject."
-                WHERE active = :active
-                ORDER BY created_at DESC";
 
         $params = [':active' => true];
 
+        // Query
+        if (($status != 1 && $status != 0) || $status == "all") 
+        {   // Selects all active projects
+            $sql = "SELECT *
+                FROM ".self::$tblProject."
+                WHERE active = :active
+                ORDER BY created_at DESC";
+        } else 
+        {   // Selects all projects with a matching status
+            $sql = "SELECT *
+                FROM ".self::$tblProject."
+                WHERE active = :active AND done = :done
+                ORDER BY created_at DESC";
+
+            $params[':done'] = $status;
+        }
+
         return $this->query($sql, $params);
-
-        // // Modify Query
-        // if ($status) {
-        //     $sql .= " WHERE status = :status";
-        // }
-
-        // // Prepare
-        // $stmt = $this->connect()->prepare($sql);
-
-        // // Bind
-        // if ($status) {
-        //     $stmt->bindParam(":status", $status);
-        // }
-
-        // // Execute
-        // try {
-        //     if(!$stmt->execute()) {
-        //         throw new PDOException("Error Processing Request", 1);
-        //     }
-
-        //     $result = $stmt->fetchAll();
-        // } catch (PDOException $PDOE) {
-        //     $result = -1;
-        // }
-
-        // // Return result
-        // return $result;
     }
 
     public function update($project) {
