@@ -21,6 +21,7 @@ class UserRepository extends Repository {
     private static $tblLogin = "tbl_login";
     private static $tblAccount = "tbl_account";
     private static $tblLog = "tbl_Log";
+    private static $tblAcctType = "pltbl_account_type";
     
 
     // Check user
@@ -239,5 +240,78 @@ class UserRepository extends Repository {
         // }
 
         return $this->query($sql);
+    }
+
+    // Gets user info
+    public function getUser($userId) 
+    {
+        $sql = "SELECT  
+                    r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.email, r.address,
+                    t.name as 'type'
+                FROM ".self::$tblLogin." l
+                INNER JOIN ".self::$tblAccount." a ON l.id = a.login_id
+                INNER JOIN ".self::$tblRegister." r ON r.id = a.register_id
+                INNER JOIN ".self::$tblAcctType." t ON t.id = a.type_id
+                WHERE l.id = :userID";
+    
+        $params = [':userID' => $userId];
+
+        // Result
+        return $this->query($sql, $params)[0];
+    }
+
+    // Updates user's password
+    public function changePassword($password, $id)
+    {
+        $sql = 'UPDATE 
+                    '.self::$tblLogin.'
+                SET 
+                    password = :password
+                WHERE 
+                    id = :id';
+    
+        $params = [
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
+            ':id' => $id
+        ];
+
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function update(array $user)
+    {
+        $sql = 'UPDATE 
+                    '.self::$tblRegister.'
+                SET 
+                    lastname = :lastname, firstname = :firstname, middlename = :middlename, 
+                    contact_number = :contact_number, dob = :dob, email = :email, address = :address
+                WHERE 
+                    id = :id';
+
+        $params = [
+            ':lastname' => $user['lastName'],
+            ':firstname' => $user['firstName'],
+            ':middlename' => $user['middleName'],
+            ':contact_number' => $user['contactNo'],
+            ':dob' => $user['birthdate'],
+            ':email' => $user['email'],
+            ':address' => $user['address'],
+            ':id' => $user['id']
+        ];
+
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function getAccountType(string $logId)
+    {
+        $sql = 'SELECT * 
+                FROM '.self::$tblAccount.' 
+                WHERE login_id = :log_id';
+
+        $params = [':log_id' => $logId];
+
+        $this->query($sql, $params);
     }
 }
