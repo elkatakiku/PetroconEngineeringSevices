@@ -281,6 +281,8 @@ class UserRepository extends Repository {
 
     public function update(array $user)
     {
+        var_dump($user);
+        
         $sql = 'UPDATE 
                     '.self::$tblRegister.'
                 SET 

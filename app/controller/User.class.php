@@ -6,7 +6,7 @@ namespace Controller;
 use \Core\Controller as MainController;
 use \Service\UserService;
 
-class Users extends MainController {
+class User extends MainController {
 
     private $userService;
 
@@ -112,5 +112,77 @@ class Users extends MainController {
 
 
     
+    // Profile
+    public function profile($userId)
+    {
+        $this->setPage(7);// page kung pangilan sa sidemenu
+        $user = json_decode($this->userService->getUser($userId), true);
+
+        if ($user['statusCode'] == 200) {
+            $this->view("profile", "profile", $user['data']);
+        } else {
+            $this->goToLanding();
+        }
+    }
+
+    public function updateUser()
+    {
+        if (isset($_POST['modifyProfile'])) 
+        {
+            $inputs = [
+                'required' => [
+                    "id" => ucwords($this->sanitizeString($_POST['id'])), //every first letter of words is capital
+                    "firstName" => ucwords($this->sanitizeString($_POST['firstName'])), //every first letter of words is capital
+                    "lastName" => ucwords($this->sanitizeString($_POST['lastName'])),
+                    "email" => $this->sanitizeString($_POST['email']), //all lower case/upper case
+                    "address" => ucwords($this->sanitizeString($_POST['address'])),
+                    "contactNo" => $this->sanitizeString($_POST['contactNo']),
+                    "birthdate" => ucwords($this->sanitizeString($_POST['birthdate']))
+                    //"username" => strtoupper($projectDesc[0]).strtolower(substr($projectDesc, 1, strlen($projectDesc))), //first letter first word lang ang capital
+                ],
+                'notRequired' => [
+                    "middleName" => ucwords($this->sanitizeString($_POST['middleName']))
+                ]
+            ];
+
+            $result = json_decode($this->userService->updateUser($inputs), true);
+            $url = "Location: ".SITE_URL.US."profile/index/".$_SESSION['accID'];
+
+            if ($result['statusCode'] != 200) {
+                $url .= "?error=".$result['message'];
+            }
+
+            header($url);
+        } else {
+            $this->goToLanding();
+        }
+    }
+
+    // Change password view
+    public function password()
+    {
+        $this->view("profile", "changepass", ['id' => $_SESSION['accID']]);
+    }
+
+    // Change pass action
+    public function changePass()
+    {
+        if (isset($_POST['changePass'])) {
+            unset($_POST['changePass']);
+
+            $result = json_decode($this->userService->changePassword($_POST), true);
+            $url = "Location: ".SITE_URL.US."profile/password";
+
+            if ($result['statusCode'] == 200) {
+                $url .= "?success=password changed";
+            } else {
+                $url .= "?error=".$result['message'];
+            }
+
+            header($url);
+        } else {
+            $this->goToLanding();
+        }
+    }
 }
 

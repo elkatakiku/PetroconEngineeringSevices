@@ -200,13 +200,13 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
                 <li class="">
-                  <a class="" href="<?= SITE_URL.US.'users/employees' ?>">Employees</a>
+                  <a class="" href="<?= SITE_URL.US.'user/employees' ?>">Employees</a>
                 </li>
                 <li class="">
-                  <a class="" href="<?= SITE_URL.US.'users/workers' ?>">Workers</a>
+                  <a class="" href="<?= SITE_URL.US.'user/workers' ?>">Workers</a>
                 </li>
                 <li class="active">
-                  <a class="" href="<?= SITE_URL.US.'users/clients' ?>">Clients</a>
+                  <a class="" href="<?= SITE_URL.US.'user/clients' ?>">Clients</a>
                 </li>
               </ul>
             </li> 
@@ -242,7 +242,7 @@
             <hr>
   
             <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'profile/index/'.$_SESSION['accID'] ?>">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'user/profile/'.$_SESSION['accID'] ?>">
                 <span class="material-icons">person</span>
                 <div class="collapsible">
                   <span>Profile</span>
