@@ -10,18 +10,18 @@ use \Core\Repository as Repository;
 use \Model\Login as Login;
 use \Model\Register as Register;
 use \Model\Account as Account;
+use \Model\Users as Users;
 
 // Tools
 use \PDO;
 
 class UserRepository extends Repository {
 
-    private static $tblRegister = "tbl_register";
+    private static $tblRegister = "tbl_register"; // also a user
     private static $tblLogin = "tbl_login";
     private static $tblAccount = "tbl_account";
-    private static $tblLog = "tblLog";
-
-    private static $tblAcctType = "pltbl_account_type";
+    private static $tblLog = "tbl_Log";
+    
 
     // Check user
     public function checkUser($username, $email) {
@@ -215,97 +215,29 @@ class UserRepository extends Repository {
         return $result;
     }
 
-    // Gets user info
-    public function getUser($userId) {
-        // $sql = "SELECT r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.dob, r.address, r.name as 'type'
-        //         FROM
-        //             ".self::$tblRegister."
-        //         INNER JOIN
-        //         WHERE
-        //             id = :userID
-        //         LIMIT 1";
-        // $sql = 'SELECT 
-        //             r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.email, r.address,
-        //             p.name as "type"
-        //         FROM
-        //             '.self::$tblRegister.' r
-        //         INNER JOIN
-        //             '.self::$tblAccount.' a
-        //             ON r.log_ID = a.login_id
-        //         INNER JOIN
-        //             '.self::$tblAcctType.' p
-        //             ON a.type_id = p.id
-        //         WHERE
-        //             r.id = :userID
-        //         LIMIT 1';
-
-        $sql = "SELECT  
-                    r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.email, r.address,
-                    t.name as 'type'
-                FROM ".self::$tblLogin." l
-                INNER JOIN ".self::$tblAccount." a ON l.id = a.login_id
-                INNER JOIN ".self::$tblRegister." r ON r.id = a.register_id
-                INNER JOIN ".self::$tblAcctType." t ON t.id = a.type_id
-                WHERE l.id = :userID";
-    
-        $params = [':userID' => $userId];
-
-        // Result
-        return $this->query($sql, $params)[0];
-    }
-
-    // Updates user's password
-    public function changePassword($password, $id)
+    public function getUsers($userType)
     {
-        $sql = 'UPDATE 
-                    '.self::$tblLogin.'
-                SET 
-                    password = :password
-                WHERE 
-                    id = :id';
-    
-        $params = [
-            ':password' => password_hash($password, PASSWORD_DEFAULT),
-            ':id' => $id
-        ];
 
-        // Result
-        return $this->query($sql, $params);
-    }
+        $sql = "SELECT * FROM  ".self::$tblRegister;
+        // $params = [':active' => true];
 
-    public function update(array $user)
-    {
-        $sql = 'UPDATE 
-                    '.self::$tblRegister.'
-                SET 
-                    lastname = :lastname, firstname = :firstname, middlename = :middlename, 
-                    contact_number = :contact_number, dob = :dob, email = :email, address = :address
-                WHERE 
-                    id = :id';
+        // Query
+        // if (($userType != 1 && $userType != 0) || $userType == "all") 
+        // {   // Selects all active users
+        //     $sql = "SELECT *
+        //         FROM ".self::$tblRegister."
+        //         WHERE active = :active
+        //         ORDER BY created_at DESC";
+        // } else 
+        // {   // Selects all users with a matching status
+        //     $sql = "SELECT *
+        //         FROM ".self::$tblRegister."
+        //         WHERE active = :active AND done = :done
+        //         ORDER BY created_at DESC";
 
-        $params = [
-            ':lastname' => $user['lastName'],
-            ':firstname' => $user['firstName'],
-            ':middlename' => $user['middleName'],
-            ':contact_number' => $user['contactNo'],
-            ':dob' => $user['birthdate'],
-            ':email' => $user['email'],
-            ':address' => $user['address'],
-            ':id' => $user['id']
-        ];
+        //     $params[':done'] = $$userType;
+        // }
 
-        // Result
-        return $this->query($sql, $params);
-    }
-
-    public function getAccountType(string $logId)
-    {
-        $sql = 'SELECT * 
-                FROM '.self::$tblAccount.' 
-                WHERE login_id = :log_id';
-
-        $params = [':log_id' => $logId];
-
-        $this->query($sql, $params);
+        return $this->query($sql);
     }
 }
