@@ -467,13 +467,13 @@ ul .chart-li-seven-t2 {
     padding: 12px;
 }
 
-#legendPopup[data-legend="edit"] .pfooter .btn, 
+[data-legend="edit"] .pfooter .btn, 
 .pside .pfooter .btn {
     width: calc(50% - (.75rem/2));
 }
 
-#legendPopup[data-legend="edit"] .pfooter .btn.neutral-outline-btn,
-.pside .pfooter .btn.neutral-outline-btn {
+[data-legend="edit"] .pfooter .btn.neutral-outline-btn,
+.pside .pfooter .btn:nth-child(3) {
     width: 100%;
 }
 
@@ -483,7 +483,7 @@ ul .chart-li-seven-t2 {
     /* border: 1px solid rgba(0, 0, 0, 0.30); */
     border-radius: 5px;
     background-color: white;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.30);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.30);
 }
 
 .task-activity .close-btn .material-icons {

@@ -14,6 +14,18 @@
 
 // echo "<br>";
 
-require_once "../app/init.php";
+// require_once "../app/init.php";
 
-$app = new App;
+// $sam = new Service\Auth;
+// $sam->samp();
+
+// echo "<br>";
+
+// echo $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+
+// echo "<br>";
+
+// define('ROOTPATH', __DIR__);
+// echo ROOTPATH;
+
+// $app = new App;
