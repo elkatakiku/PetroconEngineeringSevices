@@ -242,7 +242,7 @@
             <hr>
   
             <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'profile' ?>">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'profile/index/'.$_SESSION['accID'] ?>">
                 <span class="material-icons">person</span>
                 <div class="collapsible">
                   <span>Profile</span>

@@ -140,6 +140,73 @@ class UserService extends Service{
 
     // Verify
 
+
+    // Get
+    public function getUser($userId) {
+        $cleanId = $this->sanitizeString($userId);
+
+        if ($cleanId) {
+            // Gets the user
+            if ($profile = $this->userRepository->getUser($userId)) {
+                $response['data'] = $profile;
+                $response['statusCode'] = 200;
+             } else {
+                $response['statusCode'] = 500;
+            }
+        } else {
+            $response['statusCode'] = 400;
+        }
+        return json_encode($response);
+    }
+    
+    //Update User
+    public function updateUser($userInfo) 
+    {       
+        if (!$this->emptyInput($userInfo['required'])) {
+            $this->userRepository->update(array_merge($userInfo['required'], $userInfo['notRequired']));
+            $response['statusCode'] = 200;
+        } else {
+            $response['message'] = "Please fill all the required inputs";
+            $response['statusCode'] = 400;
+        }
+
+        return json_encode($response);
+    }
+
+    // Changes password
+    public function changePassword(array $form)
+    {
+        $input = [
+            'id' => $this->sanitizeString($form['id']),
+            'oldPass' => $this->sanitizeString($form['oldPass']),
+            'newPass' => $this->sanitizeString($form['newPass']),
+            'newPassRepeat' => $this->sanitizeString($form['newPassRepeat'])
+        ];
+
+        if (!$this->emptyInput($input)) {
+            $login = $this->userRepository->getLoginById($input['id']);
+
+            if (!password_verify($input['oldPass'], $login->getPassword())) 
+            {
+                $response['statusCode'] = 400;
+                $response['message'] = "Current password is incorrect.";
+            } 
+            else if ($input['newPass'] !== $input['newPassRepeat']) 
+            {
+                $response['statusCode'] = 400;
+                $response['message'] = "New password is does not match.";
+            } else {   
+                $this->userRepository->changePassword($input['newPass'], $input['id']);
+                $response['statusCode'] = 200;
+            }
+        } else {
+            $response['statusCode'] = 400;
+            $response['message'] = "Please fill all the required inputs.";
+        }
+
+        return json_encode($response);
+    }
+
     // Update
 
     // Get User List
@@ -168,6 +235,7 @@ class UserService extends Service{
         // }
     
         return json_encode($response);
+
 
     }
     // Inputs validation
