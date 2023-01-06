@@ -10,16 +10,18 @@ use \Core\Repository as Repository;
 use \Model\Login as Login;
 use \Model\Register as Register;
 use \Model\Account as Account;
+use \Model\Users as Users;
 
 // Tools
 use \PDO;
 
 class UserRepository extends Repository {
 
-    private static $tblRegister = "tbl_register";
+    private static $tblRegister = "tbl_register"; // also a user
     private static $tblLogin = "tbl_login";
     private static $tblAccount = "tbl_account";
-    private static $tblLog = "tblLog";
+    private static $tblLog = "tbl_Log";
+    
 
     private static $tblAcctType = "pltbl_account_type";
 
@@ -215,6 +217,7 @@ class UserRepository extends Repository {
         return $result;
     }
 
+
     // Gets user info
     public function getUser($userId) {
         // $sql = "SELECT r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.dob, r.address, r.name as 'type'
@@ -307,5 +310,30 @@ class UserRepository extends Repository {
         $params = [':log_id' => $logId];
 
         $this->query($sql, $params);
+
+    public function getUsers($userType)
+    {
+
+        $sql = "SELECT * FROM  ".self::$tblRegister;
+        // $params = [':active' => true];
+
+        // Query
+        // if (($userType != 1 && $userType != 0) || $userType == "all") 
+        // {   // Selects all active users
+        //     $sql = "SELECT *
+        //         FROM ".self::$tblRegister."
+        //         WHERE active = :active
+        //         ORDER BY created_at DESC";
+        // } else 
+        // {   // Selects all users with a matching status
+        //     $sql = "SELECT *
+        //         FROM ".self::$tblRegister."
+        //         WHERE active = :active AND done = :done
+        //         ORDER BY created_at DESC";
+
+        //     $params[':done'] = $$userType;
+        // }
+
+        return $this->query($sql);
     }
 }

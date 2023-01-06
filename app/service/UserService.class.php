@@ -9,6 +9,7 @@ use \Model\Result as Result;
 use \Model\Login as Login;
 use \Model\Register as Register;
 use \Model\Account as Account;
+use \Model\Users as Users;
 
 // Tools
 use DateTime;
@@ -51,6 +52,7 @@ class UserService extends Service{
 
     // Signup
     public function signup($input) {
+        echo __METHOD__;
         $result = new Result();
 
         if (!$this->validUsername($input["username"])) {
@@ -100,8 +102,8 @@ class UserService extends Service{
         $signupResult = $this->setUser($login, $register, $account);
         if ($signupResult->isSuccess()) {
             // Account creation success
-            header("Location: ".SITE_URL."/login?signup=success");
-            exit();
+            // header("Location: ".SITE_URL."/login?signup=success");
+            // exit();
             $result->setStatus(true);
             return $result;
         } else {
@@ -137,6 +139,7 @@ class UserService extends Service{
     // Reset
 
     // Verify
+
 
     // Get
     public function getUser($userId) {
@@ -204,6 +207,37 @@ class UserService extends Service{
         return json_encode($response);
     }
 
+    // Update
+
+    // Get User List
+    public function getUserList($form) { //form 
+        // parse_str($form, $input);
+
+        // if (!$this->emptyInput($input)) 
+        // {            
+        //     if ($input['status'] == "done") {
+        //         $input['status'] = 1;
+        //     } else if ($input['status'] == "ongoing") {
+        //         $input['status'] = 0;
+        //     }
+
+        //     if (
+                $projects = $this->userRepository->getUsers($form);
+        //         ) {
+                $response['data'] = $projects;
+        //         $response['statusCode'] = 200;
+        //     } else {
+        //         $response['statusCode'] = 500;
+        //         $response['message'] = 'An error occured';
+        //     }
+        // } else {
+        //     $response['statusCode'] = 400;
+        // }
+    
+        return json_encode($response);
+
+
+    }
     // Inputs validation
     private function validUsername($username) {
         return preg_match("/^[a-zA-Z0-9]*$/", $username);
