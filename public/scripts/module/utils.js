@@ -1,11 +1,3 @@
-function double (n) {  
-    return n * 2;
-}
-
-function otherStuff() {  
-    return "Other";
-}
-
 // Color shade changer
 export const pSBC=(p,c0,c1,l)=>{
     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string", pSBCr;
@@ -52,6 +44,3 @@ export function autoHeight(input) {
     input.style.height = (input.scrollHeight) + "px";
     input.style.overflowY = "hidden";
 }
-
-
-export{ double, otherStuff }

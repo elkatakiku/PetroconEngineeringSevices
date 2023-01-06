@@ -96,24 +96,81 @@ class TaskRepository extends Repository {
     public function getActiveTasks($id) {
         $planId = $this->getPlanId($id);
 
-        $sql = "SELECT 
-                    t.id, t.description, t.order_no, t.status, 
-                    DATE_FORMAT(tb.start, '%m-%d-%Y') AS plan_start, DATE_FORMAT(tb.end, '%m-%d-%Y') AS plan_end
-                FROM 
-                    ".self::$tblTask." t INNER JOIN ".self::$tblTaskBar." tb
-                ON
-                    t.id = tb.task_id
-                WHERE 
-                    t.proj_id = :proj_id AND t.active = :active";
+        // $sql = "SELECT 
+        //             t.id, t.description, t.order_no, t.status, 
+        //             DATE_FORMAT(tb.start, '%m-%d-%Y') AS plan_start, DATE_FORMAT(tb.end, '%m-%d-%Y') AS plan_end
+        //         FROM 
+        //             ".self::$tblTask." t 
+        //             INNER JOIN 
+        //                 ".self::$tblTaskBar." tb
+        //                 ON
+        //                 t.id = tb.task_id
+        //         WHERE 
+        //             t.proj_id = :proj_id AND t.active = :active";
                     //  AND tb.leg_id = :leg_id";
+
+        $sql = "SELECT * 
+                FROM ".self::$tblTask." 
+                WHERE proj_id = :proj_id AND active = :active";
+
+        // $sql = "SELECT 
+        //             *
+        //         FROM ".self::$tblTask." t
+        //         LEFT JOIN ".self::$tblTaskBar." tb 
+        //             ON t.id = tb.task_id
+        //         WHERE 
+        //             t.proj_id = :proj_id AND t.active = :active
+        //         GROUP BY tb.task_id
+        //         ORDER BY t.order_no ASC";
+                    // AND tb.leg_id = :leg_id";
 
         $params = [
             ":proj_id" => $id,
             ':active' => true
+            // ':leg_id' => $planId
         ];
             // ":leg_id" => $planId
 
         return $this->query($sql, $params);
+    }
+
+    public function getPlans(string $id) {
+        $planId = $this->getPlanId($id);
+
+        $sql = "SELECT 
+                        t.id, t.description, t.order_no, t.status, 
+                        DATE_FORMAT(tb.start, '%m-%d-%Y') AS plan_start, DATE_FORMAT(tb.end, '%m-%d-%Y') AS plan_end
+                FROM ".self::$tblTask." t
+                LEFT JOIN (
+                    SELECT * 
+                    FROM ".self::$tblTaskBar."
+                    WHERE leg_id = :leg_id
+                ) tb
+                ON t.id = tb.task_id
+                WHERE proj_id = :proj_id AND t.active = :active
+                GROUP BY t.id";
+
+        $params = [
+            ":proj_id" => $id,
+            ':active' => true,
+            ':leg_id' => $planId
+        ];
+
+        return $this->query($sql, $params);
+
+        // $sql = "SELECT 
+        //             t.id, t.description, t.order_no, t.status, 
+        //             DATE_FORMAT(tb.start, '%m-%d-%Y') AS plan_start, DATE_FORMAT(tb.end, '%m-%d-%Y') AS plan_end
+        //         FROM 
+        //             ".self::$tblTask." t 
+        //             INNER JOIN 
+        //                 ".self::$tblTaskBar." tb
+        //                 ON
+        //                 t.id = tb.task_id
+        //         WHERE 
+        //             t.proj_id = :proj_id AND t.active = :active AND tb.leg_id = :leg_id";
+
+
     }
 
     // Gets the number of tasks of a projects
@@ -123,11 +180,12 @@ class TaskRepository extends Repository {
                 FROM 
                     ".self::$tblTask." 
                 WHERE 
-                    proj_id = :proj_id";
+                    proj_id = :proj_id
+                LIMIT 1";
 
         $params = [':proj_id' => $projectId];
 
-        return $this->query($sql, $params, 1)[0]['count'];
+        return $this->query($sql, $params)[0]['count'];
 
         // $stmt = $this->connect()->prepare($sql);
 

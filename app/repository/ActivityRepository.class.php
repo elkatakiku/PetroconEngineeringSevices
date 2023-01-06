@@ -30,7 +30,6 @@ class ActivityRepository extends Repository {
                         WHEN l.active = 0 THEN '#a5a3aa'
                         WHEN l.active = 1 THEN l.color
                     END AS 'color',  
-                    -- l.color, 
                     DATE_FORMAT(tb.start, '%Y-%m-%d') AS 'start', 
                     DATE_FORMAT(tb.end, '%Y-%m-%d') AS 'end'
 

@@ -46,7 +46,7 @@ switch ($this->getType()) {
         base_url: '<?= SITE_URL ?>'
       }
 
-      <?php if (!$this->getType() == Core\Controller::AUTH) { ?>
+      <?php if (!($this->getType() == Core\Controller::AUTH)) { ?>
 
       let sideNavLink = $("#sidebar .components > li");
 

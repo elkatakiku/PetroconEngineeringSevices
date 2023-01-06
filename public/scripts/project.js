@@ -84,7 +84,7 @@ function loadActivities(id, activities) {
     );
 }
 
-function loadLegends(legends, activities) {
+function loadLegends(legends, activities = null) {
     legends.trigger('custom:reload');
     
     $.get(
@@ -92,7 +92,7 @@ function loadLegends(legends, activities) {
         { id : projectId },
         function (response) {
             console.log("Legend response");
-            console.log(response);
+            // console.log(response);
             let jsonResponse = JSON.parse(response);
             if (jsonResponse.statusCode == 200 && jsonResponse.hasOwnProperty('data')) 
             {
@@ -126,12 +126,14 @@ function generateLegend(legendData, legendsContainer, activities = null) {
                                 ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' +
                                 (date.getDay() < 10 ? '0' : '') + date.getDay();
 
-            activities.append(generateTaskActivity(
-                legendData,
-                currentDate, 
-                currentDate,
-                '')
-            );
+            if (activities) {
+                activities.append(generateTaskActivity(
+                    legendData,
+                    currentDate, 
+                    currentDate,
+                    '')
+                );
+            }
         });
 
     legendElement
@@ -162,7 +164,7 @@ let dtTable = {
     'info' : false,
 
     "ajax" : {
-        url : Settings.base_url + "/task/list",
+        url : Settings.base_url + "/task/plans",
         type : 'GET',
         data : {projId : projectId}
         // ,
@@ -215,7 +217,6 @@ let dtTable = {
             let popup = buildTaskPopup();
     
             popup.find('.pmain .ptitle').text('Task ' + rowDisplay[0]);
-
             popup.find('.pmain input[name="id"]').val(rowData.id);
             popup.find('.pmain input[name="order"]').val(rowDisplay[0]);
             popup.find('.pmain textarea[name="taskDesc"]').val(rowDisplay[1]);
@@ -250,10 +251,7 @@ let dtTable = {
                     },
                     function (response, status) {
                         console.log("Edit Response");
-                        // console.log(response);
-                        // $('#samp').html(response);
                         let data = JSON.parse(response);
-                        // console.log(data);
                         if (data.statusCode == 200) 
                         {   // Dismiss legend's form and reload legends list on success
                             popup.find('button[data-dismiss]').trigger('click');
@@ -281,7 +279,7 @@ let dtTable = {
             });
 
             // Finally shows popup
-            Popup.showPopup(popup);
+            Popup.show(popup);
         });
 
         // Destroy initialization of datatable on dismiss
@@ -326,14 +324,19 @@ function deleteTask(taskPopup, taskId, table) {
         );
     });
 
-    Popup.showPopup(deletePopup);
+    Popup.show(deletePopup);
 }
 
 // Shows timeline
 $('#timelineToggler button').click((e) => {
-    $('.timeline').animate({
-        'margin-left' : '0'
-    }, 300, "swing");
+    clearInterval(ganttChartInterval);
+    resetGanttChart();
+
+    $('.timeline')
+        .show()
+        .animate({
+            'margin-left' : '0'
+        }, 300, "swing");
 
     // Initializes timeline table to datatable
     let table = $("#tasksTable").DataTable(dtTable);
@@ -353,9 +356,14 @@ $('#timelineToggler button').click((e) => {
 
 // Dismisses timeline
 $('.timeline header .back-btn').click((e) => {
+    buildGanttChart();
+
     $('.timeline').animate({
         'margin-left' : '-100%'
-    }, 300, "swing");
+    }, 300, "swing", function () {  
+        $('.timeline').hide();
+        // $('.chart-container').show();
+    });
 
     $('.timeline').trigger('custom:timelineDismiss');
 });
@@ -418,7 +426,7 @@ $('#addTask').click((e) => {
 
     // Displays task form
     popup.find('.pfooter .btn.danger-btn').remove();
-    Popup.showPopup(popup);
+    Popup.show(popup);
 
     // Task submit action
     popup.find('#taskForm').submit((e) => {
@@ -509,33 +517,6 @@ function getActivityData(element, actsArr, isNew = false) {
     actsArr.push(JSON.stringify(actObj));
 }
 
-// New Row
-$('form[data-row]').submit((e) => {
-    e.preventDefault();
-
-    $.post(
-        // Url
-        Settings.base_url + "/project/newTask", 
-        // Data
-        { 
-            projId : projectId,
-            form : function () {return $(e.target).serialize();}
-        },
-        // On success
-        function (data, textStatus) {
-            let jsonData = JSON.parse(data);
-            
-            if (jsonData.statusCode != 200) {
-                $(e.target).find('.alert').html(jsonData.message);
-            }
-            console.log(textStatus);
-
-            tasksTable.ajax.reload(null, false);
-            $(e.target)[0].reset();
-        }
-    );
-});
-
 $('form[data-row] button[type="submit"]').click((e) => {
     e.preventDefault();
     $(e.target).parents('form[data-row]').submit();
@@ -616,7 +597,6 @@ if (chartRows.length > 0) {
 // || Legend
 
 // Legends form
-
 function generateLegendForm() {
     let legend = $(
         '<div class="popup show popup-center popup-legend" id="legendPopup" data-legend="" tabindex="-1" aria-hidden="true">' +
@@ -839,7 +819,7 @@ function buildLegendForm(legend = null) {
     });
 
     $('body').append(legendForm);
-    Popup.showPopup(legendForm);
+    Popup.show(legendForm);
 }
 
 function dimissLegend(legendForm, response) {
@@ -1136,10 +1116,368 @@ $(window).on("resize", (e) => {
 
 
 // Gannt Chart
-$.get(
-    Settings.base_url + "/task/list",
-    {projId : projectId},
-    function (data, textStatus, jqXHR) {
-        console.log(data);
+let chartX, chartY;
+
+function loadGanttChart() {
+    console.log("Load gantt chart");
+    let ganttChart = $('.gantt-chart');
+    let chartX = ganttChart.scrollLeft();
+    let chartY = ganttChart.scrollTop();
+    $.get(
+        Settings.base_url + "/task/chart",
+        {projId : projectId},
+        function (data, textStatus) {
+            resetGanttChart();
+
+            let response = JSON.parse(data);
+            let rowHead = '250px';
+            let startDate = new Date(response.data.start).getDate();
+            let monthStart = 1;
+
+            // Chart Header
+            for (let i = 0; i < response.data.header[0].length; i++) {
+                const days = response.data.header[1][i];
+
+                // Months
+                let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long' }) + '</span>');
+                monthGrid.css('grid-column', monthStart + ' / span ' + days);
+                $('.chart-months').append(monthGrid);
+                
+                // Days
+                for (let j = 1; j <= days; j++) {
+                    $('.chart-days').append('<span>' + startDate++ + '</span>');
+                }
+                
+                startDate = 1;
+                monthStart += days;
+
+            }
+
+
+            response.data.content.forEach(task => 
+                {
+                let taskBar = generateGanttRow(task);
+                let bars = taskBar.find('.chart-row-bars');
+
+                task.activity.forEach(activity => 
+                    {   // Generates gantt charts bars
+                    let bar = $('<li title="' + activity.title + '"></li>');
+
+                    bar.css({
+                        'grid-column' : activity.grid + ' / span ' + activity.span,
+                        'background-color' : activity.color
+                    });
+
+                    bars.append(bar);
+                });
+
+                //     let end = new Date(activity.end);
+                //     let start = new Date(activity.start);
+
+                //     // Span of width of grid item
+                //     let span = (end - start) / (1000*60*60*24) + 1;
+                    
+
+                //     if (projectStart === 0) {
+                //         projectStart = start;
+                //     }
+
+                //     projectEnd = end;
+
+                //     if ($.inArray(start.getMonth(), months[0]) < 0) {
+                //         months[0].push(start.getMonth());
+                //         months[1].push(start.getFullYear());
+                //     } else {
+                //         console.log("Nandun na start");
+                //     }
+
+                //     if ($.inArray(end.getMonth(), months[0]) < 0) {
+                //         months[0].push(end.getMonth());
+                //         months[1].push(end.getFullYear());
+                //     } else {
+                //         console.log("Nandun na end");
+                //     }
+
+                //     let grid = (start - projectStart) / (1000*60*60*24);
+
+                //     lastGrid = (grid === 0) ? 1 : grid+1;
+
+                //     let parsedDate = String(lastGrid) + ' / span ' + String(span > 0 ? span : 1);
+                //     bar.css({
+                //         'grid-column' : parsedDate,
+                //         'background-color' : activity.color
+                //     });
+
+                //     bars.append(bar);
+                // });
+
+                $('.chart-body').append(taskBar);
+                
+            });
+
+            $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css(
+                'grid-template-columns', 'repeat(' + response.data.total_days + ', minmax(var(--chart-grid-width), 1fr))'
+            );
+
+            $('.chart-lines').css(
+                'grid-template-columns', rowHead + ' repeat(' + response.data.total_days + ', 1fr)'
+            );
+
+            
+            // Chart lines
+            let day = new Date(response.data.start).getDay() - 1;
+            
+            for (let j = 0; j < response.data.total_days; j++) {
+                let line = $('<span></span>');
+
+                if (day === 0) {line.addClass('sunday');}
+                $('.chart-lines').append(line);
+                
+                day++;
+                if (day === 7) {day = 0;}
+            }
+            
+            // Sets scroll position to last scrolls' positions :>
+            ganttChart.scrollLeft(chartX);
+            ganttChart.scrollTop(chartY);
+
+            ganttChart.trigger('custom:ready');
+        }
+    );
+}
+
+function resetGanttChart() {  
+    $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css('grid-template-columns', '');
+    // $('.chart-lines').css('grid-template-columns', '');
+    $('.chart-months').empty();
+    $('.chart-days').empty();
+    $('.chart-lines').empty();
+    $('.chart-body')
+        .empty()
+        .append('<div class="chart-lines"></div>');
+}
+
+function buildGanttChart() {  
+    loadGanttChart();
+    loadLegends($('.legends-container'));
+
+    ganttChartInterval = setInterval(() => {
+        loadGanttChart();
+        loadLegends($('.legends-container'));
+    }, 5000);
+}
+
+let ganttChartInterval;
+
+buildGanttChart();
+
+// loadGanttChart();
+// loadLegends($('.legends-container'));
+
+// let ganttChartInterval = setInterval(() => {
+//     loadGanttChart();
+//     loadLegends($('.legends-container'));
+// }, 5000);
+
+
+//create the function getNumberOfDays with getDate() method
+function getNumberOfDays (month, year) {
+    return new Date(year, month + 1, 0).getDate();
+}
+
+$('.gantt-chart').on('custom:ready', (e) => {
+    $('#projectGanttChart .spinner').hide();
+    $('.chart-container').css('visibility', 'visible');
+});
+
+function generateGanttRow(task) {  
+    // console.log(task.plan_start);
+    // console.log(new Date(task.plan_end) - new Date(task.plan_start));
+    // console.log((new Date(task.plan_end) - new Date(task.plan_start)) / (1000*60*60*24));
+    // console.log((1000*60*60*24));
+    return $(
+        '<div class="chart-row">' +
+            '<div class="chart-row-item task-name">' +
+                '<strong class="task-number">' + parseFloat(task.order_no) + '</strong>' +
+                task.description +
+            '</div>' +
+            '<ul class="chart-row-bars"></ul>' +
+        '</div>'
+    );
+}
+
+
+// || Project info
+let infoInterval;
+
+// Gets project info from the server
+function loadProjectInfo() {  
+    console.log("Load project info");
+    $.get(
+        Settings.base_url + "/project/get",
+        {projId : projectId},
+        function (data, textStatus) {
+            console.log(data);
+            let response = JSON.parse(data);
+
+            if (response.hasOwnProperty('data')) {
+                console.log(response.data);
+                let project = response.data;
+                let form = $('#projectDetailForm');
+                form.find('[name="id"]').val(project.id);
+                form.find('[name="purchaseOrd"]').val(project.purchase_ord);
+                form.find('[name="awardDate"]').val(project.award_date);
+                form.find('[name="description"]').val(project.name);
+                form.find('[name="buildingNo"]').val(project.building_number);
+                form.find('[name="location"]').val(project.location);
+                form.find('[name="company"]').val(project.company);
+                form.find('[name="representative"]').val(project.comp_representative);
+                form.find('[name="contact"]').val(project.comp_contact);
+            }
+        }
+    );
+}
+
+// Project info toggle actions
+$('#projectInfoToggller').on('click', (e) => {
+    console.log("Info clicked");
+
+    infoInterval = setInterval(() => {
+        loadProjectInfo();
+    }, 5000);
+
+    // Removes refresh when editing
+    $('#projectDetailForm').on('custom:edit', (e) => {
+        console.log("Edit event");
+        clearInterval(infoInterval);
+    });
+
+    $('#projectInfo').find('button[data-dismiss="slide"]').on('click', (e) => {
+        clearInterval(infoInterval);
+    });
+
+    // Reapply refresh when done editing
+    $('#projectDetailForm').on('custom:readOnly', (e) => {
+        console.log("Read only");
+        infoInterval = setInterval(() => {
+            loadProjectInfo();
+        }, 5000);
+    });
+});
+
+// Project details actions
+$('#projectDetailForm').on('submit', (e) => {
+    e.preventDefault();
+    console.log("Submit project");
+
+    $.post(
+        Settings.base_url + "/project/update",
+        {form : function () {return $(e.target).serialize();}},
+        function (response, textStatus, jqXHR) {
+            console.log("Project Update Response");
+            console.log(response);
+            let data = JSON.parse(response);
+            if (data.statusCode != 200) 
+            {
+                // Shows alert on fail
+                $(e.target).find('.alert-danger')
+                    .addClass('show')
+                    .text(data.message);
+            } else {
+                $(e.target).parents('.slide-content').find('button[data-toggle="form"][data-action="submit"]').trigger('click');
+            }
+        }
+    );
+});
+
+// Delete task actions
+$('#projectInfo').find('.delete-btn').click(() => {
+    console.log("Delete project");
+    // deleteTask(popup, rowData.id, dt);
+    deleteProject(projectId);
+});
+
+function deleteProject(projId) {  
+    console.log("Delete popup");
+    let deletePopup = Popup.generateDeletePopup('project');
+
+    deletePopup.find('input[name="id"]').val(projId);
+    deletePopup.find('#deleteForm').submit((e) => {
+        e.preventDefault();
+        console.log("Submit delete");
+
+        $.post(
+            Settings.base_url + "/project/remove",
+            {form : function () {return $(e.target).serialize();}},
+            function (data, textStatus) {
+                console.log("Response delete");
+                console.log(data);
+                let jsonData = JSON.parse(data);
+                if (jsonData.statusCode == 200) 
+                {   // Dismiss delete popup and redirect to projects list on success
+                    console.log("Success delete");
+                    deletePopup.find('button[data-dismiss]').trigger('click');
+
+                    window.location.href =  Settings.base_url + '/project';
+                }
+            }
+        );
+    });
+
+    Popup.show(deletePopup);
+}
+
+// Slide form buttons
+$('.slide button[data-toggle="form"]').on('click', (e) => {
+    let btn = $(e.target);
+    if (btn.data('action') === 'edit') {
+        console.log("Edit");
+
+        let form = $("#" + btn.attr("form"));
+    
+        form.find("textarea, input").removeAttr("readonly");
+    
+        btn.attr("type", "button");
+        btn.text("Done");
+        btn.data("action", "submit");
+
+        btn.parents('.slide-header').find('button[data-dismiss="slide"]').hide();
+        btn.parents('.slide-header').find('button[data-toggle="form"][data-action="cancel"]').show();
+
+        form.trigger('custom:edit');
     }
-);
+    else if (btn.data('action') === 'submit') {
+        console.log("Submit");
+        let form = $("#" + btn.attr("form"));
+
+        form.find('.alert-danger').hide();
+        form.find("textarea, input").attr("readonly", true);
+        
+        btn.attr("type", "submit");
+        btn.text("Edit");
+        btn.data("action", "edit");
+
+        btn.parents('.slide-header').find('button[data-dismiss="slide"]').show();
+        btn.parents('.slide-header').find('button[data-action="cancel"]').hide();
+
+        form.trigger('custom:readOnly');
+    }
+    else if (btn.data('action') === 'cancel') {
+        console.log("Cancel");
+        let form = $("#" + btn.attr("form"));
+
+        form.find('.alert-danger').hide();
+        form.find("textarea, input").attr("readonly", true);
+
+        let editBtn =  btn.parents('.slide-header').find('button[data-action="edit"]');
+
+        editBtn.text("Edit");
+        editBtn.data("action", "edit");
+        editBtn.attr("type", "button");
+
+        btn.hide();
+        btn.parents('.slide-header').find('button[data-dismiss="slide"]').show();
+
+        form.trigger('custom:readOnly');
+    }
+});

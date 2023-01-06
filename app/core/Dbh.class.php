@@ -32,13 +32,7 @@ class Dbh {
         }
     }
 
-    protected function query(string $sql, $params = null, int $limit = 0) {
-
-        // Modify query string to add limiter
-        if ($limit > 0) {
-            $sql .= " LIMIT ".$limit;
-        }
-        
+    protected function query(string $sql, $params = null) {        
         // Prepare the query string
         $stmt = $this->connect()->prepare($sql);
         
@@ -47,10 +41,12 @@ class Dbh {
         if($stmt->execute($params)) 
         {
             $result = true;
+            // echo "Success";
             
-            switch(explode(' ', $sql)[0]) 
+            switch(trim(explode(' ', $sql)[0])) 
             {
                 case 'SELECT' :
+                    // echo "Select toh";  
                     $result = $stmt->fetchAll();
                     break;
                 case 'UPDATE' :
@@ -61,6 +57,8 @@ class Dbh {
                     break;
             }
         }
+
+        // var_dump(explode(' ', $sql)[0]);
 
         // echo "<br>";
         // var_dump($sql);

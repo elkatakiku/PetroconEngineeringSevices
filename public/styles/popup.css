@@ -164,24 +164,25 @@
     position: absolute;
 }
 
-/* Popup Delete */
-.popup-delete .pcontainer {
+/* Popup Prompt */
+.popup-promt .pcontainer {
     backdrop-filter: blur(2px);
-    /* position: absolute; */
-    /* width: 100%; */
-    /* margin: 0; */
     z-index: 2010;
-    /* left: 50%; */
-    /* transform: translate(-50%, -50%); */
 }
 
+.popup-promt p {
+    font-size: 14px;
+    margin: 1rem 0;
+}
+
+/* Delete */
 .popup-delete .pheader {
     border-top: 5px solid var(--danger);
 }
 
-.popup-delete p {
-    font-size: 14px;
-    margin: 1rem 0;
+/* Success */
+.popup-sucess .pheader {
+    border-top: 5px solid var(--success);
 }
 
 /* Media Queries */

@@ -117,12 +117,12 @@ $(".popup").click((e) => {
 
     // Closes popup when clicked outside popup content
     if ($(e.target).hasClass('popup')) {
-        Popup.hidePopup(e);
+        Popup.hide(e);
     }
 });
 
 // Animates popup container to center
-// function animatePopup(popup) {
+// function animate(popup) {
 //     console.log("Animating popup");
 //     popup.find('.pcontainer')
 //         .css({
@@ -134,7 +134,7 @@ $(".popup").click((e) => {
 // }
 
 // Shows popup
-// function showPopup(popup) {
+// function show(popup) {
 //     console.log("Popup button clicked");
 //     console.log(popup);
     
@@ -142,7 +142,7 @@ $(".popup").click((e) => {
 
 //     if (popup.hasClass("popup-center")) {
 //         console.log("Popup Center");
-//         animatePopup(popup);
+//         animate(popup);
 //         $("body").addClass("popup-open");
 //     } else if(!popup.hasClass("popup-contained")) {   
 //         $("body").addClass("popup-open");
@@ -156,11 +156,11 @@ $(".popup").click((e) => {
 //         });
 //     }
 
-//     popup.trigger('custom:showPopup');
+//     popup.trigger('custom:show');
 // }
 
 // Hides popup
-// function hidePopup(e) {
+// function hide(e) {
 //     console.log("Hide popup");
 //     // console.log(e.target);
 //     let popup = $(e.target).closest(".popup.show");
@@ -171,16 +171,16 @@ $(".popup").click((e) => {
 //         popup.find('.pcontainer').animate({
 //                 top: '-' + popup.find('.pcontainer').height() + 'px'
 //             }, 300, "swing", () => {
-//                 removePopup(popup);
+//                 remove(popup);
 //             });
 //         return;
 //     }
 
-//     removePopup(popup);
+//     remove(popup);
 // }
 
 // Removes popup
-// function removePopup(popup) {
+// function remove(popup) {
     
 //     if ($('.popup.show').length <= 1) {
 //         $("body").removeClass("popup-open");
@@ -200,10 +200,10 @@ $(".popup").click((e) => {
 
 // Initialize popup listeners
 // function initializePopup(popup) {
-//     popup.find('button[data-dismiss]').on('click', Popup.hidePopup);
+//     popup.find('button[data-dismiss]').on('click', Popup.hide);
 
 //     popup.on('custom:dismissPopup', (e) => {
-//         popup.off('custom:showPopup');
+//         popup.off('custom:show');
 //         popup.off('custom:dismissPopup');
 //     });
 // }
@@ -417,7 +417,7 @@ $("button[data-toggle]").on("click", function (e) {
     switch (toggleElement) {
         case POPUP:
             console.log("Popup type");
-            Popup.showPopup($(btnCLicked.data("target")));
+            Popup.show($(btnCLicked.data("target")));
             break;
         case SLIDE:
             const targetSlide = $(targetElementId);
@@ -447,49 +447,62 @@ $("button[data-toggle]").on("click", function (e) {
             console.log("index.js: Show tab");
             switchTab(btnCLicked);
             break;
-        case FORM:
-            console.log("Form button");
-            let form = $("#" + btnCLicked.attr("form"));
+        // case FORM:
+        //     console.log("Form button");
+        //     let form = $("#" + btnCLicked.attr("form"));
 
-              switch(btnCLicked.data("action")) {
+        //       switch(btnCLicked.data("action")) {
 
-                case "edit":
-                    console.log("Edit Form");
-                    form.find("textarea, input").removeAttr("readonly");
+        //         case "edit":
+                    
+        //             break;
 
-                    btnCLicked.text("Done");
-                    btnCLicked.data("action", "submit");
-                    btnCLicked.attr("type", "button");
-                    break;
+        //         case "submit":
+        //             console.log("Submit");
+        //             // form.find("textarea, input").attr("readonly", true);
 
-                case "submit": 
-                    console.log("Submit");
-                    form.find("textarea, input").attr("readonly", true);
-
-                    btnCLicked.text("Edit");
-                    btnCLicked.data("action", "edit");
-                    btnCLicked.attr("type", "submit");
-                    break;
-              }
-            break;
+        //             // btnCLicked.text("Edit");
+        //             // btnCLicked.data("action", "edit");
+        //             btnCLicked.attr("type", "submit");
+        //             break;
+        //       }
+        //     break;
     }
 });
 
-// $("button[data-dismiss]").on("click", function (e) {
-//     console.log("Button dismiss");
-//     const btnCLicked = $(this);
-//     const dismissElement = $(this).data("dismiss");
-//     // console.log(dismissElement);
-//     switch (dismissElement) {
-//         case POPUP:
-//             Popup.hidePopup(e);
-//             break;
-//         case SLIDE:
-//             console.log("Dismiss slide");
-//             toggleSlide(false, $(".slide.active"));
-//             break;
+// function editForm(btn, fun = null) {  
+//     console.log("Edit Form");
+
+//     let form = $("#" + btn.attr("form"));
+
+//     form.find("textarea, input").removeAttr("readonly");
+
+//     btn.text("Done");
+//     btn.data("action", "submit");
+//     btn.attr("type", "button");
+
+//     if (fun != null) {
+//         fun(asdasd);
 //     }
-// });
+// }
+
+
+
+$("button[data-dismiss]").on("click", function (e) {
+    console.log("Button dismiss");
+    const btnCLicked = $(this);
+    const dismissElement = $(this).data("dismiss");
+    // console.log(dismissElement);
+    switch (dismissElement) {
+        case POPUP:
+            Popup.hide(e);
+            break;
+        case SLIDE:
+            console.log("Dismiss slide");
+            toggleSlide(false, $(".slide.active"));
+            break;
+    }
+});
 
 
 

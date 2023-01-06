@@ -1,7 +1,7 @@
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
 
 // Animates popup container to center
-export function animatePopup(popup) {
+export function animate(popup) {
     console.log("Animating popup");
     popup.find('.pcontainer')
         .css({
@@ -12,15 +12,19 @@ export function animatePopup(popup) {
         }, 300, "swing");
 }
 
+export function wew(p) {  
+    console.log("Show popup");
+}
+
 // Shows popup
-export function showPopup(popup) {
+export function show(popup) {
     console.log("Show popup");
     
     popup.addClass("show");
 
     if (popup.hasClass("popup-center")) {
         console.log("Popup center");
-        animatePopup(popup);
+        animate(popup);
         $("body").addClass("popup-open");
     } else if(!popup.hasClass("popup-contained")) {   
         console.log("Popup contained");
@@ -36,11 +40,11 @@ export function showPopup(popup) {
         });
     }
 
-    popup.trigger('custom:showPopup');
+    popup.trigger('custom:show');
 }
 
 // Hides popup
-export function hidePopup(e) {
+export function hide(e) {
     console.log("Hide popup");
     let popup = $(e.target).closest(".popup.show");
 
@@ -48,16 +52,16 @@ export function hidePopup(e) {
         popup.find('.pcontainer').animate({
                 top: '-' + popup.find('.pcontainer').height() + 'px'
             }, 300, "swing", () => {
-                removePopup(popup);
+                remove(popup);
             });
         return;
     }
 
-    removePopup(popup);
+    remove(popup);
 }
 
 // Removes popup
-export function removePopup(popup) {
+export function remove(popup) {
     console.log("Remove popup");
     
     if ($('.popup.show').length <= 1) {
@@ -81,10 +85,10 @@ export function initialize(popup) {
     console.log("Popup Initialize");
     console.log(popup);
     console.log(popup.find('button[data-dismiss]'));
-    popup.find('button[data-dismiss]').one('click', hidePopup);
+    popup.find('button[data-dismiss]').one('click', hide);
 
     // On show
-    popup.on('custom:showPopup', (e) => {
+    popup.on('custom:show', (e) => {
         console.log("Popup shown");
         popup
             .find('textarea')
@@ -99,7 +103,7 @@ export function initialize(popup) {
         console.log(p);
         console.log(popup.is(p));
         popup.find('button[data-dismiss]').off('click');
-        popup.off('custom:showPopup');
+        popup.off('custom:show');
         popup.off('custom:dismissPopup');
         e.stopPropagation();
     });
@@ -108,8 +112,8 @@ export function initialize(popup) {
 // || Delete Popup
 export function generateDeletePopup(item) { 
     let popup = $(
-        '<div class="popup popup-center show popup-delete" id="deletePopup" tabindex="-1" aria-hidden="true">' +
-            '<div class="pcontainer popup-sm">' +
+        '<div class="popup popup-center show popup-prompt" id="deletePopup" tabindex="-1" aria-hidden="true">' +
+            '<div class="pcontainer popup-delete popup-sm">' +
                 '<div class="pcontent">' +
                     '<div class="pheader">' +
                         '<h2 class="ptitle">Delete ' + item + '</h2>' +
