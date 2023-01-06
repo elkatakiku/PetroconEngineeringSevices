@@ -1,4 +1,5 @@
   //JQUERY FOR EDITABLE TABLE
+  $(doc  )
         
   $("#usermanform").submit(function(e) {
     e.preventDefault();   
@@ -76,3 +77,95 @@
   $(this).parents('tr').find('.btn-update').remove();
 
   })
+
+  
+let userTable = $("#usersTable").DataTable({
+  'dom' : '<"mesa-container"t>p',
+  "autoWidth": false,
+  "lengthChange": false,
+  'paging' : true,
+  'sort' : false,
+  'info' : false,
+
+  "ajax" : {
+      url : Settings.base_url + "/users/userslistgetter", // controller function
+      type : 'POST',
+      data : { // data to be sent to controller
+        type : $userType
+        //  key : value
+        // account type
+      }
+  },
+
+  'language' : {
+      'paginate' : {
+          'previous' : '<',
+          'next' : '>'
+      }
+  },
+
+  // for numbering
+  'columnDefs' : [
+      {
+          targets: 0,
+          searchable: false,
+          orderable: false
+      },
+  ],
+
+  // Columns ng bawat row
+  // Data sent from controller
+  "columns" : [
+      {'defaultContent' : ''}, 
+      {
+          'data' : 'name',
+          'render' : function (data, type, row) { 
+              return '<p><strong>' + data + '</strong></p>' +
+                      '<small>' + row.location + '</small>';
+          }
+      }, 
+      {'data' : 'company'},
+      {'data' : 'status'}
+  ],
+  
+  order: [
+      [1, 'asc']
+  ]
+});
+
+// Row Count
+tableElement.on('order.dt search.dt', function () {
+  let i = 1;
+
+  tableElement.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+      console.log('cell');
+      console.log(cell);
+
+      console.log(this.data());
+
+      this.data(i++);
+  });
+}).draw();
+
+// Row click
+$('#tableId tbody').on('click', 'tr', function (e) {
+  let row = tableElement.row(this).data();
+  console.log("Row data");
+  console.log(row);
+  console.log("id");
+  console.log(row.id);
+
+  // Redirect to project
+  window.location.href = Settings.base_url + "/projects/project/" + row.id; // Conroller function
+});
+
+// Table search 
+$('#searchId').keyup(function (e) { 
+  tableElement.search($(this).val()).draw();
+});
+
+// Table reload
+setInterval(() => {
+  console.log("Table reload");
+  tableElement.ajax.reload(null, false);
+}, 15000);

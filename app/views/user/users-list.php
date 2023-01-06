@@ -1,7 +1,7 @@
 <main class="content">
         <!-- Header -->
     
-        <!--<?= $data['type'] ?> pag mageecho lng ng isang data use this shortcut-->
+        <!-- ?= $data['type'] ?> pag mageecho lng ng isang data use this shortcut-->
        
         <div class="page-header">
           <nav class="nav-tab-container">
@@ -35,24 +35,22 @@
 
         <!-- Users Table -->
         <div class="mesa-container">  
-          <table class="mesa">
+          <table class="mesa" id="usersTable">
             <thead class="mesa-head">
               <tr>
+                <th scope="col">Name</th>
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
                 <th scope="col">Password</th>
                 <th scope="col">Position</th>
                 <th scope="col">Address</th>
                 <th scope="col">Contact</th>
+                <th scope="col">Birthdate</th>
                 <th scope="col">Action</th>
                 <th scope="col"></th>
               </tr>
             </thead>
-            <tbody>
-              <tr onclick="viewData()">
-                
-              </tr>
-            </tbody>
+            
           </table>
         </div>
 
@@ -103,7 +101,7 @@
                     </div>
                     <div class="form-group">
                         <label>Birthdate:</label>
-                        <input type="text" name="position" class="form-control" value="">
+                        <input type="date" name="bdate" class="form-control" value="">
                     </div>
                   </form> 
                 </div>
@@ -122,3 +120,15 @@
           </div>
         </div>
       </main>
+
+      <script>
+      // add src??
+      </script>
+
+      <script type="text/javascript">
+       $('#usersTable').DataTable( {
+        "ajax": '../ajax/data/arrays.txt'
+        } );
+
+        let usersId = '<?= $data['id'] ?>'; // to move data of php to js, they connect here
+      </script>

@@ -13,20 +13,24 @@ class UsersController extends Controller {
 
     public function list($userType) {//userType is parameter, ung value is ung nasa pangatlong slash or more sa url
         // echo $userType;
-        $this->view("user", "users-list", ['user' => "user", 'hgvhg' => "value", 'type' => $userType]);// call "" sa view to print value
+        $this->view("user", "users-list", ['type' => $userType]);// key value pair / call "" sa view to print value
     }
 
 
-    public function userman() { //function name - userman
+    // public function userman() { //function name - userman
 
-         $_POST['name'];
-         $_POST['uname'];
-         $_POST['email'];
-         $_POST['pass'];
-         $_POST['position'];
-         $_POST['address'];
-         $_POST['contact'];
-         $_POST['bdate'];
+    //      $_POST['name'];
+    //      $_POST['uname'];
+    //      $_POST['email'];
+    //      $_POST['pass'];
+    //      $_POST['position'];
+    //      $_POST['address'];
+    //      $_POST['contact'];
+    //      $_POST['bdate'];
+    // }
+
+    public function userslistgetter(){// taga kuha ng data sa list
+
     }
 
     // Creates a project
@@ -85,6 +89,6 @@ class UsersController extends Controller {
     // }
 
 
-
+    
 }
 
