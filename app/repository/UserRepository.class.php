@@ -10,16 +10,18 @@ use \Core\Repository as Repository;
 use \Model\Login as Login;
 use \Model\Register as Register;
 use \Model\Account as Account;
+use \Model\Users as Users;
 
 // Tools
 use \PDO;
 
 class UserRepository extends Repository {
 
-    private static $tblRegister = "tbl_register";
+    private static $tblRegister = "tbl_register"; // also a user
     private static $tblLogin = "tbl_login";
     private static $tblAccount = "tbl_account";
-    private static $tblLog = "tblLog";
+    private static $tblLog = "tbl_Log";
+    
 
     // Check user
     public function checkUser($username, $email) {
@@ -189,5 +191,31 @@ class UserRepository extends Repository {
         // Closes pdo connection
         $stmt = null;
         return $result;
+    }
+
+    public function getUsers($userType)
+    {
+
+        $sql = "SELECT * FROM  ".self::$tblRegister;
+        // $params = [':active' => true];
+
+        // Query
+        // if (($userType != 1 && $userType != 0) || $userType == "all") 
+        // {   // Selects all active users
+        //     $sql = "SELECT *
+        //         FROM ".self::$tblRegister."
+        //         WHERE active = :active
+        //         ORDER BY created_at DESC";
+        // } else 
+        // {   // Selects all users with a matching status
+        //     $sql = "SELECT *
+        //         FROM ".self::$tblRegister."
+        //         WHERE active = :active AND done = :done
+        //         ORDER BY created_at DESC";
+
+        //     $params[':done'] = $$userType;
+        // }
+
+        return $this->query($sql);
     }
 }

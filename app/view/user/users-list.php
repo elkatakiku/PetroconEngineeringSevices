@@ -70,14 +70,22 @@
                 </div>
       
                 <div class="pbody">
-                  <form id="usermanform" action="<?= SITE_URL ?>/users/userman" method="post">
+                  <form id="usermanform" action="<?= SITE_URL ?>/users/new" method="post">
                     <div class="form-group">
-                        <label>Name:</label>
-                        <input type="text" name="name" class="form-control" value="">
+                        <label>First Name:</label>
+                        <input type="text" name="firstname" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name:</label>
+                        <input type="text" name="lastname" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name:</label>
+                        <input type="text" name="middleName" class="form-control" value="">
                     </div>
                     <div class="form-group">
                         <label>Username:</label>
-                        <input type="text" name="name" class="form-control" value="">
+                        <input type="text" name="username" class="form-control" value="">
                     </div>
                     <div class="form-group">
                         <label>Email Address:</label>
@@ -85,7 +93,11 @@
                     </div>
                     <div class="form-group">
                         <label>Password:</label>
-                        <input type="password" name="pass" class="form-control" value="">
+                        <input type="password" name="password" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Password Repeat:</label>
+                        <input type="password" name="passwordRepeat" class="form-control" value="">
                     </div>
                     <div class="form-group">
                         <label>Position:</label>
@@ -97,11 +109,11 @@
                     </div>
                     <div class="form-group">
                         <label>Contact No.:</label>
-                        <input type="text" name="contact" class="form-control" value="">
+                        <input type="text" name="contactNumber" class="form-control" value="">
                     </div>
                     <div class="form-group">
                         <label>Birthdate:</label>
-                        <input type="date" name="bdate" class="form-control" value="">
+                        <input type="date" name="birthdate" class="form-control" value="">
                     </div>
                   </form> 
                 </div>
@@ -118,17 +130,9 @@
                   <!-- After -->
             </div>
           </div>
-        </div>
+        </div><?= $data['type'] ?>
       </main>
 
       <script>
-      // add src??
-      </script>
-
-      <script type="text/javascript">
-       $('#usersTable').DataTable( {
-        "ajax": '../ajax/data/arrays.txt'
-        } );
-
-        let usersId = '<?= $data['id'] ?>'; // to move data of php to js, they connect here
+        let usersId = '<?= $data['type'] ?>'; // to move data of php to js, they connect here
       </script>
