@@ -95,6 +95,10 @@
     font-size: 16px;
 }
 
+button[data-toggle="form"][data-action="cancel"] {
+    display: none;
+}
+
 #projectDetailForm label {
     font-size: 12px;
     font-weight: 500;
@@ -148,13 +152,14 @@
 /* Grid width */
 .chart-lines {
     display: grid;
-    grid-template-columns: var(--chart-row-head) repeat(50, 1fr) !important;
+    /* grid-template-columns: var(--chart-row-head) repeat(50, 1fr) !important; */
 }
 
-.chart-months, .chart-days,
+.chart-months, 
+.chart-days,
 .gantt-chart .chart-row-bars { 
     display: grid;
-    grid-template-columns: repeat(50, minmax(var(--chart-grid-width), 1fr)); 
+    /* grid-template-columns: repeat(50, minmax(var(--chart-grid-width), 1fr));  */
 }
 
 /* Grid Components */
@@ -187,17 +192,22 @@
     border-bottom: 1px solid white;
 }
 
-.startMonth, .month31, .month30 {
+.chart-month, .month31, .month30 {
     border-left: 1px solid white;
     padding: 5px 0;
 }
 
-.startMonth {
-    grid-column: 1 / span 22;
+.chart-month {
+    /* grid-column: 1 / span 22; */
     justify-self: center;
     align-self: stretch;
     width: 100%;
-    text-align: center;
+    /* text-align: center; */
+    padding-left: 10px;
+    background-color: var(--palette1);
+
+    position: sticky;
+    left: 250px;
 }
 
 .month31 {
@@ -238,9 +248,15 @@
     min-width: var(--chart-grid-width);
 }
 
-.gantt-chart .chart-lines > span:nth-child(3),
+/* .gantt-chart .chart-lines > span:nth-child(3),
 .gantt-chart .chart-lines > span:nth-child(10),
 .gantt-chart .chart-lines > span:nth-child(17) {
+    background-color: rgb(255, 70, 70);
+    position: relative;
+    z-index: 50;
+} */
+
+.sunday {
     background-color: rgb(255, 70, 70);
     position: relative;
     z-index: 50;
@@ -467,13 +483,13 @@ ul .chart-li-seven-t2 {
     padding: 12px;
 }
 
-#legendPopup[data-legend="edit"] .pfooter .btn, 
+[data-legend="edit"] .pfooter .btn, 
 .pside .pfooter .btn {
     width: calc(50% - (.75rem/2));
 }
 
-#legendPopup[data-legend="edit"] .pfooter .btn.neutral-outline-btn,
-.pside .pfooter .btn.neutral-outline-btn {
+[data-legend="edit"] .pfooter .btn.neutral-outline-btn,
+.pside .pfooter .btn:nth-child(3) {
     width: 100%;
 }
 
@@ -483,7 +499,7 @@ ul .chart-li-seven-t2 {
     /* border: 1px solid rgba(0, 0, 0, 0.30); */
     border-radius: 5px;
     background-color: white;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.30);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.30);
 }
 
 .task-activity .close-btn .material-icons {
@@ -497,4 +513,27 @@ ul .chart-li-seven-t2 {
 
 #taskPopup .task-activity input  {
     border-bottom-color: rgb(0, 0, 0);
+}
+
+
+/* || MEDIA QUERIES */
+
+@media only screen and (max-width: 768px) {
+    
+    .projectDone:not(.dropdown) {
+        display: none;
+    }
+}
+
+/* MD */
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .projectDone:not(.dropdown) {
+        display: block;
+    }
+
+    .projectDone.dropdown {
+        display: none;
+    }
 }

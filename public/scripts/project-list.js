@@ -1,39 +1,53 @@
-console.log($('#projectsTable'));
+// alert(window.location.href);
+// alert(window.location.protocol);
+// alert(window.location.host);
+// alert(window.location.hostname);
+// alert(window.location.port);
+// alert(window.location.pathname);
+// alert(window.location.search);
+// alert(window.location.hash);
 
-// $(selector).load("url", "data", function (response, status, request) {
-//     this; // dom element
-    
-// });
+// Read a page's GET URL variables and return them as an associative array.
+function getUrlVars()
+{
+    let queryParam = [];
+    let hashes = window.location.search.slice(window.location.search.indexOf('?') + 1).split('&');
+    for(let i = 0; i < hashes.length; i++)
+    {
+        let hash = hashes[i].split('=');
+        queryParam[hash[0]] = hash[1];
+    }
+    return queryParam;
+}
 
-// $(selector).load("url", "data", function (response, status, request) {
-//     this; // dom element
-    
-// });
+/* ================================================================== */
 
-// $(selector).unload(function () { 
-    
-// });
+// let query = getUrlVars();
+// let filter = query.hasOwnProperty("filter") ? query.filter : '';
+// alert(Settings.base_url + "/project/list/" + window.location.hash.slice(1));
 
-console.log(Settings.base_url + "/projects/projects");
 
-// let counter = 1;
-
+// Datatable
 let projectTable = $("#projectsTable").DataTable({
-    'dom' : '<"mesa-container"t>p',
+    'dom' : '<"mesa-container"t><"linear"ip>',
     "autoWidth": false,
     "lengthChange": false,
     'paging' : true,
     'sort' : false,
     // 'searching' : false,
-    'info' : false,
+    // 'info' : false,
     "ajax" : {
-        url : Settings.base_url + "/projects/projects",
+        url : Settings.base_url + "/project/list",
         type : 'POST',
-        data : {
-            filterStatus : function () { 
-                return $('#filterTable').serialize();
-            }
-        }
+        data : {form : function () { return $('#filterTable').serialize();}}
+        // ,
+        // success : function (data) {
+        //     console.log(data);
+        //     console.log("Ajax data");
+        //     console.log(data.filter);
+        //     console.log("URL");
+        //     console.log(Settings.base_url + "/project/list/" + window.location.hash.slice(1));
+        // }
     },
 
     'language' : {
@@ -54,14 +68,25 @@ let projectTable = $("#projectsTable").DataTable({
     "columns" : [
         {'defaultContent' : ''}, 
         {
-            'data' : 'name',
+            'data' : 'description',
             'render' : function (data, type, row) { 
                 return '<p><strong>' + data + '</strong></p>' +
                         '<small>' + row.location + '</small>';
             }
         }, 
         {'data' : 'company'},
-        {'data' : 'status'}
+        {
+            'data' : 'done',
+            'render' : function (data, type, row) {
+                let display;
+                if (data === 1) {
+                    display = '<span class="status" data-status="done">Done</span>'
+                } else {
+                    display = '<span class="status" data-status="in-progress">Ongoing</span>'
+                }
+                return display;
+            }
+        }
     ],
     
     order: [
@@ -69,14 +94,15 @@ let projectTable = $("#projectsTable").DataTable({
     ]
 });
 
+// Incrementing number of table rows
 projectTable.on('order.dt search.dt', function () {
     let i = 1;
 
     projectTable.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-        console.log('cell');
-        console.log(cell);
+        // console.log('cell');
+        // console.log(cell);
 
-        console.log(this.data());
+        // console.log(this.data());
 
         this.data(i++);
     });
@@ -85,14 +111,15 @@ projectTable.on('order.dt search.dt', function () {
 // Row click
 $('#projectsTable tbody').on('click', 'tr', function (e) {
     let row = projectTable.row(this).data();
-    console.log("Row data");
-    console.log(row);
-    console.log("id");
-    console.log(row.id);
+    // console.log("Row data");
+    // console.log(row);
+    // console.log("id");
+    // console.log(row.id);
 
     // Redirect to project
-    window.location.href = Settings.base_url + "/projects/project/" + row.id;
+    window.location.href = Settings.base_url + "/project/details/" + row.id;
 });
+
 
 // $('#filterTable')
 //     .submit(function (e) { 
@@ -108,26 +135,35 @@ $('#projectsTable tbody').on('click', 'tr', function (e) {
 $('#filterTable')
     .submit(function (e) { 
         e.preventDefault();
-        // counter = 1;
         projectTable.ajax.reload();
     })
     .find('input[name="status"]')
         .change(function (e) { 
+            console.log("Submit filter");
             $('#filterTable').submit();
-            // console.log($(this).val());
-            console.log(
+
             $(this).parent('.filter-tab-item')
                 .addClass('active')
                 .siblings('.filter-tab-item.active')
-                    .removeClass('active')
-            );
+                    .removeClass('active');
 
-            // $('#samp').load(Settings.base_url + "/projects/samp", {
-            //     filterStatus : function () {return $('#filterTable').serialize();}
-            // }, () => {
-            //     alert("Alert");
-            // });
+            window.location.hash = $(this).val();
         });
+
+function changeFilter() {
+    $('#filterTable')
+        .find('input[name="status"]')
+        .each(function (index, element) { 
+            console.log("Each");
+            console.log($(element).val());
+            console.log(window.location.hash.slice(1));
+            if ($(element).val() == window.location.hash.slice(1)) {
+                $(element).prop('checked', true);
+
+                $(element).trigger('change');
+            }
+        });
+}
 
 // Table search 
 $('#searchProject').keyup(function (e) { 
@@ -138,13 +174,8 @@ $('#searchProject').keyup(function (e) {
 setInterval(() => {
     console.log("Table reload");
     projectTable.ajax.reload(null, false);
-}, 15000);
+}, 3000);
 
-// $('#asd').click((e) => {
-//     e.preventDefault();
-//     $('#samp').load(Settings.base_url + "/projects/samp", {
-//         filterStatus : function () {return $('#filterTable').serialize();}
-//     }, () => {
-//         alert("Alert");
-//     });
-// });
+$(window).on( 'hashchange', function( e ) {
+    changeFilter();
+} );

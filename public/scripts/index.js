@@ -1,3 +1,9 @@
+import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
+import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
+
+// console.log(Utils.double(5));
+// console.log(Utils.otherStuff());
+
 // $.fn.hasVerticalScrollBar = function () {
 //     return this[0].clientHeight < this[0].scrollHeight;
 // }
@@ -111,133 +117,139 @@ $(".popup").click((e) => {
 
     // Closes popup when clicked outside popup content
     if ($(e.target).hasClass('popup')) {
-        hidePopup(e);
+        Popup.hide(e);
     }
 });
 
 // Animates popup container to center
-function animatePopup(popup) {
-    console.log("Animating popup");
-    popup.find('.pcontainer')
-        .css({
-            top: '-' + popup.find('.pcontainer').height() + 'px'
-        })
-        .animate({
-            top: "0"
-        }, 300, "swing");
-}
+// function animate(popup) {
+//     console.log("Animating popup");
+//     popup.find('.pcontainer')
+//         .css({
+//             top: '-' + popup.find('.pcontainer').height() + 'px'
+//         })
+//         .animate({
+//             top: "0"
+//         }, 300, "swing");
+// }
 
 // Shows popup
-function showPopup(popup) {
-    console.log("Popup button clicked");
-    console.log(popup);
+// function show(popup) {
+//     console.log("Popup button clicked");
+//     console.log(popup);
     
-    popup.addClass("show");
+//     popup.addClass("show");
 
-    if (popup.hasClass("popup-center")) {
-        console.log("Popup Center");
-        animatePopup(popup);
-        $("body").addClass("popup-open");
-    } else if(!popup.hasClass("popup-contained")) {   
-        $("body").addClass("popup-open");
-    } else {
-        let container = popup.find('.pcontainer');
-        container.css({
-            'top': container.data('top'),
-            'right': container.data('right'),
-            'bottom': container.data('bottom'),
-            'left': container.data('left'),
-        });
-    }
+//     if (popup.hasClass("popup-center")) {
+//         console.log("Popup Center");
+//         animate(popup);
+//         $("body").addClass("popup-open");
+//     } else if(!popup.hasClass("popup-contained")) {   
+//         $("body").addClass("popup-open");
+//     } else {
+//         let container = popup.find('.pcontainer');
+//         container.css({
+//             'top': container.data('top'),
+//             'right': container.data('right'),
+//             'bottom': container.data('bottom'),
+//             'left': container.data('left'),
+//         });
+//     }
 
-    // if (popup.data("backdrop") !== false && $('.popup-backdrop').length < 1) {
-    //     $("body").append("<div class='popup-backdrop'></div>");
-    // }
-
-    // if (btn.data("action")) {
-    //     editForm(btn.data("target"));
-    // }
-}
+//     popup.trigger('custom:show');
+// }
 
 // Hides popup
-function hidePopup(e) {
-    console.log("Hide popup");
-    // console.log(e.target);
-    let popup = $(e.target).closest(".popup.show");
-    // console.log("Opened popup");
-    // console.log(popup);
+// function hide(e) {
+//     console.log("Hide popup");
+//     // console.log(e.target);
+//     let popup = $(e.target).closest(".popup.show");
+//     // console.log("Opened popup");
+//     // console.log(popup);
 
-    if (popup.hasClass("popup-center")) {
-        popup.find('.pcontainer').animate({
-                top: '-' + popup.find('.pcontainer').height() + 'px'
-            }, 300, "swing", () => {
-                removePopup(popup);
-            });
-        return;
-    }
+//     if (popup.hasClass("popup-center")) {
+//         popup.find('.pcontainer').animate({
+//                 top: '-' + popup.find('.pcontainer').height() + 'px'
+//             }, 300, "swing", () => {
+//                 remove(popup);
+//             });
+//         return;
+//     }
 
-    removePopup(popup);
-}
+//     remove(popup);
+// }
 
 // Removes popup
-function removePopup(popup) {
-    if ($('.popup.show').length <= 1) {
-        $("body").removeClass("popup-open");
-    }
+// function remove(popup) {
+    
+//     if ($('.popup.show').length <= 1) {
+//         $("body").removeClass("popup-open");
+//     }
+    
+//     popup.removeClass("show");
+//     $(".popup-backdrop").remove();
+    
+//     popup.trigger('custom:dismissPopup');
+    
+//     // Dynamic Popup
+//     if (popup.is($('#legendPopup'))) {
+//         popup.remove();
+//     }
 
-    popup.removeClass("show");
-    $(".popup-backdrop").remove();
+// }
 
-    // Dynamic Popup
-    if (popup.is($('#deletePopup, #legendPopup'))) {
-        popup.remove();
-    }
+// Initialize popup listeners
+// function initializePopup(popup) {
+//     popup.find('button[data-dismiss]').on('click', Popup.hide);
 
-    popup.trigger('dismissPopup');
-}
-
-// Initialize Popup Listeners
-function initializePopup(popup) {
-    popup.find('button[data-dismiss]').on('click', hidePopup);
-    popup.find('button[data-action="delete"]').on('click', promptDelete);
-}
+//     popup.on('custom:dismissPopup', (e) => {
+//         popup.off('custom:show');
+//         popup.off('custom:dismissPopup');
+//     });
+// }
 
 // || Delete Popup
-function generateDeletePopup(item) { 
-    return '<div class="popup show popup-center popup-delete" id="deletePopup" tabindex="-1" aria-hidden="true">' +
-                '<div class="pcontainer popup-sm">' +
-                    '<div class="pcontent">' +
-                        '<div class="pheader">' +
-                            '<h2 class="ptitle">Delete ' + item + '</h2>' +
-                            '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
-                                '<span class="material-icons">close</span>' +
-                            '</button>' +
-                        '</div>' +
-            
-                        '<div class="pbody">' +
-                            '<p>Are you sure you want to delete this ' + item + '?</p>' +
-                        '</div>' +
-            
-                        '<div class="pfooter">' +
-                            '<button type="button" class="btn danger-btn">Delete</button>' +
-                            '<button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>' +
-            '</div>';
-}
+// function generateDeletePopup(item) { 
+//     let popup = $(
+//         '<div class="popup popup-center show popup-delete" id="deletePopup" tabindex="-1" aria-hidden="true">' +
+//             '<div class="pcontainer popup-sm">' +
+//                 '<div class="pcontent">' +
+//                     '<div class="pheader">' +
+//                         '<h2 class="ptitle">Delete ' + item + '</h2>' +
+//                         '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
+//                             '<span class="material-icons">close</span>' +
+//                         '</button>' +
+//                     '</div>' +
+        
+//                     '<div class="pbody">' +
+//                         '<form action="#" id="deleteForm">' +
+//                             '<input type="hidden" name="id">' +
+//                         '</form>' +
+//                         '<p>Are you sure you want to delete this ' + item + '?</p>' +
+//                     '</div>' +
+        
+//                     '<div class="pfooter">' +
+//                         '<button type="submit" form="deleteForm" class="btn danger-btn">Delete</button>' +
+//                         '<button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>' +
+//                     '</div>' +
+//                 '</div>' +
+//             '</div>' +
+//         '</div>'
+//     );
 
-function promptDelete(e) { 
-    console.log("Delete chuchu");
-    let popup = $(generateDeletePopup("task"));
+//     $('body').append(popup);
 
-    $('body').append(popup);
-    showPopup(popup);
+//     // Listeners
+//     Popup.initializePopup(popup);
 
-    // Listeners
-    initializePopup(popup);
-}
+//     popup.on('custom:dismissPopup', (e) => {
+//         console.log("Delete dismiss");
+//         popup.find('#deleteForm').off('submit');
+//         popup.remove();
+//     });
 
+//     return popup;
+// }
 
 
 // || Tab
@@ -405,11 +417,7 @@ $("button[data-toggle]").on("click", function (e) {
     switch (toggleElement) {
         case POPUP:
             console.log("Popup type");
-            if (btnCLicked.data('type') === "delete") {
-
-            } else {
-                showPopup($(btnCLicked.data("target")));
-            }
+            Popup.show($(btnCLicked.data("target")));
             break;
         case SLIDE:
             const targetSlide = $(targetElementId);
@@ -439,41 +447,55 @@ $("button[data-toggle]").on("click", function (e) {
             console.log("index.js: Show tab");
             switchTab(btnCLicked);
             break;
-        case FORM:
-            console.log("Form button");
-            let form = $("#" + btnCLicked.attr("form"));
+        // case FORM:
+        //     console.log("Form button");
+        //     let form = $("#" + btnCLicked.attr("form"));
 
-              switch(btnCLicked.data("action")) {
+        //       switch(btnCLicked.data("action")) {
 
-                case "edit":
-                    console.log("Edit Form");
-                    form.find("textarea, input").removeAttr("readonly");
+        //         case "edit":
+                    
+        //             break;
 
-                    btnCLicked.text("Done");
-                    btnCLicked.data("action", "submit");
-                    btnCLicked.attr("type", "button");
-                    break;
+        //         case "submit":
+        //             console.log("Submit");
+        //             // form.find("textarea, input").attr("readonly", true);
 
-                case "submit": 
-                    console.log("Submit");
-                    form.find("textarea, input").attr("readonly", true);
-
-                    btnCLicked.text("Edit");
-                    btnCLicked.data("action", "edit");
-                    btnCLicked.attr("type", "submit");
-                    break;
-              }
-            break;
+        //             // btnCLicked.text("Edit");
+        //             // btnCLicked.data("action", "edit");
+        //             btnCLicked.attr("type", "submit");
+        //             break;
+        //       }
+        //     break;
     }
 });
 
+// function editForm(btn, fun = null) {  
+//     console.log("Edit Form");
+
+//     let form = $("#" + btn.attr("form"));
+
+//     form.find("textarea, input").removeAttr("readonly");
+
+//     btn.text("Done");
+//     btn.data("action", "submit");
+//     btn.attr("type", "button");
+
+//     if (fun != null) {
+//         fun(asdasd);
+//     }
+// }
+
+
+
 $("button[data-dismiss]").on("click", function (e) {
+    console.log("Button dismiss");
     const btnCLicked = $(this);
     const dismissElement = $(this).data("dismiss");
-    console.log(dismissElement);
+    // console.log(dismissElement);
     switch (dismissElement) {
         case POPUP:
-            hidePopup(e);
+            Popup.hide(e);
             break;
         case SLIDE:
             console.log("Dismiss slide");
@@ -482,32 +504,14 @@ $("button[data-dismiss]").on("click", function (e) {
     }
 });
 
-$('button[data-action="delete"]').click(promptDelete);
-
 
 
 // Textarea
 let textAreas = document.getElementsByTagName("textarea");
 for (let i = 0; i < textAreas.length; i++) {
-    autoHeight(textAreas[i]);
-}
-
-function autoHeight(input) {
-    console.log("AutoHeight");
-    console.log(input);
-    input.style.minHeight = "1rem";
-    console.log(input.style.minHeight);
-    input.style.height = "auto";
-    console.log(input.style.height);
-    input.style.height = (input.scrollHeight) + "px";
-    console.log(input.scrollHeight);
-    input.style.overflowY = "hidden";
-    console.log(input.style.overflowY);
-
-    console.log(input.innerHTML);
-    console.log($(input).val());
+    Utils.autoHeight(textAreas[i]);
 }
 
 $("textarea").on("input", function() {
-    autoHeight(this);
+    Utils.autoHeight(this);
 });

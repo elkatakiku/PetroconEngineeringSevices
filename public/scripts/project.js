@@ -1,51 +1,8 @@
-// Extension
-
-// Color shade changer
-const pSBC=(p,c0,c1,l)=>{
-	let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
-	if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
-	if(!this.pSBCr)this.pSBCr=(d)=>{
-		let n=d.length,x={};
-		if(n>9){
-			[r,g,b,a]=d=d.split(","),n=d.length;
-			if(n<3||n>4)return null;
-			x.r=i(r[3]=="a"?r.slice(5):r.slice(4)),x.g=i(g),x.b=i(b),x.a=a?parseFloat(a):-1
-		}else{
-			if(n==8||n==6||n<4)return null;
-			if(n<6)d="#"+d[1]+d[1]+d[2]+d[2]+d[3]+d[3]+(n>4?d[4]+d[4]:"");
-			d=i(d.slice(1),16);
-			if(n==9||n==5)x.r=d>>24&255,x.g=d>>16&255,x.b=d>>8&255,x.a=m((d&255)/0.255)/1000;
-			else x.r=d>>16,x.g=d>>8&255,x.b=d&255,x.a=-1
-		}return x};
-	h=c0.length>9,h=a?c1.length>9?true:c1=="c"?!h:false:h,f=pSBCr(c0),P=p<0,t=c1&&c1!="c"?pSBCr(c1):P?{r:0,g:0,b:0,a:-1}:{r:255,g:255,b:255,a:-1},p=P?p*-1:p,P=1-p;
-	if(!f||!t)return null;
-	if(l)r=m(P*f.r+p*t.r),g=m(P*f.g+p*t.g),b=m(P*f.b+p*t.b);
-	else r=m((P*f.r**2+p*t.r**2)**0.5),g=m((P*f.g**2+p*t.g**2)**0.5),b=m((P*f.b**2+p*t.b**2)**0.5);
-	a=f.a,t=t.a,f=a>=0||t>=0,a=f?a<0?t:t<0?a:a*P+t*p:0;
-	if(h) {
-        return "rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
-    }
-	else {
-        return "#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2);
-    }
-}
-
-// Convert hex to rgb
-function hexToRGB(hex, alpha) {
-    var r = parseInt(hex.slice(1, 3), 16),
-        g = parseInt(hex.slice(3, 5), 16),
-        b = parseInt(hex.slice(5, 7), 16);
-
-    if (alpha) {
-        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
-    } else {
-        return "rgb(" + r + ", " + g + ", " + b + ")";
-    }
-}
-
+// Modules
+import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
+import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
 
 // ==========================================================================
-
 
 // Collapse Task Legends Popup
 $('#activityCollapse').click((e) => {
@@ -88,24 +45,115 @@ function slideAutoHeight() {
 
 slideAutoHeight();
 
-// Timeline
-$('#timelineToggler button').click((e) => {
-    $('.timeline').animate({
-        'margin-left' : '0'
-    }, 300, "swing");
-});
+// Ajax loader
+function loadActivities(id, activities) { 
+    console.log("Load activities");
+    $.get(
+        Settings.base_url + "/activity/list", 
+        {taskId : id},
+        function (data, status) {
+            console.log("Activity response");
+            console.log(data);
+            activities.empty();
+    
+            let jsonResponse = JSON.parse(data);
+            console.log(typeof jsonResponse);
+            console.log(jsonResponse);
 
-$('.timeline header .back-btn').click((e) => {
-    $('.timeline').animate({
-        'margin-left' : '-100%'
-    }, 300, "swing");
-});
+            if (jsonResponse.hasOwnProperty('data')) {
+                for (let i = 0; i < jsonResponse.data.length; i++) {
+                    const activity = jsonResponse.data[i];
+                    const activityElement = generateTaskActivity(
+                        {
+                            id : activity.legendId,
+                            title : activity.title,
+                            color : activity.color
+                        },
+                        activity.start, 
+                        activity.end,
+                        activity.id
+                    );
+    
+                    if ($.inArray(activity.id, deletedActivities) >= 0) {
+                        activityElement.addClass('hide');
+                    }
+                    activities.append(activityElement);
+                }
+            }
+        }
+    );
+}
+
+function loadLegends(legends, activities = null) {
+    legends.trigger('custom:reload');
+    
+    $.get(
+        Settings.base_url + "/legend/list", 
+        { id : projectId },
+        function (response) {
+            console.log("Legend response");
+            // console.log(response);
+            let jsonResponse = JSON.parse(response);
+            if (jsonResponse.statusCode == 200 && jsonResponse.hasOwnProperty('data')) 
+            {
+                legends.empty();
+
+                for (let i = 0; i < jsonResponse.data.length; i++) {
+                    generateLegend(jsonResponse.data[i], legends, activities);
+                }
+            }
+        }
+    );
+}
+
+function generateLegend(legendData, legendsContainer, activities = null) {  
+    const legendElement = $(
+        '<div class="task-legend">' +
+            '<span class="leg-color" data-color="' + legendData.color + '"></span>' +
+            '<span class="leg-title">' + legendData.title + '</span>' +
+            '<button class="btn icon-btn leg-edit" data-toggle="legend" data-target="' + legendData.id + '">' +
+                '<span class="material-icons">edit</span>' +
+            '</button>' +
+        '</div>'
+    );
+
+    legendElement
+        .find('.leg-color, .leg-title')
+        .css('background-color', legendElement.find('.leg-color').data('color'))
+        .on('click', (e) => {
+            let date = new Date();
+            let currentDate =   date.getFullYear() + '-' +
+                                ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' +
+                                (date.getDay() < 10 ? '0' : '') + date.getDay();
+
+            if (activities) {
+                activities.append(generateTaskActivity(
+                    legendData,
+                    currentDate, 
+                    currentDate,
+                    '')
+                );
+            }
+        });
+
+    legendElement
+        .find("button[data-toggle='legend']")
+        .on('click', (e) => {
+            buildLegendForm(legendData);
+        });
+
+    legendsContainer.append(legendElement);
+
+    legendsContainer.on('custom:reload', (e) => {
+        legendElement.find('.leg-color, .leg-title').off('click');
+        legendElement.find('button[data-toggle="legend"]').off('click');
+    });
+
+    return legendElement;
+}
 
 // || Task
-console.log("Project Id");
-console.log(projectId);
-let table = "#tasksTable";
-
+// Timeline datatable settings
 let dtTable = {
     'dom' : '<"mesa-container"t>p',
     "autoWidth": false,
@@ -114,7 +162,16 @@ let dtTable = {
     'sort' : false,
     'searching' : false,
     'info' : false,
-    "ajax" : Settings.base_url + "/projects/timeline/" + projectId,
+
+    "ajax" : {
+        url : Settings.base_url + "/task/plans",
+        type : 'GET',
+        data : {projId : projectId}
+        // ,
+        // 'complete' : function (data) { 
+        //     console.log(data);
+        // }
+    },
     "columns" : [
         {
             'data' : 'order_no',
@@ -132,10 +189,10 @@ let dtTable = {
         {
             "targets": 1,
             "createdCell": function (td, cellData, rowData, row, col) {
-                console.log("TD");
-                console.log(td);
-                console.log("Cell data");
-                console.log(cellData);
+                // console.log("TD");
+                // console.log(td);
+                // console.log("Cell data");
+                // console.log(cellData);
                 $(td).addClass('taskCell');
             }
         }
@@ -143,288 +200,386 @@ let dtTable = {
     
     order: [
         [0, 'asc']
-    ]
+    ],
+
+    initComplete : function () {
+        // Sets click functionality of rows   
+        $(this).find('tbody').on('click', 'tr', (e) => {
+
+            console.log("TR CLICKED");
+
+            let dt = this.api();
+
+            let row = $(e.target).parents('tr');
+            let rowData = dt.row(row).data();
+            let rowDisplay = dt.cells( row, '' ).render( 'display' );    
+            
+            let popup = buildTaskPopup();
+    
+            popup.find('.pmain .ptitle').text('Task ' + rowDisplay[0]);
+            popup.find('.pmain input[name="id"]').val(rowData.id);
+            popup.find('.pmain input[name="order"]').val(rowDisplay[0]);
+            popup.find('.pmain textarea[name="taskDesc"]').val(rowDisplay[1]);
+    
+            let activities = popup.find('#taskActivities');
+            
+            // Gets task activities
+            loadActivities(rowData.id, activities);
+            // Refreshes Activities
+            let taskInterval = setInterval(() => {
+                console.log("Activities reload");
+                loadActivities(rowData.id, activities);
+            }, 3000);
+            
+            // Delete task actions
+            popup.find('.delete-btn').click(() => {
+                console.log("DELETE CLICKED");
+                console.log("Delete data");
+                console.log(rowData);
+                deleteTask(popup, rowData.id, dt);
+            });
+
+            // Task submit action 
+            popup.find('#taskForm').submit((e) => {
+                e.preventDefault();
+
+                $.post(
+                    Settings.base_url + "/task/update",
+                    {
+                        form : getTaskData($(e.target)),
+                        deleted : JSON.stringify(deletedActivities)
+                    },
+                    function (response, status) {
+                        console.log("Edit Response");
+                        let data = JSON.parse(response);
+                        if (data.statusCode == 200) 
+                        {   // Dismiss legend's form and reload legends list on success
+                            popup.find('button[data-dismiss]').trigger('click');
+
+                            // Reload tasks
+                            dt.ajax.reload(null, false);
+                        }
+                        else
+                        {   // Shows alert on fail
+                            popup.find('.alert-danger')
+                                .addClass('show')
+                                .text(data.message);
+                        }
+
+                        console.log("Response");
+                });
+            });
+    
+            // On dismiss listener
+            popup.on('custom:dismissPopup', (e) => {
+                console.log("Task edit dismissed");
+                
+                // Clears task reload interval
+                clearInterval(taskInterval);
+            });
+
+            // Finally shows popup
+            Popup.show(popup);
+        });
+
+        // Destroy initialization of datatable on dismiss
+        $('.timeline').on('custom:timelineDismiss', (e) => {
+            console.log("Timeline dismiss");
+            this.api().destroy();
+        });
+    }
 }
 
-// Tasks Table
-let tasksTable = $(table).DataTable(dtTable);
-let isDeleted = [];
+function deleteTask(taskPopup, taskId, table) {  
+    console.log("Delete popup");
+    let deletePopup = Popup.generateDeletePopup('task');
 
-// Generate Activity
-function generateTaskActivity(activity, color, start, end, id = '') {  
+    deletePopup.find('input[name="id"]').val(taskId);
+    deletePopup.find('#deleteForm').submit((e) => {
+        e.preventDefault();
+        console.log("Submit delete");
+
+        $.post(
+            Settings.base_url + "/task/remove",
+            {form : function () {return $(e.target).serialize();}},
+            function (data, textStatus) {
+                console.log("Response delete");
+                console.log(data);
+                let jsonData = JSON.parse(data);
+                if (jsonData.statusCode == 200) 
+                {   // Dismiss delete popup and reload legends list on success
+                    console.log("Success delete");
+                    deletePopup.find('button[data-dismiss]').trigger('click');
+
+                    deletePopup.on('custom:dismissPopup', (e) => {
+                        console.log("TaskDelete dismiss");
+                        taskPopup.find('button[data-dismiss]').trigger('click');
+                    });
+                
+
+                    // Reload tasks
+                    table.ajax.reload(null, false);
+                }
+            }
+        );
+    });
+
+    Popup.show(deletePopup);
+}
+
+// Shows timeline
+$('#timelineToggler button').click((e) => {
+    clearInterval(ganttChartInterval);
+    resetGanttChart();
+
+    $('.timeline')
+        .show()
+        .animate({
+            'margin-left' : '0'
+        }, 300, "swing");
+
+    // Initializes timeline table to datatable
+    let table = $("#tasksTable").DataTable(dtTable);
+
+    let tableInterval = setInterval(() => {
+        console.log("Table interval");
+        table.ajax.reload(null, false);
+    }, 3000);
+
+
+    $("#tasksTable").on( 'destroy.dt', function ( e, settings ) {
+        console.log("Table Destroy");
+        $(this).find('tbody').off( 'click', 'tr' );
+        clearInterval(tableInterval);
+    });
+});
+
+// Dismisses timeline
+$('.timeline header .back-btn').click((e) => {
+    buildGanttChart();
+
+    $('.timeline').animate({
+        'margin-left' : '-100%'
+    }, 300, "swing", function () {  
+        $('.timeline').hide();
+        // $('.chart-container').show();
+    });
+
+    $('.timeline').trigger('custom:timelineDismiss');
+});
+
+function buildTaskPopup() {
+    console.log("Build popup");
+    let popup = $('#taskPopup');
+
+    // Preps task form
+    resetTaskPopup(popup);
+    
+    let newActivities = popup.find('#newActivities');
+    let legends = popup.find('#legends');
+    
+    // Get project legends
+    loadLegends(legends, newActivities);
+    // Refresh legends
+    let legendsInterval = setInterval(() => {
+        console.log("Legends reload");
+        loadLegends(legends, newActivities);
+    }, 3000);
+    
+
+    // On dismiss listener
+    popup.on('custom:dismissPopup', (e) => {
+        console.log("Project Popup dismissed");
+        
+        // Removes legends reload interval
+        clearInterval(legendsInterval);
+        resetTaskPopup(popup);
+
+        // Removes submit event of task form
+        popup.find('#taskForm').off('submit');
+    });
+
+    popup.on('custom:legendReload', (e) => {
+        console.log("Legends reloaded");
+        loadLegends(legends, newActivities);
+    });
+
+    Popup.initialize(popup);
+
+    return popup;
+}
+
+// Adds new task
+$('#addTask').click((e) => {
+    let popup = buildTaskPopup();
+
+    console.log("Porject id " + projectId);
+    
+    $.get(
+        Settings.base_url + "/task/count",
+        { projId : projectId },
+        function (data, textStatus) {
+            let jsonData = JSON.parse(data);
+            popup.find('.pmain .ptitle').text('Task ' + (jsonData.data + 1));
+        }
+    );
+
+    // Displays task form
+    popup.find('.pfooter .btn.danger-btn').remove();
+    Popup.show(popup);
+
+    // Task submit action
+    popup.find('#taskForm').submit((e) => {
+        e.preventDefault();
+        console.log("Submit form");
+        let form = $(e.target);
+    
+        $.post(
+            Settings.base_url + "/task/new",
+            {form : getTaskData(form)},
+            function (data, textStatus) {
+                console.log("Add Response");
+                $('#samp').html(data);
+                let response = JSON.parse(data);
+                console.log(response);
+
+                if (response.statusCode == 200) 
+                {   // Dismiss legend's form and reload legends list on success
+                    popup.find('button[data-dismiss]').trigger('click');
+
+                    // Reload tasks
+                    $("#tasksTable").dataTable().api().ajax.reload(null, false);
+                }
+                else
+                {   // Shows alert on fail
+                    popup.find('.alert-danger')
+                        .addClass('show')
+                        .text(response.message);
+                }
+            }
+        );
+    });
+    
+});
+
+// Collects task's form data
+function getTaskData(form) {
+
+    let formData = {
+        id : form.find('input[name="id"]').val(),
+        projId : projectId,
+        description : form.find('[name="taskDesc"]').val()
+    };
+
+    // Gets old activities data
+    let oldActivities = [];
+
+    form
+        .find('#taskActivities')
+        .children()
+        .each((index, element) => {
+            getActivityData(element, oldActivities);
+        });
+
+    formData['oldActivities'] = oldActivities;
+
+    // Gets new activities data
+    let newActivities = [];
+
+    form
+        .find('#newActivities')
+        .children('div:not(.hide)')
+        .each((index, element) => {
+            getActivityData(element, newActivities, true);
+        });
+    
+    formData['newActivities'] = newActivities;
+
+    // Returs a json format form data
+    return JSON.stringify(formData);
+}
+
+// Scrapes activity details to array
+function getActivityData(element, actsArr, isNew = false) {  
+    let activity = $(element);
+    let actObj = {};
+
+    console.log("Element");
+    console.log(activity);
+    if (!isNew) {
+        actObj['id'] = activity.attr('id');
+    }
+    actObj['legendId'] = activity.find('[name="legendId"]').val();
+    actObj['start'] = activity.find('[name="start"]').val();
+    actObj['end'] = activity.find('[name="end"]').val();
+    console.log(actObj);
+
+    actsArr.push(JSON.stringify(actObj));
+}
+
+$('form[data-row] button[type="submit"]').click((e) => {
+    e.preventDefault();
+    $(e.target).parents('form[data-row]').submit();
+});
+
+// Task Activity
+let deletedActivities = [];
+
+// Resets task form
+function resetTaskPopup(popup) {
+    deletedActivities = [];
+    popup.find('.pmain .ptitle').empty();
+    popup.find('[name="taskDesc"]').val('');
+    popup.find('#taskActivities').empty();
+    popup.find('#newActivities').empty();
+    popup.find('#legends').empty();
+    
+    popup.find('.alert-danger').removeClass('show');
+
+    popup.find('.delete-btn').off('click');
+}
+
+// Generates task activity panel/element
+function generateTaskActivity(legend, start, end, id = '') {  
+    console.log("Generate Task activityi");
     let activityElement = $('<div class="form-input-group task-activity" id="' + id + '">' +
                                 '<span class="linear-label">' +
-                                    '<label for="">' + activity + '</label>' +
+                                    '<label for="">' + legend.title + '</label>' +
                                     '<button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">' +
                                         '<span class="material-icons">close</span>' +
                                     '</button>' +
                                 '</span>' +
+                                '<input type="hidden" name="legendId" value="' + legend.id + '">' +
                                 '<div class="tb-date">' +
-                                    '<input type="date" name="planStart" id="" value="' + start + '">' +
+                                    '<input type="date" name="start" value="' + start + '">' +
                                     '-' +
-                                    '<input type="date" name="planEnd" id="" value="' + end + '">' +
+                                    '<input type="date" name="end" value="' + end + '">' +
                                 '</div>' +
                             '</div>');
 
     activityElement.find('.close-btn').click((e) => {
-        if (id && ($.inArray(id, isDeleted) <= -1)) {
-            isDeleted.push(id);
+        if (id && ($.inArray(id, deletedActivities) <= -1)) {
+            deletedActivities.push(id);
         }
 
-        activityElement.remove();
+        activityElement.addClass('hide');
+        console.log("DEBUG: Deleted");
+        console.log(deletedActivities);
     });
 
     activityElement.css({
-        'border-color' : hexToRGB ( color, 0.4 ),
-        'box-shadow' : '0 5px 5px ' + hexToRGB ( color, 0.4 )
+        'border-color' : Utils.hexToRGB ( legend.color, 0.4 ),
+        'box-shadow' : '0 1px 5px ' + Utils.hexToRGB ( legend.color, 0.4 )
     });
 
-    activityElement.find('label').css('color', pSBC(-0.4, color));
-    activityElement.find('input').css('border-bottom-color', pSBC(-0.4, color));
+    activityElement.find('label').css('color', Utils.pSBC( -0.4, legend.color ));
+    activityElement.find('input').css('border-bottom-color', Utils.pSBC( -0.4, legend.color ));
 
     return activityElement;
 }
 
-function resetTaskPopup(popup) {
-    isDeleted = [];
-    popup.find('.ptitle').empty();
-    popup.find('[name="taskDesc"]').empty();
-    popup.find('#taskActivities').empty();
-    popup.find('#newActivities').empty();
-    popup.find('#legends').empty();
-}
-
-// Ajax response callback
-function loadActivities(id, activities) { 
-    $.get(
-        Settings.base_url + "/projects/taskActivities", 
-        {taskId : id},
-        function (data, status) {
-            activities.empty();
-    
-            let jsonResponse = JSON.parse(data);
-
-            for (let i = 0; i < jsonResponse.data.length; i++) {
-                const activity = jsonResponse.data[i];
-                if ($.inArray(id, isDeleted) <= -1) {
-                    activities.append(generateTaskActivity(
-                        activity.title, 
-                        activity.color, 
-                        activity.start, 
-                        activity.end,
-                        activity.id
-                    ));
-                }
-            }
-
-
-        }
-    );
-}
-
-function loadLegends(activities, legends) {
-    $.get(
-        Settings.base_url + "/projects/legends", 
-        {id : projectId},
-        function (response) {
-            let jsonResponse = JSON.parse(response);
-            if (jsonResponse.statusCode == 200) {
-
-                legends.empty();
-
-                for (let i = 0; i < jsonResponse.data.length; i++) {
-                    const legendData = jsonResponse.data[i];
-
-                        // console.log(legendData);
-                        // console.log(legendData.color);
-
-                    const legend = $('<div class="task-legend">' +
-                                        '<span class="leg-color" data-color="' + legendData.color + '"></span>' +
-                                        '<span class="leg-title">' + legendData.title + '</span>' +
-                                        '<button class="btn icon-btn leg-edit" data-toggle="legend" data-target="' + legendData['id'] + '">' +
-                                            '<span class="material-icons">edit</span>' +
-                                        '</button>' +
-                                    '</div>');
-
-                    // console.log("Colors");
-                    // console.log(legend.find('.leg-color').data('color'));
-                    // console.log(pSBC(-0.4, legend.find('.leg-color').data('color')));
-                    // console.log(hexToRGB ( color, 0.3 ));
-                            
-                    legend
-                        .find('.leg-color, .leg-title')
-                        .css('background-color', legend.find('.leg-color').data('color'))
-                        .click((e) => {
-                            let date = new Date();
-                            let currentDate =   date.getFullYear() + '-' +
-                                                ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' +
-                                                (date.getDay() < 10 ? '0' : '') + date.getDay();
-
-                            activities.append(generateTaskActivity(
-                                legendData.title, 
-                                legendData.color, 
-                                currentDate, 
-                                currentDate,
-                                true)
-                            );
-                        });
-
-                    legends.append(legend);
-                }
-            }
-        }
-    );
-}
-
-// Row click. Open task activities
-$(table + ' tbody').on('click', 'tr', function (e) {
-    let rowData = tasksTable.row(this).data();
-    let rowDisplay = tasksTable.cells( this, '' ).render( 'display' );    
-    let popup = $('#taskPopup');
-    resetTaskPopup(popup);
-
-    popup.find('.pmain .ptitle').text('Task ' + rowDisplay[0]);
-    popup.find('.pmain textarea[name="taskDesc"]').val(rowDisplay[1]);
-
-    let activities = popup.find('#taskActivities');
-    activities.empty();
-
-    let newActivities = popup.find('#newActivities');
-    newActivities.empty();
-
-    // Gets task activities
-    loadActivities(rowData.id, activities);
-    // Refreshes Activities
-    let taskInterval = setInterval(() => {
-        console.log("Activities reload");
-        loadActivities(rowData.id, activities);
-    }, 3000);
-
-    // console.log("Load Interval");
-    // console.log(taskInterval);
-
-    let legends = popup.find('#legends');
-    legends.empty();
-
-    // Gets project legends
-    loadLegends(newActivities, legends);
-    // Refreshes legends
-    let legendsInterval = setInterval(() => {
-        console.log("Legends reload");
-        loadLegends(newActivities, legends);
-    }, 3000);
-   
-    showPopup(popup);
-    popup.find('.pmain textarea[name="taskDesc"]').each((index, element) => {
-        autoHeight(element);
-    });
-
-    popup.on('dismissPopup', (e) => {
-        console.log("Popup dismissed");
-        
-        clearInterval(taskInterval);
-        clearInterval(legendsInterval);
-        resetTaskPopup(popup);
-    });
-});
-
-$('#addTask').click((e) => {
-    console.log("Add task");
-    console.log(e.target);
-
-    // $(btn.data('target')).parent().removeClass('hide');
-
-    let popup = $('#taskPopup');
-
-    let activities = popup.find('#taskActivities');
-    activities.empty();
-    let newActivities = popup.find('#newActivities');
-    newActivities.empty();
-
-    $.post(
-        Settings.base_url + "/projects/taskCount", 
-        { projId : projectId },
-        function (data, textStatus) {
-            let jsonData = JSON.parse(data);
-            popup.find('.pmain .ptitle').text('Task ' + ++jsonData.data);
-        }
-    );
-
-    let legends = popup.find('#legends');
-    legends.empty();
-
-    // Get project legends
-    loadLegends(newActivities, legends);
-    // Refresh legends
-    let legendsInterval = setInterval(() => {
-        console.log("Legends reload");
-        loadLegends(newActivities, legends);
-    }, 3000);
-   
-    showPopup(popup);
-
-    popup.on('dismissPopup', (e) => {
-        console.log("Popup dismissed");
-        
-        clearInterval(legendsInterval);
-        resetTaskPopup(popup);
-    });
-});
-
-function hideAddRow(e) {  
-    console.log("Hide row");
-    let form = '';
-    if ($(e.target).is('form[data-row]')) {
-        form = $(e.target);
-    } else {
-        form = $(e.target).parents('form[data-row]');
-    }
-    $(form.data('row')).find('.table-action-row').removeClass('hide');
-    form.addClass('hide');
-}
-
-// New Row
-$('form[data-row]').submit((e) => {
-    e.preventDefault();
-
-    $.post(
-        // Url
-        Settings.base_url + "/projects/newTask", 
-        // Data
-        { 
-            projId : projectId,
-            form : function () {return $(e.target).serialize();}
-        },
-        // On success
-        function (data, textStatus) {
-            console.log(data);
-            console.log(JSON.parse(data));
-            let jsonData = JSON.parse(data);
-            
-            if (jsonData.statusCode != 200) {
-                $(e.target).find('.alert').html(jsonData.message);
-            } else {
-                hideAddRow(e);
-            }
-            console.log(textStatus);
-
-            tasksTable.ajax.reload(null, false);
-            $(e.target)[0].reset();
-        }
-    );
-});
-
-$('form[data-row] .neutral-btn').click(hideAddRow);
-
-$('form[data-row] button[type="submit"]').click((e) => {
-    e.preventDefault();
-
-    console.log("Add new task");
-
-    $(e.target).parents('form[data-row]').submit();
-});
-
 // || Gantt Chart 
+
 // Even Rows Background
 let chartRows = $(".chart-row");
 
@@ -441,216 +596,250 @@ if (chartRows.length > 0) {
 
 // || Legend
 
-// Add Legend Click Event
-$("#addLegend").click(function (e) { 
-    e.preventDefault();
-    $("#legends").toggleClass("hide");
-});
+// Legends form
+function generateLegendForm() {
+    let legend = $(
+        '<div class="popup show popup-center popup-legend" id="legendPopup" data-legend="" tabindex="-1" aria-hidden="true">' +
+            '<div class="pcontainer popup-sm">' +
+                '<div class="pcontent">' +
+                    '<div class="pheader">' +
+                        '<h2 class="ptitle">Legend</h2>' +
+                        '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
+                            '<span class="material-icons">close</span>' +
+                        '</button>' +
+                    '</div>' +
+        
+                    '<div class="pbody">' +
 
-function generateLegendForm(legendID = "legendPopup") {
-    let legend =    $('<div class="popup show popup-center" id="legendPopup" data-legend="' + legendID + '" tabindex="-1" aria-hidden="true">' +
-                        '<div class="pcontainer popup-sm">' +
-                            '<div class="pcontent">' +
-                                '<div class="pheader">' +
-                                    '<h2 class="ptitle">Legend</h2>' +
-                                    '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
-                                        '<span class="material-icons">close</span>' +
-                                    '</button>' +
-                                '</div>' +
-                    
-                                '<div class="pbody">' +
-
-                                    '<div class="alert alert-danger" role="alert">' +
-                                        'A simple danger alert—check it out!' +
-                                    '</div>' +
-
-                                    '<div class="legend-preview">' +
-                                        '<span></span>' +
-                                        '<span id="color-preview"></span>' +
-                                        '<span></span>' +
-                                    '</div>' +
-
-                                    '<form id="legendForm">' +
-                                        '<div class="form-group">' +
-                                        '<label for="">Title</label>' +
-                                        '<input type="text"' +
-                                            'class="form-control" name="title" aria-describedby="helpId" placeholder="">' +
-                                        '</div>' +
-
-                                        '<label for="">Select a color</label>' +
-                                        '<div class="color-selection">' +
-                                            '<label for="row1.1" class="option-box">' +
-                                            '<input type="radio" name="color" id="row1.1"  value="#7bc86c">' +
-                                            '</label>' +
-                                            '<label for="row1.2" class="option-box">' +
-                                            '<input type="radio" name="color" id="row1.2"  value="#f5dd29">' +
-                                            '</label>' +
-                                            '<label for="row1.3" class="option-box">' +
-                                            '<input type="radio" name="color" id="row1.3"  value="#ffaf3f">' +
-                                            '</label>' +
-                                            '<label for="row1.4" class="option-box">' +
-                                            '<input type="radio" name="color" id="row1.4"  value="#ef7564">' +
-                                            '</label>' +
-                                            '<label for="row1.5" class="option-box">' +
-                                            '<input type="radio" name="color" id="row1.5"  value="#cd8de5">' +
-                                            '</label>' +
-
-                                            '<label for="row2.1" class="option-box">' +
-                                                '<input type="radio" name="color" id="row2.1"  value="#5aac44">' +
-                                            '</label>' +
-                                            '<label for="row2.2" class="option-box">' +
-                                                '<input type="radio" name="color" id="row2.2"  value="#e6c60d">' +
-                                            '</label>' +
-                                            '<label for="row2.3" class="option-box">' +
-                                                '<input type="radio" name="color" id="row2.3"  value="#e79217">' +
-                                            '</label>' +
-                                            '<label for="row2.4" class="option-box">' +
-                                                '<input type="radio" name="color" id="row2.4"  value="#cf513d">' +
-                                            '</label>' +
-                                            '<label for="row2.5" class="option-box">' +
-                                                '<input type="radio" name="color" id="row2.5"  value="#a86cc1">' +
-                                            '</label>' +
-
-                                            '<label for="row3.1" class="option-box">' +
-                                                '<input type="radio" name="color" id="row3.1"  value="#5ba4cf">' +
-                                            '</label>' +
-                                            '<label for="row3.2" class="option-box">' +
-                                                '<input type="radio" name="color" id="row3.2"  value="#29cce5">' +
-                                            '</label>' +
-                                            '<label for="row3.3" class="option-box">' +
-                                                '<input type="radio" name="color" id="row3.3"  value="#6deca9">' +
-                                            '</label>' +
-                                            '<label for="row3.4" class="option-box">' +
-                                                '<input type="radio" name="color" id="row3.4"  value="#ff8ed4">' +
-                                            '</label>' +
-                                            '<label for="row3.5" class="option-box">' +
-                                                '<input type="radio" name="color" id="row3.5"  value="#344563">' +
-                                            '</label>' +
-
-                                            '<label for="row4.1" class="option-box">' +
-                                                '<input type="radio" name="color" id="row4.1"  value="#026aa7">' +
-                                            '</label>' +
-                                            '<label for="row4.2" class="option-box">' +
-                                                '<input type="radio" name="color" id="row4.2"  value="#00aecc">' +
-                                            '</label>' +
-                                            '<label for="row4.3" class="option-box">' +
-                                                '<input type="radio" name="color" id="row4.3"  value="#4ed583">' +
-                                            '</label>' +
-                                            '<label for="row4.4" class="option-box">' +
-                                                '<input type="radio" name="color" id="row4.4"  value="#e568af">' +
-                                            '</label>' +
-                                            '<label for="row4.5" class="option-box">' +
-                                                '<input type="radio" name="color" id="row4.5"  value="#091e42">' +
-                                            '</label>' +
-                                        '</div>' +
-                                    '</form>' +
-                                '</div>' +
-                    
-                                '<div class="pfooter">' +
-                                    '<button type="submit" form="legendForm" class="btn action-btn">Save</button>' +
-                                    '<button type="button" class="btn danger-btn" data-action="delete" data-toggle="popup" data-type="delete">' +
-                                        'Delete' +
-                                    '</button>' +
-                                    '<button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>' +
-                                '</div>' +
-                            '</div>' +
+                        '<div class="alert alert-danger" role="alert">' +
+                            'A simple danger alert—check it out!' +
                         '</div>' +
-                    '</div>');
+
+                        '<div class="legend-preview">' +
+                            '<span></span>' +
+                            '<span id="color-preview"></span>' +
+                            '<span></span>' +
+                        '</div>' +
+
+                        '<form id="legendForm">' +
+                            '<div class="form-group">' +
+                            '<label for="">Title</label>' +
+                            '<input type="text"' +
+                                'class="form-control" name="title" aria-describedby="helpId" placeholder="">' +
+                            '</div>' +
+
+                            '<label for="">Select a color</label>' +
+                            '<div class="color-selection">' +
+                                '<label for="row1.1" class="option-box">' +
+                                '<input type="radio" name="color" id="row1.1"  value="#7bc86c" checked>' +
+                                '</label>' +
+                                '<label for="row1.2" class="option-box">' +
+                                '<input type="radio" name="color" id="row1.2"  value="#f5dd29">' +
+                                '</label>' +
+                                '<label for="row1.3" class="option-box">' +
+                                '<input type="radio" name="color" id="row1.3"  value="#ffaf3f">' +
+                                '</label>' +
+                                '<label for="row1.4" class="option-box">' +
+                                '<input type="radio" name="color" id="row1.4"  value="#ef7564">' +
+                                '</label>' +
+                                '<label for="row1.5" class="option-box">' +
+                                '<input type="radio" name="color" id="row1.5"  value="#cd8de5">' +
+                                '</label>' +
+
+                                '<label for="row2.1" class="option-box">' +
+                                    '<input type="radio" name="color" id="row2.1"  value="#5aac44">' +
+                                '</label>' +
+                                '<label for="row2.2" class="option-box">' +
+                                    '<input type="radio" name="color" id="row2.2"  value="#e6c60d">' +
+                                '</label>' +
+                                '<label for="row2.3" class="option-box">' +
+                                    '<input type="radio" name="color" id="row2.3"  value="#e79217">' +
+                                '</label>' +
+                                '<label for="row2.4" class="option-box">' +
+                                    '<input type="radio" name="color" id="row2.4"  value="#cf513d">' +
+                                '</label>' +
+                                '<label for="row2.5" class="option-box">' +
+                                    '<input type="radio" name="color" id="row2.5"  value="#a86cc1">' +
+                                '</label>' +
+
+                                '<label for="row3.1" class="option-box">' +
+                                    '<input type="radio" name="color" id="row3.1"  value="#5ba4cf">' +
+                                '</label>' +
+                                '<label for="row3.2" class="option-box">' +
+                                    '<input type="radio" name="color" id="row3.2"  value="#29cce5">' +
+                                '</label>' +
+                                '<label for="row3.3" class="option-box">' +
+                                    '<input type="radio" name="color" id="row3.3"  value="#6deca9">' +
+                                '</label>' +
+                                '<label for="row3.4" class="option-box">' +
+                                    '<input type="radio" name="color" id="row3.4"  value="#ff8ed4">' +
+                                '</label>' +
+                                '<label for="row3.5" class="option-box">' +
+                                    '<input type="radio" name="color" id="row3.5"  value="#344563">' +
+                                '</label>' +
+
+                                '<label for="row4.1" class="option-box">' +
+                                    '<input type="radio" name="color" id="row4.1"  value="#026aa7">' +
+                                '</label>' +
+                                '<label for="row4.2" class="option-box">' +
+                                    '<input type="radio" name="color" id="row4.2"  value="#00aecc">' +
+                                '</label>' +
+                                '<label for="row4.3" class="option-box">' +
+                                    '<input type="radio" name="color" id="row4.3"  value="#4ed583">' +
+                                '</label>' +
+                                '<label for="row4.4" class="option-box">' +
+                                    '<input type="radio" name="color" id="row4.4"  value="#e568af">' +
+                                '</label>' +
+                                '<label for="row4.5" class="option-box">' +
+                                    '<input type="radio" name="color" id="row4.5"  value="#091e42">' +
+                                '</label>' +
+                            '</div>' +
+                        '</form>' +
+                    '</div>' +
+        
+                    '<div class="pfooter">' +
+                        '<button type="submit" form="legendForm" class="btn action-btn">Save</button>' +
+                        '<button type="button" class="btn danger-btn" data-action="delete" data-toggle="popup" data-type="delete">' +
+                            'Delete' +
+                        '</button>' +
+                        '<button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>'
+    );
 
     legend.find('.option-box').each((index, element) => {
         $(element).css('background-color', $(element).find('input').val());
-        $(element).find('input').change((e) => {
+        $(element).find('input').on('change', (e) => {
             console.log("Input change");
             if (e.target.checked) {
-                $('#color-preview').css('background-color', $(e.target).val());
+                legend.find('#color-preview').css('background-color', $(e.target).val());
             }
         });
     });
 
-    initializePopup(legend);
+    Popup.initialize(legend);
 
     return legend;
 }
 
-$("button[data-toggle='legend']").on('click', (e) => {
-    console.log("Legend button");
-    let btn = $(e.target);
+function buildLegendForm(legend = null) {  
+    // let btn = $(e.target);
     let legendForm = generateLegendForm();
 
-    console.log(btn);
-    console.log(legendForm);
+    console.log("Legend form");
 
-    if (btn.data("target") != null) {
-        console.log("Target is not null");
-        console.log(btn.data("target"));
-        legendForm = $(generateLegendForm(btn.data("target")));
-        legendForm.attr('data-legend', 'edit' );
+    if (legend != null) 
+    {   // Generate a legend form to edit
+        console.log("Edit legend");
+        console.log(legend);
+        legendForm
+            .attr('id', legend.id)
+            .attr('data-legend', 'edit')
+            .find('[name="title"]').val(legend.title);
+        legendForm
+            .find('[type="radio"][value="' + legend.color + '"]')
+            .prop('checked', true)
+            .trigger('change');
 
-    } else {
+        // Submit action
+        legendForm.find('#legendForm').on('submit', (e) => {
+            e.preventDefault();
+
+            // Requests to update a legend
+            $.post(
+                // Url
+                Settings.base_url + "/legend/update", 
+                // Data
+                {
+                    id : legend.id,
+                    form : function () {return $(e.target).serialize();}
+                },
+                // On success
+                function (response, textStatus) {
+                    console.log("Update legend");
+                    let jsonResponse = JSON.parse(response);
+                    dimissLegend(legendForm, jsonResponse);
+                }
+            );
+        });
+
+        legendForm.find(".pfooter .btn.danger-btn").on('click', (e) => {
+            // Requests to remove a legend
+            $.post(
+                // Url
+                Settings.base_url + "/legend/remove", 
+                // Data
+                { id : legend.id },
+                // On success
+                function (response, textStatus) {
+                    console.log("Remove legend");
+                    let jsonResponse = JSON.parse(response);
+                    dimissLegend(legendForm, jsonResponse);
+                }
+            );
+        });
+    }
+    else 
+    {   // Prepare a legend form to create
+        console.log("Create legend");
         legendForm.find(".ptitle").text("Create legend");
         legendForm.find(".pfooter .btn.danger-btn").remove();
+
+        // Submit action
+        legendForm.find('#legendForm').on('submit', (e) => {
+            e.preventDefault();
+
+            // Requests to create a new legend
+            $.post(
+                // Url
+                Settings.base_url + "/legend/new", 
+                // Data
+                { 
+                    projId : projectId,
+                    form : function () {return $(e.target).serialize();}
+                },
+                // On success
+                function (newLegendResponse, textStatus) {
+                    let jsonResponse = JSON.parse(newLegendResponse);
+
+                    dimissLegend(legendForm, jsonResponse);
+                }
+            );
+        });
     }
 
-    legendForm.find('#legendForm').submit((e) => {
-        e.preventDefault();
-
-        $.post(
-            // Url
-            Settings.base_url + "/projects/newLegend/" + projectId, 
-            // Data
-            { 
-                projId : projectId,
-                form : function () {return $(e.target).serialize();}
-            },
-            // On success
-            function (newLegendResponse, textStatus) {
-                console.log("Raw Response legeneds");
-                console.log(newLegendResponse);
-                let jsonResponse = JSON.parse(newLegendResponse);
-                console.log("Response legeneds");
-                console.log(jsonResponse.statusCode);
-
-                if (jsonResponse.statusCode == 200) {
-                    legendForm.find('button[data-dismiss]').trigger('click');
-                    loadLegends(jsonResponse, $('.show #taskActivities'), $('.show #legends'));
-                } else {
-                    legendForm.find('.alert-danger')
-                        .addClass('show')
-                        .text(jsonResponse.message);
-                }
-
-                // Get project legends
-                $.get(
-                    Settings.base_url + "/projects/legends", 
-                    {id : projectId},
-                    function (response) {
-                        if (jsonResponse.statusCode == 200) {
-                            legendForm.find('button[data-dismiss]').trigger('click');
-                            loadLegends(jsonResponse, $('.show #taskActivities'), $('.show #legends'));
-                        } else {
-
-                        }
-                    }
-                );
-                // console.log(JSON.parse(data));
-                // let jsonData = JSON.parse(data);
-                
-                // if (jsonData.statusCode != 200) {
-                //     $(e.target).find('.alert').html(jsonData.message);
-                // } else {
-                //     hideAddRow(e);
-                // }
-                // console.log(textStatus);
-    
-                // tasksTable.ajax.reload(null, false);
-                // $(e.target)[0].reset();
-            }
-        );
+    // On dismiss, removes listeners
+    legendForm.on('custom:dismissPopup', (e) => {
+        console.log("Legend dismiss");
+        legendForm.find('#legendForm').off('submit');
+        legendForm.find('input').off('change');
+        legendForm.find(".pfooter .btn.danger-btn").off('click');
     });
 
-    // console.log(legendForm);
     $('body').append(legendForm);
-    showPopup(legendForm);
+    Popup.show(legendForm);
+}
+
+function dimissLegend(legendForm, response) {
+    if (response.statusCode == 200) 
+    {   // Dismiss legend's form and reload legends list on success
+        legendForm.find('button[data-dismiss]').trigger('click');
+        loadLegends($('.show #legends'), $('.show #taskActivities'));
+        $('#taskPopup').trigger('custom:legendReload');
+    }
+    else
+    {   // Shows alert on fail
+        legendForm.find('.alert-danger')
+            .addClass('show')
+            .text(response.message);
+    }
+}
+
+// Shows legends form
+$("button[data-toggle='legend']").on('click', (e) => {
+    buildLegendForm();
 });
 
 // Closes Menu when clicked anywhere
@@ -920,5 +1109,375 @@ $(window).on("resize", (e) => {
     if ($(this).width() >= 992) {
         resizeCollapse(false);
         $('#sideCollapse').css('height', ''); 
+    }
+});
+
+
+
+
+// Gannt Chart
+let chartX, chartY;
+
+function loadGanttChart() {
+    console.log("Load gantt chart");
+    let ganttChart = $('.gantt-chart');
+    let chartX = ganttChart.scrollLeft();
+    let chartY = ganttChart.scrollTop();
+    $.get(
+        Settings.base_url + "/task/chart",
+        {projId : projectId},
+        function (data, textStatus) {
+            resetGanttChart();
+
+            let response = JSON.parse(data);
+            let rowHead = '250px';
+            let startDate = new Date(response.data.start).getDate();
+            let monthStart = 1;
+
+            // Chart Header
+            for (let i = 0; i < response.data.header[0].length; i++) {
+                const days = response.data.header[1][i];
+
+                // Months
+                let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long' }) + '</span>');
+                monthGrid.css('grid-column', monthStart + ' / span ' + days);
+                $('.chart-months').append(monthGrid);
+                
+                // Days
+                for (let j = 1; j <= days; j++) {
+                    $('.chart-days').append('<span>' + startDate++ + '</span>');
+                }
+                
+                startDate = 1;
+                monthStart += days;
+
+            }
+
+
+            response.data.content.forEach(task => 
+                {
+                let taskBar = generateGanttRow(task);
+                let bars = taskBar.find('.chart-row-bars');
+
+                task.activity.forEach(activity => 
+                    {   // Generates gantt charts bars
+                    let bar = $('<li title="' + activity.title + '"></li>');
+
+                    bar.css({
+                        'grid-column' : activity.grid + ' / span ' + activity.span,
+                        'background-color' : activity.color
+                    });
+
+                    bars.append(bar);
+                });
+
+                //     let end = new Date(activity.end);
+                //     let start = new Date(activity.start);
+
+                //     // Span of width of grid item
+                //     let span = (end - start) / (1000*60*60*24) + 1;
+                    
+
+                //     if (projectStart === 0) {
+                //         projectStart = start;
+                //     }
+
+                //     projectEnd = end;
+
+                //     if ($.inArray(start.getMonth(), months[0]) < 0) {
+                //         months[0].push(start.getMonth());
+                //         months[1].push(start.getFullYear());
+                //     } else {
+                //         console.log("Nandun na start");
+                //     }
+
+                //     if ($.inArray(end.getMonth(), months[0]) < 0) {
+                //         months[0].push(end.getMonth());
+                //         months[1].push(end.getFullYear());
+                //     } else {
+                //         console.log("Nandun na end");
+                //     }
+
+                //     let grid = (start - projectStart) / (1000*60*60*24);
+
+                //     lastGrid = (grid === 0) ? 1 : grid+1;
+
+                //     let parsedDate = String(lastGrid) + ' / span ' + String(span > 0 ? span : 1);
+                //     bar.css({
+                //         'grid-column' : parsedDate,
+                //         'background-color' : activity.color
+                //     });
+
+                //     bars.append(bar);
+                // });
+
+                $('.chart-body').append(taskBar);
+                
+            });
+
+            $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css(
+                'grid-template-columns', 'repeat(' + response.data.total_days + ', minmax(var(--chart-grid-width), 1fr))'
+            );
+
+            $('.chart-lines').css(
+                'grid-template-columns', rowHead + ' repeat(' + response.data.total_days + ', 1fr)'
+            );
+
+            
+            // Chart lines
+            let day = new Date(response.data.start).getDay() - 1;
+            
+            for (let j = 0; j < response.data.total_days; j++) {
+                let line = $('<span></span>');
+
+                if (day === 0) {line.addClass('sunday');}
+                $('.chart-lines').append(line);
+                
+                day++;
+                if (day === 7) {day = 0;}
+            }
+            
+            // Sets scroll position to last scrolls' positions :>
+            ganttChart.scrollLeft(chartX);
+            ganttChart.scrollTop(chartY);
+
+            ganttChart.trigger('custom:ready');
+        }
+    );
+}
+
+function resetGanttChart() {  
+    $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css('grid-template-columns', '');
+    // $('.chart-lines').css('grid-template-columns', '');
+    $('.chart-months').empty();
+    $('.chart-days').empty();
+    $('.chart-lines').empty();
+    $('.chart-body')
+        .empty()
+        .append('<div class="chart-lines"></div>');
+}
+
+function buildGanttChart() {  
+    loadGanttChart();
+    loadLegends($('.legends-container'));
+
+    ganttChartInterval = setInterval(() => {
+        loadGanttChart();
+        loadLegends($('.legends-container'));
+    }, 5000);
+}
+
+let ganttChartInterval;
+
+buildGanttChart();
+
+// loadGanttChart();
+// loadLegends($('.legends-container'));
+
+// let ganttChartInterval = setInterval(() => {
+//     loadGanttChart();
+//     loadLegends($('.legends-container'));
+// }, 5000);
+
+
+//create the function getNumberOfDays with getDate() method
+function getNumberOfDays (month, year) {
+    return new Date(year, month + 1, 0).getDate();
+}
+
+$('.gantt-chart').on('custom:ready', (e) => {
+    $('#projectGanttChart .spinner').hide();
+    $('.chart-container').css('visibility', 'visible');
+});
+
+function generateGanttRow(task) {  
+    // console.log(task.plan_start);
+    // console.log(new Date(task.plan_end) - new Date(task.plan_start));
+    // console.log((new Date(task.plan_end) - new Date(task.plan_start)) / (1000*60*60*24));
+    // console.log((1000*60*60*24));
+    return $(
+        '<div class="chart-row">' +
+            '<div class="chart-row-item task-name">' +
+                '<strong class="task-number">' + parseFloat(task.order_no) + '</strong>' +
+                task.description +
+            '</div>' +
+            '<ul class="chart-row-bars"></ul>' +
+        '</div>'
+    );
+}
+
+
+// || Project info
+let infoInterval;
+
+// Gets project info from the server
+function loadProjectInfo() {  
+    console.log("Load project info");
+    $.get(
+        Settings.base_url + "/project/get",
+        {projId : projectId},
+        function (data, textStatus) {
+            console.log(data);
+            let response = JSON.parse(data);
+
+            if (response.hasOwnProperty('data')) {
+                console.log(response.data);
+                let project = response.data;
+                let form = $('#projectDetailForm');
+                form.find('[name="id"]').val(project.id);
+                form.find('[name="purchaseOrd"]').val(project.purchase_ord);
+                form.find('[name="awardDate"]').val(project.award_date);
+                form.find('[name="description"]').val(project.name);
+                form.find('[name="buildingNo"]').val(project.building_number);
+                form.find('[name="location"]').val(project.location);
+                form.find('[name="company"]').val(project.company);
+                form.find('[name="representative"]').val(project.comp_representative);
+                form.find('[name="contact"]').val(project.comp_contact);
+            }
+        }
+    );
+}
+
+// Project info toggle actions
+$('#projectInfoToggller').on('click', (e) => {
+    console.log("Info clicked");
+
+    infoInterval = setInterval(() => {
+        loadProjectInfo();
+    }, 5000);
+
+    // Removes refresh when editing
+    $('#projectDetailForm').on('custom:edit', (e) => {
+        console.log("Edit event");
+        clearInterval(infoInterval);
+    });
+
+    $('#projectInfo').find('button[data-dismiss="slide"]').on('click', (e) => {
+        clearInterval(infoInterval);
+    });
+
+    // Reapply refresh when done editing
+    $('#projectDetailForm').on('custom:readOnly', (e) => {
+        console.log("Read only");
+        infoInterval = setInterval(() => {
+            loadProjectInfo();
+        }, 5000);
+    });
+});
+
+// Project details actions
+$('#projectDetailForm').on('submit', (e) => {
+    e.preventDefault();
+    console.log("Submit project");
+
+    $.post(
+        Settings.base_url + "/project/update",
+        {form : function () {return $(e.target).serialize();}},
+        function (response, textStatus, jqXHR) {
+            console.log("Project Update Response");
+            console.log(response);
+            let data = JSON.parse(response);
+            if (data.statusCode != 200) 
+            {
+                // Shows alert on fail
+                $(e.target).find('.alert-danger')
+                    .addClass('show')
+                    .text(data.message);
+            } else {
+                $(e.target).parents('.slide-content').find('button[data-toggle="form"][data-action="submit"]').trigger('click');
+            }
+        }
+    );
+});
+
+// Delete task actions
+$('#projectInfo').find('.delete-btn').click(() => {
+    console.log("Delete project");
+    // deleteTask(popup, rowData.id, dt);
+    deleteProject(projectId);
+});
+
+function deleteProject(projId) {  
+    console.log("Delete popup");
+    let deletePopup = Popup.generateDeletePopup('project');
+
+    deletePopup.find('input[name="id"]').val(projId);
+    deletePopup.find('#deleteForm').submit((e) => {
+        e.preventDefault();
+        console.log("Submit delete");
+
+        $.post(
+            Settings.base_url + "/project/remove",
+            {form : function () {return $(e.target).serialize();}},
+            function (data, textStatus) {
+                console.log("Response delete");
+                console.log(data);
+                let jsonData = JSON.parse(data);
+                if (jsonData.statusCode == 200) 
+                {   // Dismiss delete popup and redirect to projects list on success
+                    console.log("Success delete");
+                    deletePopup.find('button[data-dismiss]').trigger('click');
+
+                    window.location.href =  Settings.base_url + '/project';
+                }
+            }
+        );
+    });
+
+    Popup.show(deletePopup);
+}
+
+// Slide form buttons
+$('.slide button[data-toggle="form"]').on('click', (e) => {
+    let btn = $(e.target);
+    if (btn.data('action') === 'edit') {
+        console.log("Edit");
+
+        let form = $("#" + btn.attr("form"));
+    
+        form.find("textarea, input").removeAttr("readonly");
+    
+        btn.attr("type", "button");
+        btn.text("Done");
+        btn.data("action", "submit");
+
+        btn.parents('.slide-header').find('button[data-dismiss="slide"]').hide();
+        btn.parents('.slide-header').find('button[data-toggle="form"][data-action="cancel"]').show();
+
+        form.trigger('custom:edit');
+    }
+    else if (btn.data('action') === 'submit') {
+        console.log("Submit");
+        let form = $("#" + btn.attr("form"));
+
+        form.find('.alert-danger').hide();
+        form.find("textarea, input").attr("readonly", true);
+        
+        btn.attr("type", "submit");
+        btn.text("Edit");
+        btn.data("action", "edit");
+
+        btn.parents('.slide-header').find('button[data-dismiss="slide"]').show();
+        btn.parents('.slide-header').find('button[data-action="cancel"]').hide();
+
+        form.trigger('custom:readOnly');
+    }
+    else if (btn.data('action') === 'cancel') {
+        console.log("Cancel");
+        let form = $("#" + btn.attr("form"));
+
+        form.find('.alert-danger').hide();
+        form.find("textarea, input").attr("readonly", true);
+
+        let editBtn =  btn.parents('.slide-header').find('button[data-action="edit"]');
+
+        editBtn.text("Edit");
+        editBtn.data("action", "edit");
+        editBtn.attr("type", "button");
+
+        btn.hide();
+        btn.parents('.slide-header').find('button[data-dismiss="slide"]').show();
+
+        form.trigger('custom:readOnly');
     }
 });
