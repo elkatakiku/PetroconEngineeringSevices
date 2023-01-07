@@ -146,7 +146,7 @@ class User extends MainController {
             ];
 
             $result = json_decode($this->userService->updateUser($inputs), true);
-            $url = "Location: ".SITE_URL.US."profile/index/".$_SESSION['accID'];
+            $url = "Location: ".SITE_URL.US."user/profile/".$_SESSION['accID'];
 
             if ($result['statusCode'] != 200) {
                 $url .= "?error=".$result['message'];
