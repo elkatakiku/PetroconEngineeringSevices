@@ -70,7 +70,7 @@
                 </div>
       
                 <div class="pbody">
-                  <form id="usermanform" action="<?= SITE_URL ?>/users/new" method="post">
+                  <form id="usermanform" action="<?= SITE_URL ?>/user/new" method="post">
                     <div class="form-group">
                         <label>First Name:</label>
                         <input type="text" name="firstname" class="form-control" value="">

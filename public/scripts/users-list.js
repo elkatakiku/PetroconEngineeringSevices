@@ -103,7 +103,7 @@ let userTable = $("#usersTable").DataTable({
   'info' : false,
 
   "ajax" : {
-      url : Settings.base_url + "/users/listUser", // controller x function
+      url : Settings.base_url + "/user/listUser", // controller x function
       type : 'GET',
       data : { // data to be sent to controller
         type : usersId // to move data of php to js, they connect here

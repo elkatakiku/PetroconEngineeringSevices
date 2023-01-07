@@ -21,9 +21,8 @@ class UserRepository extends Repository {
     private static $tblLogin = "tbl_login";
     private static $tblAccount = "tbl_account";
     private static $tblLog = "tbl_Log";
-    
-
     private static $tblAcctType = "pltbl_account_type";
+    
 
     // Check user
     public function checkUser($username, $email) {
@@ -217,31 +216,35 @@ class UserRepository extends Repository {
         return $result;
     }
 
+    public function getUsers($userType)
+    {
+
+        $sql = "SELECT * FROM  ".self::$tblRegister;
+        // $params = [':active' => true];
+
+        // Query
+        // if (($userType != 1 && $userType != 0) || $userType == "all") 
+        // {   // Selects all active users
+        //     $sql = "SELECT *
+        //         FROM ".self::$tblRegister."
+        //         WHERE active = :active
+        //         ORDER BY created_at DESC";
+        // } else 
+        // {   // Selects all users with a matching status
+        //     $sql = "SELECT *
+        //         FROM ".self::$tblRegister."
+        //         WHERE active = :active AND done = :done
+        //         ORDER BY created_at DESC";
+
+        //     $params[':done'] = $$userType;
+        // }
+
+        return $this->query($sql);
+    }
 
     // Gets user info
-    public function getUser($userId) {
-        // $sql = "SELECT r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.dob, r.address, r.name as 'type'
-        //         FROM
-        //             ".self::$tblRegister."
-        //         INNER JOIN
-        //         WHERE
-        //             id = :userID
-        //         LIMIT 1";
-        // $sql = 'SELECT 
-        //             r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.email, r.address,
-        //             p.name as "type"
-        //         FROM
-        //             '.self::$tblRegister.' r
-        //         INNER JOIN
-        //             '.self::$tblAccount.' a
-        //             ON r.log_ID = a.login_id
-        //         INNER JOIN
-        //             '.self::$tblAcctType.' p
-        //             ON a.type_id = p.id
-        //         WHERE
-        //             r.id = :userID
-        //         LIMIT 1';
-
+    public function getUser($userId) 
+    {
         $sql = "SELECT  
                     r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.email, r.address,
                     t.name as 'type'
@@ -278,6 +281,8 @@ class UserRepository extends Repository {
 
     public function update(array $user)
     {
+        var_dump($user);
+        
         $sql = 'UPDATE 
                     '.self::$tblRegister.'
                 SET 
@@ -310,30 +315,5 @@ class UserRepository extends Repository {
         $params = [':log_id' => $logId];
 
         $this->query($sql, $params);
-
-    public function getUsers($userType)
-    {
-
-        $sql = "SELECT * FROM  ".self::$tblRegister;
-        // $params = [':active' => true];
-
-        // Query
-        // if (($userType != 1 && $userType != 0) || $userType == "all") 
-        // {   // Selects all active users
-        //     $sql = "SELECT *
-        //         FROM ".self::$tblRegister."
-        //         WHERE active = :active
-        //         ORDER BY created_at DESC";
-        // } else 
-        // {   // Selects all users with a matching status
-        //     $sql = "SELECT *
-        //         FROM ".self::$tblRegister."
-        //         WHERE active = :active AND done = :done
-        //         ORDER BY created_at DESC";
-
-        //     $params[':done'] = $$userType;
-        // }
-
-        return $this->query($sql);
     }
 }

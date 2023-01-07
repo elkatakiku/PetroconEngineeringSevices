@@ -10,14 +10,14 @@
         <div class="profile-display-info">
           <h2 class="profile-name">
             <?=  $data['lastname'].', '.$data['firstname'].(!$data['middlename'] ? '' : $data['middlename']) ?>
-            <i class="fa-solid fa-pen-to-square"></i>
+            <!-- <i class="fa-solid fa-pen-to-square"></i> -->
           </h2> 
           <p><?= $data['email'] ?></p>
           <p class="position"><?= $data['type'] ?></p>
         </div>
       </div>
 
-      <form action="<?= SITE_URL.US.'profile/updateUser'?>" method="POST" id="proform">
+      <form action="<?= SITE_URL.US.'user/updateUser'?>" method="POST" id="proform">
         <?php if (isset($_GET['error'])) { ?>  
           <!-- Alert -->
           <div class="alert alert-danger show" role="alert"><?= $_GET['error'] ?></div>
@@ -54,7 +54,7 @@
         </div>
       </form>
       <div class="form-group">
-        <a href="<?= SITE_URL.US.'profile/password'?>" class="btn action-btn"> Change Password</a>
+        <a href="<?= SITE_URL.US.'user/password'?>" class="btn action-btn"> Change Password</a>
       </div>
       <div class="btn-side" style="text-align: center;">
         <button type="submit" form="proform" name="modifyProfile" class="btn action-btn">Save Change</button>
@@ -63,40 +63,3 @@
     </div>
   </div>
 </main> 
-
-<!-- Popup -->
-<div class="popup popup-center" id="popupChangePass" tabindex="-1" aria-hidden="true">
-  <div class="pcontainer">
-    <div class="pcontent">
-      <div class="pheader">
-          <i class="fa-solid fa-lock"></i>
-          <h2 class="ptitle">Change Password? <h2>
-            <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-      </div>
-
-      <div class="pbody">
-        <form action="<?= SITE_URL.US.'profile/profilesChangePass' ?>" method="POST" id="changePassForm">
-          <div class="form-group">
-              <label for=""> Current Password</label>
-              <input type="password" value="" class="form-control" name="currentPass" id="" placeholder="Password">
-          </div>
-          <div class="form-group">
-              <label for="">New Password</label>
-              <input type="password" value="" class="form-control" name="newPass" id="" placeholder="Password">
-          </div>
-          <div class="form-group">
-              <label for="">Confirm New Password</label>
-              <input type="password" value="" class="form-control" name="confirmNew" id="" placeholder="Password">
-          </div>
-        </form>
-      </div>
-      
-      <div class="pfooter">
-          <button type="submit" name="changePassword" form="changePassForm" class="btn action-btn">Save Changes</button>
-          <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>

@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="page-header">
         <span>                
-            <a id="backBtn" href="<?= SITE_URL.US.'profile/index/'.$_SESSION['accID'] ?>" class="linear">
+            <a id="backBtn" href="<?= SITE_URL.US.'user/profile/'.$_SESSION['accID'] ?>" class="linear">
                 <span class="material-icons">
                     arrow_back
                 </span>
