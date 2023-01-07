@@ -1083,13 +1083,6 @@ function openTask(e) {
 $("#tasksTable tbody tr").on('click', openTask);
 $(".dots-menu-btn").on('click', showRowMenu);
 
-// Adds new task row on table
-// $("button[data-toggle='row']").on('click', function (e) {
-//     console.log("Add row");
-//     $($(this).data('target')).append(generateRow("taskID", "#"));
-//     e.stopPropagation();
-// });
-
 // Adds new subtask of last row
 $('#addSubTask').on('click', (e) => {
     console.log("Add Subtask");
@@ -1116,8 +1109,6 @@ $(window).on("resize", (e) => {
 
 
 // Gannt Chart
-let chartX, chartY;
-
 function loadGanttChart() {
     console.log("Load gantt chart");
     let ganttChart = $('.gantt-chart');
@@ -1481,3 +1472,285 @@ $('.slide button[data-toggle="form"]').on('click', (e) => {
         form.trigger('custom:readOnly');
     }
 });
+
+
+
+// Resource popup
+// Timeline datatable settings
+$('button[data-target="#projectResources"]').on('click', (e) => {
+    console.log("Show resources");
+
+    // Clears declared interval
+    // clearInterval(ganttChartInterval);
+    // resetGanttChart();
+
+    // Initializes resource table's datatable
+    // let resourceTable = $("#resourceTable").DataTable(resourceSettings);
+
+    // let resourceInterval = setInterval(() => {
+    //     console.log("Resource interval");
+    //     resourceTable.ajax.reload(null, false);
+    // }, 3000);
+
+
+    // $("#resourceTable").on( 'destroy.dt', function ( e, settings ) {
+    //     console.log("Resource Destroy");
+    //     $(this).find('tbody').off( 'click', 'tr' );
+    //     clearInterval(resourceInterval);
+    // });
+});
+
+let datatableSettings = {
+    resourceTable : {
+        'dom' : '<"mesa-container"t><"linear"ip>',
+        "autoWidth": false,
+        "lengthChange": false,
+        'paging' : true,
+        'sort' : false,
+    
+        "ajax" : {
+            url : Settings.base_url + "/resource/list",
+            type : 'GET',
+            data : {projId : projectId}
+        },
+    
+        'language' : {
+            'paginate' : {
+                'previous' : '<',
+                'next' : '>'
+            }
+        },
+    
+        'columnDefs' : [
+            {
+                targets: 0,
+                searchable: false,
+                orderable: false
+            },
+        ],
+    
+        "columns" : [
+            {'defaultContent' : ''},
+            {'data' : 'item'}, 
+            {'data' : 'quantity'},
+            {'data' : 'price'},
+            {'data' : 'total'},
+            {'data' : 'notes'},
+            {'defaultContent' : ''}
+        ],
+    
+        order: [
+            [1, 'asc']
+        ],
+    
+        // "columnDefs" : [
+        //     {
+        //         "targets": 1,
+        //         "createdCell": function (td, cellData, rowData, row, col) {
+        //             // console.log("TD");
+        //             // console.log(td);
+        //             // console.log("Cell data");
+        //             // console.log(cellData);
+        //             $(td).addClass('taskCell');
+        //         }
+        //     }
+        // ],
+        
+        initComplete : function () {
+            // Sets click functionality of rows   
+            $(this).find('tbody').on('click', 'tr', (e) => {
+    
+                console.log("TR CLICKED");
+    
+                let dt = this.api();
+    
+                let row = $(e.target).parents('tr');
+                let rowData = dt.row(row).data();
+                let rowDisplay = dt.cells( row, '' ).render( 'display' );    
+                
+                let popup = buildResourcePopup();
+
+                console.log(rowData);
+
+                popup.find('[name="id"]').val(rowData.id);
+                popup.find('[name="item"]').val(rowData.item);
+                popup.find('[name="quantity"]').val(rowData.quantity);
+                popup.find('[name="price"]').val(rowData.price);
+                popup.find('[name="total"]').val(rowData.total);
+                popup.find('[name="note"]').val(rowData.notes);
+                
+                // Delete task actions
+                popup.find('.delete-btn').click(() => {
+                    console.log("DELETE CLICKED");
+                    console.log("Delete data");
+                    console.log(rowData);
+                    deleteTask(popup, rowData.id, dt);
+                });
+    
+                // Task submit action 
+                popup.find('#taskForm').submit((e) => {
+                    e.preventDefault();
+    
+                    $.post(
+                        Settings.base_url + "/task/update",
+                        {
+                            form : getTaskData($(e.target)),
+                            deleted : JSON.stringify(deletedActivities)
+                        },
+                        function (response, status) {
+                            console.log("Edit Response");
+                            let data = JSON.parse(response);
+                            if (data.statusCode == 200) 
+                            {   // Dismiss legend's form and reload legends list on success
+                                popup.find('button[data-dismiss]').trigger('click');
+    
+                                // Reload tasks
+                                dt.ajax.reload(null, false);
+                            }
+                            else
+                            {   // Shows alert on fail
+                                popup.find('.alert-danger')
+                                    .addClass('show')
+                                    .text(data.message);
+                            }
+    
+                            console.log("Response");
+                    });
+                });
+        
+                // On dismiss listener
+                popup.on('custom:dismissPopup', (e) => {
+                    console.log("Task edit dismissed");
+                    
+                    // Clears task reload interval
+                    clearInterval(taskInterval);
+                });
+    
+                // Finally shows popup
+                Popup.show(popup);
+            });
+        }
+    }
+};
+
+// When navigation tab change actions
+$('.nav-tab').on('custom:tabChange', (e, tab, target) => {
+    console.log("Tab changed");
+
+    clearInterval(ganttChartInterval);
+    resetGanttChart();
+    
+    if (target !== '#projectGanttChart') 
+    {   
+        let table; 
+        // Clears gantt chart settings
+        table = $(target).find('table');
+
+        // Initializes resource table's datatable
+        let datatable = table.DataTable(datatableSettings[table.attr('id')]);
+
+        // Incrementing number of table rows
+        datatable.on('order.dt search.dt', function () {
+            let i = 1;
+            datatable.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
+                this.data(i++);
+            });
+        }).draw();
+
+        let dtInterval = setInterval(() => {
+            console.log("General datable interval");
+            datatable.ajax.reload(null, false);
+        }, 3000);
+
+        // On datatable destoy actions
+        datatable.on( 'destroy.dt', function ( e, settings ) {
+            console.log("Datable destroy");
+            $(this).find('tbody').off( 'click', 'tr' );
+            clearInterval(dtInterval);
+        });
+
+        // On tab hide actions
+        $(target).on('custom:hide', (e) => {
+            console.log("Hiding");
+            datatable.destroy();
+        });
+    } else {
+        buildGanttChart();
+    }
+});
+
+function buildResourcePopup() {
+    console.log("Build resource popup");
+    let popup = $('#resourcePopup');
+
+    // Preps resource form
+    resetResourcePopup(popup);
+
+    // Computes total
+    popup.find('[name="quantity"], [name="price"]').on('keyup', (e) => {
+        console.log("Key press");
+        popup.find('[name="total"]').val(popup.find('[name="price"]').val() * popup.find('[name="quantity"]').val());
+    });
+    
+    // On dismiss listener
+    popup.on('custom:dismissPopup', (e) => {
+        console.log("Project Resource Popup dismissed");
+
+        // Removes submit event of task form
+        popup.find('#itemForm').off('submit');
+        popup.find('[name="quantity"], [name="price"]').off('keyup');
+
+        resetResourcePopup(popup);
+    });
+
+    Popup.initialize(popup);
+
+    return popup;
+}
+
+function resetResourcePopup(popup) {  
+    popup.find('[name="item"]').val('');
+    popup.find('[name="quantity"]').val('');
+    popup.find('[name="price"]').val('');
+    popup.find('[name="total"]').val('');
+    popup.find('[name="note"]').val('');
+    popup.find('[name="id"]').val('');
+}
+
+$('#addResource').on('click', (e) => {
+    console.log("Add resource");
+    let popup = buildResourcePopup();
+
+    popup.find('#itemForm').on('submit', (e) => {
+        e.preventDefault();
+        console.log("Submit resource");
+
+        $.post(
+            Settings.base_url + "/resource/new",
+            {form : function () {return $(e.target).serialize();}},
+            function (data, textStatus) {
+                console.log(data);
+                console.log("Add Response");
+                let response = JSON.parse(data);
+                console.log(response);
+
+                if (response.statusCode == 200) 
+                {   // Dismiss legend's form and reload legends list on success
+                    popup.find('button[data-dismiss]').trigger('click');
+
+                    // Reload resources
+                    $("#resourceTable").dataTable().api().ajax.reload(null, false);
+                }
+                else
+                {   // Shows alert on fail
+                    popup.find('.alert-danger')
+                        .addClass('show')
+                        .text(response.message);
+                }
+            }
+        );
+    });
+
+    Popup.show(popup);
+});
+

@@ -70,7 +70,7 @@
 
                     <div class="form-input-group">
                         <label for="">Work Description</label>
-                        <textarea name="description" id="" rows="1" readonly><?= $data['description'] ?></textarea>
+                        <textarea name="description" rows="1" readonly><?= $data['description'] ?></textarea>
                     </div>
 
                     <div class="form-input-group">
@@ -195,7 +195,7 @@
                 margin: 0;
             }
 
-            .main-content header, .main-content footer {
+            .timeline header, .timeline footer {
                 padding: 1rem 20px;
             }
 
@@ -209,6 +209,10 @@
                 position: absolute;
                 top: 0;
                 left: 0;
+            }
+
+            .main-content header h5 {
+                font-size: 1rem;
             }
         </style>
 
@@ -569,12 +573,51 @@
         <!-- Resources -->
         <section id="projectResources" class="main-content custom-tab-content">
 
+            <!-- <div class="linear-container">
+                <form action="" class="linear" id="itemForm">
+                    <div class="form-group basis-12">
+                        <label for="">Item name</label>
+                        <input type="text" class="form-control" name="">
+                    </div>
+
+                    <div class="form-group basis-4">
+                        <label for="">Quantity</label>
+                        <input type="number" class="form-control" name="" min=0 oninput="validity.valid||(value='');">
+                    </div>
+                    
+                    <div class="form-group basis-4 flex-shrink-0">
+                        <label for="">Price per item (PHP)</label>
+                        <input type="number" class="form-control" name="" min=0 oninput="validity.valid||(value='');">
+                    </div>
+
+                    <div class="form-group basis-4">
+                        <label for="">Total Amount</label>
+                        <input type="number" class="form-control" name="" readonly>
+                    </div>
+
+                    <div class="form-group basis-8">
+                        <label for="">Note</label>
+                        <textarea class="form-control"></textarea>
+                    </div>
+
+                    <button class="basis-2  btn block-btn action-btn">Add</button>
+                </form>
+            </div> -->
+
+            <header class="linear">
+                <h5>Materials used</h5>
+                <button id="addResource" type="button" class="btn action-btn sm-btn">
+                    <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                    Add material
+                </button>
+            </header>
+
             <!-- Resources Table -->
             <div class="mesa-container">                
-                <table class="mesa">
+                <table class="mesa" id="resourceTable">
                     <thead class="mesa-head">
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col"></th>
                             <th scope="col" class="tname"><strong>Item Name</strong></th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Price per item (PHP)</th>
@@ -583,7 +626,7 @@
                             <th scope="col" class="table-action-col"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <!-- <tbody>
                         <tr>
                             <th scope="row">1</th>
                             <td><strong>Patatas</strong></td>
@@ -664,14 +707,9 @@
                                 </div>
                             </td>
                         </tr>
-                    </tbody>
+                    </tbody> -->
                 </table>
             </div>
-
-            <button type="button" class="btn action-btn slim-btn align-self-start">
-                <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
-                Add resource
-            </button>
         </section>
         
         <!-- People -->
@@ -974,10 +1012,10 @@
 
 <!-- Task -->
 <div class="popup" id="taskPopup" tabindex="-1" aria-hidden="true">
-    <div class="pcontainer popup-lg">
-        <div class="pcontent">
+    <div class="pcontent">
             <div class="pmain">
 
+            <div class="pcontainer popup-lg">
                 <header class="pheader">
                     <h2 class="ptitle">Task</h2>
                     <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
@@ -1019,18 +1057,18 @@
                         </button>
                     </span>
                     <div class="tb-date">
-                        <input type="date" name="planStart" id="" value="<?= date('Y-m-d') ?>">
+                        <input type="date" name="planStart" value="<?= date('Y-m-d') ?>">
                         -
-                        <input type="date" name="planEnd" id="" value="<?= date('Y-m-d') ?>">
+                        <input type="date" name="planEnd" value="<?= date('Y-m-d') ?>">
                     </div>
                 </div>
 
                 <div class="form-input-group task-activity">
                     <label for="">Actual</label>
                     <div class="tb-date">
-                        <input type="date" name="" id="">
+                        <input type="date" name="">
                         -
-                        <input type="date" name="" id="">
+                        <input type="date" name="">
                     </div>
                 </div> -->
             </div>
@@ -1119,6 +1157,62 @@
 
             <div class="pfooter">
                 <button type="submit" name="doneSubmit" form="doneForm" class="btn success-btn">Confirm</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Resource -->
+<div class="popup popup-center" id="resourcePopup" tabindex="-1" aria-hidden="true">
+    <div class="pcontainer">
+        <div class="pcontent">
+            <div class="pheader">
+                <h2 class="ptitle">Add Material</h2>
+                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <div class="linear-container pbody">
+
+                <!-- Alert -->
+                <div class="alert alert-danger mb-0" role="alert"></div>
+
+                <!-- Content -->
+                <form action="" class="linear" id="itemForm">
+                    <div class="form-group basis-12">
+                        <label for="">Item name</label>
+                        <input type="text" class="form-control" name="item">
+                    </div>
+
+                    <div class="form-group basis-4">
+                        <label for="">Quantity</label>
+                        <input type="number" class="form-control" name="quantity" min=0 oninput="validity.valid||(value='');">
+                    </div>
+                    
+                    <div class="form-group basis-4">
+                        <label for="">Price per item (PHP)</label>
+                        <input type="number" class="form-control" name="price" step="any" min=0 oninput="validity.valid||(value='');">
+                    </div>
+
+                    <div class="form-group basis-4">
+                        <label for="">Total Amount</label>
+                        <input type="number" class="form-control" name="total" readonly min=0 oninput="validity.valid||(value='');">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Note</label>
+                        <textarea class="form-control" name="note" rows="1"></textarea>
+                    </div>
+
+                    <input type="hidden" name="id" id="">
+                    <input type="hidden" name="projId" value="<?= $data['id'] ?>">
+                </form>
+            </div>
+
+            <div class="pfooter">
+                <button type="submit" form="itemForm" class="btn action-btn">Submit</button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
             </div>
         </div>

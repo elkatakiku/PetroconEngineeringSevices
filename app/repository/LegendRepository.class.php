@@ -6,9 +6,7 @@ use Core\Repository;
 use Model\Legend;
 
 class LegendRepository extends Repository {
-
-    private static $tblTaskBar = "tbl_taskbar";
-    private static $tblTask = "tbl_task";
+    
     private static $tblLegend = "tbl_legend";
 
     public function create(Legend $legend) {

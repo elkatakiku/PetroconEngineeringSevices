@@ -121,137 +121,6 @@ $(".popup").click((e) => {
     }
 });
 
-// Animates popup container to center
-// function animate(popup) {
-//     console.log("Animating popup");
-//     popup.find('.pcontainer')
-//         .css({
-//             top: '-' + popup.find('.pcontainer').height() + 'px'
-//         })
-//         .animate({
-//             top: "0"
-//         }, 300, "swing");
-// }
-
-// Shows popup
-// function show(popup) {
-//     console.log("Popup button clicked");
-//     console.log(popup);
-    
-//     popup.addClass("show");
-
-//     if (popup.hasClass("popup-center")) {
-//         console.log("Popup Center");
-//         animate(popup);
-//         $("body").addClass("popup-open");
-//     } else if(!popup.hasClass("popup-contained")) {   
-//         $("body").addClass("popup-open");
-//     } else {
-//         let container = popup.find('.pcontainer');
-//         container.css({
-//             'top': container.data('top'),
-//             'right': container.data('right'),
-//             'bottom': container.data('bottom'),
-//             'left': container.data('left'),
-//         });
-//     }
-
-//     popup.trigger('custom:show');
-// }
-
-// Hides popup
-// function hide(e) {
-//     console.log("Hide popup");
-//     // console.log(e.target);
-//     let popup = $(e.target).closest(".popup.show");
-//     // console.log("Opened popup");
-//     // console.log(popup);
-
-//     if (popup.hasClass("popup-center")) {
-//         popup.find('.pcontainer').animate({
-//                 top: '-' + popup.find('.pcontainer').height() + 'px'
-//             }, 300, "swing", () => {
-//                 remove(popup);
-//             });
-//         return;
-//     }
-
-//     remove(popup);
-// }
-
-// Removes popup
-// function remove(popup) {
-    
-//     if ($('.popup.show').length <= 1) {
-//         $("body").removeClass("popup-open");
-//     }
-    
-//     popup.removeClass("show");
-//     $(".popup-backdrop").remove();
-    
-//     popup.trigger('custom:dismissPopup');
-    
-//     // Dynamic Popup
-//     if (popup.is($('#legendPopup'))) {
-//         popup.remove();
-//     }
-
-// }
-
-// Initialize popup listeners
-// function initializePopup(popup) {
-//     popup.find('button[data-dismiss]').on('click', Popup.hide);
-
-//     popup.on('custom:dismissPopup', (e) => {
-//         popup.off('custom:show');
-//         popup.off('custom:dismissPopup');
-//     });
-// }
-
-// || Delete Popup
-// function generateDeletePopup(item) { 
-//     let popup = $(
-//         '<div class="popup popup-center show popup-delete" id="deletePopup" tabindex="-1" aria-hidden="true">' +
-//             '<div class="pcontainer popup-sm">' +
-//                 '<div class="pcontent">' +
-//                     '<div class="pheader">' +
-//                         '<h2 class="ptitle">Delete ' + item + '</h2>' +
-//                         '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
-//                             '<span class="material-icons">close</span>' +
-//                         '</button>' +
-//                     '</div>' +
-        
-//                     '<div class="pbody">' +
-//                         '<form action="#" id="deleteForm">' +
-//                             '<input type="hidden" name="id">' +
-//                         '</form>' +
-//                         '<p>Are you sure you want to delete this ' + item + '?</p>' +
-//                     '</div>' +
-        
-//                     '<div class="pfooter">' +
-//                         '<button type="submit" form="deleteForm" class="btn danger-btn">Delete</button>' +
-//                         '<button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>' +
-//                     '</div>' +
-//                 '</div>' +
-//             '</div>' +
-//         '</div>'
-//     );
-
-//     $('body').append(popup);
-
-//     // Listeners
-//     Popup.initializePopup(popup);
-
-//     popup.on('custom:dismissPopup', (e) => {
-//         console.log("Delete dismiss");
-//         popup.find('#deleteForm').off('submit');
-//         popup.remove();
-//     });
-
-//     return popup;
-// }
-
-
 // || Tab
 const TAB = "custom-tab";
 
@@ -268,6 +137,8 @@ function switchTab (btn) {
     console.log("Button: " + targetTabId);
     console.log("Tab: " + currentTabId);
 
+    $('.nav-tab').trigger('custom:tabChange', [currentTab, targetTabId]);
+
     if (targetTabId !== currentTabId) {
         // Removes active to tab button
         console.log("removing active to tab nav");
@@ -276,6 +147,7 @@ function switchTab (btn) {
         // Hide current open tab
         console.log("removing show to tab");
         currentTab.removeClass("show");
+        currentTab.trigger('custom:hide');
 
         // Set tab button to active
         console.log("adding active to tab nav");
