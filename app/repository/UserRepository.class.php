@@ -125,37 +125,31 @@ class UserRepository extends Repository {
         return $result;
     }
 
-    public function getLogin($username) {
+    public function getLogin($username) 
+    {   
         $sql = "SELECT *
                 FROM 
                     ".self::$tblLogin." 
                 WHERE 
-                    username = :username;";
+                    username = :username
+                LIMIT 1";
 
-        // Prepare
-        $stmt = $this->connect()->prepare($sql);
-
-        // Bind
-        $stmt->bindParam(':username', $username);
+        $params = [':username' => $username];
 
         $result = false;
-
-        if($stmt->execute()) {
-            if ($row = $stmt->fetch()) {
-                $result = Login::build(
-                    $row['id'],
-                    $row['username'],
-                    $row['password']
-                );
-            }
+        if ($row = $this->query($sql, $params)[0]) {
+            $result = Login::build(
+                $row['id'],
+                $row['username'],
+                $row['password']
+            );
         }
-        
-        // Closes pdo connection
-        $stmt = null;
+
         return $result;
     }
 
-    public function getAccount($logId) {
+    public function getAccount($logId) 
+    {
         $sql = "SELECT *
                 FROM
                     ".self::$tblAccount." tA  INNER JOIN ".self::$tblLogin." tL

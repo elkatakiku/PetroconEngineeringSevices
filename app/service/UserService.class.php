@@ -21,13 +21,14 @@ class UserService {
     }
 
     // Login
-    public function login($input) {
-
+    public function login($input) 
+    {
         $result = new Result();
 
-        if ($login = $this->userRepository->getLogin($input['username'])) {
-            if (password_verify($input['password'], $login->getPassword())) {
-
+        if ($login = $this->userRepository->getLogin($input['username']))
+        {
+            if (password_verify($input['password'], $login->getPassword())) 
+            {
                 $account = $this->userRepository->getAccount($login->getId());
 
                 $_SESSION["accID"] = $account->getId();

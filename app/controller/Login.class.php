@@ -23,7 +23,7 @@ class Login extends MainController {
     }
 
     // Login
-    public function login() {
+    public function run() {
         // Redirect to login if not logging in
         if (!isset($_POST['loginSubmit'])) {
             $this->view("auth", "login");
@@ -36,11 +36,10 @@ class Login extends MainController {
             "password" => $this->sanitizeString($_POST['passwordInput'])
         ];
 
-        if (!$this->emptyInput($inputs)) {
-
-            if ($this->userService->login($inputs)->isSuccess()) {
-
-                // Redirects user to their respective landing page
+        if (!$this->emptyInput($inputs)) 
+        {
+            if ($this->userService->login($inputs)->isSuccess()) 
+            {   // Redirects user to their respective landing page
                 switch ($_SESSION["accType"]) {
                     case AccountModel::ADMIN_TYPE:
                         header("Location: ".SITE_URL.US."dashboard");

@@ -12,10 +12,6 @@ export function animate(popup) {
         }, 300, "swing");
 }
 
-export function wew(p) {  
-    console.log("Show popup");
-}
-
 // Shows popup
 export function show(popup) {
     console.log("Show popup");
@@ -151,7 +147,6 @@ export function generateDeletePopup(item) {
 
     return popup;
 }
-
 
 // Show delete popup
 export function promptDelete(item, id, callback, preventDefault = false) {  

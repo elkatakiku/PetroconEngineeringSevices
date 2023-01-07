@@ -17,7 +17,7 @@
             </div>
             
             <div class="col-lg-5 col-md-6 col-12">
-                <form class="form-login" action="<?= SITE_URL ?>/auth/login" method="post">
+                <form class="form-login" action="<?= SITE_URL ?>/login/run" method="post">
 
                     <header class="login-header">
                         <h2>Login</h2>
