@@ -3,16 +3,19 @@
 namespace Service;
 
 // Models
+
+use Core\Service;
 use \Model\Result as Result;
 use \Model\Login as Login;
 use \Model\Register as Register;
 use \Model\Account as Account;
+use \Model\Users as Users;
 
 // Tools
 use DateTime;
 
 
-class UserService {
+class UserService extends Service{
 
     private $userRepository;
 
@@ -50,6 +53,7 @@ class UserService {
 
     // Signup
     public function signup($input) {
+        echo __METHOD__;
         $result = new Result();
 
         if (!$this->validUsername($input["username"])) {
@@ -99,8 +103,8 @@ class UserService {
         $signupResult = $this->setUser($login, $register, $account);
         if ($signupResult->isSuccess()) {
             // Account creation success
-            header("Location: ".SITE_URL."/login?signup=success");
-            exit();
+            // header("Location: ".SITE_URL."/login?signup=success");
+            // exit();
             $result->setStatus(true);
             return $result;
         } else {
@@ -137,10 +141,104 @@ class UserService {
 
     // Verify
 
+
+    // Get
+    public function getUser($userId) {
+        $cleanId = $this->sanitizeString($userId);
+
+        if ($cleanId) {
+            // Gets the user
+            if ($profile = $this->userRepository->getUser($userId)) {
+                $response['data'] = $profile;
+                $response['statusCode'] = 200;
+             } else {
+                $response['statusCode'] = 500;
+            }
+        } else {
+            $response['statusCode'] = 400;
+        }
+        return json_encode($response);
+    }
+    
+    //Update User
+    public function updateUser($userInfo) 
+    {       
+        if (!$this->emptyInput($userInfo['required'])) {
+            $this->userRepository->update(array_merge($userInfo['required'], $userInfo['notRequired']));
+            $response['statusCode'] = 200;
+        } else {
+            $response['message'] = "Please fill all the required inputs";
+            $response['statusCode'] = 400;
+        }
+
+        return json_encode($response);
+    }
+
+    // Changes password
+    public function changePassword(array $form)
+    {
+        $input = [
+            'id' => $this->sanitizeString($form['id']),
+            'oldPass' => $this->sanitizeString($form['oldPass']),
+            'newPass' => $this->sanitizeString($form['newPass']),
+            'newPassRepeat' => $this->sanitizeString($form['newPassRepeat'])
+        ];
+
+        if (!$this->emptyInput($input)) {
+            $login = $this->userRepository->getLoginById($input['id']);
+
+            if (!password_verify($input['oldPass'], $login->getPassword())) 
+            {
+                $response['statusCode'] = 400;
+                $response['message'] = "Current password is incorrect.";
+            } 
+            else if ($input['newPass'] !== $input['newPassRepeat']) 
+            {
+                $response['statusCode'] = 400;
+                $response['message'] = "New password is does not match.";
+            } else {   
+                $this->userRepository->changePassword($input['newPass'], $input['id']);
+                $response['statusCode'] = 200;
+            }
+        } else {
+            $response['statusCode'] = 400;
+            $response['message'] = "Please fill all the required inputs.";
+        }
+
+        return json_encode($response);
+    }
+
     // Update
 
-    
+    // Get User List
+    public function getUserList($form) { //form 
+        // parse_str($form, $input);
 
+        // if (!$this->emptyInput($input)) 
+        // {            
+        //     if ($input['status'] == "done") {
+        //         $input['status'] = 1;
+        //     } else if ($input['status'] == "ongoing") {
+        //         $input['status'] = 0;
+        //     }
+
+        //     if (
+                $projects = $this->userRepository->getUsers($form);
+        //         ) {
+                $response['data'] = $projects;
+        //         $response['statusCode'] = 200;
+        //     } else {
+        //         $response['statusCode'] = 500;
+        //         $response['message'] = 'An error occured';
+        //     }
+        // } else {
+        //     $response['statusCode'] = 400;
+        // }
+    
+        return json_encode($response);
+
+
+    }
     // Inputs validation
     private function validUsername($username) {
         return preg_match("/^[a-zA-Z0-9]*$/", $username);
