@@ -488,8 +488,7 @@ ul .chart-li-seven-t2 {
     width: calc(50% - (.75rem/2));
 }
 
-[data-legend="edit"] .pfooter .btn.neutral-outline-btn,
-.pside .pfooter .btn:nth-child(3) {
+[data-legend="edit"] .pfooter .btn.neutral-outline-btn {
     width: 100%;
 }
 

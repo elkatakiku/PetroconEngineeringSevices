@@ -232,6 +232,7 @@ let dtTable = {
             }, 3000);
             
             // Delete task actions
+            popup.find('.pfooter .btn.delete-btn').show();
             popup.find('.delete-btn').click(() => {
                 console.log("DELETE CLICKED");
                 console.log("Delete data");
@@ -277,6 +278,8 @@ let dtTable = {
                 // Clears task reload interval
                 clearInterval(taskInterval);
             });
+
+            popup.find('.pfooter .btn.neutral-outline-btn').css('width', '100%');
 
             // Finally shows popup
             Popup.show(popup);
@@ -425,7 +428,8 @@ $('#addTask').click((e) => {
     );
 
     // Displays task form
-    popup.find('.pfooter .btn.danger-btn').remove();
+    popup.find('.pfooter .btn.delete-btn').hide();
+    popup.find('.pfooter .btn.neutral-outline-btn').css('width', '');
     Popup.show(popup);
 
     // Task submit action
@@ -1563,69 +1567,77 @@ let datatableSettings = {
                 console.log("TR CLICKED");
     
                 let dt = this.api();
-    
                 let row = $(e.target).parents('tr');
                 let rowData = dt.row(row).data();
-                let rowDisplay = dt.cells( row, '' ).render( 'display' );    
+                // let rowDisplay = dt.cells( row, '' ).render( 'display' );    
                 
                 let popup = buildResourcePopup();
-
-                console.log(rowData);
+                popup.find('.pfooter .btn.delete-btn').show();
 
                 popup.find('[name="id"]').val(rowData.id);
                 popup.find('[name="item"]').val(rowData.item);
                 popup.find('[name="quantity"]').val(rowData.quantity);
                 popup.find('[name="price"]').val(rowData.price);
                 popup.find('[name="total"]').val(rowData.total);
-                popup.find('[name="note"]').val(rowData.notes);
+                popup.find('[name="notes"]').val(rowData.notes);
                 
                 // Delete task actions
                 popup.find('.delete-btn').click(() => {
                     console.log("DELETE CLICKED");
-                    console.log("Delete data");
-                    console.log(rowData);
-                    deleteTask(popup, rowData.id, dt);
+                    Popup.promptDelete('resource', rowData.id, (deletePopup) => {
+                        $.post(
+                            Settings.base_url + "/resource/remove",
+                            {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+                            function (data, textStatus) {
+                                console.log("Response delete");
+                                console.log(data);
+                                let jsonData = JSON.parse(data);
+                                if (jsonData.statusCode == 200) 
+                                {   // Dismiss delete popup and reload legends list on success
+                                    deletePopup.find('button[data-dismiss]').trigger('click');
+
+                                    deletePopup.on('custom:dismissPopup', (e) => {
+                                        popup.find('button[data-dismiss]').trigger('click');
+                                    });
+                                
+                                    // Reload tasks
+                                    dt.ajax.reload(null, false);
+                                }
+                            }
+                        );
+                    }, true);
                 });
     
-                // Task submit action 
-                popup.find('#taskForm').submit((e) => {
+                // Submit action 
+                popup.find('#itemForm').submit((e) => {
                     e.preventDefault();
     
                     $.post(
-                        Settings.base_url + "/task/update",
-                        {
-                            form : getTaskData($(e.target)),
-                            deleted : JSON.stringify(deletedActivities)
-                        },
-                        function (response, status) {
+                        Settings.base_url + "/resource/update",
+                        {form : function () {return $(e.target).serialize();}},
+                        function (data, textStatus) {
+                            console.log(data);
                             console.log("Edit Response");
-                            let data = JSON.parse(response);
-                            if (data.statusCode == 200) 
+                            let response = JSON.parse(data);
+                            console.log(response);
+
+                            if (response.statusCode == 200) 
                             {   // Dismiss legend's form and reload legends list on success
                                 popup.find('button[data-dismiss]').trigger('click');
-    
-                                // Reload tasks
-                                dt.ajax.reload(null, false);
+
+                                // Reload resources
+                                $("#resourceTable").dataTable().api().ajax.reload(null, false);
                             }
                             else
                             {   // Shows alert on fail
                                 popup.find('.alert-danger')
                                     .addClass('show')
-                                    .text(data.message);
+                                    .text(response.message);
                             }
-    
-                            console.log("Response");
-                    });
+                        }
+                    );
                 });
-        
-                // On dismiss listener
-                popup.on('custom:dismissPopup', (e) => {
-                    console.log("Task edit dismissed");
-                    
-                    // Clears task reload interval
-                    clearInterval(taskInterval);
-                });
-    
+
                 // Finally shows popup
                 Popup.show(popup);
             });
@@ -1696,9 +1708,10 @@ function buildResourcePopup() {
     popup.on('custom:dismissPopup', (e) => {
         console.log("Project Resource Popup dismissed");
 
-        // Removes submit event of task form
+        // Removes events of resource popup
         popup.find('#itemForm').off('submit');
         popup.find('[name="quantity"], [name="price"]').off('keyup');
+        popup.find('.delete-btn').off();
 
         resetResourcePopup(popup);
     });
@@ -1713,14 +1726,14 @@ function resetResourcePopup(popup) {
     popup.find('[name="quantity"]').val('');
     popup.find('[name="price"]').val('');
     popup.find('[name="total"]').val('');
-    popup.find('[name="note"]').val('');
+    popup.find('[name="notes"]').val('');
     popup.find('[name="id"]').val('');
 }
 
 $('#addResource').on('click', (e) => {
     console.log("Add resource");
     let popup = buildResourcePopup();
-
+    
     popup.find('#itemForm').on('submit', (e) => {
         e.preventDefault();
         console.log("Submit resource");
@@ -1751,6 +1764,7 @@ $('#addResource').on('click', (e) => {
         );
     });
 
+    popup.find('.pfooter .btn.delete-btn').hide();
     Popup.show(popup);
 });
 

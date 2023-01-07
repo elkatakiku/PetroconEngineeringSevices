@@ -151,3 +151,19 @@ export function generateDeletePopup(item) {
 
     return popup;
 }
+
+
+// Show delete popup
+export function promptDelete(item, id, callback, preventDefault = false) {  
+    console.log("Delete popup");
+    let deletePopup = generateDeletePopup(item);
+
+    deletePopup.find('input[name="id"]').val(id);
+    deletePopup.find('#deleteForm').on('submit', (e) => {
+        if (preventDefault) {e.preventDefault();}
+        console.log("Submit delete");
+        callback(deletePopup);
+    });
+
+    show(deletePopup);
+}

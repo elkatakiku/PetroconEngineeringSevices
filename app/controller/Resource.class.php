@@ -26,7 +26,14 @@ class Resource extends MainController {
     public function update()
     {
         if (isset($_POST['form'])) {
-            echo $this->resourceService->new($_POST['form']);
+            echo $this->resourceService->update($_POST['form']);
+        }
+    }
+
+    public function remove()
+    {
+        if (isset($_POST['form'])) {
+            echo $this->resourceService->remove($_POST['form']);
         }
     }
 

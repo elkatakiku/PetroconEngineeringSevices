@@ -31,6 +31,48 @@ class ResourceRepository extends Repository {
         return $this->query($sql, $params);
     }
 
+    public function update(array $resource)
+    {
+        // Query
+        $sql = 'UPDATE 
+                    '.self::$tblResource.'
+                SET 
+                    item = :item, quantity = :quantity, price = :price,
+                    total = :total, notes = :notes
+                WHERE 
+                    id = :id';
+
+        // Parameters' (:parameter) value
+        $params = [
+            ':item' => $resource['item'],
+            ':quantity' => $resource['quantity'],
+            ':price' => $resource['price'],
+            ':total' => $resource['total'],
+            ':notes' => $resource['notes'],
+            ':id' => $resource['id']
+        ];
+        
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function remove(string $id) 
+    {
+        $sql = 'UPDATE 
+                    '.self::$tblResource.'
+                SET 
+                    active = :active
+                WHERE
+                    id = :id';
+
+        $params = [
+            ':id' => $id,
+            ':active' => false
+        ];
+
+        return $this->query($sql, $params);
+    }
+
     public function getActiveResources(string $projectId)
     {
         $sql = "SELECT * 

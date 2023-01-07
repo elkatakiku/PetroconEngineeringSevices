@@ -155,8 +155,7 @@ class TaskService extends Service{
         return json_encode($result);
     }
 
-    public function getTasksDetails(string $projectId)
-    {
+    public function getTasksDetails(string $projectId) {
         $cleanId = $this->sanitizeString($projectId);
 
         if ($cleanId) {

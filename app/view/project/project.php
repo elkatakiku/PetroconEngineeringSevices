@@ -1012,12 +1012,12 @@
 
 <!-- Task -->
 <div class="popup" id="taskPopup" tabindex="-1" aria-hidden="true">
-    <div class="pcontent">
+    <div class="pcontainer popup-lg">
+        <div class="pcontent">
             <div class="pmain">
 
-            <div class="pcontainer popup-lg">
                 <header class="pheader">
-                    <h2 class="ptitle">Task</h2>
+                    <h2 class="ptitle">Task 1</h2>
                     <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
                         <span class="material-icons">close</span>
                     </button>
@@ -1029,22 +1029,18 @@
                 </div>
                 
                 <form id="taskForm">
-                    <input type="hidden" name="id">
-                    <input type="hidden" name="order">
+                    <input type="hidden" name="id" value="PTRCN-TSK-63b3fe4123497">
+                    <input type="hidden" name="order" value="1">
 
                     <h5>Description</h5> 
                     <div class="form-input-group">
-                        <textarea class="form-control" name="taskDesc" rows="1"  placeholder="Type the task description here"></textarea>
+                        <textarea class="form-control" name="taskDesc" rows="1" placeholder="Type the task description here" style="min-height: 1rem; height: 34px; overflow-y: hidden;"></textarea>
                     </div>
                     
                     <h5>Activity</h5>
 
-                    <div id="taskActivities">
-
-                    </div>
-                    <div id="newActivities">
-
-                    </div>
+                    <div id="taskActivities"><div class="form-input-group task-activity" id="PTRCN-TSKBR-63b3fe413440f" style="border-color: rgba(2, 106, 167, 0.4); box-shadow: rgba(2, 106, 167, 0.4) 0px 1px 5px;"><span class="linear-label"><label for="" style="color: rgb(2, 82, 129);">Plan</label><button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close"><span class="material-icons">close</span></button></span><input type="hidden" name="legendId" value="PTRCN-LGND-63b3fe007bff8" style="border-bottom-color: rgb(2, 82, 129);"><div class="tb-date"><input type="date" name="start" value="2023-01-03" style="border-bottom-color: rgb(2, 82, 129);">-<input type="date" name="end" value="2023-01-06" style="border-bottom-color: rgb(2, 82, 129);"></div></div></div>
+                    <div id="newActivities"></div>
 
                     <div id="samp"></div>
                 </form>
@@ -1057,18 +1053,18 @@
                         </button>
                     </span>
                     <div class="tb-date">
-                        <input type="date" name="planStart" value="<?= date('Y-m-d') ?>">
+                        <input type="date" name="planStart" id="" value="2023-01-07">
                         -
-                        <input type="date" name="planEnd" value="<?= date('Y-m-d') ?>">
+                        <input type="date" name="planEnd" id="" value="2023-01-07">
                     </div>
                 </div>
 
                 <div class="form-input-group task-activity">
                     <label for="">Actual</label>
                     <div class="tb-date">
-                        <input type="date" name="">
+                        <input type="date" name="" id="">
                         -
-                        <input type="date" name="">
+                        <input type="date" name="" id="">
                     </div>
                 </div> -->
             </div>
@@ -1091,31 +1087,7 @@
                     <div class="pbody">
                         <i class="fa fa-search" aria-hidden="true"></i>
 
-                        <div id="legends" class="legends-container">
-                            <div class="task-legend">
-                                <span class="leg-color" data-color="#026aa7"></span>
-                                <span class="leg-title">Plan</span>
-                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
-                                    <span class="material-icons">edit</span>
-                                </button>
-                            </div>
-
-                            <div class="task-legend">
-                                <span class="leg-color" data-color="#5aac44"></span>
-                                <span class="leg-title">Actual</span>
-                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
-                                    <span class="material-icons">edit</span>
-                                </button>
-                            </div>
-
-                            <div class="task-legend">
-                                <span class="leg-color" data-color="#f5dd29"></span>
-                                <span class="leg-title">Sample</span>
-                                <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
-                                    <span class="material-icons">edit</span>
-                                </button>
-                            </div>
-                        </div>
+                        <div id="legends" class="legends-container"><div class="task-legend"><span class="leg-color" data-color="#026aa7" style="background-color: rgb(2, 106, 167);"></span><span class="leg-title" style="background-color: rgb(2, 106, 167);">Plan</span><button class="btn icon-btn leg-edit" data-toggle="legend" data-target="PTRCN-LGND-63b3fe007bff8"><span class="material-icons">edit</span></button></div><div class="task-legend"><span class="leg-color" data-color="#5aac44" style="background-color: rgb(90, 172, 68);"></span><span class="leg-title" style="background-color: rgb(90, 172, 68);">Actual</span><button class="btn icon-btn leg-edit" data-toggle="legend" data-target="PTRCN-LGND-63b3fe007bffc"><span class="material-icons">edit</span></button></div><div class="task-legend"><span class="leg-color" data-color="#ff8ed4" style="background-color: rgb(255, 142, 212);"></span><span class="leg-title" style="background-color: rgb(255, 142, 212);">Penk</span><button class="btn icon-btn leg-edit" data-toggle="legend" data-target="PTRCN-LGND-63b7a3a59a0f9"><span class="material-icons">edit</span></button></div></div>
 
                         <button class="btn light-btn btn-block slim-btn" data-toggle="legend">
                             Create legend
@@ -1164,7 +1136,7 @@
 </div>
 
 <!-- Resource -->
-<div class="popup popup-center" id="resourcePopup" tabindex="-1" aria-hidden="true">
+<div class="popup" id="resourcePopup" tabindex="-1" aria-hidden="true">
     <div class="pcontainer">
         <div class="pcontent">
             <div class="pheader">
@@ -1203,16 +1175,19 @@
 
                     <div class="form-group">
                         <label for="">Note</label>
-                        <textarea class="form-control" name="note" rows="1"></textarea>
+                        <textarea class="form-control" name="notes" rows="1"></textarea>
                     </div>
 
-                    <input type="hidden" name="id" id="">
+                    <input type="hidden" name="id">
                     <input type="hidden" name="projId" value="<?= $data['id'] ?>">
                 </form>
             </div>
 
             <div class="pfooter">
-                <button type="submit" form="itemForm" class="btn action-btn">Submit</button>
+                <button type="submit" form="itemForm" class="btn action-btn">Save</button>
+                <button type="button" class="btn danger-btn delete-btn">
+                    Delete
+                </button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
             </div>
         </div>
