@@ -44,3 +44,17 @@ export function autoHeight(input) {
     input.style.height = (input.scrollHeight) + "px";
     input.style.overflowY = "hidden";
 }
+
+// Read a page's GET URL variables and return them as an associative array.
+export function getUrlVars()
+{
+    let queryParam = {};
+    let hashes = window.location.search.slice(window.location.search.indexOf('?') + 1).split('&');
+    for(let i = 0; i < hashes.length; i++)
+    {
+        let hash = hashes[i].split('=');
+        queryParam[hash[0]] = hash[1];
+    }
+
+    return queryParam;
+}

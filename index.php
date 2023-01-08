@@ -3,7 +3,7 @@
 // Root path
 define('ROOTPATH', __DIR__);
 
-require_once "app/init.php";
+require_once "web/init.php";
 
 // echo ROOTPATH;
 
@@ -47,4 +47,4 @@ require_once "app/init.php";
 // echo "<br>";
 // echo "<br>";
 
-$app = new Core\App();
+$app = new Core\Petrocon();

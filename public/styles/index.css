@@ -48,7 +48,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Header Background Image and Divider */
 .header-design-container {
     width: 50%;
-    height: 750px;
+    height: 100%;
     position: absolute;
     right: 0;
     bottom: 0;

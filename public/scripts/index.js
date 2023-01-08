@@ -387,3 +387,73 @@ for (let i = 0; i < textAreas.length; i++) {
 $("textarea").on("input", function() {
     Utils.autoHeight(this);
 });
+
+// Image Overlay
+if ($(".image-overlay").length > 0) {   
+    $(".image-overlay").css("backgroundImage", "url(" + Settings.base_url + "/public/images/" + $(".image-overlay").attr("data-image") + ")" );
+    $(".image-overlay").css("height", $(".image-overlay").attr("data-height"));
+}
+
+// Cover
+$('.cover-background').css('background-image', 'url("' + Settings.base_url + '/public/images/' + $('.cover-background').data('image') + '")');
+
+
+// || Slider
+// $('.slider').children().each((index, element) => {
+//     console.log(element);
+//     $(element).hide();
+// });
+// $('.slider').find()
+
+$('[data-slider]').on('click', (e) => {
+    $(e.target).prop('disabled', true);
+    let btn = $(e.target);
+    let slider = $(btn.data('slider'));
+    let active = slider.find('div.active');
+    let next = active.next();
+    let prev = active.prev();
+
+    let after = () => {
+        active.removeClass('active');
+        active.css('margin-left', '');
+        btn.trigger('custom:clicked', [btn]);
+    };
+
+    if (btn.data('action') === 'next' && next.index() !== -1) 
+    {
+        $('[data-slider="' + btn.data('slider') +'"][data-action="prev"]').show();
+        next.addClass('active');
+        active.animate({
+            'margin-left' : '-100%'
+        }, after);
+
+        if (next.next() !== -1) {
+            if (typeof btn.attr('form') != 'undefined') {
+                console.log("Submit Form");
+                btn.attr('type', 'submit');
+                btn.text('Submit');
+            } else {
+                console.log(btn.hide());
+            }
+        }
+    } else if (btn.data('action') === 'prev' && prev.index() !== -1) 
+    {
+        $('[data-slider="' + btn.data('slider') +'"][data-action="next"]').show();
+        prev.addClass('active');
+        prev.css('margin-left', '-100%')
+            .animate({
+                'margin-left' : '0'
+            }, after);
+
+        if (prev.prev() !== -1) {
+            console.log("Prev");
+            console.log(btn.hide());
+        }
+    } else {
+        btn.trigger('custom:clicked', [btn]);
+    }
+});
+
+$('button').on('custom:clicked', (e, btn) => {
+    $(e.target).prop('disabled', false);
+});

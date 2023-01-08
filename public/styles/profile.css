@@ -36,10 +36,10 @@
 }
 
 .profile-bg{
-  /* background-image: url("../images/bgheader.jpg"); */
-  /* background-position: 0 20%; */
-  /* background-size: 100% auto; */
-  /* border-radius: 4px 4px 0px 0px; */
+  background-image: url("../images/bgheader.jpg");
+  background-position: 0 20%;
+  background-size: 100% auto;
+  border-radius: 4px 4px 0px 0px;
   height: 300px;
   width: 100%;
   background-color: var(--primary);
@@ -142,3 +142,6 @@
   cursor: pointer;
 }
 
+#proform {
+  padding: 0 10%;
+}
