@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2023 at 03:25 AM
+-- Generation Time: Jan 09, 2023 at 08:26 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -51,7 +51,22 @@ INSERT INTO `lnk_project_plan` (`proj_id`, `leg_id`) VALUES
 ('PTRCN-PRJCT-63ae546cdc190', 'PTRCN-LGND-63ae546cdc29e'),
 ('PTRCN-PRJCT-63ae54c8285e5', 'PTRCN-LGND-63ae54c828972'),
 ('PTRCN-PRJCT-63ae55283c6d9', 'PTRCN-LGND-63ae55283cb11'),
-('PTRCN-PRJCT-63b3fe007bde1', 'PTRCN-LGND-63b3fe007bff8');
+('PTRCN-PRJCT-63b3fe007bde1', 'PTRCN-LGND-63b3fe007bff8'),
+('PTRCN-PRJCT-63bb7b72d1508', 'PTRCN-LGND-63bb7b72d1620'),
+('PTRCN-PRJCT-63bc1cdd12b27', 'PTRCN-LGND-63bc1cdd12d66'),
+('PTRCN-PRJCT-63bc48ea7efe2', 'PTRCN-LGND-63bc48ea7f6bb');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lnk_project_team`
+--
+
+CREATE TABLE `lnk_project_team` (
+  `reg_id` varchar(100) NOT NULL,
+  `proj_id` varchar(100) NOT NULL,
+  `priviledge` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -85,21 +100,43 @@ CREATE TABLE `tbl_account` (
   `id` varchar(100) NOT NULL,
   `type_id` varchar(100) NOT NULL,
   `register_id` varchar(100) NOT NULL,
-  `login_id` varchar(100) NOT NULL
+  `login_id` varchar(100) NOT NULL,
+  `activated` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_account`
 --
 
-INSERT INTO `tbl_account` (`id`, `type_id`, `register_id`, `login_id`) VALUES
-('PTRCN-ACCT-638e56ea9b617', 'PTRCN-TYPE-20221', 'PTRCN-RGSTR-638e56ea9b610', 'PTRCN-USR-638e56ea86b8c'),
-('PTRCN-ACCT-638f7d443068f', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-638f7d4430689', 'PTRCN-USR-638f7d441d81e'),
-('PTRCN-ACCT-6390b2b8ee631', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-6390b2b8ee625', 'PTRCN-USR-6390b2b8d9892'),
-('PTRCN-ACCT-63aca07cd1916', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63aca07cd18fe', 'PTRCN-USR-63aca07cbe658'),
-('PTRCN-ACCT-63b9dca9abff6', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63b9dca9abfef', 'PTRCN-USR-63b9dca998f25'),
-('PTRCN-ACCT-63b9e1b65024a', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63b9e1b650244', 'PTRCN-USR-63b9e1b63da47'),
-('PTRCN-ACCT-63b9e1fa850e6', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63b9e1fa850da', 'PTRCN-USR-63b9e1fa70711');
+INSERT INTO `tbl_account` (`id`, `type_id`, `register_id`, `login_id`, `activated`) VALUES
+('PTRCN-ACCT-638e56ea9b617', 'PTRCN-TYPE-20221', 'PTRCN-RGSTR-638e56ea9b610', 'PTRCN-USR-638e56ea86b8c', 1),
+('PTRCN-ACCT-638f7d443068f', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-638f7d4430689', 'PTRCN-USR-638f7d441d81e', 0),
+('PTRCN-ACCT-6390b2b8ee631', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-6390b2b8ee625', 'PTRCN-USR-6390b2b8d9892', 0),
+('PTRCN-ACCT-63aca07cd1916', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63aca07cd18fe', 'PTRCN-USR-63aca07cbe658', 1),
+('PTRCN-ACCT-63b9dca9abff6', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63b9dca9abfef', 'PTRCN-USR-63b9dca998f25', 0),
+('PTRCN-ACCT-63b9e1b65024a', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63b9e1b650244', 'PTRCN-USR-63b9e1b63da47', 0),
+('PTRCN-ACCT-63b9e1fa850e6', 'PTRCN-TYPE-20224', 'PTRCN-RGSTR-63b9e1fa850da', 'PTRCN-USR-63b9e1fa70711', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_activation`
+--
+
+CREATE TABLE `tbl_activation` (
+  `id` varchar(100) NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `sent_at` timestamp NULL DEFAULT current_timestamp(),
+  `acc_id` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_activation`
+--
+
+INSERT INTO `tbl_activation` (`id`, `code`, `sent_at`, `acc_id`) VALUES
+('PTRCN-ACTVTN-63bacc1acb941', 'c9d4420ac8cd028342002de08ca465cd9cb17fd69ea1127e60799665098b326e', '2023-01-08 13:58:50', 'PTRCN-ACCT-63aca07cd1916'),
+('PTRCN-ACTVTN-63bc1b1b3f240', 'dfa4b5a23533a3e0d9022bd27c76ce63c573542d44262705ba4b9bf0f9fc5c47', '2023-01-09 13:48:11', 'PTRCN-ACCT-63b9e1b65024a');
 
 -- --------------------------------------------------------
 
@@ -190,8 +227,15 @@ INSERT INTO `tbl_legend` (`id`, `color`, `title`, `proj_id`, `created_at`, `acti
 ('PTRCN-LGND-63b1eab1dca27', '#cd8de5', 'Isa Pa Legends', 'PTRCN-PRJCT-63ae55283c6d9', '2023-01-02 04:18:57', 0),
 ('PTRCN-LGND-63b3a18eb930d', '#00aecc', 'Test', 'PTRCN-PRJCT-63ae55283c6d9', '2023-01-03 11:31:26', 0),
 ('PTRCN-LGND-63b3fe007bff8', '#026aa7', 'Plan', 'PTRCN-PRJCT-63b3fe007bde1', '2023-01-03 18:05:52', 1),
-('PTRCN-LGND-63b3fe007bffc', '#5aac44', 'Actual', 'PTRCN-PRJCT-63b3fe007bde1', '2023-01-03 18:05:52', 1),
-('PTRCN-LGND-63b7a3a59a0f9', '#ff8ed4', 'Penk', 'PTRCN-PRJCT-63b3fe007bde1', '2023-01-06 12:29:25', 1);
+('PTRCN-LGND-63b3fe007bffc', '#f5dd29', 'Actual', 'PTRCN-PRJCT-63b3fe007bde1', '2023-01-03 18:05:52', 1),
+('PTRCN-LGND-63b7a3a59a0f9', '#ff8ed4', 'Penk', 'PTRCN-PRJCT-63b3fe007bde1', '2023-01-06 12:29:25', 0),
+('PTRCN-LGND-63bb7b72d1620', '#026aa7', 'Plan', 'PTRCN-PRJCT-63bb7b72d1508', '2023-01-09 10:26:58', 1),
+('PTRCN-LGND-63bb7b72d1623', '#5aac44', 'Actual', 'PTRCN-PRJCT-63bb7b72d1508', '2023-01-09 10:26:59', 1),
+('PTRCN-LGND-63bb7d5df393a', '#ffaf3f', 'Test', 'PTRCN-PRJCT-63bb7b72d1508', '2023-01-09 10:35:09', 1),
+('PTRCN-LGND-63bc1cdd12d66', '#026aa7', 'Plan', 'PTRCN-PRJCT-63bc1cdd12b27', '2023-01-09 21:55:41', 1),
+('PTRCN-LGND-63bc1cdd12d6a', '#5aac44', 'Actual', 'PTRCN-PRJCT-63bc1cdd12b27', '2023-01-09 21:55:41', 1),
+('PTRCN-LGND-63bc48ea7f6bb', '#026aa7', 'Plan', 'PTRCN-PRJCT-63bc48ea7efe2', '2023-01-10 01:03:38', 1),
+('PTRCN-LGND-63bc48ea7f6c0', '#5aac44', 'Actual', 'PTRCN-PRJCT-63bc48ea7efe2', '2023-01-10 01:03:38', 1);
 
 -- --------------------------------------------------------
 
@@ -218,6 +262,20 @@ INSERT INTO `tbl_login` (`id`, `username`, `password`) VALUES
 ('PTRCN-USR-63b9dca998f25', 'asd', '$2y$10$i.XELP1lVWiWmOAywqJIJee3JVlZCAHsPgPtxq630GK5hFV3thnkq'),
 ('PTRCN-USR-63b9e1b63da47', 'sss', '$2y$10$LL7MZ6fHDpJGFqQ.IS1pVe9/hvcBBD81Rporet0cpAPmI4TPViAga'),
 ('PTRCN-USR-63b9e1fa70711', 'arbor', '$2y$10$PFWUCPtAYAlTqhG8FYGLIemPZIr34x8TUhUn7WinxY7byjn9C70Ui');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_payment`
+--
+
+CREATE TABLE `tbl_payment` (
+  `id` varchar(100) NOT NULL,
+  `bill` varchar(255) NOT NULL,
+  `amount` double(10,4) NOT NULL,
+  `sent_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `proj_id` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -268,7 +326,10 @@ INSERT INTO `tbl_project` (`id`, `description`, `location`, `building_number`, `
 ('PTRCN-PRJCT-63ae546cdc190', 'Ad', 'Asd', 'Asd', 0, 1, 'Asd', '2022-12-20 00:00:00', 'Asd', 'Asd', 'asd', '2023-01-03 10:03:34'),
 ('PTRCN-PRJCT-63ae54c8285e5', 'Sdf', 'Sdfsdf', 'Sdfds', 0, 1, 'Asddfsf', '2022-11-30 00:00:00', 'Fsd', 'Sfsd', 'fdsf', '2023-01-03 10:03:34'),
 ('PTRCN-PRJCT-63ae55283c6d9', 'Sdfsd', 'Fsdf', 'Sdsf', 0, 1, 'Sfgsf', '2022-12-21 00:00:00', 'Sfsd', 'Sdf', 'sfs', '2023-01-03 10:03:34'),
-('PTRCN-PRJCT-63b3fe007bde1', 'Installation of extension of main lpg pipeline and additional food tenant at lgf and relocation of main pipeline at ugf and extension of stubouts at 2f and ugf.', 'Robinsons Palace, Antipolo City', 'Blk 5 Lt 54', 1, 1, '3216545', '2023-01-03 00:00:00', 'Pheonix Inc.', 'Ako', '09123456789', '2023-01-06 04:30:12');
+('PTRCN-PRJCT-63b3fe007bde1', 'Installation of extension of main lpg pipeline and additional food tenant at lgf and relocation of main pipeline at ugf and extension of stubouts at 2f and ugf.', 'Robinsons Palace, Antipolo City', 'Blk 5 Lt 54', 1, 1, '3216545', '2023-01-03 00:00:00', 'Pheonix Inc.', 'Ako', '09123456789', '2023-01-09 03:47:07'),
+('PTRCN-PRJCT-63bb7b72d1508', 'Test', 'Test', 'Test', 0, 1, '123', '2023-01-12 00:00:00', 'Test', 'Test', 'Test', '2023-01-09 02:26:58'),
+('PTRCN-PRJCT-63bc1cdd12b27', 'Test', 'Test', 'Test', 0, 1, '20221526', '2023-01-18 00:00:00', 'Test', 'Test', 'Test', '2023-01-09 13:55:41'),
+('PTRCN-PRJCT-63bc48ea7efe2', 'Asd', 'Asd', 'Asd', 0, 0, '20221526', '2023-01-26 00:00:00', 'Asd', 'Asd', 'asd', '2023-01-09 17:07:21');
 
 -- --------------------------------------------------------
 
@@ -296,7 +357,7 @@ INSERT INTO `tbl_register` (`id`, `lastname`, `firstname`, `middlename`, `contac
 ('PTRCN-RGSTR-638e56ea9b610', 'admin', 'admin', 'admin', '09123456789', '2022-12-06', 'admin@email.com', 'PTRCN-USR-638e56ea86b8c', ''),
 ('PTRCN-RGSTR-638f7d4430689', 'Elkatakiku', 'El', 'M', '09123456789', '2000-06-30', 'lamzonelizer1@gmail.com', 'PTRCN-USR-638f7d441d81e', ''),
 ('PTRCN-RGSTR-6390b2b8ee625', 'Lastname', 'Firstname', 'M', '09123456789', '2000-12-07', 'sample@email.com', 'PTRCN-USR-6390b2b8d9892', ''),
-('PTRCN-RGSTR-63aca07cd18fe', 'Cooper', 'Bradley', 'D', '09234567891', '2002-07-04', 'email@email.com', 'PTRCN-USR-63aca07cbe658', 'Bat Wala'),
+('PTRCN-RGSTR-63aca07cd18fe', 'Cooper', 'Bradley', 'D', '09234567891', '2002-07-04', 'elkatakiku@email.com', 'PTRCN-USR-63aca07cbe658', 'Bat Wala'),
 ('PTRCN-RGSTR-63b9dca9abfef', 'Elkatakiku', 'El', 'ASD', '09123456789', '2000-06-23', 'sadsa@asd.com', 'PTRCN-USR-63b9dca998f25', ''),
 ('PTRCN-RGSTR-63b9e1b650244', 'Sssdd', 'Qweee', 'FGGJUY', '09123456789', '2000-01-07', 'ffgg@email.com', 'PTRCN-USR-63b9e1b63da47', ''),
 ('PTRCN-RGSTR-63b9e1fa850da', 'User', 'New', 'EH', '09123456789', '2000-01-07', 'shawty@email.com', 'PTRCN-USR-63b9e1fa70711', '');
@@ -323,14 +384,15 @@ CREATE TABLE `tbl_resource` (
 --
 
 INSERT INTO `tbl_resource` (`id`, `item`, `quantity`, `price`, `total`, `notes`, `proj_id`, `active`) VALUES
-('PTRCN-RSRC-63b8d3f76b0f0', 'Item 1', 5, 12.0000, 60.0000, 'Sample ko to', 'PTRCN-PRJCT-63b3fe007bde1', 1),
-('PTRCN-RSRC-63b8d4102777d', 'Isa pa', 5, 12.0000, 60.0000, 'Sample ko din to', 'PTRCN-PRJCT-63b3fe007bde1', 1),
-('PTRCN-RSRC-63b8d5106fb47', 'Item 3', 20, 2.0000, 40.0000, 'asd', 'PTRCN-PRJCT-63b3fe007bde1', 1),
+('PTRCN-RSRC-63b8d3f76b0f0', 'Item 1', 5, 12.0000, 60.0000, '', 'PTRCN-PRJCT-63b3fe007bde1', 1),
+('PTRCN-RSRC-63b8d4102777d', 'Item 2', 5, 12.0000, 60.0000, '', 'PTRCN-PRJCT-63b3fe007bde1', 1),
+('PTRCN-RSRC-63b8d5106fb47', 'Item 3', 20, 2.0000, 40.0000, '', 'PTRCN-PRJCT-63b3fe007bde1', 1),
 ('PTRCN-RSRC-63b8e79e75958', 'Item 4', 3, 5.0000, 15.0000, 'asd', 'PTRCN-PRJCT-63b3fe007bde1', 0),
-('PTRCN-RSRC-63b8e81889deb', 'Item 5', 2, 620.0000, 1240.0000, 'Sum', 'PTRCN-PRJCT-63b3fe007bde1', 1),
+('PTRCN-RSRC-63b8e81889deb', 'Item 5', 2, 620.0000, 1240.0000, '', 'PTRCN-PRJCT-63b3fe007bde1', 1),
 ('PTRCN-RSRC-63b90c1c7dcf2', 'Item 6', 5, 22.0000, 110.0000, '', 'PTRCN-PRJCT-63b3fe007bde1', 1),
-('PTRCN-RSRC-63b90c34a6b80', 'Sample', 11, 4.3600, 47.9600, '', 'PTRCN-PRJCT-63b3fe007bde1', 1),
-('PTRCN-RSRC-63b90c9415f68', 'Yes po', 5, 36.6200, 183.1000, 'Opo', 'PTRCN-PRJCT-63b3fe007bde1', 1);
+('PTRCN-RSRC-63b90c34a6b80', 'Sample', 11, 4.3600, 47.9600, '', 'PTRCN-PRJCT-63b3fe007bde1', 0),
+('PTRCN-RSRC-63b90c9415f68', 'Yes po', 5, 36.6200, 183.1000, 'Opo', 'PTRCN-PRJCT-63b3fe007bde1', 0),
+('PTRCN-RSRC-63bc48b9bfad9', 'ads', 12, 4343.0000, 52116.0000, '', 'PTRCN-PRJCT-63bc1cdd12b27', 1);
 
 -- --------------------------------------------------------
 
@@ -435,6 +497,10 @@ INSERT INTO `tbl_task` (`id`, `description`, `order_no`, `status`, `created_at`,
 ('PTRCN-TSK-63b407c9012a8', 'Relocation of 2\" Distribution line from Handyman\'s area (removal and Reinstall with 55 meter located at Upper ground)', '6.0000', 0, '2023-01-03 10:47:37', 1, 'PTRCN-PRJCT-63b3fe007bde1'),
 ('PTRCN-TSK-63b7a3aebc421', 'Task 7', '7.0000', 0, '2023-01-06 04:29:34', 1, 'PTRCN-PRJCT-63b3fe007bde1'),
 ('PTRCN-TSK-63b8f2a63a9d9', 'Another task', '8.0000', 0, '2023-01-07 04:18:46', 1, 'PTRCN-PRJCT-63b3fe007bde1'),
+('PTRCN-TSK-63bb7ca53a374', 'Test', '1.0000', 0, '2023-01-09 02:32:05', 1, 'PTRCN-PRJCT-63bb7b72d1508'),
+('PTRCN-TSK-63bb7ee35a136', 'Test ', '9.0000', 0, '2023-01-09 02:41:39', 1, 'PTRCN-PRJCT-63b3fe007bde1'),
+('PTRCN-TSK-63bc489db00e9', 'Test', '1.0000', 0, '2023-01-09 17:02:21', 1, 'PTRCN-PRJCT-63bc1cdd12b27'),
+('PTRCN-TSK-63bc5ef3aa3bb', 'Test 2', '2.0000', 0, '2023-01-09 18:37:39', 1, 'PTRCN-PRJCT-63bc1cdd12b27'),
 ('sampID', 'Task 1', '1.0000', 0, '2022-12-25 14:00:03', 1, 'PTRCN-PRJCT-63a613bd48f75');
 
 -- --------------------------------------------------------
@@ -543,7 +609,15 @@ INSERT INTO `tbl_taskbar` (`id`, `task_id`, `leg_id`, `start`, `end`, `created_a
 ('PTRCN-TSKBR-63b4d6b462992', 'PTRCN-TSK-63b407c9012a8', 'PTRCN-LGND-63b3fe007bffc', '2023-02-08 00:00:00', '2023-03-07 00:00:00', '2023-01-04 01:30:28', 1),
 ('PTRCN-TSKBR-63b54045619b7', 'PTRCN-TSK-63b3fe678dbed', 'PTRCN-LGND-63b3fe007bffc', '2023-01-02 00:00:00', '2023-01-13 00:00:00', '2023-01-04 09:00:53', 1),
 ('PTRCN-TSKBR-63b7a3aed12b7', 'PTRCN-TSK-63b7a3aebc421', 'PTRCN-LGND-63b7a3a59a0f9', '2023-01-01 00:00:00', '2023-01-26 00:00:00', '2023-01-06 04:29:34', 1),
-('PTRCN-TSKBR-63b8f2a649b8b', 'PTRCN-TSK-63b8f2a63a9d9', 'PTRCN-LGND-63b3fe007bff8', '2023-01-19 00:00:00', '2023-01-26 00:00:00', '2023-01-07 04:18:46', 1);
+('PTRCN-TSKBR-63b8f2a649b8b', 'PTRCN-TSK-63b8f2a63a9d9', 'PTRCN-LGND-63b3fe007bff8', '2023-01-19 00:00:00', '2023-01-26 00:00:00', '2023-01-07 04:18:46', 1),
+('PTRCN-TSKBR-63bb7ca5505a3', 'PTRCN-TSK-63bb7ca53a374', 'PTRCN-LGND-63bb7b72d1620', '2023-01-18 00:00:00', '2023-01-26 00:00:00', '2023-01-09 02:32:05', 1),
+('PTRCN-TSKBR-63bb7cf3119ae', 'PTRCN-TSK-63bb7ca53a374', 'PTRCN-LGND-63bb7b72d1623', '2023-01-24 00:00:00', '2023-01-14 00:00:00', '2023-01-09 02:33:23', 1),
+('PTRCN-TSKBR-63bb7d63c5ff1', 'PTRCN-TSK-63bb7ca53a374', 'PTRCN-LGND-63bb7d5df393a', '2023-01-11 00:00:00', '2023-01-18 00:00:00', '2023-01-09 02:35:15', 1),
+('PTRCN-TSKBR-63bb7ee3753aa', 'PTRCN-TSK-63bb7ee35a136', 'PTRCN-LGND-63b3fe007bff8', '2023-01-11 00:00:00', '2023-01-24 00:00:00', '2023-01-09 02:41:39', 1),
+('PTRCN-TSKBR-63bb7f193971f', 'PTRCN-TSK-63bb7ee35a136', 'PTRCN-LGND-63b3fe007bffc', '2023-01-11 00:00:00', '2023-01-20 00:00:00', '2023-01-09 02:42:33', 1),
+('PTRCN-TSKBR-63bc489dc8bdc', 'PTRCN-TSK-63bc489db00e9', 'PTRCN-LGND-63bc1cdd12d66', '2023-01-04 00:00:00', '2023-01-05 00:00:00', '2023-01-09 17:02:21', 1),
+('PTRCN-TSKBR-63bc5ef3c1164', 'PTRCN-TSK-63bc5ef3aa3bb', 'PTRCN-LGND-63bc1cdd12d66', '2023-01-13 00:00:00', '2023-01-18 00:00:00', '2023-01-09 18:37:39', 1),
+('PTRCN-TSKBR-63bc5f02ad341', 'PTRCN-TSK-63bc489db00e9', 'PTRCN-LGND-63bc1cdd12d6a', '2023-01-02 00:00:00', '2023-02-01 00:00:00', '2023-01-09 18:37:54', 1);
 
 --
 -- Indexes for dumped tables
@@ -572,6 +646,13 @@ ALTER TABLE `tbl_account`
   ADD KEY `accRegisterID` (`register_id`);
 
 --
+-- Indexes for table `tbl_activation`
+--
+ALTER TABLE `tbl_activation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_accId` (`acc_id`);
+
+--
 -- Indexes for table `tbl_client`
 --
 ALTER TABLE `tbl_client`
@@ -589,6 +670,13 @@ ALTER TABLE `tbl_legend`
 --
 ALTER TABLE `tbl_login`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_payment`
+--
+ALTER TABLE `tbl_payment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_projId` (`proj_id`);
 
 --
 -- Indexes for table `tbl_project`
@@ -645,10 +733,22 @@ ALTER TABLE `tbl_account`
   ADD CONSTRAINT `tbl_account_ibfk_3` FOREIGN KEY (`register_id`) REFERENCES `tbl_register` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `tbl_activation`
+--
+ALTER TABLE `tbl_activation`
+  ADD CONSTRAINT `FK_accId` FOREIGN KEY (`acc_id`) REFERENCES `tbl_account` (`id`);
+
+--
 -- Constraints for table `tbl_legend`
 --
 ALTER TABLE `tbl_legend`
   ADD CONSTRAINT `tbl_legend_ibfk_1` FOREIGN KEY (`proj_id`) REFERENCES `tbl_project` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tbl_payment`
+--
+ALTER TABLE `tbl_payment`
+  ADD CONSTRAINT `FK_projId` FOREIGN KEY (`proj_id`) REFERENCES `tbl_project` (`id`);
 
 --
 -- Constraints for table `tbl_register`
