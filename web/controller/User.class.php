@@ -18,12 +18,12 @@ class User extends MainController {
     }
 
     public function index() {
-        $this->view("user", "users-list"); // user = name ng folder sa view/ users-list = name ng file sa controller
+        $this->view("user", "list"); // user = name ng folder sa view/ list = name ng file sa controller
     }
 
     public function list($userType) {//userType is parameter, ung value is ung nasa pangatlong slash or more sa url
        // pang view / sa url
-        $this->view("user", "users-list", ['type' => $userType]);// key value pair / call "" sa view to print value
+        $this->view("user", "list", ['type' => $userType]);// key value pair / call "" sa view to print value
     } 
 
     public function listUser() // pang api/ to get data
@@ -32,22 +32,6 @@ class User extends MainController {
             echo $this->userService->getUserList($_GET['type']);
         }
     }
-
-    public function userman() { //function name - userman
-
-       
-
-        //  $_POST['name'];
-        //  $_POST['uname'];
-        //  $_POST['email'];
-        //  $_POST['pass'];
-        //  $_POST['passr'];
-        //  $_POST['position'];
-        //  $_POST['address'];
-        //  $_POST['contact'];
-        //  $_POST['bdate'];
-    }
-
 
     //CREATES NEW USER
     public function new() { // button submit
@@ -164,6 +148,43 @@ class User extends MainController {
         } else {
             $this->goToLanding();
         }
+    }
+
+    public function activate($uid, $key)
+    {
+        if ($uid && $key) {
+            $this->userService->activateAccount($uid, $key);
+        }
+        
+        // if (isset($_POST['verifySubmit'])) 
+        // {
+        //     $inputs = [
+        //         'required' => [
+        //             "id" => ucwords($this->sanitizeString($_POST['id'])), //every first letter of words is capital
+        //             "firstName" => ucwords($this->sanitizeString($_POST['firstName'])), //every first letter of words is capital
+        //             "lastName" => ucwords($this->sanitizeString($_POST['lastName'])),
+        //             "email" => $this->sanitizeString($_POST['email']), //all lower case/upper case
+        //             "address" => ucwords($this->sanitizeString($_POST['address'])),
+        //             "contactNo" => $this->sanitizeString($_POST['contactNo']),
+        //             "birthdate" => ucwords($this->sanitizeString($_POST['birthdate']))
+        //             //"username" => strtoupper($projectDesc[0]).strtolower(substr($projectDesc, 1, strlen($projectDesc))), //first letter first word lang ang capital
+        //         ],
+        //         'notRequired' => [
+        //             "middleName" => ucwords($this->sanitizeString($_POST['middleName']))
+        //         ]
+        //     ];
+
+        //     $result = json_decode($this->userService->updateUser($inputs), true);
+        //     $url = "Location: ".SITE_URL.US."app/profile/".$_SESSION['accID'];
+
+        //     if ($result['statusCode'] != 200) {
+        //         $url .= "?error=".$result['message'];
+        //     }
+
+        //     header($url);
+        // } else {
+        //     $this->goToLanding();
+        // }
     }
 }
 

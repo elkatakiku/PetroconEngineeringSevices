@@ -457,3 +457,8 @@ $('[data-slider]').on('click', (e) => {
 $('button').on('custom:clicked', (e, btn) => {
     $(e.target).prop('disabled', false);
 });
+
+// Nav-item
+$('#navItemBar .nav-item').on('click', (e) => {
+    console.log($(e.target).parent('.nav-item').siblings('.active').removeClass('active'));
+});

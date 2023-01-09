@@ -5,6 +5,7 @@ $('#newProject').submit(function (e) {
         Settings.base_url + "/project/newProject", 
         { form : function () {return $(e.target).serialize();} },
         function (data, textStatus) {
+            console.log(data);
             let jsonData = JSON.parse(data);
 
             // Shows alert/error message

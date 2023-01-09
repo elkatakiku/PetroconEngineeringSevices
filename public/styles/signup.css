@@ -1,12 +1,12 @@
 .cover-page {
     grid-auto-rows: auto 100fr;
-    background-color: var(--background-color);
+    /* background-color: var(--background-color); */
     gap: 10px;
 }
 
-.brand {
+/* .brand {
     color: var(--primary-text);
-}
+} */
 
 #signupForm {
     width: 100%;
@@ -14,7 +14,7 @@
     color: var(--primary-text);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 5px 5px 5px var(--shadow-rbga-color);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
 }
 
 

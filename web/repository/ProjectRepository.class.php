@@ -24,19 +24,19 @@ class ProjectRepository extends Repository {
     // Project
     public function setProject(Project $project) {
         $sql = "INSERT INTO ".self::$tblProject."
-                    (id, name, location, building_number, status, active, purchase_ord, award_date,
+                    (id, description, location, building_number, done, active, purchase_ord, award_date,
                     company, comp_representative, comp_contact)
                 VALUES
-                    (:id, :name, :location, :building_number, :status, :active, :purchase_ord, :award_date,
+                    (:id, :description, :location, :building_number, :done, :active, :purchase_ord, :award_date,
                     :company, :comp_representative, :comp_contact)";
 
         $stmt = $this->connect()->prepare($sql);
 
         $stmt->bindValue(':id', $project->getId());
-        $stmt->bindValue(':name', $project->getName());
+        $stmt->bindValue(':description', $project->getName());
         $stmt->bindValue(':location', $project->getLocation());
         $stmt->bindValue(':building_number', $project->getBuildingNumber());
-        $stmt->bindValue(':status', $project->getStatus());
+        $stmt->bindValue(':done', $project->getStatus());
         $stmt->bindValue(':active', $project->getActive());
         $stmt->bindValue(':purchase_ord', $project->getPurchaseOrder());
         $stmt->bindValue(':award_date', $project->getAwardDate());

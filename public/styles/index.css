@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     overflow: hidden;
     padding: 10%;
-    width: 60%;
+    max-width: 100%;
 }
 
 .bg-float {
@@ -309,6 +309,25 @@ h1, h2, h3, h4, h5, h6 {
       height: 500px;
       padding-right: 0;
     }
+    
+    .header-design-container {
+        display: none;
+    }
+
+    .header-content {
+        padding-right: 5%;
+    }
+
+    .bg-float1 {
+        top: 5%;
+    }
+}
+
+/* MD */
+@media (min-width: 768px) {
+    .bg-float1, .bg-float2 {
+        width: 60%;
+    }
 }
 
 
@@ -322,10 +341,7 @@ h1, h2, h3, h4, h5, h6 {
     .about-us-content {
       padding: 37px 10% 0;
     }
-} 
 
-/* Medium devices (landscape tablets, 992px and up) */
-@media only screen and (max-width: 992px) {
     .form-contact-container {
       margin-top: 5%;
     }

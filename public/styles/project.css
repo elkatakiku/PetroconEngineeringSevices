@@ -210,6 +210,10 @@ button[data-toggle="form"][data-action="cancel"] {
     left: 250px;
 }
 
+.chart-month:last-child {
+    overflow: hidden;
+}
+
 .month31 {
     grid-column: 1 / span 31;
 }

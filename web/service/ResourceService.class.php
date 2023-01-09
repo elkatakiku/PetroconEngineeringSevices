@@ -83,6 +83,7 @@ class ResourceService extends Service {
     public function list(string $projectId)
     {
         $cleanId = $this->sanitizeString($projectId);
+        $response['data'] = [];
 
         if ($cleanId) {
             if ($resources = $this->resourceRepository->getActiveResources($cleanId)) {

@@ -69,6 +69,7 @@ class LegendService extends Service{
     public function getList(string $id) {
 
         $cleanId = $this->sanitizeString($id);
+        $response['data'] = [];
 
         if ($cleanId) {
             if ($legends = $this->legendRepository->getAll($id, true)) {

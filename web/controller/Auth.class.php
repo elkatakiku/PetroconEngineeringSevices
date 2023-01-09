@@ -176,8 +176,38 @@ class Auth extends MainController {
 
     }
 
-    public function verify() {
-        $this->view("auth", "verify");
+    public function verify($regId) {
+        if ($regId) {
+            // $user = json_decode($this->userService->getUserRegister($regId), true);
+            // $this->userService->sendVerification($regId);
+            if ($user = json_decode($this->userService->getUserRegister($regId), true)) {
+                // var_dump($user);
+                $this->view("auth", "verify", $user['data']);
+            }
+        }
+    }
+
+    public function activate()
+    {
+        echo __METHOD__;
+        echo "<pre>";
+        if (isset($_SESSION['accID'])) {
+            // $user = json_decode($this->userService->getUserRegister($regId), true);
+            if ($this->userService->sendVerification()) {
+                // Show instruction
+                header('Location: ' .SITE_URL.'/auth/verify/'.$_SESSION['accRegister']);
+                exit();
+                return;
+            } else {
+                echo "Error";
+            }
+            // if () {
+                // var_dump($user);
+                // $this->view("auth", "verify", $user['data']);
+            // }
+        } else {
+            $this->goToLanding();
+        }
     }
 
     public function logout() {

@@ -23,6 +23,7 @@ class ProjectService extends Service{
     // Gets project list
     public function getProjectList($form) {
         parse_str($form, $input);
+        $response['data'] = [];
 
         if (!$this->emptyInput($input)) 
         {            
@@ -48,6 +49,7 @@ class ProjectService extends Service{
 
     public function getProjectDetails($id) {
         $cleanId = $this->sanitizeString($id);
+        $response['data'] = [];
 
         // var_dump($cleanId);
 

@@ -165,7 +165,7 @@
                 /* gap: 10px; */
                 margin-left: -100%;
                 width: 100%;
-                overflow-y: auto;
+                /* overflow-y: auto; */
             }
 
             .chart-container {  
@@ -208,7 +208,7 @@
         <section id="projectGanttChart" class="main-content custom-tab-content show">
             <div class="slider">
                 <div class="timeline">
-                    <header class="linear-center">
+                    <header class="linear">
                         <h5>Tasks</h5>
                         
                         <button id="addTask" data-target="#newTask" type="button" class="btn action-btn sm-btn">
@@ -277,13 +277,13 @@
                                 <div>
                                     <div class="chart-months">
                                         <!-- <span class="startMonth">December</span> -->
-                                        <!-- <span class="chart-month"><?= date('F') ?></span> -->
+                                        <span class="chart-month"><?= date('F') ?></span>
                                     </div>
                                     <div class="chart-days">
+                                        <span>##</span>
+                                        <span>##</span>
+                                        <span>##</span>
                                         <!-- <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
                                         <span>##</span>
                                         <span>##</span>
                                         <span>##</span>
@@ -335,10 +335,10 @@
 
                             <div class="chart-body">
                                 <div class="chart-lines"> 
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
                                     <!-- <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
                                     <span></span>
                                     <span></span>
                                     <span></span>
@@ -601,7 +601,7 @@
             </header>
 
             <!-- Resources Table -->
-            <div class="mesa-container">                
+            <div class="mesa-container">
                 <table class="mesa" id="resourceTable">
                     <thead class="mesa-head">
                         <tr>
@@ -744,7 +744,7 @@
 
             <!-- People Table -->
             <div class="mesa-container">
-                <table class="mesa">
+                <table class="mesa" id="peopleTable">
                     <thead class="mesa-head">
                         <tr>
                             <th scope="col" class="tname"><strong>Name</strong></th>
@@ -754,7 +754,7 @@
                             <th scope="col" class="table-action-col"></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <!-- <tbody>
                         <tr>
                             <td><strong>Eli Lamzon</strong></td>
                             <td>elilamzon@email.com</td>
@@ -784,7 +784,7 @@
                             <td>Admin</td>
                             <td>Remove</td>
                         </tr>
-                    </tbody>
+                    </tbody> -->
                 </table>
             </div>
         </section>
@@ -792,10 +792,9 @@
         <!-- Payment -->
         <section id="projectPayment" class="main-content custom-tab-content">
 
-
             <!-- Payment Table -->
             <div class="mesa-container">
-                <table class="mesa">
+                <table class="mesa" id="paymentTable">
                     <thead class="mesa-head">
                         <tr>
                             <th scope="col" class="tname"><strong>Description</strong></th>

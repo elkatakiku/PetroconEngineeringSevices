@@ -1,16 +1,16 @@
 <!-- Header Section -->
 <section id="headerC">
     <div class="image-overlay" data-image="header-image-1.jpg" data-height="400">
-    <header class="overlay-content chome-padding">
-        <h1 class="">Welcome, Client!</h1>
-        <p class="subtitle">
-        We are inspired by the long and winding path that starts with raw materials and ends with a quality good. We believe that knowing where your products come from will bring greater meaning to them.
-        </p>
-        
-        <a class="btn action-btn round" style="align-self:flex-start;" href="#projectsC">View projects</a>
-    </header>
+        <header class="overlay-content chome-padding">
+            <h1 class="">Welcome, Client!</h1>
+            <p class="subtitle">
+            We are inspired by the long and winding path that starts with raw materials and ends with a quality good. We believe that knowing where your products come from will bring greater meaning to them.
+            </p>
+            
+            <a class="btn action-btn round" style="align-self:flex-start;" href="#projectsC">View projects</a>
+        </header>
     </div>
-</section>  
+</section>
 
 <!-- Services Section -->
 <section class="white-section" id="servicesC">

@@ -10,6 +10,7 @@ use \Core\Repository as Repository;
 use \Model\Login as Login;
 use \Model\Register as Register;
 use \Model\Account as Account;
+use Model\Activation;
 use \Model\Users as Users;
 
 // Tools
@@ -20,6 +21,7 @@ class UserRepository extends Repository {
     private static $tblRegister = "tbl_register"; // also a user
     private static $tblLogin = "tbl_login";
     private static $tblAccount = "tbl_account";
+    private static $tblActivation = "tbl_activation";
     private static $tblLog = "tbl_Log";
     private static $tblAcctType = "pltbl_account_type";
     
@@ -41,12 +43,6 @@ class UserRepository extends Repository {
             ":username" => $username,
             ":email" => $email
         ];
-
-        // echo "Params";
-        // var_dump($params);
-        // echo "Result";
-        // var_dump(count($this->query($sql, $params)) > 0);
-        // var_dump($this->query($sql, $params));
 
         return count($this->query($sql, $params)) > 0;
     }
@@ -151,15 +147,29 @@ class UserRepository extends Repository {
         return $res;
     }
 
-    public function getAccount($logId) 
+    public function getAccount(string $accId)
     {
-        $sql = "SELECT *
+        $sql = 'SELECT *
+                FROM '.self::$tblAccount.'
+                WHERE id = :id
+                LIMIT 1';
+        
+        $params = [':id' => $accId];
+        
+        return $this->query($sql, $params)[0];
+    }
+
+    public function getAccountByLogin($logId) 
+    {
+        $sql = "SELECT 
+                    a.id, a.type_id, a.register_id, a.login_id, 
+                    l.username, l.password
                 FROM
-                    ".self::$tblAccount." tA  INNER JOIN ".self::$tblLogin." tL
+                    ".self::$tblAccount." a  INNER JOIN ".self::$tblLogin." l
                 ON
-                    tA.login_id = tL.id
+                    a.login_id = l.id
                 WHERE
-                    tL.id = :logID";
+                    l.id = :logID";
 
         $stmt = $this->connect()->prepare($sql);
         
@@ -214,8 +224,8 @@ class UserRepository extends Repository {
         return $this->query($sql);
     }
 
-    // Gets user info
-    public function getUser($userId) 
+    // Gets user info from register table
+    public function getUserByLogin($userId) 
     {
         $sql = "SELECT  
                     r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.email, r.address,
@@ -229,6 +239,34 @@ class UserRepository extends Repository {
         $params = [':userID' => $userId];
 
         // Result
+        return $this->query($sql, $params)[0];
+    }
+
+    public function getUserByRegister(string $regId)
+    {
+        $sql = 'SELECT * 
+                FROM '.self::$tblRegister.'
+                WHERE id = :id
+                LIMIT 1';
+        
+        $params = [':id' => $regId];
+
+        return $this->query($sql, $params)[0];
+    }
+
+    public function getRegisterByAccount(string $acctId)
+    {
+        $sql = 'SELECT 
+                    r.id, r.lastname, r.firstname, r.middlename, r.contact_number, r.dob,
+                    r.email, r.log_ID, r.address, t.name as "type"
+                FROM '.self::$tblAccount.' a
+                INNER JOIN '.self::$tblRegister.' r ON a.register_id = r.id
+                INNER JOIN '.self::$tblAcctType.' t ON t.id = a.type_id
+                WHERE a.id = :id
+                LIMIT 1';
+        
+        $params = [':id' => $acctId];
+
         return $this->query($sql, $params)[0];
     }
 
@@ -288,4 +326,97 @@ class UserRepository extends Repository {
 
         $this->query($sql, $params);
     }
+
+    private static $SELECT = "SELECT %s FROM %s WHERE %s";
+    private static $INSERT = "INSERT INTO %s (%s) VALUES (%s)";
+    private static $UPDATE = "UPDATE %s SET %s WHERE %s";
+
+    // || Verification
+    public function verifyActivation($uid)
+    {
+        $sql = sprintf(
+            self::$SELECT, 
+            '*',    // Selector
+            self::$tblActivation,   // Table
+            'acc_id = :id'  // Parameter
+        );
+
+        $params = [':id' => $uid];
+
+        var_dump($sql, $params);
+
+        return $this->query($sql, $params);
+    }
+
+    public function createActivation(Activation $activation)
+    {
+        var_dump($activation);
+        $sql = sprintf(
+            self::$INSERT, 
+            self::$tblActivation,   // Table
+            'id, code, acc_id',    // Selector
+            ':id, :code, :acc_id'  // Parameter
+        );
+
+
+
+        $params = [
+            ':id' => $activation->getId(),
+            ':code' => $activation->getCode(),
+            ':acc_id' => $activation->getAccId()
+        ];
+
+        return $this->query($sql, $params);
+    }
+
+    public function updateActivationCode(string $activationId, string $code)
+    {
+        $sql ='UPDATE 
+                    '.self::$tblActivation.'
+                SET 
+                    code = :code, sent_at = NOW()
+                WHERE 
+                    id = :id';
+
+        $params = [
+            ':code' => $code,
+            ':id' => $activationId
+        ];
+
+        return $this->query($sql, $params);
+    }
+
+    public function matchActivation($uid, $key)
+    {
+        $sql = 'SELECT *
+                FROM '.self::$tblActivation.'
+                WHERE 
+                    acc_id = :id AND code = :code';
+                
+        $params = [
+            ':id' => $uid,
+            ':code' => $key
+        ];
+
+        return $this->query($sql, $params);
+    }
+
+
+    public function activateAccount($accId)
+    {
+        $sql ='UPDATE 
+                    '.self::$tblAccount.'
+                SET 
+                    activated = :activated
+                WHERE 
+                    id = :id';
+
+        $params = [
+        ':activated' => true,
+        ':id' => $accId
+        ];
+
+        return $this->query($sql, $params);
+    }
+
 }

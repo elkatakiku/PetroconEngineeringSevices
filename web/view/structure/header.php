@@ -7,6 +7,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!-- Favicon -->
+    <link rel="icon" href="<?= IMAGES_PATH.'favicon.ico' ?>">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
@@ -48,11 +51,16 @@
       <?php break;
 
 
-    case Core\Controller::CLIENT: ?>
-    
+    case Core\Controller::CLIENT:
+      if (isset($data['acct']) && $data['acct']['activated'] === 0) { ?> 
+        <div class="alert alert-secondary show mb-0" role="alert">
+          <p class="mb-0">Verify email to access other features of the site. <a href="<?= SITE_URL.'/auth/activate' ?>" class="">Verify now</a></p>
+        </div>
+      <?php }?>
+
     <!-- Navbar -->
     <nav id="topbar" class="navbar fixed-top navbar-expand-lg navbar-<?= !isset($_SESSION['accID']) ? 'dark" data-user="home"' : 'light" data-user="client"' ?>">
-      <a class="navbar-brand brand" href="#">
+      <a class="navbar-brand brand" href="<?= SITE_URL ?>">
         <img src="<?=IMAGES_PATH?>petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
         <span class="brand-name">Petrocon Engineering Services</span>
       </a>
@@ -62,15 +70,15 @@
       </button>
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+        <ul class="navbar-nav ml-auto" id="navItemBar">
+          <li class="nav-item">
             <a class="nav-link" href="#header">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#whyUs">Services</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#aboutUs">About</a>
+            <a class="nav-link" href="#aboutUs">About</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#projects">Projects</a>
@@ -81,12 +89,11 @@
                 <a class="nav-link" href="#contactUs">Contact</a>
               </li>
             <li class="nav-item">
-              <a class="btn light-btn" href="#footer">Login</a>
+              <a class="btn light-btn" href="<?= SITE_URL.'/login' ?>">Login</a>
             </li>
           <?php } else { ?>
             <li class="nav-item">
               <a class="nav-link" href="<?= SITE_URL.US.'app/profile/'.$_SESSION['accID'] ?>">
-                  <!-- <span id="user-display" class="material-icons">account_circle</span> -->
                   Profile
               </a>
             </li>
@@ -109,11 +116,12 @@
       <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
           <span class="material-icons">menu</span>
       </button>
-      <a class="flex-grow-1" href="<?= SITE_URL.US.'dashboard' ?>"><strong>Petrocon</strong><small> : Admin</small></a>
+      <a class="flex-grow-1" href="<?= SITE_URL.'/dashboard' ?>"><strong>Petrocon</strong><small> : Admin</small></a>
       <span class="material-icons">circle_notifications</span>
       <p class="user-name">Eli Lamzon</p>
+      <!-- <p class="user-name"><?= $data['first'] ?></p> -->
       
-      <span id="user-display" class="material-icons">account_circle</span>
+      <a href="<?= SITE_URL.'/app/profile' ?>"><span id="user-display" class="material-icons">account_circle</span></a>
     </nav>
 
     <div class="wrapper">
@@ -121,7 +129,7 @@
         <nav>
           <ul class="list-unstyled components">
             <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'dashboard' ?>">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/dashboard' ?>">
                 <span class="material-icons">dashboard</span>
                 <div class="collapsible">
                   <span>Dashboard</span>
@@ -159,7 +167,7 @@
             </li>
 
             <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'messages' ?>">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/app/messages' ?>">
                 <span class="material-icons">chat_bubble</span>
                 <div class="collapsible">
                   <span>Messages</span>
@@ -203,12 +211,15 @@
               </div>
               <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
                 <li class="">
+                  <a class="" href="<?= SITE_URL.US.'user/employees' ?>">All</a>
+                </li>
+                <li class="">
                   <a class="" href="<?= SITE_URL.US.'user/employees' ?>">Employees</a>
                 </li>
                 <li class="">
                   <a class="" href="<?= SITE_URL.US.'user/workers' ?>">Workers</a>
                 </li>
-                <li class="active">
+                <li>
                   <a class="" href="<?= SITE_URL.US.'user/clients' ?>">Clients</a>
                 </li>
               </ul>
@@ -225,8 +236,11 @@
             </li> -->
 
             <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'users' ?>">
-              <i class="fa-sharp fa-solid fa-credit-card"></i>
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/app/payment' ?>">
+              <span class="material-icons">
+                payment
+              </span>
+<!-- <i class="fa-sharp fa-solid fa-credit-card"></i> -->
                 <div class="collapsible">
                   <span>Payment</span>
                 </div>
@@ -234,8 +248,11 @@
             </li>
 
             <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'users' ?>">
-              <i class="fa-sharp fa-solid fa-file-invoice"></i>
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/app/invoice' ?>">
+              <!-- <i class="fa-sharp fa-solid fa-file-invoice"></i> -->
+              <span class="material-icons">
+                receipt_long
+              </span>
                 <div class="collapsible">
                   <span>Invoice</span>
                 </div>
@@ -245,7 +262,7 @@
             <hr>
   
             <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'app/profile/'.$_SESSION['accID'] ?>">
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/app/profile' ?>">
                 <span class="material-icons">person</span>
                 <div class="collapsible">
                   <span>Profile</span>

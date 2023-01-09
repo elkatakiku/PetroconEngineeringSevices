@@ -39,7 +39,6 @@ switch ($this->getType()) {
 
     <!-- External JS -->
     <script type="module" src="<?=SCRIPTS_PATH?>index.js"></script>
-    <script src="<?=SCRIPTS_PATH?>table.js"></script>
     
     <script>
       var Settings = {
@@ -60,13 +59,13 @@ switch ($this->getType()) {
         }
       }
 
-      <?php } else if ($this->getType() == Core\Controller::CLIENT) { ?>
-      $('.navbar-nav').children().each((index, element) => {
-        if ($(element).find('a').text().toLowerCase() === '<?= $this->getPage() ?>'.toLowerCase()) {
-          $(element).addClass('active');
-        }
-      });
-      <?php } ?>
+      // <?php } else if ($this->getType() == Core\Controller::CLIENT) { ?>
+      //   $('.navbar-nav').children().each((index, element) => {
+      //     if ($(element).find('a').text().toLowerCase() === '<?= $this->getPage() ?>'.toLowerCase()) {
+      //       $(element).addClass('active');
+      //     }
+      //   });
+      // <?php } ?>
     
     </script>
 

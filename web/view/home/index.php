@@ -21,8 +21,12 @@
       <br>
       For every project, we provide quality construction.
     </p>
-    <button type="button" class="btn btn-lg cta-button primary-btn">Get in touch</button>
-    <button type="button" class="btn btn-lg cta-button outline-primary-btn">Log in</button>
+    <a href="#contactUs">
+      <button type="button" class="btn btn-lg cta-button primary-btn">Get in touch</button>
+    </a>
+    <a href="<?= SITE_URL.'/login' ?>">
+      <button type="button" class="btn btn-lg cta-button outline-primary-btn">Log in</button>
+    </a>
   </div>
 
 </section>
@@ -295,7 +299,10 @@
     <a href="<?= SITE_URL.US.'login' ?>">
       <button type="button" class="btn btn-lg cta-button btn-light">Log in</button>
     </a>
-    <button type="button" class="btn btn-lg cta-button btn-outline-light">Sign up</button>
+
+    <a href="<?= SITE_URL.US.'signup' ?>">
+      <button type="button" class="btn btn-lg cta-button btn-outline-light">Sign up</button>
+    </a>
 
     <footer class="footer-links">
       <a class="footer-link" href="https://www.facebook.com/3lkatakiku"><i class="fa fa-facebook" aria-hidden="true"></i></a>

@@ -167,10 +167,10 @@ let dtTable = {
         url : Settings.base_url + "/task/plans",
         type : 'GET',
         data : {projId : projectId}
-        // ,
-        // 'complete' : function (data) { 
-        //     console.log(data);
-        // }
+        ,
+        'complete' : function (data) { 
+            console.log(data);
+        }
     },
     "columns" : [
         {
@@ -289,6 +289,7 @@ let dtTable = {
         $('.timeline').on('custom:timelineDismiss', (e) => {
             console.log("Timeline dismiss");
             this.api().destroy();
+            $('.timeline').off('custom:timelineDismiss');
         });
     }
 }
@@ -354,6 +355,7 @@ $('#timelineToggler button').click((e) => {
         console.log("Table Destroy");
         $(this).find('tbody').off( 'click', 'tr' );
         clearInterval(tableInterval);
+        $("#tasksTable").off('destroy.dt');
     });
 });
 
@@ -443,7 +445,6 @@ $('#addTask').click((e) => {
             {form : getTaskData(form)},
             function (data, textStatus) {
                 console.log("Add Response");
-                $('#samp').html(data);
                 let response = JSON.parse(data);
                 console.log(response);
 
@@ -1112,7 +1113,7 @@ $(window).on("resize", (e) => {
 
 
 
-// Gannt Chart
+// || Gannt Chart
 function loadGanttChart() {
     console.log("Load gantt chart");
     let ganttChart = $('.gantt-chart');
@@ -1122,12 +1123,17 @@ function loadGanttChart() {
         Settings.base_url + "/task/chart",
         {projId : projectId},
         function (data, textStatus) {
-            resetGanttChart();
+            console.log(data);
 
             let response = JSON.parse(data);
+
+              
+            resetGanttChart();
             let rowHead = '250px';
             let startDate = new Date(response.data.start).getDate();
             let monthStart = 1;
+
+            console.log(response.data);
 
             // Chart Header
             for (let i = 0; i < response.data.header[0].length; i++) {
@@ -1145,71 +1151,84 @@ function loadGanttChart() {
                 
                 startDate = 1;
                 monthStart += days;
-
             }
 
+            // Content
+            if (response.data.hasOwnProperty('content'))  
+            {
+                response.data.content.forEach(task => 
+                    {
+                    let taskBar = generateGanttRow(task);
+                    let bars = taskBar.find('.chart-row-bars');
 
-            response.data.content.forEach(task => 
-                {
-                let taskBar = generateGanttRow(task);
-                let bars = taskBar.find('.chart-row-bars');
+                    task.activity.forEach(activity => 
+                        {   // Generates gantt charts bars
+                        let bar = $('<li title="' + activity.title + '"></li>');
 
-                task.activity.forEach(activity => 
-                    {   // Generates gantt charts bars
-                    let bar = $('<li title="' + activity.title + '"></li>');
+                        bar.css({
+                            'grid-column' : activity.grid + ' / span ' + activity.span,
+                            'background-color' : activity.color
+                        });
 
-                    bar.css({
-                        'grid-column' : activity.grid + ' / span ' + activity.span,
-                        'background-color' : activity.color
+                        bars.append(bar);
                     });
 
-                    bars.append(bar);
-                });
+                    //     let end = new Date(activity.end);
+                    //     let start = new Date(activity.start);
 
-                //     let end = new Date(activity.end);
-                //     let start = new Date(activity.start);
+                    //     // Span of width of grid item
+                    //     let span = (end - start) / (1000*60*60*24) + 1;
+                        
 
-                //     // Span of width of grid item
-                //     let span = (end - start) / (1000*60*60*24) + 1;
+                    //     if (projectStart === 0) {
+                    //         projectStart = start;
+                    //     }
+
+                    //     projectEnd = end;
+
+                    //     if ($.inArray(start.getMonth(), months[0]) < 0) {
+                    //         months[0].push(start.getMonth());
+                    //         months[1].push(start.getFullYear());
+                    //     } else {
+                    //         console.log("Nandun na start");
+                    //     }
+
+                    //     if ($.inArray(end.getMonth(), months[0]) < 0) {
+                    //         months[0].push(end.getMonth());
+                    //         months[1].push(end.getFullYear());
+                    //     } else {
+                    //         console.log("Nandun na end");
+                    //     }
+
+                    //     let grid = (start - projectStart) / (1000*60*60*24);
+
+                    //     lastGrid = (grid === 0) ? 1 : grid+1;
+
+                    //     let parsedDate = String(lastGrid) + ' / span ' + String(span > 0 ? span : 1);
+                    //     bar.css({
+                    //         'grid-column' : parsedDate,
+                    //         'background-color' : activity.color
+                    //     });
+
+                    //     bars.append(bar);
+                    // });
+
+                    $('.chart-body').append(taskBar);
                     
+                });
+            } 
+            // else {
+                // while ($(window).width() >= $('#projectGanttChart').width()) {
+                //     console.log("Generate row");
+                //     generateGanttRow();
+                //     $('.chart-body').append(generateGanttRow());
+                // }
+                // console.log($(window).width());
+                // console.log($('#projectGanttChart').width());
+                // console.log($('.chart').width());
+            // }
 
-                //     if (projectStart === 0) {
-                //         projectStart = start;
-                //     }
-
-                //     projectEnd = end;
-
-                //     if ($.inArray(start.getMonth(), months[0]) < 0) {
-                //         months[0].push(start.getMonth());
-                //         months[1].push(start.getFullYear());
-                //     } else {
-                //         console.log("Nandun na start");
-                //     }
-
-                //     if ($.inArray(end.getMonth(), months[0]) < 0) {
-                //         months[0].push(end.getMonth());
-                //         months[1].push(end.getFullYear());
-                //     } else {
-                //         console.log("Nandun na end");
-                //     }
-
-                //     let grid = (start - projectStart) / (1000*60*60*24);
-
-                //     lastGrid = (grid === 0) ? 1 : grid+1;
-
-                //     let parsedDate = String(lastGrid) + ' / span ' + String(span > 0 ? span : 1);
-                //     bar.css({
-                //         'grid-column' : parsedDate,
-                //         'background-color' : activity.color
-                //     });
-
-                //     bars.append(bar);
-                // });
-
-                $('.chart-body').append(taskBar);
-                
-            });
-
+            // Chart grid settings
             $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css(
                 'grid-template-columns', 'repeat(' + response.data.total_days + ', minmax(var(--chart-grid-width), 1fr))'
             );
@@ -1218,7 +1237,6 @@ function loadGanttChart() {
                 'grid-template-columns', rowHead + ' repeat(' + response.data.total_days + ', 1fr)'
             );
 
-            
             // Chart lines
             let day = new Date(response.data.start).getDay() - 1;
             
@@ -1231,11 +1249,54 @@ function loadGanttChart() {
                 day++;
                 if (day === 7) {day = 0;}
             }
-            
+
+            // Chart Header
+            // for (let i = 0; i < headerLength; i++) {
+            //     const days = response.data.header[1][i];
+
+            //     // Months
+            //     let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long' }) + '</span>');
+            //     monthGrid.css('grid-column', monthStart + ' / span ' + days);
+            //     $('.chart-months').append(monthGrid);
+                
+            //     // Days
+            //     for (let j = 1; j <= days; j++) {
+            //         $('.chart-days').append('<span>' + startDate++ + '</span>');
+            //     }
+                
+            //     startDate = 1;
+            //     monthStart += days;
+            // }
+
+            // for (let i = 0; i < response.data.header[0].length; i++) {
+            //     const days = response.data.header[1][i];
+
+            //     // Months
+            //     let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long' }) + '</span>');
+            //     monthGrid.css('grid-column', monthStart + ' / span ' + days);
+            //     $('.chart-months').append(monthGrid);
+                
+            //     // Days
+            //     for (let j = 1; j <= days; j++) {
+            //         $('.chart-days').append('<span>' + startDate++ + '</span>');
+            //     }
+                
+            //     startDate = 1;
+            //     monthStart += days;
+            // }
+
+            // $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css(
+            //     'grid-template-columns', 'repeat(' + response.data.total_days + ', minmax(var(--chart-grid-width), 1fr))'
+            // );
+
+            // $('.chart-lines').css(
+            //     'grid-template-columns', rowHead + ' repeat(' + response.data.total_days + ', 1fr)'
+            // );
+
             // Sets scroll position to last scrolls' positions :>
             ganttChart.scrollLeft(chartX);
             ganttChart.scrollTop(chartY);
-
+            
             ganttChart.trigger('custom:ready');
         }
     );
@@ -1266,14 +1327,6 @@ let ganttChartInterval;
 
 buildGanttChart();
 
-// loadGanttChart();
-// loadLegends($('.legends-container'));
-
-// let ganttChartInterval = setInterval(() => {
-//     loadGanttChart();
-//     loadLegends($('.legends-container'));
-// }, 5000);
-
 
 //create the function getNumberOfDays with getDate() method
 function getNumberOfDays (month, year) {
@@ -1285,20 +1338,34 @@ $('.gantt-chart').on('custom:ready', (e) => {
     $('.chart-container').css('visibility', 'visible');
 });
 
-function generateGanttRow(task) {  
+function generateGanttRow(task = null) {  
     // console.log(task.plan_start);
     // console.log(new Date(task.plan_end) - new Date(task.plan_start));
     // console.log((new Date(task.plan_end) - new Date(task.plan_start)) / (1000*60*60*24));
     // console.log((1000*60*60*24));
-    return $(
+    let row = $(
         '<div class="chart-row">' +
             '<div class="chart-row-item task-name">' +
-                '<strong class="task-number">' + parseFloat(task.order_no) + '</strong>' +
-                task.description +
+                '<strong class="task-number"></strong>' +
             '</div>' +
             '<ul class="chart-row-bars"></ul>' +
         '</div>'
     );
+
+    if (task != null) {
+        row.find('.task-number').text(parseFloat(task.order_no));
+        row.find('.task-name').text(task.description);
+    }
+    // return $(
+    //     '<div class="chart-row">' +
+    //         '<div class="chart-row-item task-name">' +
+    //             '<strong class="task-number">' + parseFloat(task.order_no) + '</strong>' +
+    //             task.description +
+    //         '</div>' +
+    //         '<ul class="chart-row-bars"></ul>' +
+    //     '</div>'
+    // );
+    return row;
 }
 
 
@@ -1480,36 +1547,36 @@ $('.slide button[data-toggle="form"]').on('click', (e) => {
 
 
 // Resource popup
-// Timeline datatable settings
-$('button[data-target="#projectResources"]').on('click', (e) => {
-    console.log("Show resources");
+// // Timeline datatable settings
+// $('button[data-target="#projectResources"]').on('click', (e) => {
+//     console.log("Show resources");
 
-    // Clears declared interval
-    // clearInterval(ganttChartInterval);
-    // resetGanttChart();
+//     // Clears declared interval
+//     // clearInterval(ganttChartInterval);
+//     // resetGanttChart();
 
-    // Initializes resource table's datatable
-    // let resourceTable = $("#resourceTable").DataTable(resourceSettings);
+//     // Initializes resource table's datatable
+//     // let resourceTable = $("#resourceTable").DataTable(resourceSettings);
 
-    // let resourceInterval = setInterval(() => {
-    //     console.log("Resource interval");
-    //     resourceTable.ajax.reload(null, false);
-    // }, 3000);
+//     // let resourceInterval = setInterval(() => {
+//     //     console.log("Resource interval");
+//     //     resourceTable.ajax.reload(null, false);
+//     // }, 3000);
 
 
-    // $("#resourceTable").on( 'destroy.dt', function ( e, settings ) {
-    //     console.log("Resource Destroy");
-    //     $(this).find('tbody').off( 'click', 'tr' );
-    //     clearInterval(resourceInterval);
-    // });
-});
+//     // $("#resourceTable").on( 'destroy.dt', function ( e, settings ) {
+//     //     console.log("Resource Destroy");
+//     //     $(this).find('tbody').off( 'click', 'tr' );
+//     //     clearInterval(resourceInterval);
+//     // });
+// });
 
 let datatableSettings = {
     resourceTable : {
-        'dom' : '<"mesa-container"t><"linear"ip>',
+        'dom' : '<"mesa-container"t><"linear">',
         "autoWidth": false,
         "lengthChange": false,
-        'paging' : true,
+        // 'paging' : true,
         'sort' : false,
     
         "ajax" : {
@@ -1642,6 +1709,241 @@ let datatableSettings = {
                 Popup.show(popup);
             });
         }
+    },
+    peopleTable : {
+        'dom' : '<"mesa-container"t><"linear"p>',
+        "autoWidth": false,
+        "lengthChange": false,
+        'paging' : true,
+        'sort' : false,
+    
+        "ajax" : {
+            url : Settings.base_url + "/people/list",
+            type : 'GET',
+            data : {projId : projectId}
+        },
+    
+        'language' : {
+            'paginate' : {
+                'previous' : '<',
+                'next' : '>'
+            }
+        },
+    
+        'columnDefs' : [
+            {
+                targets: 0,
+                searchable: false,
+                orderable: false
+            },
+        ],
+    
+        "columns" : [
+            {'defaultContent' : ''},
+            {'data' : 'item'}, 
+            {'data' : 'quantity'},
+            {'data' : 'price'},
+            {'data' : 'total'},
+            {'data' : 'notes'},
+            {'defaultContent' : ''}
+        ],
+    
+        order: [
+            [1, 'asc']
+        ],
+        
+        initComplete : function () {
+            // Sets click functionality of rows   
+            $(this).find('tbody').on('click', 'tr', (e) => {
+    
+                console.log("TR CLICKED");
+    
+                let dt = this.api();
+                let row = $(e.target).parents('tr');
+                let rowData = dt.row(row).data();
+                // let rowDisplay = dt.cells( row, '' ).render( 'display' );    
+                
+                let popup = buildResourcePopup();
+                popup.find('.pfooter .btn.delete-btn').show();
+
+                // popup.find('[name="id"]').val(rowData.id);
+                // popup.find('[name="item"]').val(rowData.item);
+                // popup.find('[name="quantity"]').val(rowData.quantity);
+                // popup.find('[name="price"]').val(rowData.price);
+                // popup.find('[name="total"]').val(rowData.total);
+                // popup.find('[name="notes"]').val(rowData.notes);
+                
+                // Delete task actions
+                // popup.find('.delete-btn').click(() => {
+                //     console.log("DELETE CLICKED");
+                //     Popup.promptDelete('resource', rowData.id, (deletePopup) => {
+                //         $.post(
+                //             Settings.base_url + "/resource/remove",
+                //             {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+                //             function (data, textStatus) {
+                //                 console.log("Response delete");
+                //                 console.log(data);
+                //                 let jsonData = JSON.parse(data);
+                //                 if (jsonData.statusCode == 200) 
+                //                 {   // Dismiss delete popup and reload legends list on success
+                //                     deletePopup.find('button[data-dismiss]').trigger('click');
+
+                //                     deletePopup.on('custom:dismissPopup', (e) => {
+                //                         popup.find('button[data-dismiss]').trigger('click');
+                //                     });
+                                
+                //                     // Reload tasks
+                //                     dt.ajax.reload(null, false);
+                //                 }
+                //             }
+                //         );
+                //     }, true);
+                // });
+    
+                // Submit action 
+                // popup.find('#itemForm').submit((e) => {
+                //     e.preventDefault();
+    
+                //     $.post(
+                //         Settings.base_url + "/resource/update",
+                //         {form : function () {return $(e.target).serialize();}},
+                //         function (data, textStatus) {
+                //             console.log(data);
+                //             console.log("Edit Response");
+                //             let response = JSON.parse(data);
+                //             console.log(response);
+
+                //             if (response.statusCode == 200) 
+                //             {   // Dismiss legend's form and reload legends list on success
+                //                 popup.find('button[data-dismiss]').trigger('click');
+
+                //                 // Reload resources
+                //                 $("#resourceTable").dataTable().api().ajax.reload(null, false);
+                //             }
+                //             else
+                //             {   // Shows alert on fail
+                //                 popup.find('.alert-danger')
+                //                     .addClass('show')
+                //                     .text(response.message);
+                //             }
+                //         }
+                //     );
+                // });
+
+                // Finally shows popup
+                // Popup.show(popup);
+            });
+        }
+    },
+    paymentTable : {
+        'dom' : '<"mesa-container"t><"linear">',
+        "autoWidth": false,
+        "lengthChange": false,
+        'sort' : false,
+    
+        "ajax" : {
+            url : Settings.base_url + "/payment/list",
+            type : 'GET',
+            data : {projId : projectId}
+        },
+    
+        "columns" : [
+            {
+                'data' : 'bill',
+                'render' : function (data, type, row) { 
+                    return data + '<br>' + row.company; }
+            }, 
+            {'data' : 'amount'},
+            {'data' : 'sent_at'},
+            {
+                'defaultContent' : '',
+                'render' : function (data, type, row) { 
+                    return '<button class="link-btn">Remove</button>'; }
+            }
+        ],
+        
+        initComplete : function () {
+            // Sets click functionality of rows   
+            $(this).find('tbody').on('click', 'tr', (e) => {
+    
+                console.log("TR CLICKED");
+    
+                let dt = this.api();
+                let row = $(e.target).parents('tr');
+                let rowData = dt.row(row).data();
+                // let rowDisplay = dt.cells( row, '' ).render( 'display' );    
+                
+                // let popup = buildResourcePopup();
+                // popup.find('.pfooter .btn.delete-btn').show();
+
+                // popup.find('[name="id"]').val(rowData.id);
+                // popup.find('[name="item"]').val(rowData.item);
+                // popup.find('[name="quantity"]').val(rowData.quantity);
+                // popup.find('[name="price"]').val(rowData.price);
+                // popup.find('[name="total"]').val(rowData.total);
+                // popup.find('[name="notes"]').val(rowData.notes);
+                
+                // Delete task actions
+                // popup.find('.delete-btn').click(() => {
+                //     console.log("DELETE CLICKED");
+                //     Popup.promptDelete('resource', rowData.id, (deletePopup) => {
+                //         $.post(
+                //             Settings.base_url + "/resource/remove",
+                //             {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+                //             function (data, textStatus) {
+                //                 console.log("Response delete");
+                //                 console.log(data);
+                //                 let jsonData = JSON.parse(data);
+                //                 if (jsonData.statusCode == 200) 
+                //                 {   // Dismiss delete popup and reload legends list on success
+                //                     deletePopup.find('button[data-dismiss]').trigger('click');
+
+                //                     deletePopup.on('custom:dismissPopup', (e) => {
+                //                         popup.find('button[data-dismiss]').trigger('click');
+                //                     });
+                                
+                //                     // Reload tasks
+                //                     dt.ajax.reload(null, false);
+                //                 }
+                //             }
+                //         );
+                //     }, true);
+                // });
+    
+                // Submit action 
+                // popup.find('#itemForm').submit((e) => {
+                //     e.preventDefault();
+    
+                //     $.post(
+                //         Settings.base_url + "/resource/update",
+                //         {form : function () {return $(e.target).serialize();}},
+                //         function (data, textStatus) {
+                //             console.log(data);
+                //             console.log("Edit Response");
+                //             let response = JSON.parse(data);
+                //             console.log(response);
+
+                //             if (response.statusCode == 200) 
+                //             {   // Dismiss legend's form and reload legends list on success
+                //                 popup.find('button[data-dismiss]').trigger('click');
+
+                //                 // Reload resources
+                //                 $("#resourceTable").dataTable().api().ajax.reload(null, false);
+                //             }
+                //             else
+                //             {   // Shows alert on fail
+                //                 popup.find('.alert-danger')
+                //                     .addClass('show')
+                //                     .text(response.message);
+                //             }
+                //         }
+                //     );
+                // });
+
+                // Finally shows popup
+                // Popup.show(popup);
+            });
+        }
     }
 };
 
@@ -1651,12 +1953,16 @@ $('.nav-tab').on('custom:tabChange', (e, tab, target) => {
 
     clearInterval(ganttChartInterval);
     resetGanttChart();
+
+    let table = $(target).find('table');
     
     if (target !== '#projectGanttChart') 
     {   
-        let table; 
+        // console.log(table.dataTable('#' + table.attr('id')).api().destroy());
         // Clears gantt chart settings
-        table = $(target).find('table');
+        // console.log("Table id");
+        // console.log('#' + table.attr('id'));
+        // console.log(table.attr('id'));
 
         // Initializes resource table's datatable
         let datatable = table.DataTable(datatableSettings[table.attr('id')]);
@@ -1679,12 +1985,14 @@ $('.nav-tab').on('custom:tabChange', (e, tab, target) => {
             console.log("Datable destroy");
             $(this).find('tbody').off( 'click', 'tr' );
             clearInterval(dtInterval);
+            datatable.off( 'destroy.dt')
         });
 
         // On tab hide actions
         $(target).on('custom:hide', (e) => {
             console.log("Hiding");
             datatable.destroy();
+            $(target).off('custom:hide')
         });
     } else {
         buildGanttChart();

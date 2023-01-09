@@ -19,7 +19,7 @@
         <div class="overview-card">
           <div class="ov-info">
             <h3 class="ov-title">48</h3>
-            <p class="ov-desc">Total projects</p>
+            <p class="ov-desc">Done projects</p>
           </div>
           <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
         </div>
@@ -29,28 +29,15 @@
         <div class="overview-card">
           <div class="ov-info">
             <h3 class="ov-title">48</h3>
-            <p class="ov-desc">Total projects</p>
-          </div>
-          <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
-        </div>
-      </div>
-      
-      <div class="custom-card">
-        <div class="overview-card">
-          <div class="ov-info">
-            <h3 class="ov-title">48</h3>
-            <p class="ov-desc">Total projects</p>
+            <p class="ov-desc">Ongoing projects</p>
           </div>
           <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
         </div>
       </div>
     </div>
 
-    <h5 class="db-sec-header">Projects</h5>
-    <p class="db-project-count">12,345,678</p>
-
     <!-- Chart -->
-    <style>
+    <!-- <style>
       .chart-container {
         width: 100%;
         padding: 5px 10px;
@@ -86,9 +73,58 @@
       .bar[data-value="1"] {
         grid-row-start: 50;
       }
-    </style>
+    </style> -->
 
-    <div class="chart-container">
+    <div class="linear space-between">
+      <div class="">
+        <h5 class="db-sec-header">Projects</h5>
+        <p class="db-project-count">12,345,678</p>
+        <br>
+      </div>  
+
+      <div class="dropdown">
+          <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+              Year
+          </button>
+
+          <div class="dropdown-menu dropdown-menu-lg-right">
+              <a class="dropdown-item" href="#">2009</a>
+              <a class="dropdown-item" href="#">2010</a>
+              <a class="dropdown-item" href="#">2011</a>
+              <a class="dropdown-item" href="#">2012</a>
+              <a class="dropdown-item" href="#">2013</a>
+              <a class="dropdown-item" href="#">2014</a>
+              <a class="dropdown-item" href="#">2015</a>
+              <a class="dropdown-item" href="#">2016</a>
+              <a class="dropdown-item" href="#">2017</a>
+              <a class="dropdown-item" href="#">2018</a>
+              <a class="dropdown-item" href="#">2019</a>
+              <a class="dropdown-item" href="#">2020</a>
+              <a class="dropdown-item" href="#">2021</a>
+              <a class="dropdown-item" href="#">2022</a>
+              <a class="dropdown-item" href="#">2023</a>
+          </div>
+      </div>
+    </div>
+
+    <h3 class="align-right">YEAR 2021</h3>
+            
+    <div class="chart">
+      <div class="bar" data-value="1"></div>
+      <div class="bar" data-value="2"></div>
+      <div class="bar" data-value="3"></div>
+      <div class="bar" data-value="4"></div>
+      <div class="bar" data-value="5"></div>
+      <div class="bar" data-value="6"></div>
+      <div class="bar" data-value="7"></div>
+      <div class="bar" data-value="8"></div>
+      <div class="bar" data-value="9"></div>
+      <div class="bar" data-value="10"></div>
+      <div class="bar" data-value="11"></div>
+      <div class="bar" data-value="12"></div>
+    </div>
+
+    <!-- <div class="chart-container">
       <div class="chart">
         <div class="bar" data-value="1"></div>
         <div class="bar" data-value="2"></div>
@@ -103,7 +139,7 @@
         <div class="bar" data-value="11"></div>
         <div class="bar" data-value="12"></div>
       </div>
-    </div>
+    </div> -->
 
   </div>
 

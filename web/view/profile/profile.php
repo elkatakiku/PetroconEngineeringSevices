@@ -24,7 +24,7 @@
         <?=IMAGES_PATH?>ic0n.jpg" class="profile-img">
       <div class="profile-display-info">
         <h2 class="profile-name"> <?=  $data['lastname'].', '.$data['firstname'].' '.(!$data['middlename'] ? ' ' : $data['middlename'].'. ') ?>
-          <a id="editProfile" href="<?= SITE_URL.'/app/profile/'.$_SESSION['accID'].'?action=edit' ?>">
+          <a id="editProfile" href="<?= SITE_URL.'/app/profile?action=edit' ?>">
             <i class="fa-solid fa-pen-to-square"></i>
           </a>
         </h2>
@@ -75,7 +75,7 @@
 
   <div class="page-footer">
     <button type="submit" form="proform" name="modifyProfile" class="btn success-btn">Save</button>
-    <a href="<?= SITE_URL.'/app/profile/'.$_SESSION['accID'] ?>"><button type="button" class="btn outline-action-btn">Cancel</button></a>
+    <a href="<?= SITE_URL.'/app/profile' ?>"><button type="button" class="btn outline-action-btn">Cancel</button></a>
 
     <a href="<?= SITE_URL.US.'app/password'?>" class="btn action-btn mr-auto"> Change Password </a>
   </div>   
