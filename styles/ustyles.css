@@ -22,26 +22,29 @@ p {
     border-radius: 50%;
     height: 230px;
     width: 230px;
-    padding-left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 20px;
     
   }
 
   .innerleft{
     align-self: flex-start;
-    margin-left: 20%;
+    margin-left: 5%;
+    margin-top: 5%;
   }
   
 
   .innerright{
     align-self: flex-end;
-    margin-left: 20%;
+    
   }
   
 .user-info{
-    min-width: 250px;
+    min-width: 350px;
     margin-top: 10%;
-    margin-left: 50%;
-    margin-right: 50%;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .editinfo{
@@ -54,7 +57,7 @@ p {
     height: auto;
     left: 20%;
     top: 0;
-    width: 100%;
+    width: 50%;
   }
 
 .buttons{
