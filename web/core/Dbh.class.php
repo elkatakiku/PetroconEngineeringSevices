@@ -81,6 +81,23 @@ class Dbh {
         return $result;
     }
 
+    public function inactive(string $tblName, string $id) 
+    {
+        $sql = 'UPDATE 
+                    '.$tblName.'
+                SET 
+                    active = :active
+                WHERE
+                    id = :id';
+
+        $params = [
+            ':id' => $id,
+            ':active' => false
+        ];
+
+        return $this->query($sql, $params);
+    }
+
     private function handle_sql_errors($query, $error_message) {
         echo '<pre>';
         echo $query;

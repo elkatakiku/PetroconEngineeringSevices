@@ -3,11 +3,13 @@
 namespace Repository;
 
 use Core\Repository;
+use Model\Invitation;
 use Model\Resource;
 
 class PeopleRepository extends Repository {
     
     private static $tblPeople = "lnk_project_team";
+    private static $tblInvitation = "tbl_invitation";
 
     public function create(Resource $resource)
     {
@@ -75,13 +77,51 @@ class PeopleRepository extends Repository {
 
     public function getPeople(string $projectId)
     {
-        $sql = "SELECT * 
+        $sql = "SELECT *
                 FROM ".self::$tblPeople." t
-                INNER JOIN tbl_register r ON t.reg_id = r.id
+                INNER JOIN tbl_account a ON t.acct_id = a.id
+                INNER JOIN tbl_register r ON a.register_id = r.id
                 WHERE proj_id = :proj_id";
 
         $params = [
+            ':proj_id' => $projectId
+        ];
+
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    // || Invitations
+    public function getInvitations(string $projectId)
+    {
+        $sql = "SELECT * 
+                FROM ".self::$tblInvitation."
+                WHERE proj_id = :proj_id AND used = :used
+                ORDER BY created_at DESC";
+
+        $params = [
             ':proj_id' => $projectId,
+            ':used' => false
+        ];
+
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function createInvitation(Invitation $invitation)
+    {
+        $sql = "INSERT INTO ".self::$tblInvitation."
+                    (id, name, email, code, proj_id, used)
+                VALUES
+                    (:id, :name, :email, :code, :proj_id, :used)";
+        
+        $params = [
+            ':id' => $invitation->getId(),
+            ':name' => $invitation->getName(),
+            ':email' => $invitation->getEmail(),
+            ':code' => $invitation->getCode(),
+            ':proj_id' => $invitation->getProjectId(),
+            ':used' => $invitation->isUsed()
         ];
 
         // Result

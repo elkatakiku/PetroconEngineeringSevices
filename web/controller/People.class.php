@@ -43,4 +43,26 @@ class People extends MainController {
             echo $this->peopleService->list($_GET['projId']);
         }
     }
+
+    // || Invitations
+    public function invitations()
+    {
+        if (isset($_GET['projId'])) {
+            echo $this->peopleService->invitationList($_GET['projId']);
+        }
+    }
+
+    public function invite()
+    {
+        if (isset($_POST['form'])) {
+            echo $this->peopleService->invite($_POST['form']);
+        }
+    }
+
+    public function removeInvitation()
+    {
+        if (isset($_POST['invitationId'])) {
+            echo $this->peopleService->removeInvitation($_POST['invitationId']);
+        }
+    }
 }

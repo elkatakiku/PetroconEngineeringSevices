@@ -33,7 +33,7 @@ class TaskRepository extends Repository {
         $stmt->bindValue(':description', $task->getDesc());
         $stmt->bindValue(':order_no', $task->getOrder());
         $stmt->bindValue(':status', $task->getStatus());
-        $stmt->bindValue(':proj_id', $task->getProjID());
+        $stmt->bindValue(':proj_id', $task->getProjectId());
 
         // Validation and result
         $result = true;

@@ -3,9 +3,11 @@
 namespace Service;
 
 use Core\Service;
+use Includes\Mail;
+use Model\Invitation;
 use Model\Resource;
 use Repository\PeopleRepository;
-
+use Repository\ProjectRepository;
 
 class PeopleService extends Service {
 
@@ -18,21 +20,21 @@ class PeopleService extends Service {
     public function new(string $form)
     {
         $input = $this->getInputs($form);
-        unset($input['required']['id']);
+        unset($input['id']);
 
-        if (!$this->emptyInput($input['required'])) 
+        if (!$this->emptyInput($input)) 
         {
-            $input['required']['total'] = $input['required']['price'] * $input['required']['quantity'];
+            $input['total'] = $input['price'] * $input['quantity'];
 
             // Creates resource object
             $resource = new Resource;
             $resource->create(
-                $input['required']['item'],
-                $input['required']['quantity'],
-                $input['required']['price'],
-                $input['required']['total'],
+                $input['item'],
+                $input['quantity'],
+                $input['price'],
+                $input['total'],
                 $input['notRequired']['notes'],
-                $input['required']['projId'],
+                $input['projId'],
             );
 
             if ($this->peopleRepository->create($resource)) {
@@ -52,11 +54,11 @@ class PeopleService extends Service {
     {
         $input = $this->getInputs($form);
 
-        if (!$this->emptyInput($input['required'])) 
+        if (!$this->emptyInput($input)) 
         {
-            $input['required']['total'] = $input['required']['price'] * $input['required']['quantity'];
+            $input['total'] = $input['price'] * $input['quantity'];
 
-            $this->peopleRepository->update(array_merge($input['required'], $input['notRequired']));
+            $this->peopleRepository->update(array_merge($input, $input['notRequired']));
             $response['statusCode'] = 200;
         } else {
             $response['statusCode'] = 400;
@@ -118,5 +120,111 @@ class PeopleService extends Service {
         ];
 
         return $input;
+    }
+
+    // || Invitations
+    public function invitationList(string $projectId)
+    {
+        $cleanId = $this->sanitizeString($projectId);
+        $response['data'] = [];
+
+        if ($cleanId) 
+        {
+            if ($resources = $this->peopleRepository->getInvitations($cleanId)) 
+            {
+                $response['data'] = $resources;
+                $response['statusCode'] = 200;
+            } 
+            else 
+            {
+                $response['statusCode'] = 500;
+            }
+        } 
+        else 
+        {
+            $response['statusCode'] = 400;
+        }
+
+        return json_encode($response);
+    }
+
+    public function invite(string $form)
+    {
+        parse_str($form, $input);
+
+        if (!$this->emptyInput($input)) 
+        {   // Creates resource object
+            $invitation  = new Invitation;
+            $invitation ->create(
+                $input['name'],
+                $input['email'],
+                bin2hex(random_bytes(32)),
+                $input['projId'],
+            );
+
+            // Create account
+            $userService = new UserService;
+            $account = $userService->createAccount($input['email'], $input['name']);
+
+            // Add to project team
+            $projectService = new ProjectRepository;
+            $projectService->joinProject($input['projId'], $account);
+
+            Mail::sendMail(
+                'Project Invitation',         // Subject
+                Mail::invitation($input['name'], $input['projId']),     // Body
+                $invitation->getEmail()          // Address / To
+            );
+
+            if ($this->peopleRepository->createInvitation($invitation)) {
+                $response['statusCode'] = 200;
+            } else {
+                $response['statusCode'] = 500;
+            }
+        } else {
+            $response['statusCode'] = 400;
+            $response['message'] = "Fill all the required inputs.";
+        }
+
+        return json_encode($response);
+    }
+
+    public function removeInvitation(string $invitationId)
+    {
+        // if (!empty($invitationId)) 
+        // {   // Creates resource object
+        //     $invitation  = new Invitation;
+        //     $invitation ->create(
+        //         $input['name'],
+        //         $input['email'],
+        //         bin2hex(random_bytes(32)),
+        //         $input['projId'],
+        //     );
+
+        //     // Create account
+        //     $userService = new UserService;
+        //     $account = $userService->createAccount($input['email'], $input['name']);
+
+        //     // Add to project team
+        //     $projectService = new ProjectRepository;
+        //     $projectService->joinProject($input['projId'], $account);
+
+        //     Mail::sendMail(
+        //         'Project Invitation',         // Subject
+        //         Mail::invitation($input['name'], $input['projId']),     // Body
+        //         $invitation->getEmail()          // Address / To
+        //     );
+
+        //     if ($this->peopleRepository->createInvitation($invitation)) {
+        //         $response['statusCode'] = 200;
+        //     } else {
+        //         $response['statusCode'] = 500;
+        //     }
+        // } else {
+        //     $response['statusCode'] = 400;
+        //     $response['message'] = "Fill all the required inputs.";
+        // }
+
+        // return json_encode($response);
     }
 }

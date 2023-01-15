@@ -19,7 +19,37 @@ class ProjectRepository extends Repository {
     private static $tblTaskBar = "tbl_taskbar";
     private static $tblLegend = "tbl_legend";
     private static $lnkProjectPlan = "lnk_project_plan";
+    private static $lnkProjectTeam = "lnk_project_team";
 
+    public function getProjectCount()
+    {
+        $sql = "SELECT done, COUNT(*) AS count
+                FROM ".self::$tblProject."
+                GROUP BY done";
+
+        return $this->query($sql);
+    }
+
+    public function projectsInYear(string $year)
+    {
+        $sql = "SELECT MONTH(created_at) AS 'month', COUNT(*) AS 'count'
+                FROM ".self::$tblProject." 
+                WHERE YEAR(created_at) = :year
+                GROUP BY MONTH(created_at) DESC";
+
+        $params = [':year' => $year];
+
+        return $this->query($sql, $params);
+    }
+
+    public function getYears()
+    {
+        $sql = "SELECT MIN(YEAR(created_at)) AS 'year'
+                FROM ".self::$tblProject;
+                // GROUP BY YEAR(created_at) DESC
+
+        return $this->query($sql);
+    }
 
     // Project
     public function setProject(Project $project) {
@@ -55,8 +85,8 @@ class ProjectRepository extends Repository {
         return $result;
     }
 
-    public function getProject($id) {
-
+    public function getProject($id) 
+    {
         $sql = 'SELECT 
                     id, purchase_ord, DATE_FORMAT(award_date, "%Y-%m-%d") as award_date, 
                     description, location, building_number, done, company, comp_representative, 
@@ -68,7 +98,7 @@ class ProjectRepository extends Repository {
         
         $params = [":projID" => $id];
 
-        return $this->query($sql, $params)[0];
+        return $this->query($sql, $params);
     }
 
     public function getProjects($status) {
@@ -175,7 +205,7 @@ class ProjectRepository extends Repository {
         $stmt->bindValue(':description', $task->getDesc());
         $stmt->bindValue(':order_no', $task->getOrder());
         $stmt->bindValue(':status', $task->getStatus());
-        $stmt->bindValue(':proj_id', $task->getProjID());
+        $stmt->bindValue(':proj_id', $task->getProjectId());
 
         $result = true;
 
@@ -250,7 +280,7 @@ class ProjectRepository extends Repository {
         $stmt->bindValue(':id', $legend->getId());
         $stmt->bindValue(':color', $legend->getColor());
         $stmt->bindValue(':title', $legend->getTitle());
-        $stmt->bindValue(':proj_id', $legend->getProjID());
+        $stmt->bindValue(':proj_id', $legend->getProjectId());
 
         $result = true;
 
@@ -443,6 +473,23 @@ class ProjectRepository extends Repository {
         }
 
         return $result;
+    }
+
+    // Join people to project
+    public function joinProject(string $projId, string $regId)
+    {
+        $sql = "INSERT INTO ".self::$lnkProjectTeam."
+                    (acct_id, proj_id)
+                VALUES
+                    (:acct_id, :proj_id)";
+        
+        $params = [
+            ':acct_id' => $regId,
+            ':proj_id' => $projId
+        ];
+
+        // Result
+        return $this->query($sql, $params);
     }
 
 }

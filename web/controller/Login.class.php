@@ -15,6 +15,10 @@ class Login extends MainController {
     public function __construct() {
         $this->setType(MainController::AUTH);
         $this->userService = new \Service\UserService();
+
+        if (isset($_SESSION['accID'])) {
+            header("Location: ".SITE_URL."/dashboard");
+        }
     }
 
     // Displays login frontend
@@ -42,16 +46,16 @@ class Login extends MainController {
             {   // Redirects user to their respective landing page
                 switch ($_SESSION["accType"]) {
                     case AccountModel::ADMIN_TYPE:
-                        header("Location: ".SITE_URL.US."dashboard");
+                        header("Location: ".SITE_URL."/dashboard");
                         exit();
                         break;
                     case AccountModel::EMPLOYEE_TYPE:
                     case AccountModel::WORKER_TYPE:
-                        header("Location: ".SITE_URL.US."dashboard");
+                        header("Location: ".SITE_URL."/dashboard");
                         exit();
                         break;
                     case AccountModel::CLIENT_TYPE:
-                        header("Location: ".SITE_URL.US."home/index");
+                        header("Location: ".SITE_URL."/home/index");
                         exit();
                         break;
                     default:
@@ -63,7 +67,9 @@ class Login extends MainController {
                 echo "<h1>Username or password does not match.</h1>";
                 return;
             }
-        } else {
+        } 
+        else 
+        {
             echo "<br>Please fill all required inputs.";
             $result =  -101;
         }

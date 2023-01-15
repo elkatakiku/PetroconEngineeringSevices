@@ -3,6 +3,7 @@
 }
 
 .form-login {
+    width: 100%;
     padding: 3rem 2rem;
     color: var(--primary-text);
     background-color: white;
@@ -31,6 +32,23 @@
     font-size: .75rem;
 }
 
+.form-check-label  {
+    font-size: .75rem;
+}
+
+.remember {
+    display: flex;
+    gap: 5px;
+    font-size: .75rem;
+    margin-bottom: 0;
+}
+
+.remember input[type="checkbox"] {
+    width: 10px;
+    aspect-ratio: 1/1;
+    margin-top: 0;
+}
+
 #forgotPass {
     padding: 0;
     color: var(--primary-text);
@@ -38,25 +56,38 @@
 
 /* || Media Queries */
 @media (min-width: 576px) {
-    .cover-page > div, .container, .container-sm {
-        max-width: 540px;
+    .cover-page > div, .container, .container-fluid, .container-sm {
+        max-width: 500px;
     } 
+    
+    .login-options, .remember {
+        font-size: .8rem;
+    }
+}
+
+@media (max-width: 768px) { 
+    .cover-page {
+        padding: 1rem;
+    }
 }
 
 @media (min-width: 768px) {
-    .cover-page > div, .container, .container-md, .container-sm {
+    /* .cover-page > div, .container, .container-md, .container-sm {
         max-width: 720px;
-    } 
+    }  */
 }
 
 @media (min-width: 992px) {
-    .cover-page > div, .container, .container-lg, .container-md, .container-sm {
+    .form-login {
+        min-width: 400px;
+    }
+    /* .cover-page > div, .container, .container-lg, .container-md, .container-sm {
         max-width: 960px;
-    } 
+    }  */
 }
 
 @media (min-width: 1200px) {
-    .cover-page > div, .container, .container-lg, .container-md, .container-sm, .container-xl {
+    /* .cover-page > div, .container, .container-lg, .container-md, .container-sm, .container-xl {
         max-width: 1140px;
-    }
+    } */
 }

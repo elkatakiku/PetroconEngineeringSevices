@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="page-header">
         <span>                
-            <a id="backBtn" href="<?= SITE_URL.US.'app/profile/'.$_SESSION['accID'] ?>" class="linear">
+            <a id="backBtn" href="<?= SITE_URL.'/account/profile' ?>" class="linear">
                 <span class="material-icons">
                     arrow_back
                 </span>
@@ -11,19 +11,14 @@
         </span>
     </div>
 
-    <form id="changePassForm" action="<?= SITE_URL.US.'user/changePass'?>" method="POST" class="main-content">
-    <?php if (isset($_GET['error'])) { ?>  
-          <!-- Alert -->
-          <div class="alert alert-danger show" role="alert"><?= $_GET['error'] ?></div>
-    <?php } else if (isset($_GET['success'])) { ?>  
-          <!-- Alert -->
-          <div class="alert alert-success show" role="alert">Password changed successfully</div>
-    <?php } ?>
-
+    <form id="changePassForm" action="<?= SITE_URL.'/user/changePass'?>" method="POST" class="main-content">
+    
         <!-- Content -->
         <h5 class="form-header">Reset password</h5>
-
-        <input type="hidden" name="id" value="<?= $data['id'] ?>">
+        
+        <?= $this->displayResult($_GET, 'Password changed successfully.') ?>
+    
+        <input type="hidden" name="id" value="<?= $data['user']['id'] ?>">
 
         <div class="form-group">
             <label for="old">Current password</label>
@@ -42,7 +37,7 @@
     </form>
 
     <div class="page-footer">
-        <button class="btn action-btn" type="submit" form="changePassForm" name="changePass">Update</button>
-        <a href="projects.html"><button type="button" class="btn outline-action-btn">Cancel</button></a>
+        <button class="btn action-btn" type="submit" form="changePassForm" name="changePassSubmit">Update</button>
+        <a href="<?= SITE_URL.'/account' ?>"><button type="button" class="btn outline-action-btn">Cancel</button></a>
     </div>            
 </main>

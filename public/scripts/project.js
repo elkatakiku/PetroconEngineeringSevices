@@ -1480,7 +1480,7 @@ function deleteProject(projId) {
                     console.log("Success delete");
                     deletePopup.find('button[data-dismiss]').trigger('click');
 
-                    window.location.href =  Settings.base_url + '/project';
+                    window.location.href =  Settings.base_url + '/project/list#all';
                 }
             }
         );
@@ -1544,33 +1544,8 @@ $('.slide button[data-toggle="form"]').on('click', (e) => {
     }
 });
 
-
-
-// Resource popup
-// // Timeline datatable settings
-// $('button[data-target="#projectResources"]').on('click', (e) => {
-//     console.log("Show resources");
-
-//     // Clears declared interval
-//     // clearInterval(ganttChartInterval);
-//     // resetGanttChart();
-
-//     // Initializes resource table's datatable
-//     // let resourceTable = $("#resourceTable").DataTable(resourceSettings);
-
-//     // let resourceInterval = setInterval(() => {
-//     //     console.log("Resource interval");
-//     //     resourceTable.ajax.reload(null, false);
-//     // }, 3000);
-
-
-//     // $("#resourceTable").on( 'destroy.dt', function ( e, settings ) {
-//     //     console.log("Resource Destroy");
-//     //     $(this).find('tbody').off( 'click', 'tr' );
-//     //     clearInterval(resourceInterval);
-//     // });
-// });
-
+// || NAV TABS
+// Nav tab datatbles
 let datatableSettings = {
     resourceTable : {
         'dom' : '<"mesa-container"t><"linear">',
@@ -1681,7 +1656,7 @@ let datatableSettings = {
     
                     $.post(
                         Settings.base_url + "/resource/update",
-                        {form : function () {return $(e.target).serialize();}},
+                        {form : getFormData(e.target)},
                         function (data, textStatus) {
                             console.log(data);
                             console.log("Edit Response");
@@ -1836,7 +1811,7 @@ let datatableSettings = {
         }
     },
     paymentTable : {
-        'dom' : '<"mesa-container"t><"linear">',
+        'dom' : '<"mesa-container"t>',
         "autoWidth": false,
         "lengthChange": false,
         'sort' : false,
@@ -1848,101 +1823,222 @@ let datatableSettings = {
         },
     
         "columns" : [
+            {'defaultContent' : ''},
             {
-                'data' : 'bill',
-                'render' : function (data, type, row) { 
-                    return data + '<br>' + row.company; }
+                'data' : 'description'
+                // 'render' : function (data, type, row) {
+                //     return data + '<br>' + row.company; }
             }, 
             {'data' : 'amount'},
-            {'data' : 'sent_at'},
+            {
+                'data' : 'sent_at',
+                'render' : function (data, type, row) {  
+                    let date = new Date(data);
+                    // return date.toLocaleString("default", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                    return date.toDateString();
+                }
+            },
             {
                 'defaultContent' : '',
                 'render' : function (data, type, row) { 
-                    return '<button class="link-btn">Remove</button>'; }
+                    return '<div class="action-cell-content">' +
+                                '<span class="row-action-btns">' +
+                                    '<button class="btn icon-btn edit-btn">' +
+                                        '<span class="material-icons">' +
+                                            'edit' +
+                                        '</span>' +
+                                    '</button>' +
+                                    '<button class="btn icon-btn delete-btn">' +
+                                        '<span class="material-icons">' +
+                                            'delete' +
+                                        '</span>' +
+                                    '</button>' +
+                                '</span>' +
+                            '</div>'; 
+                    }
             }
+        ],
+
+        "columnDefs" : [
+            {
+                "targets": 4,
+                "createdCell": function (td, cellData, rowData, rowIndex, colIndex) {
+                    // console.log("TD");
+                    // console.log(td);
+                    // console.log("Cell data");
+                    // console.log(cellData);
+                    // $(td).addClass('taskCell');
+                    $(td).find('.edit-btn').on('click', (e) => {
+                        console.log("Edit payment");
+                        console.log(rowIndex);
+                        console.log(colIndex);
+                        console.log(cellData);
+                        console.log(rowData);
+                        console.log(rowData.id);
+
+                        // let dt = this.api();
+                        // let row = $(e.target).parents('tr');
+                        // let rowData = dt.row(row).data();
+                        // let rowDisplay = dt.cells( row, '' ).render( 'display' );    
+                        
+                        let popup = buildPaymentPopup();
+
+                        popup.find('[name="date"]').val(rowData.id);
+                        popup.find('[name="description"]').val(rowData.description);
+                        popup.find('[name="amount"]').val(rowData.amount);
+                        popup.find('[type="submit"]').text('Save');
+
+                        // Submit action 
+                        popup.find('#paymentForm').on('submit', (event) => {
+                            event.preventDefault();
+                            disableInputs(event.target);
+
+                            $.post(
+                                Settings.base_url + "/payment/update",
+                                {form : getFormData(e.target)},
+                                function (data, textStatus) {
+                                    console.log(data);
+                                    console.log("Edit Response");
+                                    let response = JSON.parse(data);
+                                    console.log(response);
+
+                                    if (response.statusCode == 200) 
+                                    {   // Dismiss legend's form and reload legends list on success
+                                        popup.find('button[data-dismiss]').trigger('click');
+
+                                        // Reload resources
+                                        $("#paymentTable").dataTable().api().ajax.reload(null, false);
+                                    }
+                                    else
+                                    {   // Shows alert on fail
+                                        popup.find('.alert-danger')
+                                            .addClass('show')
+                                            .text(response.message);
+                                    }
+
+                                    $(e.target).trigger('custom:formSubmitted');
+                                }
+                            );
+                        });
+
+                        // Finally shows popup
+                        Popup.show(popup);
+                    });
+
+                    $(td).find('.delete-btn').on('click', (e) => {
+                        console.log("Delete payment");
+                        Popup.promptDelete('payment', rowData.id, (deletePopup) => {
+                            $.post(
+                                Settings.base_url + "/payment/remove",
+                                {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+                                function (data, textStatus) {
+                                    console.log("Response delete");
+                                    console.log(data);
+                                    let jsonData = JSON.parse(data);
+                                    if (jsonData.statusCode == 200) 
+                                    {   // Dismiss delete popup and reload legends list on success
+                                        deletePopup.find('button[data-dismiss]').trigger('click');
+
+                                        deletePopup.on('custom:dismissPopup', (e) => {
+                                            popup.find('button[data-dismiss]').trigger('click');
+                                        });
+                                    
+                                        // Reload tasks
+                                        this.api().ajax.reload(null, false);
+                                    }
+                                }
+                            );
+                        }, true);
+                    });
+                }
+            }
+        ],
+
+        order: [
+            [1, 'asc']
         ],
         
         initComplete : function () {
             // Sets click functionality of rows   
-            $(this).find('tbody').on('click', 'tr', (e) => {
+            // $(this).find('tbody').on('click', 'tr', (e) => {
     
-                console.log("TR CLICKED");
+            //     console.log("TR CLICKED");
     
-                let dt = this.api();
-                let row = $(e.target).parents('tr');
-                let rowData = dt.row(row).data();
-                // let rowDisplay = dt.cells( row, '' ).render( 'display' );    
+            //     let dt = this.api();
+            //     let row = $(e.target).parents('tr');
+            //     let rowData = dt.row(row).data();
+            //     // let rowDisplay = dt.cells( row, '' ).render( 'display' );    
                 
-                // let popup = buildResourcePopup();
-                // popup.find('.pfooter .btn.delete-btn').show();
+            //     // let popup = buildResourcePopup();
+            //     // popup.find('.pfooter .btn.delete-btn').show();
 
-                // popup.find('[name="id"]').val(rowData.id);
-                // popup.find('[name="item"]').val(rowData.item);
-                // popup.find('[name="quantity"]').val(rowData.quantity);
-                // popup.find('[name="price"]').val(rowData.price);
-                // popup.find('[name="total"]').val(rowData.total);
-                // popup.find('[name="notes"]').val(rowData.notes);
+            //     // popup.find('[name="id"]').val(rowData.id);
+            //     // popup.find('[name="item"]').val(rowData.item);
+            //     // popup.find('[name="quantity"]').val(rowData.quantity);
+            //     // popup.find('[name="price"]').val(rowData.price);
+            //     // popup.find('[name="total"]').val(rowData.total);
+            //     // popup.find('[name="notes"]').val(rowData.notes);
                 
-                // Delete task actions
-                // popup.find('.delete-btn').click(() => {
-                //     console.log("DELETE CLICKED");
-                //     Popup.promptDelete('resource', rowData.id, (deletePopup) => {
-                //         $.post(
-                //             Settings.base_url + "/resource/remove",
-                //             {form : function () {return deletePopup.find('#deleteForm').serialize();}},
-                //             function (data, textStatus) {
-                //                 console.log("Response delete");
-                //                 console.log(data);
-                //                 let jsonData = JSON.parse(data);
-                //                 if (jsonData.statusCode == 200) 
-                //                 {   // Dismiss delete popup and reload legends list on success
-                //                     deletePopup.find('button[data-dismiss]').trigger('click');
+            //     // Delete task actions
+            //     // popup.find('.delete-btn').click(() => {
+            //     //     console.log("DELETE CLICKED");
+            //     //     Popup.promptDelete('resource', rowData.id, (deletePopup) => {
+            //     //         $.post(
+            //     //             Settings.base_url + "/resource/remove",
+            //     //             {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+            //     //             function (data, textStatus) {
+            //     //                 console.log("Response delete");
+            //     //                 console.log(data);
+            //     //                 let jsonData = JSON.parse(data);
+            //     //                 if (jsonData.statusCode == 200) 
+            //     //                 {   // Dismiss delete popup and reload legends list on success
+            //     //                     deletePopup.find('button[data-dismiss]').trigger('click');
 
-                //                     deletePopup.on('custom:dismissPopup', (e) => {
-                //                         popup.find('button[data-dismiss]').trigger('click');
-                //                     });
+            //     //                     deletePopup.on('custom:dismissPopup', (e) => {
+            //     //                         popup.find('button[data-dismiss]').trigger('click');
+            //     //                     });
                                 
-                //                     // Reload tasks
-                //                     dt.ajax.reload(null, false);
-                //                 }
-                //             }
-                //         );
-                //     }, true);
-                // });
+            //     //                     // Reload tasks
+            //     //                     dt.ajax.reload(null, false);
+            //     //                 }
+            //     //             }
+            //     //         );
+            //     //     }, true);
+            //     // });
     
-                // Submit action 
-                // popup.find('#itemForm').submit((e) => {
-                //     e.preventDefault();
+            //     // Submit action 
+            //     // popup.find('#itemForm').submit((e) => {
+            //     //     e.preventDefault();
     
-                //     $.post(
-                //         Settings.base_url + "/resource/update",
-                //         {form : function () {return $(e.target).serialize();}},
-                //         function (data, textStatus) {
-                //             console.log(data);
-                //             console.log("Edit Response");
-                //             let response = JSON.parse(data);
-                //             console.log(response);
+            //     //     $.post(
+            //     //         Settings.base_url + "/resource/update",
+            //     //         {form : function () {return $(e.target).serialize();}},
+            //     //         function (data, textStatus) {
+            //     //             console.log(data);
+            //     //             console.log("Edit Response");
+            //     //             let response = JSON.parse(data);
+            //     //             console.log(response);
 
-                //             if (response.statusCode == 200) 
-                //             {   // Dismiss legend's form and reload legends list on success
-                //                 popup.find('button[data-dismiss]').trigger('click');
+            //     //             if (response.statusCode == 200) 
+            //     //             {   // Dismiss legend's form and reload legends list on success
+            //     //                 popup.find('button[data-dismiss]').trigger('click');
 
-                //                 // Reload resources
-                //                 $("#resourceTable").dataTable().api().ajax.reload(null, false);
-                //             }
-                //             else
-                //             {   // Shows alert on fail
-                //                 popup.find('.alert-danger')
-                //                     .addClass('show')
-                //                     .text(response.message);
-                //             }
-                //         }
-                //     );
-                // });
+            //     //                 // Reload resources
+            //     //                 $("#resourceTable").dataTable().api().ajax.reload(null, false);
+            //     //             }
+            //     //             else
+            //     //             {   // Shows alert on fail
+            //     //                 popup.find('.alert-danger')
+            //     //                     .addClass('show')
+            //     //                     .text(response.message);
+            //     //             }
+            //     //         }
+            //     //     );
+            //     // });
 
-                // Finally shows popup
-                // Popup.show(popup);
-            });
+            //     // Finally shows popup
+            //     // Popup.show(popup);
+            // });
         }
     }
 };
@@ -2007,8 +2103,7 @@ function buildResourcePopup() {
     resetResourcePopup(popup);
 
     // Computes total
-    popup.find('[name="quantity"], [name="price"]').on('keyup', (e) => {
-        console.log("Key press");
+    popup.find('[name="quantity"], [name="price"]').on('input', (e) => {
         popup.find('[name="total"]').val(popup.find('[name="price"]').val() * popup.find('[name="quantity"]').val());
     });
     
@@ -2048,7 +2143,7 @@ $('#addResource').on('click', (e) => {
 
         $.post(
             Settings.base_url + "/resource/new",
-            {form : function () {return $(e.target).serialize();}},
+            {form : getFormData(e.target)},
             function (data, textStatus) {
                 console.log(data);
                 console.log("Add Response");
@@ -2076,3 +2171,84 @@ $('#addResource').on('click', (e) => {
     Popup.show(popup);
 });
 
+
+// Payment
+function buildPaymentPopup() {  
+    console.log("Build payment popup");
+    let popup = $('#paymentPopup');
+
+    // Preps payment form
+    // Popup.reset(popup);
+    
+    // On dismiss listener
+    popup.on('custom:dismissPopup', (e) => {
+        console.log("Project payment popup dismissed");
+
+        // Removes events of resource popup
+        popup.find('#paymentForm').off('submit');
+        popup.find('.delete-btn').off();
+    });
+
+    Popup.initialize(popup);
+
+    return popup;
+}
+
+$('#addPayment').on('click', (e) => {
+    console.log("Add payment");
+    let popup = buildPaymentPopup();
+
+    popup.find('[type="submit"]').text('Create');
+    
+    popup.find('#paymentForm').on('submit', (e) => {
+        e.preventDefault();
+        console.log("Submit payment");
+
+        $.post(
+            Settings.base_url + "/payment/new",
+            {form : getFormData(e.target)},
+            function (data, textStatus) {
+                console.log(data);
+                console.log("Add Response");
+                let response = JSON.parse(data);
+                console.log(response);
+
+                if (response.statusCode == 200) 
+                {   // Dismiss legend's form and reload legends list on success
+                    popup.find('button[data-dismiss]').trigger('click');
+
+                    // Reload resources
+                    $("#paymentTable").dataTable().api().ajax.reload(null, false);
+                }
+                else
+                {   // Shows alert on fail
+                    popup.find('.alert-danger')
+                        .addClass('show')
+                        .text(response.message);
+                }
+            }
+        );
+    });
+
+    popup.find('.pfooter .btn.delete-btn').hide();
+    Popup.show(popup);
+})
+
+function getFormData(form) {  
+    console.log("get form data");
+    console.log(projectId);
+    return $(form).serialize() + "&projId=" + projectId;
+}
+
+function disableInputs(form) { 
+    $(form).find('input, textarea').each((index, element) => {
+        console.log(element);
+        $(element).prop('disabled', true);
+    });
+
+    $('button[form="' + $(form).attr('id') + '"]').prop('disabled', true);
+}
+
+$('form').on('custom:formSubmitted', (e) => {
+    console.log("Submitted, result");
+});

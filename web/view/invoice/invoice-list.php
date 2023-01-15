@@ -20,14 +20,14 @@
         <label for="allStat">All</label>
         <input id="allStat" class="link-btn" type="radio" name="status" value="all" checked>
       </span>
-      <span class="filter-tab-item">
+      <!-- <span class="filter-tab-item">
         <label for="doneStat">Done</label>
         <input id="doneStat" class="link-btn" type="radio" name="status" value="done">
       </span>
       <span class="filter-tab-item">
         <label for="ongoingStat">Ongoing</label>
         <input id="ongoingStat" class="link-btn" type="radio" name="status" value="ongoing">
-      </span>
+      </span> -->
     </form>
 
     <!-- Search -->

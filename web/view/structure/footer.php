@@ -4,7 +4,7 @@
 
 <?php 
 
-switch ($this->getType()) {
+switch ($data['accountType']) {
   case Core\Controller::AUTH: ?>
 
           </div>
@@ -47,19 +47,19 @@ switch ($this->getType()) {
 
       console.log("Footer");
 
-      <?php if ($this->getType() == Core\Controller::ADMIN) { ?>
+      <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
 
       let sideNavLink = $("#sidebar .components > li");
 
       for (let i = 0; i < sideNavLink.length; i++) {
         const navLink = sideNavLink[i];
-        if (i === <?= $this->getPageNumber() ?>) {
+        if (i === <?= $data['pageNumber'] ?>) {
           console.log("This is the one");
           $(navLink).addClass("active");
         }
       }
 
-      // <?php } else if ($this->getType() == Core\Controller::CLIENT) { ?>
+      // <?php } else if ($data['accountType'] == Core\Controller::CLIENT) { ?>
       //   $('.navbar-nav').children().each((index, element) => {
       //     if ($(element).find('a').text().toLowerCase() === '<?= $this->getPage() ?>'.toLowerCase()) {
       //       $(element).addClass('active');

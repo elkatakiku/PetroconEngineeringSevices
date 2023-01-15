@@ -1,0 +1,47 @@
+/* Header */
+.content .page-header {
+    margin: 0;
+    padding: 24px 20px;
+    border-bottom: 1px solid var(--border-rgba-color);
+}
+
+#backBtn > * {
+    font-size: 12px; 
+}
+
+/* Content */
+#signupForm .form-group .linear-center {
+    height: auto;
+}
+
+/* Form */
+.form-header {
+    font-size: 1.12rem;
+    margin-bottom: 1rem;
+}
+
+.loading-input {
+    display: block;
+    position: relative;
+}
+
+.loading-input .loading {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    color: var(--palette4);
+
+    position: absolute;
+    top: 0;
+    right: .75rem;
+}
+
+/* Media Queries */
+/* LG */
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+    .personal-form {
+        border-right: 1px solid var(--border-rgba-color);
+    }
+}

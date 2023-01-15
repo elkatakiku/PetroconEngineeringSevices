@@ -1,10 +1,13 @@
 <main class="content">
+    <!-- <pre>
+        <?php var_dump($data) ?>
+    </pre> -->
     <!-- Header -->
     <div class="page-header">
         <div class="project-info">
             <div>
-                <h1 class="page-title"><?= $data['description'] ?></h1>
-                <small><?= $data['location'] ?></small>
+                <h1 class="page-title"><?= $data['project']['description'] ?></h1>
+                <small><?= $data['project']['location'] ?></small>
             </div>
         </div>
         <button id="projectInfoToggller" type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
@@ -50,7 +53,7 @@
                     <!-- Alert -->
                     <div class="alert alert-danger mb-2" role="alert"></div>
 
-                    <input type="hidden" name="id" value="<?= $data['id'] ?>">
+                    <input type="hidden" name="id" value="<?= $data['project']['id'] ?>">
 
                     <h3 class="detail-header">Project</h3>
 
@@ -58,29 +61,29 @@
         
                         <div class="form-input-group">
                             <label for="">Purchase Order #</label>
-                            <input type="text" name="purchaseOrd" value="<?= $data['purchase_ord'] ?>" readonly>
+                            <input type="text" name="purchaseOrd" value="<?= $data['project']['purchase_ord'] ?>" readonly>
                         </div>
         
                         <div class="form-input-group">
                             <label for="">Date of Award</label>
-                            <input type="date" name="awardDate" value="<?= $data['award_date'] ?>" readonly>
+                            <input type="date" name="awardDate" value="<?= $data['project']['award_date'] ?>" readonly>
                         </div>
 
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Work Description</label>
-                        <textarea name="description" rows="1" readonly><?= $data['description'] ?></textarea>
+                        <textarea name="description" rows="1" readonly><?= $data['project']['description'] ?></textarea>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Building no.</label>
-                        <input type="text" name="buildingNo" value="<?= $data['building_number'] ?>" readonly>
+                        <input type="text" name="buildingNo" value="<?= $data['project']['building_number'] ?>" readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Location</label>
-                        <input type="text" name="location" value="<?= $data['location'] ?>" readonly>
+                        <input type="text" name="location" value="<?= $data['project']['location'] ?>" readonly>
                     </div>         
                     
 
@@ -88,17 +91,17 @@
 
                     <div class="form-input-group">
                         <label for="">Company</label>
-                        <input type="text" name="company" value="<?= $data['company'] ?>" readonly>
+                        <input type="text" name="company" value="<?= $data['project']['company'] ?>" readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Representative</label>
-                        <input type="text" name="representative" value="<?= $data['comp_representative'] ?>" readonly>
+                        <input type="text" name="representative" value="<?= $data['project']['comp_representative'] ?>" readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Contact</label>
-                        <input type="tel" name="contact" value="<?= $data['comp_contact'] ?>" readonly>
+                        <input type="tel" name="contact" value="<?= $data['project']['comp_contact'] ?>" readonly>
                     </div>
 
 
@@ -107,8 +110,8 @@
             </div>
 
             <div class="slide-footer">
-                <button class="btn sm-btn <?= $data['done'] == 1 ? 'outline-action' : 'success' ?>-btn done-btn" data-toggle="popup" data-target="#markDone">
-                    <?= $data['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?>
+                <button class="btn sm-btn <?= $data['project']['done'] == 1 ? 'outline-action' : 'success' ?>-btn done-btn" data-toggle="popup" data-target="#markDone">
+                    <?= $data['project']['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?>
                 </button>
                 <button type="button" class="btn sm-btn danger-btn delete-btn">
                     Remove project
@@ -134,7 +137,7 @@
         </ul>
 
     <?php
-    if ($data['done'] == 1) { ?>
+    if ($data['project']['done'] == 1) { ?>
             <!-- <div>
                 <a class="btn action-btn" data-toggle="custom-tab" href="invoice-admin.html">Invoice</a>
                 <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
@@ -209,7 +212,7 @@
             <div class="slider">
                 <div class="timeline">
                     <header class="linear">
-                        <h5>Tasks</h5>
+                        <!-- <h5>Tasks</h5> -->
                         
                         <button id="addTask" data-target="#newTask" type="button" class="btn action-btn sm-btn">
                             <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
@@ -592,13 +595,14 @@
                 </form>
             </div> -->
 
-            <header class="linear">
-                <h5>Materials used</h5>
-                <button id="addResource" type="button" class="btn action-btn sm-btn">
+            <!-- <header class="linear"> -->
+                <!-- <h5>Materials used</h5> -->
+                <button id="addResource" type="button" class="btn action-btn sm-btn float-right">
                     <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
                     Add material
                 </button>
-            </header>
+            <!-- </header> -->
+
 
             <!-- Resources Table -->
             <div class="mesa-container">
@@ -703,30 +707,39 @@
         <!-- People -->
         <section id="projectPeople" class="main-content custom-tab-content">
 
-            <nav class="linear w-100">
-                <button class="btn btn-sm link-btn" data-toggle="popup" data-target="#Pending" aria-expanded="false">
-                    Pending invitations
-                </button>
-                <a class="" href="../admin/generateslip.html">
-                <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
-                    Generate Slip
-                </button></a>
-                <div class="dropdown ml-auto">
-                    
-                    <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
-                        Add people
-                    </button>
 
-                    <div class="dropdown-menu dropdown-menu-lg-right">
-                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
+            <div class="linear justify-content-end">
+                <button class="btn outline-action-btn">Choose from team</button>
+                or
+                <a href="<?= SITE_URL.'/project/invitation/'.$data['project']['id'] ?>">
+                    <button class="btn action-btn">Invite people</button>
+                </a>
+                <!-- <a href="<?= SITE_URL.'/project/invitation/'.$data['project']['id'] ?>">
+                    <button class="btn btn-sm link-btn">
+                        Pending invitations
+                    </button>
+                </a> -->
+                <!-- <a class="" href="../admin/generateslip.html">
+                    <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
+                        Generate Slip
+                    </button>
+                </a> -->
+                <!-- <div class="dropdown ml-auto"> -->
+                    
+                    <!-- <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
+                        Add people
+                    </button> -->
+
+                    <!-- <div class="dropdown-menu dropdown-menu-lg-right"> -->
+                        <!-- <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
                         Invite
                         </button>
                         <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
                             Choose from team
-                        </button>   
-                    </div>
-                </div>
-            </nav>
+                        </button>    -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            </div>
             <!-- <div class="linear"> -->
                 <!-- <form action="" class=""> -->
                 <!-- <div class="input-container">
@@ -792,18 +805,40 @@
         <!-- Payment -->
         <section id="projectPayment" class="main-content custom-tab-content">
 
+            <button id="addPayment" type="button" class="btn action-btn sm-btn float-right">
+                <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                Add payment
+            </button>
+
             <!-- Payment Table -->
             <div class="mesa-container">
                 <table class="mesa" id="paymentTable">
                     <thead class="mesa-head">
                         <tr>
+                            <th></th>
                             <th scope="col" class="tname"><strong>Description</strong></th>
                             <th scope="col">Payment</th>
                             <th scope="col">Date</th>
-                            <th scope="col" class="table-action-col"></th>
+                            <th scope="col">
+                                <!-- <div> -->
+                                <!-- <div class="action-cell-content">
+                                    <span class="row-action-btns">
+                                        <button class="btn">
+                                        <span class="material-icons">
+                                                edit
+                                            </span>
+                                        </button>
+                                        <button class="btn">
+                                            <span class="material-icons">
+                                                delete
+                                            </span>
+                                        </button>
+                                    </span>
+                                </div> -->
+                            </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <!-- <tbody>
                         <tr>
                             <td><strong>Tank Requalification Fire Protection System</strong><br>
                                 <small>Phoenix</small>
@@ -852,7 +887,7 @@
                             <td>dd/mm/YYYY</td>
                             <td>Remove</td>
                         </tr>
-                    </tbody>
+                    </tbody> -->
                 </table>
             </div>
         </section>
@@ -1026,7 +1061,38 @@
                     
                     <h5>Activity</h5>
 
-                    <div id="taskActivities"><div class="form-input-group task-activity" id="PTRCN-TSKBR-63b3fe413440f" style="border-color: rgba(2, 106, 167, 0.4); box-shadow: rgba(2, 106, 167, 0.4) 0px 1px 5px;"><span class="linear-label"><label for="" style="color: rgb(2, 82, 129);">Plan</label><button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close"><span class="material-icons">close</span></button></span><input type="hidden" name="legendId" value="PTRCN-LGND-63b3fe007bff8" style="border-bottom-color: rgb(2, 82, 129);"><div class="tb-date"><input type="date" name="start" value="2023-01-03" style="border-bottom-color: rgb(2, 82, 129);">-<input type="date" name="end" value="2023-01-06" style="border-bottom-color: rgb(2, 82, 129);"></div></div></div>
+                    <!-- <div id="taskActivities">
+                        <div class="form-input-group task-activity" id="PTRCN-TSKBR-63b3fe413440f" style="border-color: rgba(2, 106, 167, 0.4); box-shadow: rgba(2, 106, 167, 0.4) 0px 1px 5px;"><span class="linear-label"><label for="" style="color: rgb(2, 82, 129);">Plan</label><button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">
+                            <span class="material-icons">
+                            close
+
+                        </span>
+                    </button>
+                    </span>
+                        <input type="hidden" name="legendId" value="PTRCN-LGND-63b3fe007bff8" style="border-bottom-color: rgb(2, 82, 129);">
+                        <div class="tb-date">
+                            <input type="date" name="start" value="2023-01-03" style="border-bottom-color: rgb(2, 82, 129);">
+                        -
+                        <input type="date" name="end" value="2023-01-06" style="border-bottom-color: rgb(2, 82, 129);">
+                    </div>
+                    </div>
+                    </div> -->
+
+                    <div id="taskActivities">
+                        <!-- <div class="form-input-group task-activity" id="PTRCN-TSKBR-63b3fe413440f" style="border-color: rgba(2, 106, 167, 0.4); box-shadow: rgba(2, 106, 167, 0.4) 0px 1px 5px;">
+                            <span class="linear-label">
+                                <label for="" style="color: rgb(2, 82, 129);">Plan</label>
+                                <button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">
+                                    <span class="material-icons"> close </span>
+                                </button>
+                            </span>
+                            <input type="hidden" name="legendId" value="PTRCN-LGND-63b3fe007bff8" style="border-bottom-color: rgb(2, 82, 129);">
+                            <div class="tb-date">
+                                <input type="date" name="start" value="2023-01-03" style="border-bottom-color: rgb(2, 82, 129);"> - <input type="date" name="end" value="2023-01-06" style="border-bottom-color: rgb(2, 82, 129);">
+                            </div>
+                        </div> -->
+                    </div>
+
                     <div id="newActivities"></div>
 
                     <div id="samp"></div>
@@ -1100,7 +1166,7 @@
     <div class="pcontainer popup-sucess popup-sm">
         <div class="pcontent">
             <div class="pheader">
-                <h2 class="ptitle"><?= $data['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?></h2>
+                <h2 class="ptitle"><?= $data['project']['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?></h2>
                 <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
                     <span class="material-icons">close</span>
                 </button>
@@ -1108,10 +1174,10 @@
 
             <div class="pbody">
                 <form id="doneForm" action="<?= SITE_URL ?>/project/mark" method="POST">
-                    <input type="hidden" name="id" value="<?= $data['id'] ?>">
-                    <input type="hidden" name="done" value="<?= $data['done'] == 0 ? 1 : 0 ?>">
+                    <input type="hidden" name="id" value="<?= $data['project']['id'] ?>">
+                    <input type="hidden" name="done" value="<?= $data['project']['done'] == 0 ? 1 : 0 ?>">
                 </form>
-                <?= $data['done'] == 1 ? 'Unmark' : 'Mark' ?> this project done?
+                <?= $data['project']['done'] == 1 ? 'Unmark' : 'Mark' ?> this project done?
             </div>
 
             <div class="pfooter">
@@ -1146,13 +1212,13 @@
                     </div>
 
                     <div class="form-group basis-4">
-                        <label for="">Quantity</label>
-                        <input type="number" class="form-control" name="quantity" min=0 oninput="validity.valid||(value='');">
+                        <label for="">Price per item (PHP)</label>
+                        <input type="number" class="form-control" name="price" step="any" min=0 oninput="validity.valid||(value='');">
                     </div>
                     
                     <div class="form-group basis-4">
-                        <label for="">Price per item (PHP)</label>
-                        <input type="number" class="form-control" name="price" step="any" min=0 oninput="validity.valid||(value='');">
+                        <label for="">Quantity</label>
+                        <input type="number" class="form-control" name="quantity" min=0 oninput="validity.valid||(value='');">
                     </div>
 
                     <div class="form-group basis-4">
@@ -1166,7 +1232,7 @@
                     </div>
 
                     <input type="hidden" name="id">
-                    <input type="hidden" name="projId" value="<?= $data['id'] ?>">
+                    <input type="hidden" name="projId" value="<?= $data['project']['id'] ?>">
                 </form>
             </div>
 
@@ -1181,6 +1247,176 @@
     </div>
 </div>
 
+<!--POPUP INVITE PEOPLE-->
+<div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
+    <div class="pcontainer">
+        <div class="pcontent">
+            <div class="pheader">
+                <i class="fa-solid fa-envelope-open-text"></i>
+                <h2 class="ptitle">Invite People</h2>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="pbody">
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" name="" id="" placeholder="Type the name here">
+                </div>
+                <div class="form-group">
+                    <label for="">Email / Phone</label>
+                        <div class="input-container">
+                            <input type="text" placeholder="Enter an email address or phone number.">
+                            <div class="input-append">  
+                                <button type="button" class="btn action-btn slim-btn">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>                     
+                </div>
+                <div class="form-group">
+                    
+                    <label for="">Selected Person</label>
+                    
+                        <div class="selected">
+                            <p>Add a person to the list</p>
+                        </div> 
+                </div>
+            </div>
+
+            <div class="pfooter">
+                <button type="button" class="btn action-btn">Send Invitation</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--PENDING INVI-->
+<div class="popup popup-center" id="Pending" tabindex="-1" aria-hidden="true">
+    <div class="pcontainer">
+        <div class="pcontent">
+            <div class="pheader">
+                <h2 class="ptitle">Pending Invitation</h2>
+                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="pbody">
+                <div class="form-group"> 
+                    <label for="">Invitations</label>
+                    <div class="selected" style="overflow: auto;max-height: 250px;">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>vana</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>vana</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>vana</td>
+                                    <td>09152934627</td>
+                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                
+                                <tr>
+                                <th scope="row"></th>
+                                <td>vana</td>
+                                <td>09152934627</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                
+                                <tr>
+                                <th scope="row"></th>
+                                <td>effer</td>
+                                <td>09152934627</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                
+                                <tr>
+                                <th scope="row"></th>
+                                <td>elkatakiki</td>
+                                <td>elimarimae@emailcom</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                                
+                                <tr>
+                                <th scope="row"></th>
+                                <td>kath</td>
+                                <td>09152934627</td>
+                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pfooter">
+                <button type="button" class="btn action-btn" data-dismiss="popup">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment -->
+<div class="popup" id="paymentPopup" tabindex="-1" aria-hidden="true">
+    <div class="pcontainer">
+        <div class="pcontent">
+            <div class="pheader">
+                <h2 class="ptitle">Add Payment</h2>
+                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <div class="linear-container pbody">
+
+                <!-- Alert -->
+                <div class="alert alert-danger mb-0" role="alert"></div>
+
+                <!-- Content -->
+                <form id="paymentForm">
+                    <input type="hidden" name="id">
+
+                    <div class="form-group">
+                        <label for="">Date</label>
+                        <input type="date" class="form-control" name="date">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <input type="text" class="form-control" name="description">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Amount</label>
+                        <input type="number" class="form-control" name="amount" min=0 oninput="validity.valid||(value='');">
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="pfooter">
+                <button type="submit" form="paymentForm" class="btn action-btn">Create</button>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    let projectId = '<?= $data['id'] ?>';
+    let projectId = '<?= $data['project']['id'] ?>';
 </script>

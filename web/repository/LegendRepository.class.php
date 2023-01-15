@@ -19,7 +19,7 @@ class LegendRepository extends Repository {
             ':id' => $legend->getId(),
             ':color' => $legend->getColor(),
             ':title' => $legend->getTitle(),
-            ':proj_id' => $legend->getProjID()
+            ':proj_id' => $legend->getProjectId()
         ];
 
         // Result

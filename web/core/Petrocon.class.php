@@ -6,26 +6,27 @@ use TypeError;
 class Petrocon {
 
     private $controllerNamespace = '\\Controller\\';
-    protected $controller = "\\Controller\\Home";
+    protected $controller = "\\Controller\\Login";
     protected $method = "index";
     protected $params = [];
 
-    public function __construct() {
-        // echo __METHOD__;
+    public function __construct() 
+    {
         session_start();
-        
+
         $url = $this->parseUrl();
         // var_dump($url);
 
-        if(isset($url[0]) && file_exists('web/controller/' . $url[0] . '.class.php')) {
-            $this->controller = $this->controllerNamespace . $url[0];
+        if(isset($url[0]) && file_exists('web/controller/' . ucwords($url[0]) . '.class.php')) 
+        {
+            $this->controller = $this->controllerNamespace . ucwords($url[0]);
             unset($url[0]);
         }
-        // var_dump($this->controller);
 
         $this->controller = new $this->controller();
 
-        if(isset($url[1]) && method_exists($this->controller, $url[1])) {
+        if(isset($url[1]) && method_exists($this->controller, $url[1])) 
+        {
             $this->method = $url[1];
             unset($url[1]);
         }

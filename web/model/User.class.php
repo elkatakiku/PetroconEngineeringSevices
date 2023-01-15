@@ -1,5 +1,7 @@
 <?php
 
+use Model\Expose;
+
 class User implements Expose {
 
     private $id;
@@ -15,9 +17,9 @@ class User implements Expose {
 
     public function setUser(
         $id, $first_name, $middle_name, $last_name, $email, $position, $address, $contact_no,
-        $birthdate, $log_id) {//parameter
+        $birthdate, $log_id) {
 
-        $this->id = $id; //need ng this to access nilagay sa private = parameter
+        $this->id = $id;
         $this->first_name = $first_name;
         $this->middle_name= $middle_name;
         $this->last_name = $last_name;
@@ -57,7 +59,7 @@ class User implements Expose {
     }
 
     public function setMiddleName($middle_name) {
-        $this->id = $middle_namee;
+        $this->id = $middle_name;
     }
 
     public function getMiddletName() {

@@ -3,6 +3,8 @@
 namespace Core;
 
 use Model\Account;
+use Repository\UserRepository;
+use User;
 
 class Controller {
 
@@ -13,12 +15,16 @@ class Controller {
     
     private string $type;
     private int $pageNumber;
+    private  $user;
 
     private $isLogin;
 
     protected function __construct() {
         if (isset($_SESSION["accID"])) {
             $this->isLogin = true;
+
+            $this->user = (new UserRepository())->getUserByRegister($_SESSION["accRegister"]);
+
             switch ($_SESSION["accType"]) {
                 case Account::CLIENT_TYPE:
                     $this->setType(Controller::CLIENT);
@@ -34,9 +40,13 @@ class Controller {
         }
     }
 
-    protected function goToLanding() {
+    protected function goToLogin() {
         header("Location: ".SITE_URL);
         exit();
+    }
+
+    protected function getUser() {
+        return $this->user;
     }
 
     protected function isLogin() {
@@ -44,6 +54,19 @@ class Controller {
     }
 
     public function view($viewFolder, $view, $data = []) {
+        if ($this->isLogin()) 
+        {
+            $data['user'] = $this->user;
+            $data['pageNumber'] = $this->pageNumber;
+            $data['fullname'] = ucwords(
+                $this->user['lastname']).", ".
+                ucwords($this->user['firstname'])." ".
+                (!$this->user['middlename'] ? ' ' : ucwords(substr($this->user['middlename'], 0, 1))."."
+            );
+        }
+
+        $data['accountType'] = $this->type;
+
         require_once 'web/view/structure/header.php';
         require_once 'web/view/' . $viewFolder .DS. $view .'.php';
         require_once 'web/view/structure/footer.php';
@@ -81,6 +104,12 @@ class Controller {
         } else if (isset($get['success'])) { 
             echo '<div class="alert alert-success show" role="alert">'.$successMsg.'</div>';
         }
+    }
+
+    public function mergeName($lastname, $firstname, $middlename)
+    {
+        $middleInitial = !$middlename ? '' : (ucwords(substr($middlename, 0, 1)).".");
+        return ucwords($lastname).", ".ucwords($firstname)." ".$middleInitial;
     }
 
     protected function sanitizeString($string) {

@@ -11,19 +11,31 @@ class Project extends MainController {
     private $projectService;
 
     public function __construct() {
-        $this->setType(MainController::ADMIN);
+        parent::__construct();
         $this->setPage(2);
 
         $this->projectService = new ProjectService;
+
+        if (!isset($_SESSION['accID'])) {
+            $this->goToLogin();
+        }
     }
 
     public function index() {
+        header("Location: ".SITE_URL."/project/list");
+        exit();
+        // $this->view("project", "project-list");
+        
+    }
+
+    public function list()
+    {
         $this->view("project", "project-list");
     }
 
     // || Projects
     // Gets the projects
-    public function list() {
+    public function getList() {
         if (isset($_POST['form'])) {
             echo $this->projectService->getProjectList($_POST['form']);
         }
@@ -34,7 +46,7 @@ class Project extends MainController {
         $project = json_decode($this->projectService->getProjectDetails($projectId), true);
 
         if ($project['statusCode'] == 200) {
-            $this->view("project", "project", $project['data']);
+            $this->view("project", "project", ['project' => $project['data']]);
             return;
         } else {
             $this->goToIndex();
@@ -111,7 +123,7 @@ class Project extends MainController {
     public function mark() {
         if (isset($_POST['doneSubmit'])) {
             if($this->projectService->mark($_POST['id'], $_POST['done'])) {
-                header("Location: ".SITE_URL.US."project/details/".$_POST['id']);
+                header("Location: ".SITE_URL."/project/details/".$_POST['id']);
                 exit();
                 return;
             }
@@ -129,6 +141,21 @@ class Project extends MainController {
         }
     }
 
+    public function invitation(string $projectId)
+    {
+        $project = json_decode($this->projectService->getProjectDetails($projectId), true);
+
+        if ($project['statusCode'] == 200) 
+        {
+            $this->view("project", "pending", ['project' => $project['data']]);
+            return;
+        } 
+        else 
+        {
+            $this->goToIndex();
+        }
+    }
+
     // || Timeline
     public function timeline($projectId) {
         $cleanId = $this->sanitizeString($projectId);
@@ -136,7 +163,7 @@ class Project extends MainController {
     }
 
     private function goToIndex() {
-        header("Location: ".SITE_URL.US."project");
+        header("Location: ".SITE_URL."/project");
         exit();
     }
 }

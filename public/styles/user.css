@@ -1,0 +1,107 @@
+h5 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 20px;
+}
+
+.user-info{
+    min-width: 350px;
+    margin-top: 10%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.editinfo{
+  width: 250px; 
+  display: flex;
+}
+
+  .vertical {
+    border-left: 2px solid gray;
+    height: auto;
+    left: 20%;
+    top: 0;
+    width: 50%;
+  }
+
+
+.user-details {
+  /* display: flex;
+  gap: 1px; */
+}
+
+.user-details .display-image {
+  /* flex-basis: 30%; */
+  /* text-align: center; */
+}
+
+.user-img {
+  border-radius: 100%;
+  width: 230px;
+  aspect-ratio: 1 / 1;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.user-details .display-info {
+  flex-shrink: 0;
+  flex-grow: 1;
+  flex-basis: 70%;
+  padding: 0 2rem;
+  border-left: none;
+}
+
+/* || MEDIA QUERIES */
+/* XS */
+/* Extra small devices (phones, 576px and down) */
+@media only screen and (max-width: 576px) {
+  .user-img {
+    width: 170px;
+  }
+}
+
+/* SM */
+/* Small devices (portrait tablets and large phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+  .user-img {
+    width: 180px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .user-details .display-info {
+    margin-top: 2rem;
+  }
+}
+
+/* MD */
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .user-img {
+    width: 190px;
+  }
+
+  .user-details .display-info {
+    border-left: 1px solid black;
+  }
+}
+
+/* LG */
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .user-img {
+    width: 200px;
+  }
+}
+
+
+/* XL */
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) { 
+  .user-img {
+    width: 200px;
+  }
+}

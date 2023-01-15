@@ -22,18 +22,20 @@ class Signup extends MainController {
     // SignUp
     public function run() 
     {
-        if (isset($_POST['signupSubmit'])) {  
+        if (isset($_POST['form'])) 
+        {
+            echo $this->userService->signup($_POST['form']);
             
-            $signupResult = $this->userService->signup($_POST);
-            var_dump($signupResult);
-            if ($signupResult->isSuccess()) 
-            {   // Account creation success
-                header("Location: ".SITE_URL."/login?signup=success");
-                exit();
-                return;
-            } else {
-                header("Location: ".SITE_URL."/signup?error=".$signupResult->getMessage());
-            }
+            // $signupResult = $this->userService->signup($_POST);
+            
+            // if ($signupResult->isSuccess()) 
+            // {   // Account creation success
+            //     header("Location: ".SITE_URL."/login?signup=success");
+            //     exit();
+            //     return;
+            // } else {
+            //     header("Location: ".SITE_URL."/signup?error=".$signupResult->getMessage());
+            // }
         }
     }
 }

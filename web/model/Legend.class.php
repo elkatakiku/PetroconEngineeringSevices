@@ -65,7 +65,7 @@ class Legend implements Expose {
         $this->projID = $projID;
     }
 
-    public function getProjID() {
+    public function getProjectId() {
         return $this->projID;
     }
 

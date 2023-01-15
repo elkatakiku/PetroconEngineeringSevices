@@ -82,6 +82,7 @@ export function initialize(popup) {
     console.log(popup);
     console.log(popup.find('button[data-dismiss]'));
     popup.find('button[data-dismiss]').one('click', hide);
+    reset(popup);
 
     // On show
     popup.on('custom:show', (e) => {
@@ -101,8 +102,24 @@ export function initialize(popup) {
         popup.find('button[data-dismiss]').off('click');
         popup.off('custom:show');
         popup.off('custom:dismissPopup');
+        reset(popup);
         e.stopPropagation();
     });
+}
+
+export function reset(popup, exempt, callback = null) {
+    console.log("Reset");
+    popup.find('.alert-danger').text('');
+    popup.find('.alert-danger').removeClass('show');
+    popup.find('input, textarea, button').each((index, element) => {
+        console.log(element);
+        $(element).val('');
+        $(element).removeAttr('disabled');
+    });
+
+    if (callback != null) {
+        callback();
+    }
 }
 
 // || Delete Popup

@@ -37,7 +37,7 @@ let projectTable = $("#projectsTable").DataTable({
     // 'searching' : false,
     // 'info' : false,
     "ajax" : {
-        url : Settings.base_url + "/project/list",
+        url : Settings.base_url + "/project/getlist",
         type : 'POST',
         data : {form : function () { return $('#filterTable').serialize();}}
         // ,

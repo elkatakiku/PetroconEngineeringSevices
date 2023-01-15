@@ -10,10 +10,21 @@ class Payment extends MainController {
 
     // Service
     private $paymentService;
-
     
     public function __construct() {
+        parent::__construct();
+        $this->setPage(4);
+
         $this->paymentService = new PaymentService;
+
+        if (!isset($_SESSION['accID'])) {
+            $this->goToLogin();
+        }
+    }
+
+    public function index()
+    {
+        $this->view("payment", "payment-list");
     }
 
     public function new()

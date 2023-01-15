@@ -72,132 +72,25 @@
     </div>
   </nav>
 
+  <style>
 
-  <div id="samp">
-    
+    .main-content {
+      padding-top: 0;
+    }
+  </style>
+
+  <!-- Project Table -->
+  <div class="main-content">
+    <table class="mesa" id="projectsTable">
+      <thead class="mesa-head">
+        <tr>
+          <th scope="col"></th>
+          <th scope="col" class="tname projectName">Project</th>
+          <th scope="col" class="company">Company</th>
+          <th scope="col">Status</th>
+          <!-- <th scope="col"></th> -->
+        </tr>
+      </thead>
+    </table>
   </div>
-
-    <style>
-
-      .main-content {
-        padding-top: 0;
-      }
-    </style>
-
-    <!-- Project Table -->
-    <div class="main-content">
-      <table class="mesa" id="projectsTable">
-        <thead class="mesa-head">
-          <tr>
-            <th scope="col"></th>
-            <th scope="col" class="tname projectName">Project</th>
-            <th scope="col" class="company">Company</th>
-            <th scope="col">Status</th>
-            <!-- <th scope="col"></th> -->
-          </tr>
-        </thead>
-        <!-- <tbody>
-          <tr onclick="viewData('');">
-            <th scope="row">1</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr>
-            <th scope="row">1</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr class="">
-            <th scope="row">2</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr class="">
-            <th scope="row">2</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr class="">
-            <th scope="row">2</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-          <tr class="">
-            <th scope="row">2</th>
-            <td>
-              <p><strong>Installation of extension of main LPG pipeline and additional food tenant at LGF and Relocation of main pipeline at UGF and extension of stub outs at 2F and UGF.</strong></p>
-              <small>Robinsons Palace, Antipolo City</small>
-            </td>
-            <td>21/11/2022</td>
-            <td>Done</td>
-            <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-          </tr>
-        </tbody> -->
-      </table>
-    </div>
 </main>

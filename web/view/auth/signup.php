@@ -5,10 +5,10 @@
     </div>
 
     <div class="linear-center container">
-        <form id="signupForm" action="<?= SITE_URL ?>/signup/run" method="post">
+        <form id="signupForm">
 
-            <header class="my-4 text-center">
-                <h2>Signup</h2>
+            <header class="mb-4 text-center">
+                <h2>Sign Up</h2>
             </header>
 
             <button type="button" data-slider="#signupSlider" data-action="prev" class="linear link-btn mb-2">
@@ -22,57 +22,57 @@
             
             <div class="slider" id="signupSlider">
                 <div class="active">
-                    <div class="form-group">
-                        <label for="">Last Name</label>
-                        <input type="text" class="form-control" name="lNameInput" id="lastName" aria-describedby="helpId" placeholder="Enter last name">
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="">First Name</label>
-                        <input type="text" class="form-control top" name="fNameInput" id="firstName" aria-describedby="helpId" placeholder="Enter first name">    
+                    <div class="linear-md">
+                        <div class="form-group">
+                            <label for="">Last Name</label>
+                            <input type="text" class="form-control" name="lastname" id="lastName" aria-describedby="helpId" placeholder="Enter last name" required>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="">First Name</label>
+                            <input type="text" class="form-control" name="firstname" id="firstName" aria-describedby="helpId" placeholder="Enter first name" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="">Middle Name</label>
+                            <input type="text" class="form-control" name="middlename" id="firstName" aria-describedby="helpId" placeholder="Enter middle name">
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="">Middle Name</label>
-                        <input type="text" class="form-control top" name="mNameInput" id="firstName" aria-describedby="helpId" placeholder="Enter first name">    
+                        <label for="">Birthdate</label>
+                        <input type="date" class="form-control" name="dob" id="birthdate" aria-describedby="helpId" placeholder="Enter birthdate" value="<?= date('Y-m-d') ?>" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="">Contact Number</label>
-                        <input type="number" pattern="/d" class="form-control" name="contactInput" id="contactNumber" aria-describedby="helpId" placeholder="Enter contact number">
+                        <input type="number" pattern="/d" class="form-control" name="contact" id="contactNumber" aria-describedby="helpId" placeholder="Enter contact number" required>
                         <small id="helpId" class="form-text text-muted">Ex: 09123456789</small>
                     </div>
 
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <textarea name="address" id="address" rows="2" class="form-control"  name="message" placeholder="Enter address" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Birthdate</label>
-                        <input type="date" class="form-control" name="dobInput" id="birthdate" aria-describedby="helpId" placeholder="Enter birthdate" value="<?= date('Y-m-d') ?>">
+                        <textarea name="address" id="address" rows="2" class="form-control"  name="address" placeholder="Enter address" required></textarea>
                     </div>
                 </div>
 
                 <div>
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="email" class="form-control top" name="emailInput" id="email" aria-describedby="helpId" placeholder="Enter email">
+                        <input type="email" class="form-control top" name="email" id="email" aria-describedby="helpId" placeholder="Enter email" required>
                     </div>
                 
                     <div class="form-group">
                         <label for="">Username</label>
-                        <input type="text" class="form-control" name="usernameInput" id="username" aria-describedby="helpId" placeholder="Enter username">
+                        <input type="text" class="form-control" name="username" id="username" aria-describedby="helpId" placeholder="Enter username" required>
             
                     </div>
                     
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" class="form-control" name="passwordInput" id="password" aria-describedby="helpId" placeholder="Enter password">
-                    </div>
-                    <div class="form-group">
-                        <label for="">Retype Password</label>
-                        <input type="password" class="form-control" name="passwordRepeatInput" id="password" aria-describedby="helpId" placeholder="Enter password">
+                        <input type="password" class="form-control top" name="password" id="password" aria-describedby="helpId" placeholder="Enter password" required>
+                        <input type="password" class="form-control bottom" name="passwordRepeat" id="password" aria-describedby="helpId" placeholder="Confirm password" required>
+                        <small id="helpId" class="form-text text-danger"></small>
                     </div>
                 </div>
             </div>
@@ -80,12 +80,19 @@
             <button 
                 data-slider="#signupSlider" 
                 data-action="next" 
-                type="button" name="signupSubmit" 
+                type="button"
+                class="btn btn-block primary-btn mt-2 mb-4"
+                form="signupForm"
+                name="signupSubmit" 
+            >Continue</button>
+<!-- 
+            <button
+                type="submit" name="signupSubmit" 
                 class="btn btn-block primary-btn mt-2 mb-4" 
                 form="signupForm"
-            >Continue</button>
-
-            <p class="text-center">Already have an account? <a href="<?= SITE_URL ?>/login">Login here</a></p>
+                style="display: none;">
+                Submit
+            </button> -->
         </form>
     </div>
 </div>

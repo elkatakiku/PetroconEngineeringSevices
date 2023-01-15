@@ -16,7 +16,7 @@ class Task extends MainController {
     }
 
     public function index() {
-        $this->goToLanding();
+        $this->goToLogin();
     }
 
     public function new() {

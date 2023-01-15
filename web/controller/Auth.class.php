@@ -21,159 +21,62 @@ class Auth extends MainController {
     public function __construct() {
         $this->setType(MainController::AUTH);
         $this->userService = new \Service\UserService();
+
+        // if (!isset($_SESSION['accID'])) {
+        //     $this->goToLogin();
+        // }
     }
 
     public function index() {
-        $this->view("auth", "login");
+        $this->goToLogin();
     }
 
-    // // Login
-    // public function login() {
-    //     // Redirect to login if not logging in
-    //     if (!isset($_POST['loginSubmit'])) {
-    //         $this->view("auth", "login");
-    //         return;
-    //     }
+    public function signup()
+    {
+        $this->view("auth", "signup");
+    }
 
-    //     // Gets the inputs
-    //     $inputs = [
-    //         "username" => $this->sanitizeString($_POST['usernameInput']),
-    //         "password" => $this->sanitizeString($_POST['passwordInput'])
-    //     ];
+    // Forgot pass
+    public function forgotpass() 
+    {
+        $this->view("auth", "forgot-pass");
+    }
 
-    //     if (!$this->emptyInput($inputs)) {
-
-    //         if ($this->userService->loginUser($inputs)->isSuccess()) {
-
-    //             // Redirects user to their respective landing page
-    //             switch ($_SESSION["accType"]) {
-    //                 case AccountModel::ADMIN_TYPE:
-    //                     header("Location: ".SITE_URL.US."dashboard");
-    //                     exit();
-    //                     break;
-    //                 case AccountModel::EMPLOYEE_TYPE:
-    //                 case AccountModel::WORKER_TYPE:
-    //                     header("Location: ".SITE_URL.US."dashboard");
-    //                     exit();
-    //                     break;
-    //                 case AccountModel::CLIENT_TYPE:
-    //                     header("Location: ".SITE_URL.US."home/index");
-    //                     exit();
-    //                     break;
-    //                 default:
-    //                     echo "Different Account Type";
-    //                     exit();
-    //                     break;
-    //             }
-    //         } else {
-    //             echo "<h1>Username or password does not match.</h1>";
-    //             return;
-    //         }
-    //     } else {
-    //         echo "<br>Please fill all required inputs.";
-    //         $result =  -101;
-    //     }
-    // }
-
-    // SignUp
-    // public function signup() {
-    //     // Redirect to login if not signing up
-    //     if (!isset($_POST['signupSubmit'])) {
-    //         $this->view("auth", "login", ["action" => Auth::SIGNUP]);
-    //         return;
-    //     }
-        
-    //     // Gets inputs
-    //     $inputs = [
-    //         "lastname" => ucwords($this->sanitizeString($_POST['lNameInput'])),
-    //         "firstname" => ucwords($this->sanitizeString($_POST['fNameInput'])),
-    //         "middleName" => strtoupper($this->sanitizeString($_POST['mNameInput'])),
-    //         "contactNumber" => filter_input(INPUT_POST, 'contactInput', FILTER_SANITIZE_NUMBER_INT),
-    //         "birthdate" => $this->sanitizeString($_POST['dobInput']),
-    //         "email" => filter_input(INPUT_POST, 'emailInput', FILTER_SANITIZE_EMAIL),
-
-    //         "username" => $this->sanitizeString($_POST['usernameInput']),
-    //         "password" => $this->sanitizeString($_POST['passwordInput']),
-    //         "passwordRepeat" => $this->sanitizeString($_POST['passwordRepeatInput'])
-    //     ];
-        
-    //     // Validates inputs
-    //     // if($this->signupUser($inputs) < 0) {
-    //     //     // Error Handling
-    //     //     // Code here
-    //     //     echo "<h1>Error occured signing up</h1>"; 
-    //     //    return;
-    //     // }
-
-    //     // Account creation success
-    //     // header("Location: ".SITE_URL."/auth/login?signup=success");
-    //     // exit();
-    // }
-
-    // private function signupUser($inputs) {
-
-    //     if (!$this->emptyInput($inputs)) {
-    //         echo "<br>Please fill all required inputs.";
-    //         return -101;
-    //     }
-
-    //     if (!$this->validUsername($inputs["username"])) {
-    //         echo "<br>Invalid username.";
-    //         return -102;
-    //     }
-
-    //     if (!$this->pwdMatch($inputs["password"], $inputs["passwordRepeat"])) {
-    //         echo "<br>Password does not match.";
-    //         return -103;
-    //     }
-
-    //     if ($this->checkUser($inputs["username"], $inputs["email"])) {
-    //         echo "<br>Username or email is taken";
-    //         return -104;
-    //     }
-
-    //     if (!$this->isOldEnough($inputs["birthdate"])) {
-    //         echo "<br>Should be 18 and above.";
-    //         return -105;
-    //     }
-
-    //     // Test: Testing validations
-    //     // return;
-
-    //     $register = $this->createEntity("Register");
-    //     $login = $this->createEntity("Login");
-    //     $account = $this->createEntity("Account");
-        
-    //     // Create login
-    //     $login->create($inputs["username"], $inputs["password"]);
-
-    //     // Create register/user
-    //     $register->create(
-    //         $inputs["lastname"], $inputs["firstname"], $inputs["middleName"], $inputs["contactNumber"], 
-    //         $inputs["birthdate"], $inputs["email"], $login->getId()
-    //     );
-        
-    //     // Create Account
-    //     $account->createAccount(
-    //         AccountModel::CLIENT_TYPE, $register->getId(), $login->getId()
-    //     );
-
-    //     // Insert Account
-    //     if (!$this->getModel()->setUser($login, $register, $account)) {
-    //         return -1;
-    //     }
-
-    //     return 1;
-    // }
-
-    public function reset() {
-
-        if (!isset($_POST['signupSubmit'])) {
-            $this->view("auth", "login", ["action" => Auth::RESET]);
-            return;
+    public function sendReset()
+    {
+        if (isset($_POST['forgotSubmit'])) {
+            $result = json_decode($this->userService->forgotPassword($_POST['email']), true);
+            if ($result['statusCode'] == 200) {
+                header("Location: ".SITE_URL."/auth/forgotpass?success=sent");
+            } else {
+                header("Location: ".SITE_URL."/auth/forgotpass?error=".$result['message']);
+            }
         }
+    }
 
+    // Reset
+    public function reset($resetId)
+    {
+        if (!$this->userService->isResetUsed($resetId)) {
+            $this->view("auth", "reset", ['resetId' => $resetId]);
+        } else {
+            $this->goToLogin();
+        }
+    }
 
+    public function resetPassword()
+    {
+        echo "<pre>";
+        if (isset($_POST['resetSubmit'])) {
+            $result = json_decode($this->userService->resetPassword($_POST), true);
+            var_dump($result);
+            // $result = json_decode($this->userService->resetPassword($_POST['email']), true);
+            if ($result['statusCode'] == 200) {
+                // header("Location: ".SITE_URL."/auth/reset/".$result['resetId']."?success=changed");
+            } else {
+                // header("Location: ".SITE_URL."/auth/reset/".$result['resetId']."?error=".$result['message']);
+            }
+        }
     }
 
     public function verify($regId) {
@@ -189,10 +92,7 @@ class Auth extends MainController {
 
     public function activate()
     {
-        echo __METHOD__;
-        echo "<pre>";
         if (isset($_SESSION['accID'])) {
-            // $user = json_decode($this->userService->getUserRegister($regId), true);
             if ($this->userService->sendVerification()) {
                 // Show instruction
                 header('Location: ' .SITE_URL.'/auth/verify/'.$_SESSION['accRegister']);
@@ -206,7 +106,7 @@ class Auth extends MainController {
                 // $this->view("auth", "verify", $user['data']);
             // }
         } else {
-            $this->goToLanding();
+            $this->goToLogin();
         }
     }
 
@@ -214,7 +114,7 @@ class Auth extends MainController {
         session_unset();
         session_destroy();
 
-        header("Location: ".SITE_URL.US."home/index");
+        header("Location: ".SITE_URL);
     }
 
 }

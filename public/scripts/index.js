@@ -1,21 +1,6 @@
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
 import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
 
-// console.log(Utils.double(5));
-// console.log(Utils.otherStuff());
-
-// $.fn.hasVerticalScrollBar = function () {
-//     return this[0].clientHeight < this[0].scrollHeight;
-// }
-
-// $.fn.hasHorizontalScrollBar = function () {
-//    return this[0].clientWidth < this[0].scrollWidth;
-// }
-
-// console.log("Horizontal Scrollbar");
-// console.log($('#projectGanttChart .gantt-chart').hasHorizontalScrollBar());
-// console.log("Vretical Scrollbar");
-// console.log($('#projectGanttChart .gantt-chart').hasVerticalScrollBar());
 /*
 Carousel
 */
@@ -26,9 +11,9 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
     */
     var idx = $(e.relatedTarget).index(); 
     var itemsPerSlide = 5;
-    var totalItems = $('.carousel-item').length; // 8
-    if (idx >= totalItems - (itemsPerSlide - 1)) { // 7 >= 8 - 4 = 4
-        var it = itemsPerSlide - (totalItems - idx); // 5-(8-1) = 2
+    var totalItems = $('.carousel-item').length; 
+    if (idx >= totalItems - (itemsPerSlide - 1)) {
+        var it = itemsPerSlide - (totalItems - idx);
         for (var i = 0; i < it; i++) {
             // append slides to end
             if (e.direction == "left") {
@@ -79,26 +64,9 @@ $(window).on("resize", (e) => {
 
     console.log($('.popup-center')[0]);
 
-    // if ($('.popup-center')[0].scrollHeight > $(window).height()) {
-    //     $('.popup-center').find('.pcontainer').css({
-    //         top : 0,
-    //         transform : "translate(-50%, 0%)"
-    //     });
-    // } else {
-    //     $('.popup-center').find('.pcontainer').css({
-    //         top : '50%',
-    //         transform : "translate(-50%, -50%)"
-    //     });
-    // }
-
     // Removes sidebar collapsibles width property
     if($(window).width() < 768) {
         $("#sidebar .collapsible").css('width', "");
-        // $(".wrapper .content, .content > .mesa-container").css("max-width", "");
-    } else {
-        // console.log("768+");
-        // console.log($(".wrapper .content, .content > .mesa-container"));
-        // $(".wrapper .content, .content > .mesa-container").css("max-width", "calc(100% - " + $("#sidebar").width() + "px)");
     }
 
 });
@@ -106,6 +74,12 @@ $(window).on("resize", (e) => {
 // Sidebar Listener
 $("#sidebarCollapseToggler").click(() => {expandSidebar();});
 
+// Closes sidebar when clicked anywhere
+$(document).click((e) => {
+    if (!$(e.target).is("#sidebar, #sidebar *, #sidebarCollapseToggler") && $('#sidebar.active').length > 0) {
+        expandSidebar();
+    }
+});
 
 
 // || Popup
@@ -405,7 +379,11 @@ $('.cover-background').css('background-image', 'url("' + Settings.base_url + '/p
 // });
 // $('.slider').find()
 
+let prevText;
+
 $('[data-slider]').on('click', (e) => {
+    console.log("Slider");
+
     $(e.target).prop('disabled', true);
     let btn = $(e.target);
     let slider = $(btn.data('slider'));
@@ -428,17 +406,19 @@ $('[data-slider]').on('click', (e) => {
         }, after);
 
         if (next.next() !== -1) {
-            if (typeof btn.attr('form') != 'undefined') {
-                console.log("Submit Form");
-                btn.attr('type', 'submit');
-                btn.text('Submit');
-            } else {
-                console.log(btn.hide());
-            }
+            // if (typeof btn.attr('form') != 'undefined') {
+            //     btn.attr('type', 'submit');
+            //     prevText = btn.text();
+            //     btn.text('Submit');
+            // } else {
+                btn.hide();
+            // }
         }
     } else if (btn.data('action') === 'prev' && prev.index() !== -1) 
     {
-        $('[data-slider="' + btn.data('slider') +'"][data-action="next"]').show();
+        $('[data-slider="' + btn.data('slider') +'"][data-action="next"]')
+            .text(prevText)
+            .show();
         prev.addClass('active');
         prev.css('margin-left', '-100%')
             .animate({
@@ -446,8 +426,7 @@ $('[data-slider]').on('click', (e) => {
             }, after);
 
         if (prev.prev() !== -1) {
-            console.log("Prev");
-            console.log(btn.hide());
+            btn.hide();
         }
     } else {
         btn.trigger('custom:clicked', [btn]);
@@ -461,4 +440,7 @@ $('button').on('custom:clicked', (e, btn) => {
 // Nav-item
 $('#navItemBar .nav-item').on('click', (e) => {
     console.log($(e.target).parent('.nav-item').siblings('.active').removeClass('active'));
+});
+$('input, textarea').on('keydown', (e) => {
+    $('.alert-danger').removeClass('show').text('');
 });

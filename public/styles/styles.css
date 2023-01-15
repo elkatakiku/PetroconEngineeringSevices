@@ -575,14 +575,15 @@ form .row .right {
 }
 
 .input-container:has(.input-prepend) input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
     padding-left: 0;
 }
 
 .input-container input {
     width: 100%;
-    border-top-right-radius: var(--default-border-radius);
-    border-bottom-right-radius: var(--default-border-radius);
-    border-left: none;
+    border-radius: var(--default-border-radius);
     font-size: .8rem;
     font-weight: 200;
     color: var(--primary-text);
@@ -1264,9 +1265,39 @@ body:has(.slide-fixed.active).slide-open {
     }
 }
 
+/* || Trail */
+.trailer {
+    display: flex;
+    padding: 12px;
+    border-bottom: 1px solid var(--border-rgba-color);
+    position: relative;
+}
+
+.trail {
+    margin: 0;
+    display: flex;
+    font-weight: 400;
+    font-size: 14px;
+    color: #5e6c84;
+    width: 100%;
+}
+
+.trail .cut-text {
+    max-width: 40%;
+    display: inline-block;
+}
+
 /* || Alert */
 .alert {
     display: none;
+}
+
+.success-border {
+    border: 1px solid var(--success) !important;
+}
+
+.danger-border {
+    border: 1px solid var(--danger) !important;
 }
 
 
@@ -1368,6 +1399,11 @@ body:has(.slide-fixed.active).slide-open {
     color: white;
 }
 
+.action-bg {
+    background-color: var(--action);
+    color: white;
+}
+
 .bg-light-blue {
     background-color: #AFC9EF;
 }
@@ -1378,6 +1414,12 @@ body:has(.slide-fixed.active).slide-open {
 
 .bg-light-violet {
     background-color: #FFBAD7;
+}
+
+.cut-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 
@@ -1602,6 +1644,12 @@ body:has(.slide-fixed.active).slide-open {
 
     .basis-md-12 {
         flex-basis: 100%;
+    }
+
+    .linear-md {
+        display: flex;
+        align-items: center !important;
+        gap: 10px;
     }
 }
 

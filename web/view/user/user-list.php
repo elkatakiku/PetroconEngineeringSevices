@@ -1,11 +1,13 @@
-
 <main class="content"> 
+  <pre>
+    <?= var_dump($data) ?>
+  </pre>
   <!-- Header -->
   <div class="page-header">
     <!-- <div class="linear"> -->
       <h1 class="page-title">Users</h1>
 
-      <!-- New Projects -->
+      <!-- New users -->
       <a href="<?= SITE_URL ?>/user/new">
         <button type="button" class="btn sm-btn action-btn">
           Create User
@@ -18,19 +20,19 @@
     <form id="filterTable" action="" class="filter-tab">
       <span class="filter-tab-item active">
         <label for="allStat">All</label>
-        <input id="allStat" class="link-btn" type="radio" name="status" value="all" checked>
+        <input id="allStat" class="link-btn" type="radio" name="type" value="all" checked>
       </span>
       <span class="filter-tab-item">
-        <label for="doneStat">Employees</label>
-        <input id="doneStat" class="link-btn" type="radio" name="status" value="done">
+        <label for="doneStat"><?= ucwords($data['acctTypes'][1]['name']).'s' ?></label>
+        <input id="doneStat" class="link-btn" type="radio" name="type" value="<?= $data['acctTypes'][1]['id'] ?>">
       </span>
-      <span class="filter-tab-item">
+      <!-- <span class="filter-tab-item">
         <label for="ongoingStat">Workers</label>
-        <input id="ongoingStat" class="link-btn" type="radio" name="status" value="ongoing">
-      </span>
+        <input id="ongoingStat" class="link-btn" type="radio" name="type" value="2">
+      </span> -->
       <span class="filter-tab-item">
-        <label for="ongoingStat">Clients</label>
-        <input id="ongoingStat" class="link-btn" type="radio" name="status" value="ongoing">
+        <label for="ongoingStat"><?= ucwords($data['acctTypes'][3]['name']).'s'?></label>
+        <input id="ongoingStat" class="link-btn" type="radio" name="type" value="<?= $data['acctTypes'][3]['id'] ?>">
       </span>
     </form>
 
@@ -41,7 +43,7 @@
           <div class="input-prepend">
             <i class="fa fa-search icon" aria-hidden="true"></i>
           </div>
-          <input type="text" name="" id="searchProject" placeholder="Search User">
+          <input type="text" name="" id="searchUser" placeholder="Search User">
         </div>
       </div>
     </div>
@@ -59,15 +61,11 @@
     <table class="mesa" id="usersTable">
       <thead class="mesa-head">
         <tr>
+          <th scope="col"></th>
           <th scope="col">Name</th>
-          <th scope="col">Username</th>
           <th scope="col">Email</th>
+          <th scope="col">Username</th>
           <th scope="col">Password</th>
-          <th scope="col">Position</th>
-          <th scope="col">Address</th>
-          <th scope="col">Contact</th>
-          <th scope="col">Birthdate</th>
-          <th scope="col">Action</th>
           <th scope="col"></th>
         </tr>
       </thead>

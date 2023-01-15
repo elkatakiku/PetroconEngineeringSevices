@@ -20,6 +20,31 @@ class ProjectService extends Service{
         $this->projectRepository = new ProjectRepository;
     }
 
+    public function getProjectCount()
+    {
+        return $this->projectRepository->getProjectCount();
+    }
+
+    public function getProjectsCountByYear(string $year)
+    {
+        // echo "<pre>";
+        $cleanString = $this->sanitizeString($year);
+        $response['data'] = [];
+
+        if ($cleanString) {
+            $data['years'] = $this->projectRepository->getYears();
+            $data['projectsInYear'] = $this->projectRepository->projectsInYear($year);
+            $response['data'] = $data;
+            $response['statusCode'] = 200;
+        } 
+        else 
+        {
+            $response['statusCode'] = 400;
+        }
+    
+        return json_encode($response);
+    }
+
     // Gets project list
     public function getProjectList($form) {
         parse_str($form, $input);
@@ -51,12 +76,10 @@ class ProjectService extends Service{
         $cleanId = $this->sanitizeString($id);
         $response['data'] = [];
 
-        // var_dump($cleanId);
-
         if ($cleanId) {
             // Gets the project details and returns view
             if ($project = $this->projectRepository->getProject($id)) {
-                $response['data'] = $project;
+                $response['data'] = $project[0];
                 $response['statusCode'] = 200;
              } else {
                 $response['statusCode'] = 500;
@@ -65,10 +88,7 @@ class ProjectService extends Service{
             $response['statusCode'] = 400;
         }
 
-        // var_dump($response);
-
         return json_encode($response);
-        // return $this->projectRepository->getProject($id);
     }
 
     public function createProject($input) {
@@ -213,5 +233,12 @@ class ProjectService extends Service{
         }
 
         return json_encode($result);
+    }
+
+    public function joinProject(string $projId, string $regId)
+    {
+        if ($projId && $regId && $this->projectRepository->getProject($projId)) {   
+            return $this->projectRepository->joinProject($projId, $regId);
+        }
     }
 }

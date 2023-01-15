@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="<?=STYLES_PATH?>navbar.css">
     <link rel="stylesheet" href="<?=STYLES_PATH?>sidebar.css">
     <?php 
-      if ($this->getType() == Core\Controller::CLIENT && isset($_SESSION['accID'])) {
+      if ($data['accountType'] == Core\Controller::CLIENT && isset($_SESSION['accID'])) {
         echo '<link rel="stylesheet" href="'.STYLES_PATH.'index.css">';
       }
     ?>
@@ -37,16 +37,19 @@
 
   <body class="body-wrapper" <?php 
         // Moodify if is client and logged in
-        if ($this->getType() == Core\Controller::CLIENT) {
+        if ($data['accountType'] == Core\Controller::CLIENT) {
           echo 'data-spy="scroll" data-target="#topbar" data-offset="500"';
         }
       ?>
     >
 
-  <?php
-  // var_dump($this->getType());
-  switch ($this->getType()) {
+    <!-- <pre>
+      <?= var_dump($data) ?>
+    </pre> -->
 
+  <?php
+  switch ($data['accountType']) 
+  {
     case Core\Controller::AUTH: ?>
       <?php break;
 
@@ -54,7 +57,7 @@
     case Core\Controller::CLIENT:
       if (isset($data['acct']) && $data['acct']['activated'] === 0) { ?> 
         <div class="alert alert-secondary show mb-0" role="alert">
-          <p class="mb-0">Verify email to access other features of the site. <a href="<?= SITE_URL.'/auth/activate' ?>" class="">Verify now</a></p>
+          <p class="mb-0">Verify email to access other features of the site. <a href="<?= SITE_URL.'/auth/activate' ?>">Verify now</a></p>
         </div>
       <?php }?>
 
@@ -93,12 +96,12 @@
             </li>
           <?php } else { ?>
             <li class="nav-item">
-              <a class="nav-link" href="<?= SITE_URL.US.'app/profile/'.$_SESSION['accID'] ?>">
+              <a class="nav-link" href="<?= SITE_URL.'/account/profile' ?>">
                   Profile
               </a>
             </li>
             <li class="nav-item">
-              <a class="btn action-btn" href="<?= SITE_URL.US.'auth/logout' ?>">
+              <a class="btn action-btn" href="<?= SITE_URL.'/auth/logout' ?>">
                   Logout
               </a>
             </li>
@@ -118,17 +121,17 @@
       </button>
       <a class="flex-grow-1" href="<?= SITE_URL.'/dashboard' ?>"><strong>Petrocon</strong><small> : Admin</small></a>
       <span class="material-icons">circle_notifications</span>
-      <p class="user-name">Eli Lamzon</p>
+      <p class="user-name"><?= ucwords($data['user']['firstname']).' '.ucwords($data['user']['lastname']) ?></p>
       <!-- <p class="user-name"><?= $data['first'] ?></p> -->
       
-      <a href="<?= SITE_URL.'/app/profile' ?>"><span id="user-display" class="material-icons">account_circle</span></a>
+      <a href="<?= SITE_URL.'/account/profile' ?>"><span id="user-display" class="material-icons">account_circle</span></a>
     </nav>
 
     <div class="wrapper">
       <div id="sidebar">
         <nav>
           <ul class="list-unstyled components">
-            <li class="">
+            <li>
               <a class="d-flex align-content-start" href="<?= SITE_URL.'/dashboard' ?>">
                 <span class="material-icons">dashboard</span>
                 <div class="collapsible">
@@ -151,23 +154,20 @@
                 </a>
               </div>
               <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
-                <li class="">
-                  <a class="" href="<?= SITE_URL.US.'project#all' ?>">All</a>
+                <li>
+                  <a href="<?= SITE_URL.'/project/list#all' ?>">All</a>
                 </li>
-                <li class="">
-                  <a class="" href="<?= SITE_URL.US.'project#done' ?>">Done</a>
+                <li>
+                  <a href="<?= SITE_URL.'/project/list#done' ?>">Done</a>
                 </li>
-                <li class="">
-                  <a class="" href="<?= SITE_URL.US.'project#ongoing' ?>">Ongoing</a>
+                <li>
+                  <a href="<?= SITE_URL.'/project/list#ongoing' ?>">Ongoing</a>
                 </li>
-                <!-- <li class="">
-                  <a class="" href="<?= SITE_URL.US.'project#pending' ?>">Pending</a>
-                </li> -->
               </ul>
             </li>
 
-            <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.'/app/messages' ?>">
+            <li>
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/messages' ?>">
                 <span class="material-icons">chat_bubble</span>
                 <div class="collapsible">
                   <span>Messages</span>
@@ -175,27 +175,27 @@
               </a>
             </li>
 
-            <!-- <li class="item-dropdown">
-              <div class="dropdown-tile">
-                <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
-                  <span class="material-icons">workspaces</span>
-                  <div class="collapsible">
-                    <span>
-                      Team
-                      <span class="material-icons">arrow_drop_down</span>
-                    </span>
-                  </div>
-                </a>
-              </div>
-              <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
-                <li class="">
-                  <a class="" href="< SITE_URL.US.'team/employees' ?>">Employees</a>
-                </li>
-                <li class="">
-                  <a class="" href="?= SITE_URL.US.'team/workers' ?>">Workers</a>
-                </li>
-              </ul>
-            </li> -->
+            <li>
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/payment' ?>">
+              <span class="material-icons">
+                payment
+              </span>
+                <div class="collapsible">
+                  <span>Payments</span>
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/invoice' ?>">
+              <span class="material-icons">
+                receipt_long
+              </span>
+                <div class="collapsible">
+                  <span>Invoices</span>
+                </div>
+              </a>
+            </li>
 
             <li class="item-dropdown">
               <div class="dropdown-tile">
@@ -210,59 +210,25 @@
                 </a>
               </div>
               <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
-                <li class="">
-                  <a class="" href="<?= SITE_URL.US.'user/employees' ?>">All</a>
-                </li>
-                <li class="">
-                  <a class="" href="<?= SITE_URL.US.'user/employees' ?>">Employees</a>
-                </li>
-                <li class="">
-                  <a class="" href="<?= SITE_URL.US.'user/workers' ?>">Workers</a>
+                <li>
+                  <a href="<?= SITE_URL.'/user/list#all' ?>">All</a>
                 </li>
                 <li>
-                  <a class="" href="<?= SITE_URL.US.'user/clients' ?>">Clients</a>
+                  <a href="<?= SITE_URL.'/user/list#employees' ?>">Employees</a>
+                </li>
+                <li>
+                  <a href="<?= SITE_URL.'/user/list#workers' ?>">Workers</a>
+                </li>
+                <li>
+                  <a href="<?= SITE_URL.'/user/list#clients' ?>">Clients</a>
                 </li>
               </ul>
             </li> 
-
-            
-            <!-- <li class="">
-              <a class="d-flex align-content-start" href="?= SITE_URL.US.'users' ?>">
-                <span class="material-icons">people</span>
-                <div class="collapsible">
-                  <span>Users</span>
-                </div>
-              </a>
-            </li> -->
-
-            <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.'/app/payment' ?>">
-              <span class="material-icons">
-                payment
-              </span>
-<!-- <i class="fa-sharp fa-solid fa-credit-card"></i> -->
-                <div class="collapsible">
-                  <span>Payment</span>
-                </div>
-              </a>
-            </li>
-
-            <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.'/app/invoice' ?>">
-              <!-- <i class="fa-sharp fa-solid fa-file-invoice"></i> -->
-              <span class="material-icons">
-                receipt_long
-              </span>
-                <div class="collapsible">
-                  <span>Invoice</span>
-                </div>
-              </a>
-            </li>
   
             <hr>
   
-            <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.'/app/profile' ?>">
+            <li>
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/account/profile' ?>">
                 <span class="material-icons">person</span>
                 <div class="collapsible">
                   <span>Profile</span>
@@ -271,8 +237,8 @@
               </a>
             </li>
             
-            <li class="">
-              <a class="d-flex align-content-start" href="<?= SITE_URL.US.'auth/logout' ?>">
+            <li>
+              <a class="d-flex align-content-start" href="<?= SITE_URL.'/auth/logout' ?>">
                 <span class="material-icons">logout</span>
                 <div class="collapsible">
                   <span>Logout</span>

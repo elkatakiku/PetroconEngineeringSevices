@@ -16,7 +16,7 @@ class Activity extends MainController {
     }
 
     public function index() {
-        $this->goToLanding();
+        $this->goToLogin();
     }
 
     // Gets activities of a task

@@ -7,7 +7,7 @@ use Model\Payment;
 use Repository\PaymentRepository;
 
 
-class PaymentService extends Service {
+class MessageService extends Service {
 
     private $paymentRepository;
 

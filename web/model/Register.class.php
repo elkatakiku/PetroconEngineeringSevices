@@ -15,12 +15,19 @@ class Register implements Expose {
     private $address;
 
     public function create(
-        $lastname, $firstname, $middleName, 
-        $contactNumber, $birthdate, $email, $loginId, $address) {
+        $lastname, $firstname, $contactNumber, $birthdate, $email, $loginId, $address) {
         
         $this->set(
-            uniqid("PTRCN-RGSTR-"), $lastname, $firstname, $middleName, 
+            uniqid("PTRCN-RGSTR-"), $lastname, $firstname, '', 
             $contactNumber, $birthdate, $email, $loginId, $address
+        );
+    }
+
+    public function temp($email, $loginId)
+    {
+        $this->set(
+            uniqid("PTRCN-RGSTR-"), '', '', '', 
+            '', date('Y-n-j'), $email, $loginId, ''
         );
     }
 

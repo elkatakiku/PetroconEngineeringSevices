@@ -1,11 +1,19 @@
 <main class="content">
+	<!-- <pre>
+		<?php 
+		// var_dump($data) 
+		// var_dump($data['account']['middlename']);
+		?>
+	</pre> -->
+	
 	<!-- Header -->
 	<div class="page-header">
-		<h1 class="page-title">User Management | <small>Client</small>
-		</h1>
-		<button type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
-			<span class="material-icons-outlined">info</span>
-		</button>
+		<!-- <h1 class="page-title">User Management | <small>Client</small> -->
+		<!-- </h1> -->
+		<div>
+			<h1 class="page-title"><?= $this->mergeName($data['account']['lastname'], $data['account']['firstname'], $data['account']['middlename']) ?></h1>
+			<small><?= ucwords($data['account']['type']) ?></small>
+		</div>
 	</div>
 	<nav class="nav-tab-container border-bottom">
 		<ul class="nav-tab">
@@ -23,48 +31,41 @@
 	<hr>
 	<div class="custom-tab-container">
 		<div id="userProfile" class="main-content custom-tab-content show">
-			<div class="container">
-				<div class="samp">
-					<div class="innerleft">
-						<img src="../../images/ic0n.jpg" class="user-img" style="padding-left: 10px;">
-						<h5>Kathiana Fernandez</h5>
+			<div class="fluid-container">
+				<h4 class="mb-3">Details</h4>
+				<div class="user-details row">
+					<div class="display-image col-md-4 text-center">
+						<img src="<?= IMAGES_PATH ?>ic0n.jpg" class="user-img">
+						<h5><?= $this->mergeName($data['account']['lastname'], $data['account']['firstname'], $data['account']['middlename']) ?></h5>
 					</div>
-					<div class="vertical">
-						<div class="innerright">
-							<div class="user-info">
-								<p>
-								<p>
-									<strong>Username: </strong> lancaster
-								</p>
-								<p>
-									<strong>Email Address: </strong>>el@emailcom
-								</p>
-								<p>
-									<strong>Password: </strong>tae
-								</p>
-								<p>
-									<strong>Position: </strong>admin
-								</p>
-								<p>
-									<strong>Address: </strong> lancaster
-								</p>
-								<p>
-									<strong>Contact No.: </strong>031245624
-								</p>
-								<p>
-									<strong>Birthdate: </strong>10/10/10
-								</p>
-								</p>
-							</div>
+					<div class="display-info col-md-8">
+						<h5 class="mb-3">Personal</h5>
+						<div class="px-md-5 px-3">
+							<p><strong>Email Address: </strong><?= $data['account']['email'] ?></p>
+							<?php if ($data['accountType'] == Core\Controller::WORKER) { ?>
+								<p><strong>Position: </strong><?= $data['account']['type'] ?></p>
+							<?php } ?>
+							<p><strong>Address: </strong><?= $data['account']['address'] ?></p>
+							<p><strong>Contact No.: </strong><?= $data['account']['contact_number'] ?></p>
+							<p><strong>Birthdate: </strong><?= $data['account']['dob'] ?></p>
+						</div>
+
+						<h5 class="mb-3">Account</h5>
+						<div class="px-md-5 px-3">
+						<p><strong>Username: </strong><?= $data['account']['username'] ?></p>
+						<p class="cut-text"><strong>Password: </strong><?= $data['account']['password'] ?></p>
 						</div>
 					</div>
 				</div>
+
 				<hr>
-				<h5>Actions</h5>
-				<div class="buttons">
+
+				<h4>Actions</h4>
+				<div class="text-center">
 					<button type="button" class="btn primary-btn slim-btn " data-toggle="popup" data-target="#resetPass"> Reset Password </button>
 					<button type="button" class="btn primary-btn slim-btn danger-btn " data-toggle="popup" data-target="#deleteAcc"> Delete Account </button>
 				</div>
+
 				<!-- Reset Pass Popup -->
 				<div class="popup popup-center" id="resetPass" tabindex="-1" aria-hidden="true">
 					<div class="pcontainer">
@@ -115,6 +116,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div id="userLogHistory" class="main-content custom-tab-content">
 			<div class="container">
 				<!-- USER LOG HISTORY -->
@@ -144,6 +146,7 @@
 				</div>
 			</div>
 		</div>
+
 		<div id="userProject" class="main-content custom-tab-content">
 			<div class="container">
 				<!-- USER JOINED PROJECT-->

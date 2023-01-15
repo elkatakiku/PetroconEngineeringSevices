@@ -11,6 +11,7 @@ use \Model\Login as Login;
 use \Model\Register as Register;
 use \Model\Account as Account;
 use Model\Activation;
+use Model\Reset;
 use \Model\Users as Users;
 
 // Tools
@@ -24,7 +25,44 @@ class UserRepository extends Repository {
     private static $tblActivation = "tbl_activation";
     private static $tblLog = "tbl_Log";
     private static $tblAcctType = "pltbl_account_type";
+    private static $tblPositions = "pltbl_employee_position";
+    private static $tblReset = "tbl_reset";
+
     
+    // Gets employee positions
+    public function getEmployeePositions()
+    {
+        $sql = "SELECT * FROM ".self::$tblPositions;
+
+        return $this->query($sql);
+    }
+
+    public function validateUsername(string $username)
+    {
+        return $this->validateInput('username', self::$tblLogin, $username);
+    }
+
+    public function validateEmail(string $email)
+    {
+        return $this->validateInput('email', self::$tblRegister, $email);
+    }
+    
+    public function validateInput(string $column, string $table, $value)
+    {
+        $sql = "SELECT 
+                    {$column}
+                FROM 
+                    {$table}
+                WHERE 
+                    {$column} = :input";
+
+        // Binding params
+        $params = [
+            ":input" => $value
+        ];
+
+        return count($this->query($sql, $params)) > 0;
+    }
 
     // Check user
     public function checkUser($username, $email) {
@@ -103,7 +141,7 @@ class UserRepository extends Repository {
     }
 
     public function getLogin($username) 
-    {   
+    {
         $sql = "SELECT *
                 FROM 
                     ".self::$tblLogin." 
@@ -181,15 +219,12 @@ class UserRepository extends Repository {
 
         if($stmt->execute()) {
             if ($row = $stmt->fetch()) {
-                echo "<pre>";
-                var_dump($row);
                 $result = Account::build(
                     $row['id'],
                     $row['type_id'],
                     $row['register_id'],
                     $row['login_id']
                 );
-                var_dump($result);
             }
         } 
 
@@ -201,8 +236,23 @@ class UserRepository extends Repository {
     public function getUsers($userType)
     {
 
-        $sql = "SELECT * FROM  ".self::$tblRegister;
-        // $params = [':active' => true];
+        $sql = "SELECT a.id, r.firstname, r.lastname, r.middlename, r.email, l.username, l.password
+                FROM  ".self::$tblAccount." a
+                LEFT JOIN ".self::$tblRegister." r ON r.id = a.register_id
+                LEFT JOIN ".self::$tblLogin." l ON l.id = a.login_id
+                WHERE NOT a.type_id = 'PTRCN-TYPE-20221'";
+
+        $params = [];
+        if (!empty($userType)) {
+            $sql .= "AND a.type_id = :userType";
+            $params = [':userType' => $userType];
+        }
+
+        $sql .= " ORDER BY created_at DESC";
+
+        //  AND a.type_id = 'PTRCN-TYPE-20222' ";
+        return $this->query($sql, $params);
+
 
         // Query
         // if (($userType != 1 && $userType != 0) || $userType == "all") 
@@ -221,7 +271,26 @@ class UserRepository extends Repository {
         //     $params[':done'] = $$userType;
         // }
 
-        return $this->query($sql);
+    }
+
+    public function getUserDetails(string $acctId)
+    {
+        $sql = "SELECT
+                    r.id AS 'reg_id', r.lastname, r.firstname, r.middlename, r.contact_number, r.dob, r.email, r.address,
+                    l.id AS 'log_id', l.username, l.password,
+                    a.id AS 'acct_id',
+                    t.name AS 'type'
+                FROM ".self::$tblAccount." a
+                INNER JOIN ".self::$tblLogin." l ON l.id = a.login_id
+                INNER JOIN ".self::$tblRegister." r ON r.id = a.register_id
+                INNER JOIN ".self::$tblAcctType." t ON t.id = a.type_id
+                WHERE a.id = :acctID
+                LIMIT 1";
+
+        $params = [':acctID' => $acctId];
+
+        // Result
+        return $this->query($sql, $params)[0];
     }
 
     // Gets user info from register table
@@ -271,7 +340,7 @@ class UserRepository extends Repository {
     }
 
     // Updates user's password
-    public function changePassword($password, $id)
+    public function changePassword(string $password, string $id)
     {
         $sql = 'UPDATE 
                     '.self::$tblLogin.'
@@ -416,6 +485,72 @@ class UserRepository extends Repository {
         ':id' => $accId
         ];
 
+        return $this->query($sql, $params);
+    }
+
+    public function getAccountTypes()
+    {
+        $sql = 'SELECT *
+                FROM '.self::$tblAcctType;
+
+        return $this->query($sql);
+    }
+
+    // || Reset Password
+    public function getUserByEmail(string $email)
+    {
+        $sql = 'SELECT *
+                FROM '.self::$tblRegister."
+                WHERE email = :email
+                LIMIT 1";
+
+        $params = [':email' => $email];
+
+        return $this->query($sql, $params);
+    }
+
+    public function createResetRequest(Reset $reset)
+    {
+        $sql = " INSERT INTO ".self::$tblReset." 
+                            (id, log_id)
+                        VALUES 
+                            (:id, :log_id)";
+
+        $params = [
+            ":id" => $reset->getId(),
+            ":log_id" => $reset->getLoginId()
+        ];
+
+        return $this->query($sql, $params);
+    }
+
+    public function getResetRequest(string $resetId)
+    {
+        $sql = 'SELECT *
+                FROM '.self::$tblReset."
+                WHERE id = :id
+                LIMIT 1";
+
+        $params = [':id' => $resetId];
+
+        return $this->query($sql, $params);
+    }
+
+    public function exhaustReset(string $id)
+    {
+        $sql = 'UPDATE 
+                    '.self::$tblReset.'
+                SET 
+                    used = :used
+                WHERE 
+                    id = :id';
+
+        $params = [
+            ':id' => $id,
+            ':used' => true
+        ];
+
+        // Result
         return $this->query($sql, $params);
     }
 

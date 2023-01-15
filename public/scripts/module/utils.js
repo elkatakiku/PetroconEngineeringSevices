@@ -58,3 +58,45 @@ export function getUrlVars()
 
     return queryParam;
 }
+
+let hasError = false;
+
+export function valdiateInput(element, form, controller, errorMessage) {  
+    console.log("Validate input");
+    if ($(element).val().trim().length !== 0) {
+            
+        $(element).siblings('.loading').show();
+        $.get(
+            Settings.base_url + controller,
+            {input : $(element).val()},
+            function (data, textStatus) {
+                console.log(data);
+                let response = JSON.parse(data);
+                console.log(response);
+
+                if (!response.data) {
+                    $(element)
+                        .removeClass('success-border')
+                        .addClass('danger-border')
+                        .parents('.loading-input')
+                        .siblings('.text-danger')
+                            .text(errorMessage)
+                            .show();
+                    hasError = true;
+                } else {
+                    $(element)
+                        .removeClass('danger-border')
+                        .addClass('success-border')
+                        .parents('.loading-input')
+                        .siblings('.text-danger')
+                            .hide();
+
+                    hasError = false;
+                }
+
+                $(element).siblings('.loading').hide();
+                $(form).trigger('custom:inputChange', [hasError]);
+            }
+        );
+    }
+}

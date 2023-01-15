@@ -5,9 +5,9 @@ namespace Repository;
 use Core\Repository;
 use Model\Payment;
 
-class PaymentRepository extends Repository {
+class MessageRepository extends Repository {
     
-    private static $tblPayment = "tbl_payment";
+    private static $tblPayment = "tbl_message";
 
     public function create(Payment $resource)
     {

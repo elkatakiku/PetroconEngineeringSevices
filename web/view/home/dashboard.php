@@ -8,7 +8,12 @@
       <div class="custom-card">
         <div class="overview-card">
           <div class="ov-info">
-            <h3 class="ov-title">48</h3>
+            <h3 class="ov-title">
+              <?= 
+                (isset($data['count']['0']['count']) ? $data['count']['0']['count'] : 0) + 
+                (isset($data['count']['1']['count']) ? $data['count']['1']['count'] : 0) 
+              ?>
+            </h3>
             <p class="ov-desc">Total projects</p>
           </div>
           <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
@@ -18,7 +23,7 @@
       <div class="custom-card">
         <div class="overview-card">
           <div class="ov-info">
-            <h3 class="ov-title">48</h3>
+            <h3 class="ov-title"><?= (isset($data['count']['1']['count']) ? $data['count']['1']['count'] : 0) ?></h3>
             <p class="ov-desc">Done projects</p>
           </div>
           <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
@@ -28,7 +33,7 @@
       <div class="custom-card">
         <div class="overview-card">
           <div class="ov-info">
-            <h3 class="ov-title">48</h3>
+            <h3 class="ov-title"><?= (isset($data['count']['0']['count']) ? $data['count']['0']['count'] : 0) ?></h3>
             <p class="ov-desc">Ongoing projects</p>
           </div>
           <i class="fa fa-info-circle ov-icon" aria-hidden="true"></i>
@@ -36,74 +41,37 @@
       </div>
     </div>
 
-    <!-- Chart -->
-    <!-- <style>
-      .chart-container {
-        width: 100%;
-        padding: 5px 10px;
-      }
-
-      .chart {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: repeat(100, 1fr);
-        grid-column-gap: 5px;
-        height: 250px;
-        
-      }
-
-      .bar {
-        border-radius: 5px 5px 0 0;
-        background-color: #ff4136;
-        grid-row-start: 1;
-        grid-row-end: 101; 
-      }
-
-      .grid {
-        grid-gap: 5px;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(4, 1fr);
-      }
-
-      .special-col {
-        grid-row: 2 / 4;
-        background-color: #222;
-      }
-
-      .bar[data-value="1"] {
-        grid-row-start: 50;
-      }
-    </style> -->
-
-    <div class="linear space-between">
+    <!-- Project chart control -->
+    <div class="linear">
       <div class="">
         <h5 class="db-sec-header">Projects</h5>
-        <p class="db-project-count">12,345,678</p>
-        <br>
-      </div>  
+        <p class="db-project-count">
+          <?php 
+          $total = 0;
+          for ($i=0; $i < count($data['chart']['projectsInYear']); $i++) { 
+              $total += $data['chart']['projectsInYear'][$i]['count'];
+          }
+          echo $total;
+           ?>
+        </p>
+      </div>
 
-      <div class="dropdown">
-          <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
-              Year
-          </button>
+      <div class="form-group ml-auto mb-0">
+        <select class="form-control action-bg slim-btn" name="projectYear">
+          <?php 
+          $year = $data['chart']['years'][0]['year'];
+          $currentYear = (int) date('Y');
+          
+          while ($year != $currentYear) { ?>
 
-          <div class="dropdown-menu dropdown-menu-lg-right">
-              <a class="dropdown-item" href="#">2009</a>
-              <a class="dropdown-item" href="#">2010</a>
-              <a class="dropdown-item" href="#">2011</a>
-              <a class="dropdown-item" href="#">2012</a>
-              <a class="dropdown-item" href="#">2013</a>
-              <a class="dropdown-item" href="#">2014</a>
-              <a class="dropdown-item" href="#">2015</a>
-              <a class="dropdown-item" href="#">2016</a>
-              <a class="dropdown-item" href="#">2017</a>
-              <a class="dropdown-item" href="#">2018</a>
-              <a class="dropdown-item" href="#">2019</a>
-              <a class="dropdown-item" href="#">2020</a>
-              <a class="dropdown-item" href="#">2021</a>
-              <a class="dropdown-item" href="#">2022</a>
-              <a class="dropdown-item" href="#">2023</a>
-          </div>
+            <option value="">$year</option>
+          <?php 
+            $year++;} 
+            
+            if ($year == $currentYear) { ?>
+              <option value=""><?= $year ?></option>
+            <?php } ?>
+        </select>
       </div>
     </div>
 
@@ -123,37 +91,18 @@
       <div class="bar" data-value="11"></div>
       <div class="bar" data-value="12"></div>
     </div>
-
-    <!-- <div class="chart-container">
-      <div class="chart">
-        <div class="bar" data-value="1"></div>
-        <div class="bar" data-value="2"></div>
-        <div class="bar" data-value="3"></div>
-        <div class="bar" data-value="4"></div>
-        <div class="bar" data-value="5"></div>
-        <div class="bar" data-value="6"></div>
-        <div class="bar" data-value="7"></div>
-        <div class="bar" data-value="8"></div>
-        <div class="bar" data-value="9"></div>
-        <div class="bar" data-value="10"></div>
-        <div class="bar" data-value="11"></div>
-        <div class="bar" data-value="12"></div>
-      </div>
-    </div> -->
-
   </div>
 
   <!-- Side contents -->
   <div class="db-side">
-    <h2 class="db-side-header">Other</h2>
 
     <div class="side-content" id="events">
       <h5 class="db-sec-header">Events</h5>
       <!-- Calendar -->
-      <div class="month">      
+      <div class="month">
         <ul class="linear space-between">
           <li class="prev">&#10094;</li>
-          <li class="ov-title">December 2022</li>
+          <li class="ov-title"><?= date('F').' '.date('Y') ?></li>
           <li class="next">&#10095;</li>
         </ul>
       </div>
@@ -168,7 +117,7 @@
         <li>Sa</li>
       </ul>
       
-      <ul class="days">  
+      <ul class="days">
         <li></li>
         <li></li>
         <li></li>
@@ -247,5 +196,6 @@
         </div>
       </div>
     </div>
+    
   </div>
 </main>

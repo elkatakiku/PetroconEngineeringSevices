@@ -23,49 +23,50 @@
       <img src="
         <?=IMAGES_PATH?>ic0n.jpg" class="profile-img">
       <div class="profile-display-info">
-        <h2 class="profile-name"> <?=  $data['lastname'].', '.$data['firstname'].' '.(!$data['middlename'] ? ' ' : $data['middlename'].'. ') ?>
-          <a id="editProfile" href="<?= SITE_URL.'/app/profile?action=edit' ?>">
+        <h2 class="profile-name">
+          <?= $this->mergeName($data['user']['lastname'], $data['user']['firstname'], $data['user']['middlename']) ?>
+          <a id="editProfile" href="<?= SITE_URL.'/account/profile?action=edit' ?>">
             <i class="fa-solid fa-pen-to-square"></i>
           </a>
         </h2>
-        <p> <?= $data['email'] ?> </p>
-        <p class="position"> <?= $data['type'] ?> </p>
+        <p> <?= $data['user']['email'] ?> </p>
+        <p class="position"> <?= ucwords($data['accountType']) ?> </p>
       </div>
     </div>
-    <form action="<?= SITE_URL.US.'user/updateUser'?>" method="POST" id="proform"> 
+    <form action="<?= SITE_URL.'/user/updateUser'?>" method="POST" id="proform"> 
       <?php if (isset($_GET['error'])) { ?>
         <!-- Alert -->
         <div class="alert alert-danger show" role="alert"> <?= $_GET['error'] ?> </div> 
       <?php } ?>
       
-      <input type="hidden" name="id" value="<?= $data['id']?>" readonly>
+      <input type="hidden" name="id" value="<?= $data['user']['id']?>" readonly>
       <div class="form-group">
         <label for="">First Name</label>
-        <input type="text" value="<?= $data['firstname']?>" class="form-control" name="firstName" id="" aria-describedby="helpId" placeholder="Edit First Name" readonly>
+        <input type="text" value="<?= $data['user']['firstname']?>" class="form-control" name="firstName" id="" aria-describedby="helpId" placeholder="Edit First Name" readonly>
       </div>
       <div class="form-group">
         <label for="">Middle Name</label>
-        <input type="text" value="<?= $data['middlename']?>" class="form-control" name="middleName" id="" aria-describedby="helpId" placeholder="Edit Middle Name" readonly>
+        <input type="text" value="<?= $data['user']['middlename']?>" class="form-control" name="middleName" id="" aria-describedby="helpId" placeholder="Edit Middle Name" readonly>
       </div>
       <div class="form-group">
         <label for="">Last Name</label>
-        <input type="text" value="<?= $data['lastname']?>" class="form-control" name="lastName" id="" aria-describedby="helpId" placeholder="Edit Last Name" readonly>
+        <input type="text" value="<?= $data['user']['lastname']?>" class="form-control" name="lastName" id="" aria-describedby="helpId" placeholder="Edit Last Name" readonly>
       </div>
       <div class="form-group">
         <label for="">Email</label>
-        <input type="text" value="<?= $data['email']?>" class="form-control" name="email" id="" aria-describedby="helpId" placeholder="Edit Email" readonly>
+        <input type="text" value="<?= $data['user']['email']?>" class="form-control" name="email" id="" aria-describedby="helpId" placeholder="Edit Email" readonly>
       </div>
       <div class="form-group">
         <label for="">Address</label>
-        <input type="text" value="<?= $data['address']?>" class="form-control" name="address" id="" aria-describedby="helpId" placeholder="Edit Address" readonly>
+        <input type="text" value="<?= $data['user']['address']?>" class="form-control" name="address" id="" aria-describedby="helpId" placeholder="Edit Address" readonly>
       </div>
       <div class="form-group">
         <label for="">Contact no.</label>
-        <input type="text" value="<?= $data['contact_number']?>" class="form-control" name="contactNo" id="" aria-describedby="helpId" placeholder="Edit Contact no." readonly>
+        <input type="text" value="<?= $data['user']['contact_number']?>" class="form-control" name="contactNo" id="" aria-describedby="helpId" placeholder="Edit Contact no." readonly>
       </div>
       <div class="form-group">
         <label for="">Birthdate</label>
-        <input type="date" value="<?= $data['dob']?>" class="form-control" name="birthdate" id="" aria-describedby="helpId" placeholder="" readonly>
+        <input type="date" value="<?= $data['user']['dob']?>" class="form-control" name="birthdate" id="" aria-describedby="helpId" placeholder="" readonly>
       </div>
     </form>
     <div class="form-group">
@@ -75,8 +76,8 @@
 
   <div class="page-footer">
     <button type="submit" form="proform" name="modifyProfile" class="btn success-btn">Save</button>
-    <a href="<?= SITE_URL.'/app/profile' ?>"><button type="button" class="btn outline-action-btn">Cancel</button></a>
+    <a href="<?= SITE_URL.'/account/profile' ?>"><button type="button" class="btn outline-action-btn">Cancel</button></a>
 
-    <a href="<?= SITE_URL.US.'app/password'?>" class="btn action-btn mr-auto"> Change Password </a>
+    <a href="<?= SITE_URL.'/account/changepass'?>" class="btn action-btn mr-auto"> Change Password </a>
   </div>   
 </main>

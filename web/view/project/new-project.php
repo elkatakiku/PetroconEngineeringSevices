@@ -14,14 +14,12 @@
 
     <form id="newProject" class="main-content">
         <!-- Alert -->
-        <div class="alert alert-danger" role="alert">
-            A simple danger alert—check it out!
-        </div>
+        <div class="alert alert-danger" role="alert"></div>
 
         <!-- Content -->
         <div class="linear-container">
             <div class="linear">
-                <div class="project-form basis-lg-8" data-basis="">
+                <div class="project-form basis-lg-8">
                     <h5 class="form-header">Project</h5>
 
                     <div class="linear">
@@ -80,6 +78,6 @@
 
     <div class="page-footer">
         <button class="btn action-btn" type="submit" form="newProject" name="createProject">Create</button>
-        <a href="projects.html"><button type="button" class="btn outline-action-btn">Cancel</button></a>
+        <a href="<?= SITE_URL.'/project/list#all' ?>"><button type="button" class="btn outline-action-btn">Cancel</button></a>
     </div>            
 </main>

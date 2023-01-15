@@ -10,57 +10,84 @@ class User extends MainController {
 
     private $userService;
 
-    public function __construct() {
-        $this->setType(MainController::ADMIN);
-        $this->setPage(4);// page kung pangilan sa sidemenu
+    public function __construct() 
+    {
+        parent::__construct();
+        $this->setPage(6);
 
         $this->userService = new UserService;
+        
+        if (!isset($_SESSION['accID'])) {
+            $this->goToLogin();
+        }
     }
 
+    // || Views
     public function index() {
-        $this->view("user", "list"); // user = name ng folder sa view/ list = name ng file sa controller
+        header("Location: ".SITE_URL."/user/list#all");
+        exit();   
     }
 
-    public function list($userType) {//userType is parameter, ung value is ung nasa pangatlong slash or more sa url
-       // pang view / sa url
-        $this->view("user", "list", ['type' => $userType]);// key value pair / call "" sa view to print value
-    } 
+    public function list()
+    {        
+        $this->view("user", "user-list", ['acctTypes' => $this->userService->getAccountTypes()]);
+    }
 
-    public function listUser() // pang api/ to get data
+    public function getList()
     {
-        if (isset($_GET['type'])) {
-            echo $this->userService->getUserList($_GET['type']);
+        if (isset($_GET['form'])) {
+            echo $this->userService->getUserList($_GET['form']);
+        }
+    }
+
+    public function details(string $userId)
+    {
+        $user = json_decode($this->userService->getUserDetails($userId), true);
+
+        if ($user['statusCode'] == 200) {
+            $this->view("user", "user", ['account' => $user['data']]);
+            // $this->view("user", "user");
+            return;
+        } else {
+            $this->goToIndex();
         }
     }
 
     //CREATES NEW USER
-    public function new() { // button submit
-        echo __METHOD__;
-        if (isset($_POST['createUser'])) {
-            $inputs = [
-                    "lastname" => ucwords($this->sanitizeString($_POST['lastname'])),
-                    "firstname" => ucwords($this->sanitizeString($_POST['firstname'])),
-                    "middleName" => ucwords($this->sanitizeString($_POST['middleName'])), // pag ucwords captal everyfirstletter
-                    "username" => ($this->sanitizeString($_POST['username'])),
-                    "email" => ($this->sanitizeString($_POST['email'])),
-                    "password" =>  ($this->sanitizeString($_POST['password'])), 
-                    "passwordRepeat" =>  ($this->sanitizeString($_POST['passwordRepeat'])),//pag str capital every first word first lettter
-                    "position" => ucwords($this->sanitizeString($_POST['position'])),
-                    "address" => ($this->sanitizeString($_POST['address'])),
-                    "contactNumber" => strtoupper($this->sanitizeString($_POST['contactNumber'])),
-                    "birthdate" => ($this->sanitizeString($_POST['birthdate']))
-                ];
-        }
-        var_dump($inputs);// displaying all info about the data
-        var_dump($this->userService->signup($inputs));
+    public function new() {
+
+        $this->view("user", "new-user", ['acctTypes' => $this->userService->getAccountTypes()]);
+
+        // if (isset($_POST['createUser'])) {
+        //     $inputs = [
+        //             "lastname" => ucwords($this->sanitizeString($_POST['lastname'])),
+        //             "firstname" => ucwords($this->sanitizeString($_POST['firstname'])),
+        //             "middleName" => ucwords($this->sanitizeString($_POST['middleName'])), // pag ucwords captal everyfirstletter
+        //             "username" => ($this->sanitizeString($_POST['username'])),
+        //             "email" => ($this->sanitizeString($_POST['email'])),
+        //             "password" =>  ($this->sanitizeString($_POST['password'])), 
+        //             "passwordRepeat" =>  ($this->sanitizeString($_POST['passwordRepeat'])),//pag str capital every first word first lettter
+        //             "position" => ucwords($this->sanitizeString($_POST['position'])),
+        //             "address" => ($this->sanitizeString($_POST['address'])),
+        //             "contactNumber" => strtoupper($this->sanitizeString($_POST['contactNumber'])),
+        //             "birthdate" => ($this->sanitizeString($_POST['birthdate']))
+        //         ];
+        // }
+        // var_dump($inputs);// displaying all info about the data
+        // var_dump($this->userService->signup($inputs));
 
 
-        if($this->emptyInput($inputs)) {
-            // Error Handling
-            // Code here
-            echo "<br>Please fill all required user inputs.";
-            return;
-        }
+        // if($this->emptyInput($inputs)) {
+        //     // Error Handling
+        //     // Code here
+        //     echo "<br>Please fill all required user inputs.";
+        //     return;
+        // }
+
+
+
+
+
         
         // $login = $this->createEntity('Login');//object
         //  // Create login
@@ -95,6 +122,43 @@ class User extends MainController {
     }
 
 
+    // || Functions
+    public function newUser()
+    {
+        if (isset($_POST['form'])) 
+        {    
+            // $signupResult = $this->userService->signup($_POST['form']);
+            echo $this->userService->signup($_POST['form']);
+            
+            // if ($signupResult->isSuccess()) 
+            // {   // Account creation success
+            //     header("Location: ".SITE_URL."/user/list#all");
+            //     exit();
+            //     return;
+            // } else {
+            //     header("Location: ".SITE_URL."/user?error=".$signupResult->getMessage());
+            // }
+        }
+    }
+
+    public function checkUserName()
+    {
+        if (isset($_GET['input'])) 
+        {    
+            echo $this->userService->checkUsername($_GET['input']);
+        }
+    }
+
+    public function checkEmail()
+    {
+        // echo __METHOD__;
+        if (isset($_GET['input'])) 
+        {
+            echo $this->userService->checkEmail($_GET['input']);
+        }
+    }
+
+
     // || Profile
     public function updateUser()
     {
@@ -117,7 +181,7 @@ class User extends MainController {
             ];
 
             $result = json_decode($this->userService->updateUser($inputs), true);
-            $url = "Location: ".SITE_URL.US."app/profile/".$_SESSION['accID'];
+            $url = "Location: ".SITE_URL."/account/profile";
 
             if ($result['statusCode'] != 200) {
                 $url .= "?error=".$result['message'];
@@ -125,18 +189,17 @@ class User extends MainController {
 
             header($url);
         } else {
-            $this->goToLanding();
+            $this->goToLogin();
         }
     }
 
     // Change pass action
     public function changePass()
     {
-        if (isset($_POST['changePass'])) {
-            unset($_POST['changePass']);
+        if (isset($_POST['changePassSubmit'])) {
 
             $result = json_decode($this->userService->changePassword($_POST), true);
-            $url = "Location: ".SITE_URL.US."app/password";
+            $url = "Location: ".SITE_URL."/account/changepass";
 
             if ($result['statusCode'] == 200) {
                 $url .= "?success=password changed";
@@ -146,7 +209,7 @@ class User extends MainController {
 
             header($url);
         } else {
-            $this->goToLanding();
+            $this->goToLogin();
         }
     }
 
@@ -183,8 +246,13 @@ class User extends MainController {
 
         //     header($url);
         // } else {
-        //     $this->goToLanding();
+        //     $this->goToLogin();
         // }
+    }
+
+    private function goToIndex() {
+        header("Location: ".SITE_URL."/user");
+        exit();
     }
 }
 
