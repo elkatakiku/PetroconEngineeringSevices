@@ -687,7 +687,7 @@ form .row .right {
     vertical-align: top;
 }
 
-.mesa tbody tr:hover, tbody tr.active {
+.mesa.mesa-hover tbody tr:hover, tbody.mesa-hover tr.active {
     cursor: pointer;
     background-color: var(--palette5);
 }
@@ -1293,11 +1293,19 @@ body:has(.slide-fixed.active).slide-open {
 }
 
 .success-border {
-    border: 1px solid var(--success) !important;
+    border-color: var(--success) !important;
 }
 
 .danger-border {
-    border: 1px solid var(--danger) !important;
+    border-color: var(--danger) !important;
+}
+
+.primary-border {
+    border-color: var(--primary) !important;
+}
+
+.white-border {
+    border-color: white !important;
 }
 
 
@@ -1372,6 +1380,10 @@ body:has(.slide-fixed.active).slide-open {
 
 .text-wrap {
     white-space: wrap;
+}
+
+.pos-relative {
+    position: relative;
 }
 
 .align-right {
@@ -1460,6 +1472,39 @@ body:has(.slide-fixed.active).slide-open {
     height: 100%;
     width: 100%;
     justify-content: center;
+}
+
+/* Spinner */
+.cstm-spinner {
+    display: block;
+    aspect-ratio: 1 / 1;
+    height: 65%;
+
+    border-radius: 50%;
+    background-color: transparent;
+    border: .25em solid var(--primary);
+    border-right-color: transparent !important;
+    animation: spinner 1s linear infinite;
+
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    translate: 0 -50%;
+}
+
+.cstm-spinner-sm {
+    height: 50%;
+    border-width: .2em;
+}
+
+@keyframes spinner {
+    0% {
+        rotate: 0;
+    }
+
+    100% {
+        rotate: 360deg;
+    }
 }
 
 /* || MEDIA QUERIES */

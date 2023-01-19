@@ -72,16 +72,9 @@
     </div>
   </nav>
 
-  <style>
-
-    .main-content {
-      padding-top: 0;
-    }
-  </style>
-
   <!-- Project Table -->
-  <div class="main-content">
-    <table class="mesa" id="projectsTable">
+  <div class="main-content pt-0">
+    <table class="mesa mesa-hover" id="projectsTable">
       <thead class="mesa-head">
         <tr>
           <th scope="col"></th>

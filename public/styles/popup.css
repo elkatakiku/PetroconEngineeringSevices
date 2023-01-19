@@ -185,6 +185,120 @@
     border-top: 5px solid var(--success);
 }
 
+/* Popup Notification */
+.popup-notif {
+    min-width: 250px;
+    width: 30%;
+    max-width: 500px;
+
+    height: auto;
+    background-color: transparent !important;
+    top: auto;
+    left: auto;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1000;
+
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
+    animation: notification 1s;
+}
+
+.popup-notif .pcontainer {
+    margin: 0;
+    max-width: 100%;
+}
+
+.popup-notif .pcontent {
+    padding: .75rem 1rem;
+    border-width: 0 0 0 5px;
+    border-left-style: solid;
+}
+
+.popup-notif .ptitle {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--primary-text);
+}
+
+.popup-notif button[data-dismiss] {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+}
+
+.popup-notif button[data-dismiss] .material-icons {
+    font-size: 14px;
+}
+
+.popup-notif .feedback-msg {
+    font-size: 12px;
+    margin: 0;
+}
+
+.feedback-container {
+    min-width: 250px;
+    width: 30%;
+    max-width: 500px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 1000;
+}
+
+
+/* Popup Feedback */
+.feedback {
+    background-color: white;
+
+    position: relative;
+    padding: .75rem 1rem;
+    border-width: 0 0 0 5px;
+    border-left-style: solid;
+    border-radius: .25rem;
+
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
+    animation: notification 1s;
+
+    /*transition: all 1s linear;*/
+}
+
+.feedback-title {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: var(--primary-text);
+}
+
+.feedback button[data-dismiss] {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+}
+
+.feedback button[data-dismiss] .material-icons {
+    font-size: 14px;
+}
+
+.feedback-message {
+    font-size: 12px;
+    margin: 0;
+}
+
+@keyframes notification {
+    0% {
+        left: 100%;
+    }
+
+    100% {
+        left: 0;
+    }
+}
+
 /* Media Queries */
 @media (min-width: 576px) {
     .pcontainer {

@@ -8,7 +8,7 @@ class Dashboard extends MainController {
 
     public function __construct() {
         parent::__construct();
-        $this->setPage(1);
+        $this->setPage('#dashboardMenu');
 
         if (!isset($_SESSION['accID'])) {
             $this->goToLogin();

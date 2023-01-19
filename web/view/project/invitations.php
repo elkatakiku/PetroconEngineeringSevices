@@ -32,10 +32,23 @@
             </div>
             <div class="linear basis-12">
                 <div class="form-group basis-10 mb-0">
-                    <input type="email" class="form-control" name="email" placeholder="Enter email here" required>
+<!--                    <label for="">Email</label>-->
+                    <span class="loading-input">
+                            <input type="email" class="form-control top" name="email" id="email" aria-describedby="helpId" placeholder="Enter email here" required>
+                            <div class="loading" style="display: none;">
+                                <div class="spinner-grow spinner-grow-sm" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </span>
+                    <small id="helpId" class="form-text text-danger"></small>
                 </div>
-                <div class="basis-12 basis-md-2 pl-md-0">
-                    <button class="btn action-btn btn-block">Invite</button>
+<!--                <div class="form-group">-->
+<!--                    <input type="email" class="form-control" name="email" placeholder="Enter email here" required>-->
+<!--                </div>-->
+                <div class="basis-12 basis-md-2 pl-md-0 pos-relative">
+                    <button type="submit" class="btn action-btn btn-block" id="inviteSubmit">Invite</button>
+                    <span class="cstm-spinner white-border" style="display: none;"></span>
                 </div>
             </div>
         </form>

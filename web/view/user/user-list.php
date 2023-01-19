@@ -58,7 +58,7 @@
 
   <!-- Users Table -->
   <div class="main-content">
-    <table class="mesa" id="usersTable">
+    <table class="mesa mesa-hover" id="usersTable">
       <thead class="mesa-head">
         <tr>
           <th scope="col"></th>

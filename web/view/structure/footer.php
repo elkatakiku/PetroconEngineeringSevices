@@ -1,8 +1,4 @@
-<div id="sampEvent">
-    
-    </div>
-
-<?php 
+<?php
 
 switch ($data['accountType']) {
   case Core\Controller::AUTH: ?>
@@ -47,25 +43,28 @@ switch ($data['accountType']) {
 
       console.log("Footer");
 
-      <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
+      <?php //if ($data['accountType'] == Core\Controller::ADMIN) { ?>
 
-      let sideNavLink = $("#sidebar .components > li");
+      // let sideNavLink = $("#sidebar .components > li");
+      //console.log(<?//= $data['pageId'] ?>//)
 
-      for (let i = 0; i < sideNavLink.length; i++) {
-        const navLink = sideNavLink[i];
-        if (i === <?= $data['pageNumber'] ?>) {
-          console.log("This is the one");
-          $(navLink).addClass("active");
-        }
-      }
+      $('<?= $data['pageId'] ?>').addClass('active');
 
-      // <?php } else if ($data['accountType'] == Core\Controller::CLIENT) { ?>
+      //for (let i = 0; i < sideNavLink.length; i++) {
+      //  const navLink = sideNavLink[i];
+      //  if (i === <?//= $data['pageNumber'] ?>//) {
+      //    console.log("This is the one");
+      //    $(navLink).addClass("active");
+      //  }
+      //}
+
+      <?php //} else if ($data['accountType'] == Core\Controller::CLIENT) { ?>
       //   $('.navbar-nav').children().each((index, element) => {
       //     if ($(element).find('a').text().toLowerCase() === '<?= $this->getPage() ?>'.toLowerCase()) {
       //       $(element).addClass('active');
       //     }
       //   });
-      // <?php } ?>
+      <?php //} ?>
     
     </script>
 

@@ -14,7 +14,7 @@ class Messages extends MainController {
     
     public function __construct() {
         parent::__construct();
-        $this->setPage(3);
+        $this->setPage('#messagesMenu');
 
         $this->messageService = new MessageService;
 

@@ -54,7 +54,7 @@ class Dbh {
                     // echo "Select toh";  
                     $result = $stmt->fetchAll();
                     break;
-                case 'UPDATE' :
+                case 'UPDATE' : case 'DELETE' :
                     // echo "Success update";
                     // echo "<br>";
                     // echo $stmt->rowCount();

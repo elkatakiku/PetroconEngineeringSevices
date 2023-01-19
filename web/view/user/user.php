@@ -1,10 +1,10 @@
 <main class="content">
-	<!-- <pre>
-		<?php 
-		// var_dump($data) 
+	<pre>
+		<?php
+		 var_dump($data);
 		// var_dump($data['account']['middlename']);
 		?>
-	</pre> -->
+	</pre>
 	
 	<!-- Header -->
 	<div class="page-header">
@@ -42,7 +42,7 @@
 						<h5 class="mb-3">Personal</h5>
 						<div class="px-md-5 px-3">
 							<p><strong>Email Address: </strong><?= $data['account']['email'] ?></p>
-							<?php if ($data['accountType'] == Core\Controller::WORKER) { ?>
+							<?php if ($data['accountType'] == Core\Controller::EMPLOYEE) { ?>
 								<p><strong>Position: </strong><?= $data['account']['type'] ?></p>
 							<?php } ?>
 							<p><strong>Address: </strong><?= $data['account']['address'] ?></p>
@@ -149,17 +149,16 @@
 
 		<div id="userProject" class="main-content custom-tab-content">
 			<div class="container">
-				<!-- USER JOINED PROJECT-->
 				<div class="mesa-container">
-					<table class="mesa">
+					<table class="mesa" id="joinedProjectTable">
 						<thead class="mesa-head">
 							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Project Name/Description</th>
-								<th scope="col">Address</th>
+								<th scope="col"></th>
+								<th scope="col">Project Description</th>
+								<th scope="col">Location</th>
 								<th scope="col">Date/Time</th>
 								<th scope="col">Status</th>
-								<th scope="col"></th>
+								<th scope="col">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -206,3 +205,7 @@
 		</div>
 	</div>
 </main>
+
+<script>
+    const ACCOUNT_ID = '<?= $data['account']['acct_id'] ?>';
+</script>

@@ -2,16 +2,15 @@
 import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
 
-// ==========================================================================
-
 // Collapse Task Legends Popup
-$('#activityCollapse').click((e) => {
+let activityCollapse = $('#activityCollapse');
+activityCollapse.on('click',(e) => {
     let btn = $(e.target);
 
     resizeCollapse($(btn.data('target')).hasClass('active'), btn);
 });
 
-function resizeCollapse(isActive, btn = $('#activityCollapse')) {  
+function resizeCollapse(isActive, btn = activityCollapse) {
     if (!isActive) {
         $(btn.data('target')).addClass('active');
         btn.find('.material-icons').animate({
@@ -57,8 +56,8 @@ function loadActivities(id, activities) {
             activities.empty();
     
             let jsonResponse = JSON.parse(data);
-            console.log(typeof jsonResponse);
-            console.log(jsonResponse);
+            // console.log(typeof jsonResponse);
+            // console.log(jsonResponse);
 
             if (jsonResponse.hasOwnProperty('data')) {
                 for (let i = 0; i < jsonResponse.data.length; i++) {
@@ -94,7 +93,7 @@ function loadLegends(legends, activities = null) {
             console.log("Legend response");
             // console.log(response);
             let jsonResponse = JSON.parse(response);
-            if (jsonResponse.statusCode == 200 && jsonResponse.hasOwnProperty('data')) 
+            if (jsonResponse.statusCode === 200 && jsonResponse.hasOwnProperty('data'))
             {
                 legends.empty();
 
@@ -415,7 +414,7 @@ function buildTaskPopup() {
 }
 
 // Adds new task
-$('#addTask').click((e) => {
+$('#addTask').on('click',(e) => {
     let popup = buildTaskPopup();
 
     console.log("Porject id " + projectId);
@@ -1548,7 +1547,7 @@ $('.slide button[data-toggle="form"]').on('click', (e) => {
 // Nav tab datatbles
 let datatableSettings = {
     resourceTable : {
-        'dom' : '<"mesa-container"t><"linear">',
+        'dom' : 't',
         "autoWidth": false,
         "lengthChange": false,
         // 'paging' : true,
@@ -1686,7 +1685,7 @@ let datatableSettings = {
         }
     },
     peopleTable : {
-        'dom' : '<"mesa-container"t><"linear"p>',
+        'dom' : 't',
         "autoWidth": false,
         "lengthChange": false,
         'paging' : true,
@@ -1715,11 +1714,21 @@ let datatableSettings = {
     
         "columns" : [
             {'defaultContent' : ''},
-            {'data' : 'item'}, 
-            {'data' : 'quantity'},
-            {'data' : 'price'},
-            {'data' : 'total'},
-            {'data' : 'notes'},
+            {
+                'defaultContent' : '',
+                'render' : function (data, type, row) {
+                    console.log(row);
+                    let middlename = row.middlename.trim().length > 0 ? (row.middlename.trim() + '.') : '';
+                    return row.lastname + ', ' + row.firstname + middlename;
+                }
+            },
+            {'data' : 'email'},
+            {
+                'data' : 'contact_number',
+                'render' : function (data, type, row) {
+                    return data.trim().length === 0 ? 'N/A' : data;
+                }
+            },
             {'defaultContent' : ''}
         ],
     
@@ -1811,7 +1820,7 @@ let datatableSettings = {
         }
     },
     paymentTable : {
-        'dom' : '<"mesa-container"t>',
+        'dom' : 't',
         "autoWidth": false,
         "lengthChange": false,
         'sort' : false,
@@ -2051,6 +2060,7 @@ $('.nav-tab').on('custom:tabChange', (e, tab, target) => {
     resetGanttChart();
 
     let table = $(target).find('table');
+    console.log(table);
     
     if (target !== '#projectGanttChart') 
     {   
@@ -2213,7 +2223,7 @@ $('#addPayment').on('click', (e) => {
                 let response = JSON.parse(data);
                 console.log(response);
 
-                if (response.statusCode == 200) 
+                if (response.statusCode === 200)
                 {   // Dismiss legend's form and reload legends list on success
                     popup.find('button[data-dismiss]').trigger('click');
 
@@ -2249,6 +2259,37 @@ function disableInputs(form) {
     $('button[form="' + $(form).attr('id') + '"]').prop('disabled', true);
 }
 
-$('form').on('custom:formSubmitted', (e) => {
-    console.log("Submitted, result");
+// $('form').on('custom:formSubmitted', (e) => {
+//     console.log("Submitted, result");
+// });
+
+
+//  Choose from team
+$('#employeeSearch').on('input', (e) => {
+    console.log("Focus");
+    $.get(
+        Settings.base_url + "/people/searchEmployees",
+        {form : getFormData(e.target)},
+        function (data, textStatus) {
+            let response = JSON.parse(data);
+            console.log(response);
+
+            let datalist = $('#employeesList');
+            datalist.empty();
+
+            if (response.statusCode === 200)
+            {
+                for (let i = 0; i < response.data.length; i++)
+                {
+                    console.log(response.data);
+                    let user = response.data[i];
+                    // let middleInitial = (user.middlename.trim().length > 0) ? user.middlename.charAt(0) + '.' : '';
+                    // let name = user.lastname + ', ' + user.firstname + ' ' + middleInitial;
+                    let option = '<option value="'+ user.email +'">';
+                    console.log(option);
+                    datalist.append(option);
+                }
+            }
+        }
+    );
 });

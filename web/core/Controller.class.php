@@ -11,10 +11,10 @@ class Controller {
     const AUTH = "auth";
     const CLIENT = "client";
     const ADMIN = "admin";
-    const WORKER = "worker";
+    const EMPLOYEE = "employee";
     
     private string $type;
-    private int $pageNumber;
+    private string $pageId;
     private  $user;
 
     private $isLogin;
@@ -34,7 +34,7 @@ class Controller {
                     break;
                 case Account::WORKER_TYPE:
                 case Account::EMPLOYEE_TYPE:
-                    $this->setType(Controller::WORKER);
+                    $this->setType(Controller::EMPLOYEE);
                     break;
             }
         }
@@ -57,7 +57,7 @@ class Controller {
         if ($this->isLogin()) 
         {
             $data['user'] = $this->user;
-            $data['pageNumber'] = $this->pageNumber;
+            $data['pageId'] = $this->pageId;
             $data['fullname'] = ucwords(
                 $this->user['lastname']).", ".
                 ucwords($this->user['firstname'])." ".
@@ -80,21 +80,13 @@ class Controller {
         $this->type = $type;
     }
 
-    protected function setPage($pageNumber) {
-        $this->pageNumber = $pageNumber - 1;
-    }
-
-    protected function getPageNumber() {
-        return $this->pageNumber;
+    protected function setPage($pageId) {
+//        $this->pageNumber = $pageNumber - 1;
+        $this->pageId = $pageId;
     }
 
     protected function getPage() {
-        $pages = [
-            Controller::CLIENT => ["home"],
-            Controller::ADMIN => ["dashboard", "projects", "messages", "team", "users", "profile"]
-        ];
-
-        return $pages[$this->type][$this->pageNumber];
+        return $this->pageId;
     }
 
     public function displayResult(array $get, string $successMsg)

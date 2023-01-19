@@ -3,7 +3,6 @@ import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils
 $('[data-action="prev"]').hide();
 
 $('[name="email"]').on('blur', (e) => {
-
     Utils.valdiateInput(e.target, '#signupForm', '/user/checkEmail', 'Email is already taken');
 });
 
@@ -75,7 +74,7 @@ $('[data-slider]').off('click')
 
 let prevText;
 function slide(btn) {
-    console.log("Sliding wiiii");
+    // console.log("Sliding wiiii");
     btn.prop('disabled', true);
     let slider = $(btn.data('slider'));
     let active = slider.find('div.active');

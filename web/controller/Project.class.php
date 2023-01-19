@@ -12,7 +12,7 @@ class Project extends MainController {
 
     public function __construct() {
         parent::__construct();
-        $this->setPage(2);
+        $this->setPage('#projectsMenu');
 
         $this->projectService = new ProjectService;
 
@@ -147,7 +147,7 @@ class Project extends MainController {
 
         if ($project['statusCode'] == 200) 
         {
-            $this->view("project", "pending", ['project' => $project['data']]);
+            $this->view("project", "invitations", ['project' => $project['data']]);
             return;
         } 
         else 

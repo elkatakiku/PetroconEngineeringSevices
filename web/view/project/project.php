@@ -225,7 +225,7 @@
                     </header>
 
                     <div class="mesa-container" id="timelineTable">
-                        <table class="mesa" id="tasksTable">
+                        <table class="mesa mesa-hover" id="tasksTable">
                             <thead class="mesa-head">
                                 <tr>
                                     <th scope="col"></th>
@@ -606,7 +606,7 @@
 
             <!-- Resources Table -->
             <div class="mesa-container">
-                <table class="mesa" id="resourceTable">
+                <table class="mesa mesa-hover" id="resourceTable">
                     <thead class="mesa-head">
                         <tr>
                             <th scope="col"></th>
@@ -706,64 +706,32 @@
         
         <!-- People -->
         <section id="projectPeople" class="main-content custom-tab-content">
-
-
-            <div class="linear justify-content-end">
-                <button class="btn outline-action-btn">Choose from team</button>
+            <div class="linear">
+                <form class="input-container">
+                    <input type="text" id="employeeSearch" name="search" list="employeesList" placeholder="Enter email address of employee">
+                    <datalist id="employeesList">
+<!--                        <option value="Boston">-->
+<!--                        <option value="Cambridge">-->
+                    </datalist>
+                    <div class="input-append">
+                        <button type="submit" class="btn action-btn px-4">Choose from team</button>
+                    </div>
+                </form>
                 or
-                <a href="<?= SITE_URL.'/project/invitation/'.$data['project']['id'] ?>">
+                <a href="<?= SITE_URL.'/project/invitation/'.$data['project']['id'] ?>" class="flex-shrink-0">
                     <button class="btn action-btn">Invite people</button>
                 </a>
-                <!-- <a href="<?= SITE_URL.'/project/invitation/'.$data['project']['id'] ?>">
-                    <button class="btn btn-sm link-btn">
-                        Pending invitations
-                    </button>
-                </a> -->
-                <!-- <a class="" href="../admin/generateslip.html">
-                    <button class="btn btn-sm action-btn" type="button" data-toggle="popup" aria-expanded="false">
-                        Generate Slip
-                    </button>
-                </a> -->
-                <!-- <div class="dropdown ml-auto"> -->
-                    
-                    <!-- <button class="btn btn-sm dropdown-toggle action-btn" type="button" data-toggle="dropdown" aria-expanded="false">
-                        Add people
-                    </button> -->
-
-                    <!-- <div class="dropdown-menu dropdown-menu-lg-right"> -->
-                        <!-- <button class="dropdown-item" type="button" data-toggle="popup" data-target="#InvitePeople" aria-expanded="false">
-                        Invite
-                        </button>
-                        <button class="dropdown-item" type="button" data-toggle="popup" data-target="#ChooseFromTeam" aria-expanded="false">
-                            Choose from team
-                        </button>    -->
-                    <!-- </div> -->
-                <!-- </div> -->
             </div>
-            <!-- <div class="linear"> -->
-                <!-- <form action="" class=""> -->
-                <!-- <div class="input-container">
-                    <input type="text" placeholder="Enter an email address or number of a person you want to invite.">
-                    <div class="input-append">
-                        <button type="button" class="btn action-btn slim-btn">Invite person</button>
-                    </div>
-                </div>
-
-                <span class="align-self-center">or</span>
-
-                <button class="btn action-btn slim-btn  ">Choose from Team</button> -->
-                <!-- </form> -->
-            <!-- </div> -->
 
             <!-- People Table -->
             <div class="mesa-container">
-                <table class="mesa" id="peopleTable">
+                <table class="mesa mesa-hover" id="peopleTable">
                     <thead class="mesa-head">
                         <tr>
+                            <th scope="col"></th>
                             <th scope="col" class="tname"><strong>Name</strong></th>
                             <th scope="col">Email</th>
-                            <th scope="col">Contact</th>
-                            <th scope="col">Priviledge</th>
+                            <th scope="col">Contact Number</th>
                             <th scope="col" class="table-action-col"></th>
                         </tr>
                     </thead>
@@ -812,7 +780,7 @@
 
             <!-- Payment Table -->
             <div class="mesa-container">
-                <table class="mesa" id="paymentTable">
+                <table class="mesa mesa-hover" id="paymentTable">
                     <thead class="mesa-head">
                         <tr>
                             <th></th>

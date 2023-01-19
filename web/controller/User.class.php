@@ -13,7 +13,7 @@ class User extends MainController {
     public function __construct() 
     {
         parent::__construct();
-        $this->setPage(6);
+        $this->setPage('#users');
 
         $this->userService = new UserService;
         
@@ -33,6 +33,23 @@ class User extends MainController {
         $this->view("user", "user-list", ['acctTypes' => $this->userService->getAccountTypes()]);
     }
 
+    public function details(string $userId)
+    {
+        $user = json_decode($this->userService->getUserDetails($userId), true);
+
+        if ($user['statusCode'] == 200) {
+            $this->view("user", "user", ['account' => $user['data']]);
+        } else {
+            $this->goToIndex();
+        }
+    }
+
+    public function new() {
+        $this->view("user", "new-user", ['acctTypes' => $this->userService->getAccountTypes()]);
+    }
+
+
+    // || Functions
     public function getList()
     {
         if (isset($_GET['form'])) {
@@ -40,89 +57,6 @@ class User extends MainController {
         }
     }
 
-    public function details(string $userId)
-    {
-        $user = json_decode($this->userService->getUserDetails($userId), true);
-
-        if ($user['statusCode'] == 200) {
-            $this->view("user", "user", ['account' => $user['data']]);
-            // $this->view("user", "user");
-            return;
-        } else {
-            $this->goToIndex();
-        }
-    }
-
-    //CREATES NEW USER
-    public function new() {
-
-        $this->view("user", "new-user", ['acctTypes' => $this->userService->getAccountTypes()]);
-
-        // if (isset($_POST['createUser'])) {
-        //     $inputs = [
-        //             "lastname" => ucwords($this->sanitizeString($_POST['lastname'])),
-        //             "firstname" => ucwords($this->sanitizeString($_POST['firstname'])),
-        //             "middleName" => ucwords($this->sanitizeString($_POST['middleName'])), // pag ucwords captal everyfirstletter
-        //             "username" => ($this->sanitizeString($_POST['username'])),
-        //             "email" => ($this->sanitizeString($_POST['email'])),
-        //             "password" =>  ($this->sanitizeString($_POST['password'])), 
-        //             "passwordRepeat" =>  ($this->sanitizeString($_POST['passwordRepeat'])),//pag str capital every first word first lettter
-        //             "position" => ucwords($this->sanitizeString($_POST['position'])),
-        //             "address" => ($this->sanitizeString($_POST['address'])),
-        //             "contactNumber" => strtoupper($this->sanitizeString($_POST['contactNumber'])),
-        //             "birthdate" => ($this->sanitizeString($_POST['birthdate']))
-        //         ];
-        // }
-        // var_dump($inputs);// displaying all info about the data
-        // var_dump($this->userService->signup($inputs));
-
-
-        // if($this->emptyInput($inputs)) {
-        //     // Error Handling
-        //     // Code here
-        //     echo "<br>Please fill all required user inputs.";
-        //     return;
-        // }
-
-
-
-
-
-        
-        // $login = $this->createEntity('Login');//object
-        //  // Create login
-        // $login->createLogin($inputs["username"], $inputs["password"]);
-        // $login->getId();// will return id
-
-        //  $idcontainer =  $login->getId();
-
-        //  $user = $this->createEntity('User'); //object
-        //  $user->getId();
-        //  $user->createUser(
-        //     $inputs['name'],
-        //     $inputs['uname'],
-        //     $inputs['email'],
-        //     $inputs['pass'],
-        //     $inputs['passr'],
-        //     $inputs['position'],
-        //     $inputs['address'],
-        //     $inputs['contact'],
-        //     $inputs['bdate'],
-        //     $login->getId()
-        // ) //access
-        
-        // $account = $this->createEntity("Account");
-        //  // Create Account
-        //  $account->createAccount(
-        //     Account::CLIENT_TYPE, $user->getId(), $login->getId());
-
-        
-
-        // $user = $this->getModel()->getsetUser($user);
-    }
-
-
-    // || Functions
     public function newUser()
     {
         if (isset($_POST['form'])) 

@@ -1,3 +1,6 @@
+<pre>
+      <?= var_dump($data) ?>
+  </pre>
 <main class="content">
   <!-- Profile background -->
   <div class="profile-bg d-block">
@@ -16,7 +19,7 @@
       </g>
     </svg>
   </div>
-  
+
   <!-- Profile information -->
   <div class="profile-details-container">
     <div class="profile-display">

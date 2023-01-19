@@ -5,6 +5,7 @@ namespace Service;
 // Models
 
 use Core\Service;
+use Model\Invitation;
 use \Model\Result as Result;
 use \Model\Login as Login;
 use \Model\Register as Register;
@@ -125,45 +126,45 @@ class UserService extends Service{
         return json_encode($response);
     }
 
-    public function createAccount(string $email, string $name)
+    public function createAccount(array $invitation)
     {   // Gets inputs
-        $input = [
-            'required' => [
-                "email" => filter_var($email, FILTER_SANITIZE_EMAIL)
-            ],
-            'optional' => [
-                "name" => strtoupper($this->sanitizeString($name))
-            ]
-        ];
+//        $input = [
+//            'required' => [
+//                "email" => filter_var($invitation['email'], FILTER_SANITIZE_EMAIL)
+//            ],
+//            'optional' => [
+//                "name" => strtoupper($this->sanitizeString($invitation['name']))
+//            ]
+//        ];
 
-        if (!$this->emptyInput($input['required'])) 
+//        if (!$this->emptyInput($input['required']))
+        if ($invitation)
         {   
-            $username = bin2hex(random_bytes(4));
-            $password = bin2hex(random_bytes(4));
+//            $username = bin2hex(random_bytes(4));
+//            $password = bin2hex(random_bytes(4));
 
-            if ($input['optional']['name']) {
-                $username = explode(' ', $input['optional']['name'])[0].'_'.bin2hex(random_bytes(2));
-            }
+//            if ($invitation['name']) {
+//                $username = explode(' ', $invitation['name'])[0].'_'.bin2hex(random_bytes(2));
+//            }
 
             // Create login
             $login = new Login();
-            $login->create($username, $password);
+            $login->create($invitation['username'], $invitation['password']);
 
             // Create register/user
             $register = new Register();
-            $register->temp($input['required']["email"], $login->getId());
-            
+            $register->temp($invitation["email"], $login->getId());
+
             // Create Account
             $account = new Account();
             $account->createAccount(Account::EMPLOYEE_TYPE, $register->getId(), $login->getId());
 
-            // $response['statusCode'] = $this->setUser($login, $register, $account)->isSuccess() ? 200 : 500;
+
             if ($this->setUser($login, $register, $account)->isSuccess()) {
                 return $account->getId();
             }
         }
-        
-        // return json_encode($response);
+
         return false;
     }
     
@@ -204,10 +205,6 @@ class UserService extends Service{
         $response['statusCode'] = 200;
         return json_encode($response);
     }
-
-    // Reset
-
-    // Verify
 
 
     // Get
@@ -251,7 +248,8 @@ class UserService extends Service{
 
     public function sendVerification()
     {
-        if ($request = $this->userRepository->verifyActivation($_SESSION['accID'])) {
+        if ($request = $this->userRepository->verifyActivation($_SESSION['accID']))
+        {
             $day = 86400;
             $sent_at = strtotime($request[0]['sent_at']);
 
@@ -275,7 +273,9 @@ class UserService extends Service{
                     return false;
                 }
             }
-        } else {
+        }
+        else
+        {
             echo "New code";
             $activation = new Activation;
             $activation->create(
@@ -297,18 +297,6 @@ class UserService extends Service{
         }
 
         return true;
-        // $user = json_decode($this->getUserRegister($regId), true);
-        // if ($user['statusCode'] == 200) {
-        //     var_dump($user);
-        //     var_dump($random_hash = bin2hex(random_bytes(32)));
-        //     var_dump(Mail::verify($user['data'], $random_hash));
-            // Mail::sendMail('Verify Account', 'BLAH BLAH', $user['email']);
-            // if (Mail::sendMail('Verify Account', 'Ikaw din bih nanalo ka ng 10k', 'elkatakiku@gmail.com')) {
-            //     echo "Sent";
-            // } else {
-            //     echo "Not sent";
-            // }
-        // }
     }
 
     public function activateAccount($uid, $key)
@@ -336,6 +324,7 @@ class UserService extends Service{
         echo "An error occured";
 
     }
+
     
     //Update User
     public function updateUser($userInfo) 
@@ -349,19 +338,6 @@ class UserService extends Service{
         }
 
         return json_encode($response);
-    }
-
-    // 
-    public function isActivated(string $acctId)
-    {
-        $cleanId = $this->sanitizeString($acctId);
-
-        if ($cleanId) {        
-            if ($account = $this->userRepository->getAccount($cleanId)) {
-                var_dump($account);
-                
-            }
-        }
     }
 
     // Changes password
@@ -407,11 +383,11 @@ class UserService extends Service{
     }
 
     // Update
-
     public function getAccountTypes()
     {
         return $this->userRepository->getAccountTypes();
     }
+
     // Get User List
     public function getUserList(string $form) 
     {

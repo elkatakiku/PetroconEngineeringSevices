@@ -432,8 +432,10 @@ $('[data-slider]').on('click', (e) => {
         btn.trigger('custom:clicked', [btn]);
     }
 });
-
+console.log('Buttons');
+console.log($('button'));
 $('button').on('custom:clicked', (e, btn) => {
+    console.log("Disable")
     $(e.target).prop('disabled', false);
 });
 
@@ -443,4 +445,9 @@ $('#navItemBar .nav-item').on('click', (e) => {
 });
 $('input, textarea').on('keydown', (e) => {
     $('.alert-danger').removeClass('show').text('');
+});
+
+//  Form
+$('form').on('custom:submitted', (e) => {
+    Utils.toggleForm($(e.target), false);
 });

@@ -3,12 +3,12 @@
   <!-- Header -->
   <div class="page-header">
     <!-- <div class="linear"> -->
-      <h1 class="page-title">Invoices</h1>
+      <h1 class="page-title">Bills</h1>
 
       <!-- New Projects -->
       <a href="<?= SITE_URL ?>/project/new">
         <button type="button" class="btn sm-btn action-btn">
-          Create Project
+          Create Bill
         </button>
       </a>
   </div>
@@ -37,7 +37,7 @@
           <div class="input-prepend">
             <i class="fa fa-search icon" aria-hidden="true"></i>
           </div>
-          <input type="text" name="" id="searchProject" placeholder="Search Project">
+          <input type="text" name="" id="searchProject" placeholder="Search Bill">
         </div>
       </div>
     </div>

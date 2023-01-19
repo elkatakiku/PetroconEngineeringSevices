@@ -1,3 +1,5 @@
+import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
+
 // alert(window.location.href);
 // alert(window.location.protocol);
 // alert(window.location.host);
@@ -8,24 +10,23 @@
 // alert(window.location.hash);
 
 // Read a page's GET URL variables and return them as an associative array.
-function getUrlVars()
-{
-    let queryParam = [];
-    let hashes = window.location.search.slice(window.location.search.indexOf('?') + 1).split('&');
-    for(let i = 0; i < hashes.length; i++)
-    {
-        let hash = hashes[i].split('=');
-        queryParam[hash[0]] = hash[1];
-    }
-    return queryParam;
-}
+// function getUrlVars()
+// {
+//     let queryParam = [];
+//     let hashes = window.location.search.slice(window.location.search.indexOf('?') + 1).split('&');
+//     for(let i = 0; i < hashes.length; i++)
+//     {
+//         let hash = hashes[i].split('=');
+//         queryParam[hash[0]] = hash[1];
+//     }
+//     return queryParam;
+// }
 
 /* ================================================================== */
 
 // let query = getUrlVars();
 // let filter = query.hasOwnProperty("filter") ? query.filter : '';
 // alert(Settings.base_url + "/project/list/" + window.location.hash.slice(1));
-
 
 // Datatable
 let projectTable = $("#projectsTable").DataTable({
@@ -39,7 +40,17 @@ let projectTable = $("#projectsTable").DataTable({
     "ajax" : {
         url : Settings.base_url + "/project/getlist",
         type : 'POST',
-        data : {form : function () { return $('#filterTable').serialize();}}
+        data : {form : function () { return $('#filterTable').serialize();}},
+        'complete' : function () {
+            console.log("Complete");
+            let table = $('#projectsTable');
+            setTimeout(() => {
+                console.log("Reload");
+                table.dataTable().api().ajax.reload(null, false)
+            }, 5000);
+
+            // table.trigger('custom:reload');
+        }
         // ,
         // success : function (data) {
         //     console.log(data);
@@ -111,71 +122,45 @@ projectTable.on('order.dt search.dt', function () {
 // Row click
 $('#projectsTable tbody').on('click', 'tr', function (e) {
     let row = projectTable.row(this).data();
-    // console.log("Row data");
-    // console.log(row);
-    // console.log("id");
-    // console.log(row.id);
 
     // Redirect to project
     window.location.href = Settings.base_url + "/project/details/" + row.id;
 });
 
-
-// $('#filterTable')
-//     .submit(function (e) { 
-//         e.preventDefault();
-//         projectTable.ajax.reload();
-//     })
-//     .find('select[name="status"]')
-//         .change(function (e) { 
-//             $('#filterTable').submit();
-//         });
-
 // Table filter
 $('#filterTable')
-    .submit(function (e) { 
+    .on('submit',function (e) {
         e.preventDefault();
         projectTable.ajax.reload();
     })
     .find('input[name="status"]')
-        .change(function (e) { 
-            console.log("Submit filter");
-            $('#filterTable').submit();
+        .on('change', function (e)
+        {
+            console.log("onChange");
+            $('#filterTable').trigger('submit');
 
-            $(this).parent('.filter-tab-item')
+            let radio = $(this);
+            radio.parent('.filter-tab-item')
                 .addClass('active')
                 .siblings('.filter-tab-item.active')
-                    .removeClass('active');
+                .removeClass('active');
 
-            window.location.hash = $(this).val();
+            window.location.hash = radio.val();
         });
-
-function changeFilter() {
-    $('#filterTable')
-        .find('input[name="status"]')
-        .each(function (index, element) { 
-            console.log("Each");
-            console.log($(element).val());
-            console.log(window.location.hash.slice(1));
-            if ($(element).val() == window.location.hash.slice(1)) {
-                $(element).prop('checked', true);
-
-                $(element).trigger('change');
-            }
-        });
-}
 
 // Table search 
-$('#searchProject').keyup(function (e) { 
+$('#searchProject').on('input', function (e) {
     projectTable.search($(this).val()).draw();
 });
 
 // Table reload
-setInterval(() => {
-    console.log("Table reload");
-    projectTable.ajax.reload(null, false);
-}, 3000);
+// setInterval(() => {
+//     console.log("Table reload");
+//     projectTable.ajax.reload(null, false);
+// }, 3000);
 
 $(window).on( 'hashchange', function( e ) {
-    changeFilter();
+    Utils.changeFilter('[value="'+window.location.hash.slice(1)+'"]');
 } );
+
+Utils.changeFilter('[value="'+window.location.hash.slice(1)+'"]');

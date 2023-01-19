@@ -15,7 +15,7 @@
             <p>We've sent a link to your email address, <?= $data['email'] ?>.</p>
             <p>Sign in to your email and follow the instructions given to activate your account.</p>
 
-            <a href="<?= SITE_URL.'dashboard' ?>" class="btn btn-block primary-btn mt-4 mb-2">Contiue to home</a>
+            <a href="<?= SITE_URL.'/dashboard' ?>" class="btn btn-block primary-btn mt-4 mb-2">Contiue to home</a>
         </form>
     </div>
 </div>

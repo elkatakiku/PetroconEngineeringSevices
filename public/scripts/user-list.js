@@ -1,3 +1,5 @@
+import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
+
 // Datatable
 let userTable = $("#usersTable").DataTable({
     'dom' : '<"mesa-container"t><"linear"ip>',
@@ -9,7 +11,15 @@ let userTable = $("#usersTable").DataTable({
     "ajax" : {
         url : Settings.base_url + "/user/getList",
         type : 'GET',
-        data : {form : function () { return $('#filterTable').serialize();}}
+        data : {form : function () { return $('#filterTable').serialize();}},
+        'complete' : function () {
+            console.log("Complete");
+            let table = $('#usersTable');
+            setTimeout(() => {
+                console.log("Reload");
+                table.dataTable().api().ajax.reload(null, false)
+            }, 5000);
+        }
     },
 
     'language' : {
@@ -39,9 +49,10 @@ let userTable = $("#usersTable").DataTable({
         {
           'defaultContent' : '',
           'render' : function (data, type, row) {
-            console.log(row);
-            let middleInitial = (row.middlename.trim().length > 0) ? row.middlename.charAt(0) + '.' : '';
-            return row.lastname + ', ' + row.firstname + ' ' + middleInitial;
+              console.log("render");
+              console.log(row);
+              let middleInitial = (row.middlename.trim().length > 0) ? row.middlename.charAt(0) + '.' : '';
+              return row.lastname + ', ' + row.firstname + ' ' + middleInitial;
           }
         },
         {'data' : 'email'},
@@ -77,10 +88,9 @@ $('#usersTable tbody').on('click', 'tr', function (e) {
     window.location.href = Settings.base_url + "/user/details/" + row.id;
 });
 
-
 // Table filter
 $('#filterTable')
-    .submit(function (e) { 
+    .on('submit', function (e) {
         e.preventDefault();
         console.log("Submit filter");
         userTable.ajax.reload();
@@ -88,7 +98,7 @@ $('#filterTable')
     .find('input[name="type"]')
         .change(function (e) { 
             console.log("Submit filter");
-            $('#filterTable').submit();
+            $('#filterTable').trigger('submit');
 
             $(this).parent('.filter-tab-item')
                 .addClass('active')
@@ -98,33 +108,15 @@ $('#filterTable')
             window.location.hash = $(this).val();
         });
 
-function changeFilter() {
-    $('#filterTable')
-        .find('input[name="status"]')
-        .each(function (index, element) { 
-            console.log("Each");
-            console.log($(element).val());
-            console.log(window.location.hash.slice(1));
-            if ($(element).val() == window.location.hash.slice(1)) {
-                $(element).prop('checked', true);
-
-                $(element).trigger('change');
-            }
-        });
-}
-
 // Table search 
 $('#searchUser').on('input', function (e) { 
     console.log($(this).val());
     userTable.search($(this).val()).draw();
 });
 
-// Table reload
-setInterval(() => {
-    console.log("Table reload");
-    userTable.ajax.reload(null, false);
-}, 3000);
-
+//  Change filter on hash change
 $(window).on( 'hashchange', function( e ) {
-    changeFilter();
+    Utils.changeFilter('[value="'+window.location.hash.slice(1)+'"]');
 });
+
+Utils.changeFilter('[value="'+window.location.hash.slice(1)+'"]');

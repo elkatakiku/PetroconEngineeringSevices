@@ -554,4 +554,11 @@ class UserRepository extends Repository {
         return $this->query($sql, $params);
     }
 
+//    Removes User
+    public function removeUser(string $loginId) {
+        $sql = "DELETE FROM ".self::$tblLogin." WHERE id = :id";
+        $params = [':id' => $loginId];
+
+        return $this->query($sql, $params);
+    }
 }

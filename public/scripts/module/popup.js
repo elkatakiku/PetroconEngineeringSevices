@@ -14,18 +14,52 @@ export function animate(popup) {
 
 // Shows popup
 export function show(popup) {
-    console.log("Show popup");
+    console.log("Popup.show");
     
     popup.addClass("show");
 
-    if (popup.hasClass("popup-center")) {
+    if (popup.hasClass("popup-center"))
+    {
         console.log("Popup center");
         animate(popup);
         $("body").addClass("popup-open");
-    } else if(!popup.hasClass("popup-contained")) {   
-        console.log("Popup contained");
+    }
+    else if (popup.hasClass('feedback'))
+    {
+        console.log("Notification");
+
+        const dissolve = () => {
+            console.log("Dissolve");
+            popup.fadeOut(3000, () => {
+                popup.find('button[data-dismiss]').trigger('click');
+                popup.remove();
+
+                removeFeedback();
+            });
+        };
+
+        let feedbackTimeout = setTimeout(dissolve, 5000);
+
+        popup.on('mouseenter', () => {
+            console.log("Notif hover");
+            clearTimeout(feedbackTimeout);
+            popup.css('opacity', '1');
+            popup.stop().animate({opacity:'100'});
+        })
+
+        popup.on('mouseleave', () => {
+            console.log("Mouse leave");
+            feedbackTimeout = setTimeout(dissolve, 5000);
+        });
+
+    }
+    else if(!popup.hasClass("popup-contained"))
+    {
+        console.log("Not popup contained");
         $("body").addClass("popup-open");
-    } else {
+    }
+    else
+    {
         console.log("Popup other");
         let container = popup.find('.pcontainer');
         container.css({
@@ -41,8 +75,8 @@ export function show(popup) {
 
 // Hides popup
 export function hide(e) {
-    console.log("Hide popup");
-    let popup = $(e.target).closest(".popup.show");
+    console.log("Popup.hide");
+    let popup = $(e.target).parents(".popup.show, .feedback");
 
     if (popup.hasClass("popup-center")) {
         popup.find('.pcontainer').animate({
@@ -70,7 +104,7 @@ export function remove(popup) {
     popup.trigger('custom:dismissPopup', [popup]);
     
     // Dynamic Popup
-    if (popup.is($('.popup-legend'))) {
+    if (popup.is($('.popup-legend, .feedback'))) {
         popup.remove();
     }
 
@@ -78,14 +112,12 @@ export function remove(popup) {
 
 // Initialize popup listeners
 export function initialize(popup) {
-    console.log("Popup Initialize");
-    console.log(popup);
-    console.log(popup.find('button[data-dismiss]'));
+    console.log("Popup.initialize");
     popup.find('button[data-dismiss]').one('click', hide);
     reset(popup);
 
     // On show
-    popup.on('custom:show', (e) => {
+    popup.on('custom:show', () => {
         console.log("Popup shown");
         popup
             .find('textarea')
@@ -97,8 +129,6 @@ export function initialize(popup) {
     // On dimiss
     popup.on('custom:dismissPopup', (e, p) => {
         console.log("Popup dismissed");
-        console.log(p);
-        console.log(popup.is(p));
         popup.find('button[data-dismiss]').off('click');
         popup.off('custom:show');
         popup.off('custom:dismissPopup');
@@ -112,7 +142,7 @@ export function reset(popup, exempt, callback = null) {
     popup.find('.alert-danger').text('');
     popup.find('.alert-danger').removeClass('show');
     popup.find('input, textarea, button').each((index, element) => {
-        console.log(element);
+        // console.log(element);
         $(element).val('');
         $(element).removeAttr('disabled');
     });
@@ -156,7 +186,7 @@ export function generateDeletePopup(item) {
     // Listeners
     initialize(popup);
 
-    popup.on('custom:dismissPopup', (e) => {
+    popup.on('custom:dismissPopup', () => {
         console.log("Delete dismiss");
         popup.find('#deleteForm').off('submit');
         popup.remove();
@@ -178,4 +208,71 @@ export function promptDelete(item, id, callback, preventDefault = false) {
     });
 
     show(deletePopup);
+}
+
+function generateFeedback() {
+    let feedback =  $('<div class="feedback"> ' +
+                            '<h2 class="feedback-title">Feedback</h2> ' +
+                            '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close"> ' +
+                                '<span class="material-icons">close</span> ' +
+                            '</button> ' +
+
+                            '<p class="feedback-message">Feedback message</p> ' +
+                        '</div>');
+
+    $('body').append(feedback);
+
+    // Listeners
+    initialize(feedback);
+
+    feedback.on('custom:dismissPopup', () => {
+        console.log("Feedback dismiss");
+        feedback.remove();
+        removeFeedback();
+    });
+
+    return feedback;
+
+}
+
+export function feedback({feedback, title, message}) {
+    console.log("Show feedback");
+
+    let feedbackContainer = $('.feedback-container');
+
+    if (feedbackContainer.length <= 0) {
+        $('body').append('<div class="feedback-container"></div>');
+        feedbackContainer = $('.feedback-container');
+    }
+
+    let popup = generateFeedback();
+
+    switch (feedback.toLowerCase())
+    {
+        case 'success':
+            if (typeof title === 'undefined' || title.trim() === "") {
+                popup.addClass('success-border');
+                title = "Success";
+            }
+            break;
+        case 'fail':
+            break;
+    }
+
+    console.log(popup);
+
+    popup.find('.feedback-title').text(title);
+    popup.find('.feedback-message').text(message);
+
+    feedbackContainer.append(popup);
+    show(popup);
+
+}
+
+function removeFeedback() {
+    let feedbackContainer = $('.feedback-container');
+
+    if (feedbackContainer.children('.feedback').length === 0) {
+        feedbackContainer.remove();
+    }
 }

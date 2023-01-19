@@ -100,3 +100,19 @@ export function valdiateInput(element, form, controller, errorMessage) {
         );
     }
 }
+
+
+//  Form
+export function toggleForm(form, toggle) {
+    form.find('input, textarea, button').prop('disabled', toggle);
+    $('button[form="' + form.attr('id') + '"]').prop('disabled', toggle);
+}
+
+//  Filter
+export function changeFilter(element) {
+    console.log("changeFilter");
+    let radio = $(element);
+
+    radio.prop('checked', true);
+    radio.trigger('change');
+}

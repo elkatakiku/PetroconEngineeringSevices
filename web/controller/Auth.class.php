@@ -2,12 +2,8 @@
 
 namespace Controller;
 
-// Core
-use \Core\Controller as MainController;
-
-// Model
-use \Model\Account as AccountModel;
-
+use Core\Controller as MainController;
+use Service\PeopleService;
 
 
 class Auth extends MainController {
@@ -79,6 +75,7 @@ class Auth extends MainController {
         }
     }
 
+
     public function verify($regId) {
         if ($regId) {
             // $user = json_decode($this->userService->getUserRegister($regId), true);
@@ -101,10 +98,6 @@ class Auth extends MainController {
             } else {
                 echo "Error";
             }
-            // if () {
-                // var_dump($user);
-                // $this->view("auth", "verify", $user['data']);
-            // }
         } else {
             $this->goToLogin();
         }
@@ -117,4 +110,27 @@ class Auth extends MainController {
         header("Location: ".SITE_URL);
     }
 
+    //  Invitation
+    public function invitation(string $code)
+    {
+        if ($code) {
+            $peopleService = new PeopleService();
+            $invitation = $peopleService->runInvitation($code);
+
+            $data = ['expired' => ($invitation['data'] ? $invitation['data']['expired'] : true)];
+
+            if ($invitation['statusCode'] == 200) {
+                $data['invitation'] = $invitation['data']['invitation'];
+            }
+
+            $this->view('auth', 'invitation', $data);
+
+//            TODO : Check if the invitation expired
+//            TODO : Create account if not expired
+//            TODO : Show message or go back to login when expired?
+        } else {
+            $this->goToLogin();
+        }
+
+    }
 }

@@ -5,14 +5,14 @@ namespace Controller;
 use \Core\Controller as MainController;
 use Service\LegendService;
 
-class Invoice extends MainController {
+class Bill extends MainController {
 
     // Service
     private $invoiceService;
 
     public function __construct() {
         parent::__construct();
-        $this->setPage(5);
+        $this->setPage('#billsMenu');
 
         if (!isset($_SESSION['accID'])) {
             $this->goToLogin();
@@ -20,7 +20,7 @@ class Invoice extends MainController {
     }
 
     public function index() {
-        $this->view("invoice", "invoice-list");
+        $this->view("bill", "bill-list");
     }
 
     public function new() {
