@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Petrocon | Clients</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/navbar.css">
+    <link rel="stylesheet" href="../../styles/sidebar.css">
+    <link rel="stylesheet" href="../../styles/astyles.css">
+    <link rel="stylesheet" href="../../styles/popup.css">
+  </head>
+  <body class="body-wrapper">
+
+    <nav id="topbar" class="navbar navbar-expand-md navbar-light">
+      <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
+          <span class="material-icons">menu</span>
+      </button>
+      <strong class="user-type flex-grow-1">Petrocon</strong>
+      <span class="material-icons">circle_notifications</span>
+      <p class="user-name">Eli Lamzon</p>
+      <span id="user-display" class="material-icons">account_circle</span>
+    </nav>
+    
+    <div class="wrapper">
+      <div id="sidebar">
+        <nav>
+          <ul class="list-unstyled components">
+            <li class="">
+              <a class="d-flex align-content-start" href="../dashboard.html">
+                <span class="material-icons">dashboard</span>
+                <div class="collapsible">
+                  <span>Dashboard</span>
+                </div> 
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="item-dropdown">
+              <div class="dropdown-tile">
+                <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId"> 
+                  <span class="material-icons">handyman</span>
+                  <div class="collapsible">
+                    <span>
+                      Projects
+                      <span class="material-icons">arrow_drop_down</span>
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
+                <li class="">
+                  <a class="" href="/app/admin/projects.html">All</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Done</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Ongoing</a>
+                </li>
+                <li class="">
+                  <a class="" href="#">Pending</a>
+                </li>
+              </ul>
+            </li>
+            <li class="">
+              <a class="d-flex align-content-start" href="message.html">
+                <span class="material-icons">chat_bubble</span>
+                <div class="collapsible">
+                  <span>Messages</span>
+                </div>
+              </a>
+            </li>
+            <li class="item-dropdown">
+              <div class="dropdown-tile">
+                <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId"> 
+                  <span class="material-icons">workspaces</span>
+                  <div class="collapsible">
+                    <span>
+                      Users
+                      <span class="material-icons">arrow_drop_down</span>
+                    </span>
+                  </div>
+                </a>
+              </div>
+              <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
+                <li class="">
+                  <a class="" href="employees-admin.html">Employees</a>
+                </li>
+                <li class="">
+                  <a class="" href="workers-admin.html">Workers</a>
+                </li>
+                <li class="active">
+                  <a class="" href="clients-admin.html">Clients</a>
+                </li>
+              </ul>
+            </li> 
+  
+            <hr>
+  
+            <li class="">
+              <a class="d-flex align-content-start" href="profile.html">
+                <span class="material-icons">person</span>
+                <div class="collapsible">
+                  <span>Profile</span>
+                </div>
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="">
+              <a class="d-flex align-content-start" href="/app/login/login.html">
+                <span class="material-icons">logout</span>
+                <div class="collapsible">
+                  <span>Logout</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <main class="content">
+        <!-- Header -->
+        <div class="page-header">
+          <nav class="nav-tab-container">
+            <div class="linear">
+              <h1 class="page-title">Clients</h1>
+            
+              <!-- New Employee -->
+
+              <button type="button" class="btn primary-btn align-self-center" data-toggle="popup" data-target="#addUser">
+                Add Client
+              </button>
+            </div>
+
+            <!-- Search -->
+            <div class="space-between">
+              <div class="search-container">
+                <form action="" class="search-form">
+                  <div class="input-container">
+                    <div class="input-prepend">
+                      <i class="fa fa-search icon" aria-hidden="true"></i>
+                    </div>
+                    <input type="text" name="" id="" placeholder="Search client">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <!-- Users Table -->
+        <div class="mesa-container">  
+          <table class="mesa">
+            <thead class="mesa-head">
+              <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Password</th>
+                <th scope="col">Position</th>
+                <th scope="col">Address</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Action</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+         
+            </tbody>
+          </table>
+        </div>
+
+         <!-- Popup -->
+        <div class="popup fade popup-center" id="addUser" tabindex="-1" aria-hidden="true">
+          <div class="pcontainer">
+            <div class="pcontent">
+                <div class="pheader">
+                  <div class="linear-center">
+                      <!-- Can add icon here -->
+                      <i class="fa-solid fa-user-plus"></i>
+                      <h2 class="ptitle">Client</h2>
+                  </div>
+                  <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+      
+                <div class="pbody">
+                  <form id="usermanform" action="">
+                    <div class="form-group">
+                        <label>Username:</label>
+                        <input type="text" name="name" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address:</label>
+                        <input type="email" name="email" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Password:</label>
+                        <input type="password" name="pass" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Position:</label>
+                        <input type="text" name="position" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Address:</label>
+                        <input type="text" name="address" class="form-control" value="">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact No.:</label>
+                        <input type="text" name="contact" class="form-control" value="">
+                    </div>
+                  </form> 
+                </div>
+
+                <!-- Before -->
+      
+                  <div class="pfooter">
+                    <!-- Prepend -->
+                    <button type="submit" form="usermanform" class="btn action-btn" data-dismiss="popup">Submit</button>
+                    <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+                    <!-- Append -->
+                  </div>
+                  <!-- After -->
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
+
+    <!-- External JS -->
+    <script src="../../scripts/index.js"></script>
+
+    <script>
+      const thead = $("#content main .mesa .mesa-head");
+
+      function setNavTab() {
+        if ($(window).width() > 768) {
+          thead.css("top", $("#content main .nav-tab-container").height());
+        } else {
+          thead.css("top", "0");
+        }
+      }
+
+      setNavTab();
+
+      $(window).on("resize", () => {
+        setNavTab();
+      });
+
+      
+      // $(".popup button[data-dismiss]").click(function (e) { 
+      //   e.preventDefault();
+      //   console.log(e);
+      //   // console.log("dismissing: " + $(this).attr("data-dismiss"));
+      //   if ($(".popup.show .pcontainer").hasClass("popup-below")) {
+      //     $(".popup.show .pcontainer").addClass("slide-down");
+
+      //     $(".popup.show#projectPopup .pcontainer").on("animationend", function (e) {
+      //       console.log(e);
+
+      //       // Checks if slide down ended
+      //       if (e.originalEvent.animationName === "slide-down") {
+
+      //         $("#projectPopup").popup('hide');
+
+      //         // Removes classes, styles and backdrop
+      //         $("body").removeClass("popup-open");
+      //         $(".popup .pcontainer").removeClass("slide-down");
+      //         projectPopup.removeClass("show");
+
+      //         projectPopup.css("padding-right", "");
+      //         projectPopup.css("display", "none");
+
+      //         // $(".popup-backdrop").remove();
+      //       }
+      //     });
+      //   }
+      // });
+      
+      //JQUERY FOR EDITABLE TABLE
+        
+        $("#usermanform").submit(function(e) {
+        e.preventDefault();    
+        var name=$("input[name='name']").val();
+        var email=$("input[name='email']").val();
+        var pass=$("input[name='pass']").val();
+        var position=$("input[name='position']").val();
+        var address=$("input[name='address']").val();
+        var contact=$("input[name='contact']").val();
+
+        //mesa tbody kung san malalagay ung ininput pag nagclick submit
+        $(".mesa tbody").append("<tr data-name='"+name+"' data-email='"+email+"' data-pass='"+pass+"' data-position='"+position+"' data-address='"+address+"' data-contact='"+contact+"'><td>"+name+"</td><td>"+email+"</td><td>"+pass+"</td><td>"+position+"</td><td>"+address+"</td><td>"+contact+"</td><td><button class='btn btn-danger btn-lg btn-delete mr-3' type='button'>Delete</button><button class='btn btn-info btn-lg btn-edit' type='button'>Edit</button></td></tr>");
+
+        $("input[name='']").val("");
+      });
+
+      $('body').on('click','.btn-delete',function() {
+      $(this).parents('tr').remove();
+      });
+
+      $('body').on('click','.btn-edit',function() {
+      var name=$(this).parents('tr').attr('data-name');
+      var email=$(this).parents('tr').attr('data-email');
+      var pass=$(this).parents('tr').attr('data-pass');
+      var position=$(this).parents('tr').attr('data-position');
+      var address=$(this).parents('tr').attr('data-address');
+      var contact=$(this).parents('tr').attr('data-contact');
+
+      $(this).parents('tr').find('td:eq(0)').html("<input name='edit_text' value='"+name+"'>");
+      $(this).parents('tr').find('td:eq(1)').html("<input name='edit_email' value='"+email+"'>");
+      $(this).parents('tr').find('td:eq(2)').html("<input name='edit_pass' value='"+pass+"'>");
+      $(this).parents('tr').find('td:eq(3)').html("<input name='edit_position' value='"+position+"'>");
+      $(this).parents('tr').find('td:eq(4)').html("<input name='edit_address' value='"+address+"'>");
+      $(this).parents('tr').find('td:eq(5)').html("<input name='edit_contact' value='"+contact+"'>");
+
+      $(this).parents('tr').find('td:eq(6)').prepend("<button type='button' class='btn btn-info btn-lg btn-update mr-3'>Update</button>");
+      $(this).hide()
+      });
+
+      $('body').on('click','.btn-update',function() {
+      var name=$(this).parents('tr').find("input[name='edit_text']").val();
+      var email=$(this).parents('tr').find("input[name='edit_email']").val();
+      var pass=$(this).parents('tr').find("input[name='edit_pass']").val();
+      var position=$(this).parents('tr').find("input[name='edit_position']").val();
+      var address=$(this).parents('tr').find("input[name='edit_address']").val();
+      var contact=$(this).parents('tr').find("input[name='edit_contact']").val();
+
+      $(this).parents('tr').find('td:eq(0)').text(name);
+      $(this).parents('tr').find('td:eq(1)').text(email);
+      $(this).parents('tr').find('td:eq(2)').text(pass);
+      $(this).parents('tr').find('td:eq(3)').text(position);
+      $(this).parents('tr').find('td:eq(4)').text(address);
+      $(this).parents('tr').find('td:eq(5)').text(contact);
+
+      $(this).parents('tr').attr('data-name',name);
+      $(this).parents('tr').attr('data-email',email);
+      $(this).parents('tr').attr('data-email',pass);
+      $(this).parents('tr').attr('data-email',position);
+      $(this).parents('tr').attr('data-email',address);
+      $(this).parents('tr').attr('data-email',contact);
+
+      $(this).parents('tr').find('.btn-edit').show();
+      $(this).parents('tr').find('.btn-update').remove();
+
+      })
+
+  </script>
+  </body>
+</html>

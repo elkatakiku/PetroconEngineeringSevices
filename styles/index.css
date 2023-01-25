@@ -1,36 +1,7 @@
-/* || Clients CSS Styles */
-/* Nav Bar */
-#navbar-client-petrocon.navbar {
-    position: sticky;
-    width: 100%;
-    padding: .5rem 5%;
-    background-color: var(--primary);
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'IBM Plex Sans', sans-serif;
 }
 
-#navbar-client-petrocon .navbar .nav-item {
-    padding: 0 18px;
-}
-
-#navbar-client-petrocon .navbar .nav-link {
-    text-transform: uppercase;
-}
-
-
-/* Brand */
-.brand .brand-icon {
-    width: 50px;
-    height: 50px;
-}
-
-.brand .brand-name {
-    display: inline-block;
-    margin-left: 20px;
-    max-width: 200px;
-    font-size: .9rem;
-    font-weight: 700;
-    white-space: normal;
-    text-transform: uppercase;
-}
 
 /* Flowting Items in Background */
 .bg-float1, .bg-float2 {
@@ -64,6 +35,7 @@
     rotate: 55deg;
     right: -63%;
 }
+
 
 /* Header */
 #header {
@@ -134,6 +106,7 @@
     z-index: 10;
 }
 
+
 /* Header Content */
 .header-content {
     padding: 12% 40% 12% 5%;
@@ -145,10 +118,8 @@
     color: var(--primary);
 }
 
-.header .subtitle {
-    margin-top: 15px;
-}
 
+/* Buttons */
 .cta-button {
     font-size: 1rem;
     margin-top: 20px;
@@ -163,13 +134,6 @@
     z-index: 100;
 }
 
-.ws-cards-container {
-    display: flex;
-    align-items: stretch;
-    height: 100px;
-    justify-content: space-around;
-}
-
 .ws-card {
     margin: 5% 5%;
     padding-bottom: 3%;
@@ -179,7 +143,7 @@
     box-shadow: 8px 8px 5px var(--shadow-rbga-color);
 }
 
-.ws-card-img {
+.ws-card .ws-card-img {
     box-sizing: border-box;
     width: 125px;
     height: 125px;
@@ -194,19 +158,19 @@
     background-color: var(--primary);
 }
 
-.ws-card-img i {
+.ws-card .ws-card-img i {
     align-self: center;
     margin: auto;
     color: white;
 }
 
-.ws-card-title {
+.ws-card .ws-card-title {
     color: #0067FF;
     font-weight: 400;
     font-size: 16px;
 }
 
-.ws-data {
+.ws-card .ws-data {
     color: var(--primary);
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 700;
@@ -239,6 +203,14 @@
     margin-top: 20px;
 }
 
+#aboutUsC .about-us-content .card:hover{
+    background-color: var(--primary); 
+    color: whitesmoke;   
+}
+
+
+
+
 /* Projects */
 #projects .subtitle {
     color: var(--complementary-text);
@@ -254,10 +226,7 @@
 .form-contact-container {
     border-radius: 10px;
     box-shadow: 5px 5px 3px var(--shadow-rbga-color);
-}
-
-.form-contact > * {
-    padding: 0 5px;
+    transition: all .3s;
 }
 
 .form-contact-submit {
@@ -270,14 +239,10 @@
     box-shadow: 0 3px 3px #47289d, 5px 5px 5px #ece3ff inset;
 }
 
-/* Footer */
-#landingPageFooter {
-    position: relative;
-}
 
+/* Footer */
 .footer-bg {
     width: 100%;
-    height: 100%;
     position: absolute;
     bottom: 0;
     z-index: 10;
@@ -322,66 +287,7 @@
     color: white;
 }
 
-
-/* || Login Page */
-.login-background {
-    width: 100%;
-    height: 100%;
-    background: white url('../images/header-image.jpg') no-repeat;
-    background-size: cover;
-}
-
-.login-container {
-    width: 100%;
-    margin: auto;
-    padding: 5% 10%;
-    background-color: rgba(56, 56, 56, 0.56);
-    color: white;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    overflow: hidden;
-    transition: .5s all linear;
-}    
-
-
-.login-header-content {
-    padding: 10% 0;
-}
-
-.form-login, .form-signup {
-    padding: 3rem 2rem 10%;
-    color: var(--primary-text);
-    background-color: white;
-}
-
-.form-login {
-    padding: 3rem 2rem 10%;
-    color: var(--primary-text);
-    background-color: white;
-    box-shadow: 10px 10px 5px rgba(26, 22, 38, 0.3);
-    position: relative;
-    left: 0;
-
-    transition: .2s all linear;
-}
-
-.form-login .primary-btn {
-    margin-top: 2.5rem;
-}
-
-.form-login .login-options {
-    padding: 5% 0 12%;
-}
-
-
-
-
-/* || MEDIA QUERIES */
-/* SM */
-/* Small devices (portrait tablets and large phones, 576px and up) */
-@media only screen and (min-width: 576px) {
-    .example {background: green;}
-}
+/* || Media Queries */
 
 /* Small devices (portrait tablets and large phones, 768px and below ) */
 @media only screen and (max-width: 768px) {
@@ -405,12 +311,6 @@
 }
 
 
-/* MD */
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-
-}
-
 /* Medium devices (landscape tablets, 992px and up) */
 @media only screen and (max-width: 992px) {
     .about-img {
@@ -421,11 +321,15 @@
     .about-us-content {
       padding: 37px 10% 0;
     }
-  
+} 
+
+/* Medium devices (landscape tablets, 992px and up) */
+@media only screen and (max-width: 992px) {
     .form-contact-container {
       margin-top: 5%;
     }
 } 
+
 
 /* Carousel */
 /*
@@ -561,5 +465,5 @@
         display: block;
         visibility: visible;
     }
+
 }
-  

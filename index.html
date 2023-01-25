@@ -1,27 +1,35 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <title>Petrocon</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <!-- Change the 'Page' to current page  -->
+  <title>Petrocon</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="styles/styles.css">
-    <link rel="stylesheet" href="styles/cstyles.css">
-  </head>
+  <!-- Google Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+  <!-- External CSS -->
+  <!-- Change paths of href depending on the location of the file -->
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="styles/navbar.css">
+  <!-- <link rel="stylesheet" href="styles/cstyles.css"> -->
+  <link rel="stylesheet" href="styles/index.css">
+</head>
   
   <body data-spy="scroll" data-target="#navbar-client-petrocon" data-offset="500">
 
     <!-- Navbar -->
-    <nav id="navbar-client-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark">
+    <nav id="navbar-client-petrocon" class="navbar fixed-top navbar-expand-lg navbar-dark" data-user="home">
       <a class="navbar-brand brand" href="#">
         <img src="images/petrocon-icon-2.png" class="d-inline-block align-top brand-icon" alt="Petrocon Logo">
         <span class="brand-name">Petrocon Engineering Services</span>
@@ -78,8 +86,10 @@
           <br>
           For every project, we provide quality construction.
         </p>
-        <button type="button" class="btn btn-lg cta-button primary-btn">Get in touch</button>
-        <button type="button" class="btn btn-lg cta-button outline-primary-btn">Log in</button>
+        <a class="" href="#contactUs">
+        <button type="button" class="btn btn-lg cta-button primary-btn">Get in touch</button></a>
+        <a class="" href="/app/login/login.html">
+        <button type="button" class="btn btn-lg cta-button outline-primary-btn">Log in</button></a>
       </div>
     
     </section>
@@ -100,9 +110,6 @@
           </header>
           
           <div class="row">
-            
-            
-            
             <div class="col-lg-4 col-md-6 col-12">
               <div class="card text-center ws-card">
                   <div class="ws-card-img">
@@ -155,7 +162,7 @@
 
           <div class="col-lg-6 col-md-7 col-12 about-us-content">
             <header>
-              <h2>We build homes <br> with a peronal touch.</h2>
+              <h2>We build <br> with a peronal touch.</h2>
               <p class="subtitle"><strong>Petrocon Engineering Services can help.</strong></p>
             </header>
 
@@ -204,25 +211,25 @@
                       <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img1">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img2">
+                      <img src="images/about-us-2.jpg" class="img-fluid mx-auto d-block" alt="img2">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img3">
+                      <img src="images/about-us-3.jpg" class="img-fluid mx-auto d-block" alt="img3">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img4">
+                      <img src="images/about-us-4.jpg" class="img-fluid mx-auto d-block" alt="img4">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img5">
+                      <img src="images/about-us-5.jpg" class="img-fluid mx-auto d-block" alt="img5">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/header-image-1.jpg" class="img-fluid mx-auto d-block" alt="img6">
+                      <img src="images/about-us-6.jpg" class="img-fluid mx-auto d-block" alt="img6">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img7">
+                      <img src="images/about-us-7.jpg" class="img-fluid mx-auto d-block" alt="img7">
                   </div>
                   <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                      <img src="images/about-us-1.jpg" class="img-fluid mx-auto d-block" alt="img8">
+                      <img src="images/about-us-8.jpg" class="img-fluid mx-auto d-block" alt="img8">
                   </div>
               </div>
               <a class="carousel-control-prev" href="#project-carousel" role="button" data-slide="prev">
@@ -248,61 +255,78 @@
               <h2>Lets talk</h2>
               <p><b>Strikeville, Vizcarra Compound, Molino 3, Bacoor City, Cavite</b></p>
             </header>
+
+            <div>
+              <!-- Google Map Copied Code -->
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30916.092159845426!2d120.96493879244527!3d14.397650823619955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397d15fba0dad4d%3A0x9baaabd5023ee66!2sMolino%20III%2C%20Bacoor%2C%20Cavite!5e0!3m2!1sen!2sph!4v1669398928741!5m2!1sen!2sph" 
+                      width="400"
+                      height="300"
+                      frameborder="0"
+                      style="border:0;"
+                      allowfullscreen=""
+                      aria-hidden="false"
+                      tabindex="0">
+              </iframe>
+            </div>
             
             <address>
               <i class="fa fa-phone" aria-hidden="true"></i> Tel. 09171408987 <br>
               <i class="fa fa-envelope" aria-hidden="true"></i> Email: petroconphil@gmail.com <br>
               <i class="fa fa-facebook" aria-hidden="true"></i> fb: Petrocon Engineering Services
             </address>
-
-            <div>
-              Map
-            </div>
           </div>
           
           <div class="col-lg-6 col-12 primary-bg form-contact-container">
 
             <div class="container-fluid">
-              <form class="row form-contact" action="/contact" method="post">
-                
-                <h2 class="col-12 mb-4">Leave Us a Message</h2>
+              <form class="form-contact" action="/contact" method="post">
 
-                <div class="col-sm-6 col-12">
-                  <div class="form-label-group">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
-                    <label for="inputFirstName">First Name</label>
+                <div class="container">
+                  <div class="row">
+                    <h2 class="col-12 mb-4">Leave Us a Message</h2>
+                    
+                    <div class="col-sm-6 col-12 left">
+                      <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required>
+                        <label for="inputFirstName">First Name</label>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-12 right">
+                      <div class="form-label-group">
+                        <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
+                        <label for="inputLastName">Last Name</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="col-sm-6 col-12">
-                  <div class="form-label-group">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" required>
-                    <label for="inputLastName">Last Name</label>
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-6 col-12 left">
+                      <div class="form-label-group">
+                        <input type="number" class="form-control" id="inputContactNo" placeholder="Contact no." required>
+                        <label for="inputContactNo">Contact no.</label>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6 col-12 right">
+                      <div class="form-label-group">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                        <label for="inputEmail">Email</label>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="col-sm-6 col-12">
-                  <div class="form-label-group">
-                    <input type="number" class="form-control" id="inputContactNo" placeholder="Contact no." required>
-                    <label for="inputContactNo">Contact no.</label>
-                  </div>
-                </div>
-
-                <div class="col-sm-6 col-12">
-                  <div class="form-label-group">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
-                    <label for="inputEmail">Email</label>
-                  </div>
-                </div>
-
-                <div class="col-12">
+                <div class="">
                   <div class="form-label-group">
                     <input type="text" class="form-control" id="inputAddress" placeholder="Address" required>
                     <label for="inputAddress">Address</label>
                   </div>
                 </div>
               
-                <div class="col-12">
+                <div class="">
                   <div class="form-label-group">
                     <textarea name="" id="inputMessage" rows="5" class="form-control"  placeholder="Message" required></textarea>
                     <label for="inputMessage" class="">Message</label>
@@ -313,6 +337,7 @@
                   <button class="btn btn-light form-contact-submit" type="submit">Submit</button>
                   <small class="form-text font-weight-light">Thanks for submitting!</small>
                 </div>
+                
               </form>
 
             </div>
@@ -334,16 +359,18 @@
           <h2 class="big-heading">Get Started Today</h2>
           <p>Dreams are meant to come true. We’ll make it happen for you.</p>
         </header>
-          
-        <button type="button" class="btn btn-lg cta-button btn-light">Log in</button>
-        <button type="button" class="btn btn-lg cta-button btn-outline-light">Sign up</button>
+         
+        <a class="" href="/app/login/login.html">
+        <button type="button" class="btn btn-lg cta-button btn-light">Log in</button></a>
+        <a class="" href="/app/login/login.html">
+        <button type="button" class="btn btn-lg cta-button btn-outline-light">Sign up</button></a>
 
         <footer class="footer-links">
-          <a class="footer-link" href="https://www.facebook.com/3lkatakiku"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-          <a class="footer-link" href="https://www.pinterest.ph/elkatakiku/_saved/"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-          <a class="footer-link" href="https://www.instagram.com/elle_o.o/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-          <a class="footer-link" href="https://www.instagram.com/elle_o.o/"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-          <p class="copyright">© 2022 Eli Lamzon.</p>
+          <a class="footer-link" href="https://www.facebook.com/petroconengineeringservices"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+          <a class="footer-link" href="https://www.facebook.com/petroconengineeringservices"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+          <a class="footer-link" href="https://www.facebook.com/petroconengineeringservices"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+          <a class="footer-link" href="https://www.facebook.com/petroconengineeringservices"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+          <p class="copyright">© 2022 Petrocon Engineering Services</p>
         </footer>
       </div>
     </section>
@@ -351,7 +378,6 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
@@ -359,6 +385,6 @@
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
     
     <!-- External JS -->
-    <script src="scripts/index.js"></script>
+    <script src="../../scripts/index.js"></script>
   </body>
 </html>
