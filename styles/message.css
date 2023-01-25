@@ -96,7 +96,7 @@ body{
     padding: 0 15px;
 }
 .search_chat div{
-    width: 100%;
+    width: 10%;
 }
 .search_chat div input{
     width: 100%;
@@ -114,6 +114,11 @@ body{
     right: 30px;
     top: 14px;
     font-size: 1.2em; 
+}
+.btn-search{
+    color: white;
+    background-color:#B8B5FF;
+    border: none;
 }
 .chatlist{
     position: relative;
@@ -263,15 +268,15 @@ body{
     font-size: 0.85em;
     opacity: 0.5;
 }
-.my_msg{
+.incoming_msg{
     justify-content: flex-end;
     padding-bottom: 2%;
 }
-.fr_msg{
+.outgoing_msg{
     justify-content: flex-start;
     padding-bottom: 2%;
 }
-.fr_msg p{
+.outgoing_msg p{
     background: #e6e6e6;
     text-align: left;
 }

@@ -1,14 +1,9 @@
-
-//new file
 <?php
 $dbServername = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
 $dbName = "";
-
 $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
-
-------------------------------------
 
 //new file
 <?php
@@ -24,12 +19,5 @@ mysqli_query($conn, $sql);
 
 header("Location: ../index.php?signup=success");
 
-------------------------
-// sa html ito ilalagay sa form:
-
-<form action="php/(pangalan ng file to).php" method="POST">
-
-
-----------------------
 
 	

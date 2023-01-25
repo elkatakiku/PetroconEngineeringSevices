@@ -1490,21 +1490,44 @@ body:has(.slide-fixed.active).slide-open {
         animation: none;
     }
 }
+/*sign up form*/
 .form-signup{
     background: #fff;
     padding: 40px;
-    margin: 100px;
-    border-radius: 4px;
+    margin: 50px;
+    border-radius: 5px;
     box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);  
 }
 .form-box{
-    position: fixed; /* or absolute */
+  
+    position: fixed;  /*or absolute*/ 
     top: 50%;
     left: 50%;
     width: 600px;
-     /* bring your own prefixes */
-    transform: translate(-50%, -50%);
-    justify-content: center;
+     /*bring your own prefixes*/ 
+    transform: translate(-50%, -50%);   
+}
+.form-link{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+form .btn-sides{
+    text-align: center;
+    padding-top: 30px;
+  
+}
+form .error-txt{
+    color: #721c24;
+    background: #f8d7da;
+    padding: 8px 1px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #f5c6cb;
+}
+.form-link a{
+    color: #3D1C9B;
 }
 /* MD */
 /* Medium devices (landscape tablets, 768px and up) */
