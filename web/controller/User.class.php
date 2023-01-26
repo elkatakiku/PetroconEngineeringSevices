@@ -86,8 +86,7 @@ class User extends MainController {
     public function checkEmail()
     {
         // echo __METHOD__;
-        if (isset($_GET['input'])) 
-        {
+        if (isset($_GET['input'])) {
             echo $this->userService->checkEmail($_GET['input']);
         }
     }

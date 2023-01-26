@@ -41,7 +41,7 @@ class PaymentService extends Service {
             $response['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function update(string $form)
@@ -57,7 +57,7 @@ class PaymentService extends Service {
             $response['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function remove(string $form)
@@ -71,7 +71,7 @@ class PaymentService extends Service {
             $result['statusCode'] = 400;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     public function list(string $projectId)
@@ -90,7 +90,7 @@ class PaymentService extends Service {
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function getInputs(string $form)

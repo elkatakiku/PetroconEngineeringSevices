@@ -1,64 +1,31 @@
+// Local
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
 
-// alert(window.location.href);
-// alert(window.location.protocol);
-// alert(window.location.host);
-// alert(window.location.hostname);
-// alert(window.location.port);
-// alert(window.location.pathname);
-// alert(window.location.search);
-// alert(window.location.hash);
-
-// Read a page's GET URL variables and return them as an associative array.
-// function getUrlVars()
-// {
-//     let queryParam = [];
-//     let hashes = window.location.search.slice(window.location.search.indexOf('?') + 1).split('&');
-//     for(let i = 0; i < hashes.length; i++)
-//     {
-//         let hash = hashes[i].split('=');
-//         queryParam[hash[0]] = hash[1];
-//     }
-//     return queryParam;
-// }
-
-/* ================================================================== */
-
-// let query = getUrlVars();
-// let filter = query.hasOwnProperty("filter") ? query.filter : '';
-// alert(Settings.base_url + "/project/list/" + window.location.hash.slice(1));
+// Server
+// import * as Utils from '/public/scripts/module/utils.js';
 
 // Datatable
-let projectTable = $("#projectsTable").DataTable({
+let reloadTimeout;
+let projectTable = $("#projectsTable");
+let projectDatatableSettings = {
     'dom' : '<"mesa-container"t><"linear"ip>',
     "autoWidth": false,
     "lengthChange": false,
     'paging' : true,
     'sort' : false,
-    // 'searching' : false,
-    // 'info' : false,
     "ajax" : {
         url : Settings.base_url + "/project/getlist",
         type : 'POST',
         data : {form : function () { return $('#filterTable').serialize();}},
-        'complete' : function () {
+        'complete' : function (data)
+        {
+            console.log(data)
             console.log("Complete");
-            let table = $('#projectsTable');
-            setTimeout(() => {
+            reloadTimeout = setTimeout(() => {
                 console.log("Reload");
-                table.dataTable().api().ajax.reload(null, false)
+                projectTable.dataTable().api().ajax.reload(null, false);
             }, 5000);
-
-            // table.trigger('custom:reload');
         }
-        // ,
-        // success : function (data) {
-        //     console.log(data);
-        //     console.log("Ajax data");
-        //     console.log(data.filter);
-        //     console.log("URL");
-        //     console.log(Settings.base_url + "/project/list/" + window.location.hash.slice(1));
-        // }
     },
 
     'language' : {
@@ -74,93 +41,88 @@ let projectTable = $("#projectsTable").DataTable({
             searchable: false,
             orderable: false
         },
+        {
+            "targets": 3,
+            "createdCell": function (td, cellData, rowData, rowIndex, colIndex) {
+                $(td).css('white-space', 'nowrap');
+            }
+        }
     ],
 
     "columns" : [
         {'defaultContent' : ''}, 
         {
             'data' : 'description',
-            'render' : function (data, type, row) { 
-                return '<p><strong>' + data + '</strong></p>' +
-                        '<small>' + row.location + '</small>';
-            }
-        }, 
-        {'data' : 'company'},
-        {
-            'data' : 'done',
             'render' : function (data, type, row) {
-                let display;
-                if (data === 1) {
-                    display = '<span class="status" data-status="done">Done</span>'
-                } else {
-                    display = '<span class="status" data-status="in-progress">Ongoing</span>'
-                }
-                return display;
+                return '<p><strong>' + data + '</strong></p>' +
+                        '<small>' + row.company + '</small>';
             }
-        }
+        },
+        {
+            'data' : 'progress',
+            'render' : function (data) {
+                return (data === "100.00%") ? '<strong class="success-text">'+data+'</strong>' : data;
+            }
+        },
+        {'data' : 'completion'}
     ],
     
     order: [
         [1, 'asc']
     ]
-});
+};
+
+let projectDatatable = projectTable.DataTable(projectDatatableSettings);
+
+// if (Settings.type === 'PTRCN-TYPE-18c19c59') {
+//     projectDatatable.column( projectTable.find('thead tr th').length - 1 ).visible( false );
+// }
 
 // Incrementing number of table rows
-projectTable.on('order.dt search.dt', function () {
+projectDatatable.on('order.dt search.dt', function () {
     let i = 1;
 
-    projectTable.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
-        // console.log('cell');
-        // console.log(cell);
-
-        // console.log(this.data());
-
+    projectDatatable.cells(null, 0, { search: 'applied', order: 'applied' }).every(function (cell) {
         this.data(i++);
     });
 }).draw();
 
 // Row click
-$('#projectsTable tbody').on('click', 'tr', function (e) {
-    let row = projectTable.row(this).data();
+projectTable.find('tbody').on('click', 'tr', function (e) {
+    let row = projectDatatable.row(this).data();
 
     // Redirect to project
     window.location.href = Settings.base_url + "/project/details/" + row.id;
+});
+
+// Table search 
+$('#searchProject').on('input', function (e) {
+    projectDatatable.search($(this).val()).draw();
+});
+
+$(window).on( 'hashchange', function( e ) {
+    Utils.changeFilter('[value="'+window.location.hash.slice(1)+'"]');
 });
 
 // Table filter
 $('#filterTable')
     .on('submit',function (e) {
         e.preventDefault();
-        projectTable.ajax.reload();
+        clearTimeout(reloadTimeout);
+        reloadTimeout = null;
+        projectDatatable.ajax.reload();
     })
     .find('input[name="status"]')
-        .on('change', function (e)
-        {
-            console.log("onChange");
-            $('#filterTable').trigger('submit');
+    .on('change', function (e)
+    {
+        $('#filterTable').trigger('submit');
 
-            let radio = $(this);
-            radio.parent('.filter-tab-item')
-                .addClass('active')
-                .siblings('.filter-tab-item.active')
-                .removeClass('active');
+        let radio = $(this);
+        radio.parent('.filter-tab-item')
+            .addClass('active')
+            .siblings('.filter-tab-item.active')
+            .removeClass('active');
+    });
 
-            window.location.hash = radio.val();
-        });
-
-// Table search 
-$('#searchProject').on('input', function (e) {
-    projectTable.search($(this).val()).draw();
-});
-
-// Table reload
-// setInterval(() => {
-//     console.log("Table reload");
-//     projectTable.ajax.reload(null, false);
-// }, 3000);
-
-$(window).on( 'hashchange', function( e ) {
-    Utils.changeFilter('[value="'+window.location.hash.slice(1)+'"]');
-} );
-
+// BUG: Reloads datatable twice
 Utils.changeFilter('[value="'+window.location.hash.slice(1)+'"]');

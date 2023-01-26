@@ -51,7 +51,7 @@
 
 .pheader {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     padding: 12px;
     border-bottom: 1px solid var(--border-rgba-color);
@@ -89,6 +89,7 @@
 /* Popup Components */
 .pheader .ptitle-icon {
     color: #5e6c84;
+    font-size: 18px;
 }
 
 .pheader button[data-dismiss] {

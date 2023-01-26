@@ -1,4 +1,8 @@
+// Local
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
+
+// Server
+// import * as Utils from '/public/scripts/module/utils.js';
 
 // Animates popup container to center
 export function animate(popup) {
@@ -130,6 +134,7 @@ export function initialize(popup) {
     popup.on('custom:dismissPopup', (e, p) => {
         console.log("Popup dismissed");
         popup.find('button[data-dismiss]').off('click');
+        popup.find('form').off('submit');
         popup.off('custom:show');
         popup.off('custom:dismissPopup');
         reset(popup);
@@ -141,11 +146,13 @@ export function reset(popup, exempt, callback = null) {
     console.log("Reset");
     popup.find('.alert-danger').text('');
     popup.find('.alert-danger').removeClass('show');
-    popup.find('input, textarea, button').each((index, element) => {
-        // console.log(element);
-        $(element).val('');
-        $(element).removeAttr('disabled');
-    });
+
+    popup.find('form').each((index, element) => {
+            element.reset();
+        })
+        .find('input[type="checkbox"], input[type="radio"]').trigger('change');
+
+    popup.find('input, textarea, button').removeAttr('disabled');
 
     if (callback != null) {
         callback();

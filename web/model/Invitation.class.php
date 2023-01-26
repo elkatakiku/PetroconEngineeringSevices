@@ -4,34 +4,61 @@ namespace Model;
 
 class Invitation implements Expose {
 
-    private $id;
-    private $name;
-    private $email;
-    private $code;
-    private $projID;
-    private $used;
-    private $created_at;
-    private $username;
-    private $password;
+    private string $id;
+    private string $name;
+    private string $email;
+    private string $code;
+    private string $projID;
+    private bool $used;
+    private string $created_at;
+    private string $type;
+    private string $username;
+    private string $password;
 
-    public function set($id, $name, $email, $code, $projID, $used, $username, $password) {
-
+    /**
+     * @param string $id
+     * @param string $name
+     * @param string $email
+     * @param string $code
+     * @param string $projID
+     * @param bool $used
+     * @param string $created_at
+     * @param string $type
+     * @param string $username
+     * @param string $password
+     */
+    public function set(string $id, string $name, string $email, string $code, string $projID, bool $used, string $created_at, string $type, string $username, string $password)
+    {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->code = $code;
         $this->projID = $projID;
         $this->used = $used;
+        $this->created_at = $created_at;
+        $this->type = $type;
         $this->username = $username;
         $this->password = $password;
     }
 
+//    public function set($id, $name, $email, $code, $projID, $used, $username, $password) {
+//
+//        $this->id = $id;
+//        $this->name = $name;
+//        $this->email = $email;
+//        $this->code = $code;
+//        $this->projID = $projID;
+//        $this->used = $used;
+//        $this->username = $username;
+//        $this->password = $password;
+//    }
+
     public function create(string $name, string $email, string $code, string $projID,
-                           string $username, string $password) {
+                           string $type, string $username, string $password) {
         $this->set(
             uniqid("PTRCN-INVTTN-"),
-            $name, $email, $code, $projID, false,
-            $username, $password);
+            $name, $email, $code, $projID, false, '',
+            $type, $username, $password);
     }
 
     public function setId($id) {
@@ -96,6 +123,22 @@ class Invitation implements Expose {
     public function setCreatedAt($created_at): void
     {
         $this->created_at = $created_at;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        $this->type = $type;
     }
 
     /**

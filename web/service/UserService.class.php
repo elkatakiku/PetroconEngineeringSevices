@@ -81,23 +81,23 @@ class UserService extends Service{
         if ($this->emptyInput($input['required'])) {
             $response['statusCode'] = 400;
             $response['message'] = "Please fill all the required inputs.";
-            return json_encode($response);
+            return json_encode($response, JSON_NUMERIC_CHECK);
         } else if (!$this->isOldEnough($input['required']["birthdate"])) {
             $response['statusCode'] = 400;
             $response['message'] = "Should be 18 and above.";
-            return json_encode($response);
+            return json_encode($response, JSON_NUMERIC_CHECK);
         } else if (!$this->validUsername($input['required']["username"])) {
             $response['statusCode'] = 400;
             $response['message'] = "Invalid username.";
-            return json_encode($response);
+            return json_encode($response, JSON_NUMERIC_CHECK);
         } else if ($this->checkUser($input['required']["username"], $input['required']["email"])) {
             $response['statusCode'] = 400;
             $response['message'] = "Username or email is taken.";
-            return json_encode($response);
+            return json_encode($response, JSON_NUMERIC_CHECK);
         } else if (!$this->pwdMatch($input['required']["password"], $input['required']["passwordRepeat"])) {
             $response['statusCode'] = 400;
             $response['message'] = "Password does not match.";
-            return json_encode($response);
+            return json_encode($response, JSON_NUMERIC_CHECK);
         }
         
         $register = new Register();
@@ -123,49 +123,26 @@ class UserService extends Service{
 
         $response['statusCode']  = $this->setUser($login, $register, $account)->isSuccess() ? 200 : 500;
         
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function createAccount(array $invitation)
-    {   // Gets inputs
-//        $input = [
-//            'required' => [
-//                "email" => filter_var($invitation['email'], FILTER_SANITIZE_EMAIL)
-//            ],
-//            'optional' => [
-//                "name" => strtoupper($this->sanitizeString($invitation['name']))
-//            ]
-//        ];
+    {
+        // Create login
+        $login = new Login();
+        $login->create($invitation['username'], $invitation['password']);
 
-//        if (!$this->emptyInput($input['required']))
-        if ($invitation)
-        {   
-//            $username = bin2hex(random_bytes(4));
-//            $password = bin2hex(random_bytes(4));
+        // Create register/user
+        $register = new Register();
+        $register->temp($invitation["email"], $login->getId());
 
-//            if ($invitation['name']) {
-//                $username = explode(' ', $invitation['name'])[0].'_'.bin2hex(random_bytes(2));
-//            }
+        // Create Account
+        $account = new Account();
+        $account->createAccount($invitation['type_id'], $register->getId(), $login->getId());
 
-            // Create login
-            $login = new Login();
-            $login->create($invitation['username'], $invitation['password']);
+        $this->setUser($login, $register, $account)->isSuccess();
 
-            // Create register/user
-            $register = new Register();
-            $register->temp($invitation["email"], $login->getId());
-
-            // Create Account
-            $account = new Account();
-            $account->createAccount(Account::EMPLOYEE_TYPE, $register->getId(), $login->getId());
-
-
-            if ($this->setUser($login, $register, $account)->isSuccess()) {
-                return $account->getId();
-            }
-        }
-
-        return false;
+        return $account->getId();
     }
     
     public function checkUsername(string $username)
@@ -203,7 +180,7 @@ class UserService extends Service{
     {
         $response['data'] = $this->userRepository->getEmployeePositions();
         $response['statusCode'] = 200;
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
 
@@ -223,7 +200,7 @@ class UserService extends Service{
         } else {
             $response['statusCode'] = 400;
         }
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function getUserRegister(string $regId)
@@ -243,7 +220,7 @@ class UserService extends Service{
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function sendVerification()
@@ -337,7 +314,7 @@ class UserService extends Service{
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     // Changes password
@@ -379,10 +356,10 @@ class UserService extends Service{
             $response['message'] = "Please fill all the required inputs.";
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
-    // Update
+    // Get account types
     public function getAccountTypes()
     {
         return $this->userRepository->getAccountTypes();
@@ -411,7 +388,7 @@ class UserService extends Service{
             $response['statusCode'] = 400;
         }
     
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function getUserDetails(string $acctId)
@@ -431,7 +408,7 @@ class UserService extends Service{
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     // || Forgot Password
@@ -466,7 +443,7 @@ class UserService extends Service{
             $response['message'] = 'Enter your email address to reset password.';
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     // || Reset Password
@@ -509,7 +486,7 @@ class UserService extends Service{
             $response['message'] = 'Please fill all the required inputs.';
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function isResetUsed(string $resetId)

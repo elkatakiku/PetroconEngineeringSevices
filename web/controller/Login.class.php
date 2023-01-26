@@ -50,7 +50,6 @@ class Login extends MainController {
                         exit();
                         break;
                     case AccountModel::EMPLOYEE_TYPE:
-                    case AccountModel::WORKER_TYPE:
                         header("Location: ".SITE_URL."/dashboard");
                         exit();
                         break;

@@ -2,6 +2,7 @@
 
 namespace Controller;
 use \Core\Controller as MainController;
+use Service\PeopleService;
 use Service\ProjectService;
 
 class Dashboard extends MainController {
@@ -32,6 +33,17 @@ class Dashboard extends MainController {
         } else {
             header("Location: ".SITE_URL."/dashboard");
             exit();
+        }
+    }
+
+    public function getProjects()
+    {
+        if ($_SESSION['accID']) {
+            $peopleService = new PeopleService();
+            $projects = json_decode($peopleService->joinedProjects($_SESSION['accID']), true);
+            if ($projects['statusCode'] == 200) {
+
+            }
         }
     }
 }

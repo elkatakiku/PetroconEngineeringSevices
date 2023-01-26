@@ -126,7 +126,7 @@
               <small> : Admin</small>
               <?php } ?>
           </a>
-          <span class="material-icons">circle_notifications</span>
+<!--          <span class="material-icons">circle_notifications</span>-->
           <p class="user-name"><?= ucwords($data['user']['firstname']).' '.ucwords($data['user']['lastname']) ?></p>
 
           <a href="<?= SITE_URL.'/account/profile' ?>"><span id="user-display" class="material-icons">account_circle</span></a>
@@ -171,31 +171,31 @@
                   </ul>
                 </li>
 
-                <li id="messagesMenu">
-                  <a class="d-flex align-content-start" href="<?= SITE_URL.'/messages' ?>" title="Messages">
-                    <span class="material-icons">chat_bubble</span>
-                    <div class="collapsible">
-                      <span>Messages</span>
-                    </div>
-                  </a>
-                </li>
+<!--                <li id="messagesMenu">-->
+<!--                  <a class="d-flex align-content-start" href="--><?//= SITE_URL.'/messages' ?><!--" title="Messages">-->
+<!--                    <span class="material-icons">chat_bubble</span>-->
+<!--                    <div class="collapsible">-->
+<!--                      <span>Messages</span>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                </li>-->
 
-                <li id="billsMenu">
-                  <a class="d-flex align-content-start" href="<?= SITE_URL.'/bill' ?>" title="Invoices">
-                  <span class="material-icons">
-                    receipt_long
-                  </span>
-                    <div class="collapsible">
-                      <span>Bills</span>
-                    </div>
-                  </a>
-                </li>
+<!--                <li id="billsMenu">-->
+<!--                  <a class="d-flex align-content-start" href="--><?//= SITE_URL.'/bill' ?><!--" title="Invoices">-->
+<!--                  <span class="material-icons">-->
+<!--                    receipt_long-->
+<!--                  </span>-->
+<!--                    <div class="collapsible">-->
+<!--                      <span>Bills</span>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                </li>-->
 
                   <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
                     <li class="item-dropdown" id="users">
                       <div class="dropdown-tile">
                         <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId" title="Users">
-                          <span class="material-icons">workspaces</span>
+                          <span class="material-icons">people</span>
                           <div class="collapsible">
                             <span>
                               Users

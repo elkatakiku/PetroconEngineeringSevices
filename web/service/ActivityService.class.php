@@ -28,7 +28,7 @@ class ActivityService extends Service{
             $result['statusCode'] = 400;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     // Creates multiple activities

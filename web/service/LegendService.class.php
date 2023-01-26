@@ -37,7 +37,7 @@ class LegendService extends Service{
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function update($id, $form) {
@@ -51,7 +51,7 @@ class LegendService extends Service{
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function remove($id) {
@@ -63,7 +63,7 @@ class LegendService extends Service{
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function getList(string $id) {
@@ -81,6 +81,6 @@ class LegendService extends Service{
         } else {
             $response['statusCode'] = 400;
         }
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 }

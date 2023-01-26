@@ -5,9 +5,12 @@ namespace Service;
 // Repository
 
 use Core\Service;
+use Model\Account;
 use Model\Legend;
 use Model\Project;
+use Repository\PeopleRepository;
 use Repository\ProjectRepository;
+use Repository\TaskRepository;
 
 // Models
 
@@ -15,14 +18,17 @@ use Repository\ProjectRepository;
 class ProjectService extends Service{ 
 
     private $projectRepository;
+    private string $accountId;
 
     public function __construct() {
         $this->projectRepository = new ProjectRepository;
+
+        $this->accountId = $_SESSION["accType"] != Account::ADMIN_TYPE ? $_SESSION["accID"] : '';
     }
 
     public function getProjectCount()
     {
-        return $this->projectRepository->getProjectCount();
+        return $this->projectRepository->getAllProjectCount();
     }
 
     public function getProjectsCountByYear(string $year)
@@ -42,34 +48,95 @@ class ProjectService extends Service{
             $response['statusCode'] = 400;
         }
     
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     // Gets project list
-    public function getProjectList($form) {
+//    public function getProjectList($form) {
+//        parse_str($form, $input);
+//        $response['data'] = [];
+//
+//        if (!$this->emptyInput($input))
+//        {
+//            if ($input['status'] == "done") {
+//                $input['status'] = 1;
+//            } else if ($input['status'] == "ongoing") {
+//                $input['status'] = 0;
+//            }
+//
+//            if ($projects = $this->projectRepository->getProjects($input['status'])) {
+//                $response['data'] = $projects;
+//                $response['statusCode'] = 200;
+//            } else {
+//                $response['statusCode'] = 500;
+//                $response['message'] = 'An error occurred';
+//            }
+//        } else {
+//            $response['statusCode'] = 400;
+//        }
+//
+//        return json_encode($response);
+//    }
+
+    public function getProjectList($form)
+    {
         parse_str($form, $input);
         $response['data'] = [];
 
-        if (!$this->emptyInput($input)) 
-        {            
-            if ($input['status'] == "done") {
-                $input['status'] = 1;
-            } else if ($input['status'] == "ongoing") {
-                $input['status'] = 0;
+        if (!$this->emptyInput($input)) {
+            $status = $input['status'];
+
+            if ($status == "done") {
+                $status = 1;
+            } else if ($status == "ongoing") {
+                $status = 0;
             }
 
-            if ($projects = $this->projectRepository->getProjects($input['status'])) {
-                $response['data'] = $projects;
-                $response['statusCode'] = 200;
+            $projects = [];
+
+    //        Gets respective projects list
+            if ($_SESSION['accType'] == Account::ADMIN_TYPE) {
+                $projects = $this->projectRepository->getProjects($status);
             } else {
-                $response['statusCode'] = 500;
-                $response['message'] = 'An error occured';
+                $projects = $this->projectRepository->getJoinedProjects($_SESSION['accID'], $status);
             }
-        } else {
+
+    //        Gets projects completion date progress
+            $taskRepository = new TaskRepository();
+            foreach ($projects as $project) {
+                $progress = $taskRepository->getProgress($project['id'])[0];
+                $completionDate = '-';
+
+                if ($progress && $progress['count'] > 0) {
+                    $percent = number_format(
+                        (($progress['progress'] / (100 * $progress['count'])) * 100),
+                        2,
+                        '.',
+                        ''
+                    );
+
+                    $completion = $taskRepository->getCompletionDate($project['id'])[0];
+                    $completionDate = date(" M. d, Y", strtotime($completion['start'])) . ' - ' . date(" M. d, Y", strtotime($completion['end']));
+                } else {
+                    $percent = 0;
+                }
+
+                $projectInfo['id'] = $project['id'];
+                $projectInfo['description'] = $project['description'];
+                $projectInfo['location'] = $project['location'];
+                $projectInfo['company'] = $project['company'];
+                $projectInfo['progress'] = $percent . '%';
+                $projectInfo['completion'] = $completionDate;
+
+                $response['data'][] = $projectInfo;
+            }
+
+        }  else {
             $response['statusCode'] = 400;
+            $response['message'] = "Fill all the required inputs.";
         }
-    
-        return json_encode($response);
+
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function getProjectDetails($id) {
@@ -88,56 +155,49 @@ class ProjectService extends Service{
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
-    public function createProject($input) {
-        // Project
-        $project = new Project;
-        $project->create(
-            $input['project']['prjDescription'], $input['project']['prjLocation'], $input['project']['prjBuildingNo'], $input['project']['prjPurchaseOrd'], $input['project']['prjAwardDate'], 
-            $input['client']['cmpnyName'], $input['client']['cmpnyRepresentative'], $input['client']['cmpnyContact']
-        );
+    public function createProject(string $form)
+    {
+        parse_str($form, $raw);
 
-        // Legend: Plan
-        $planLegend = new Legend;
-        $planLegend->create(
-            Legend::PLAN,
-            "plan",
-            $project->getId()
-        );
+        $projectDesc = $this->sanitizeString($raw['description']);
 
-        // Legend: Actual
-        $actualLegend = new Legend;
-        $actualLegend->create(
-            Legend::ACTUAL,
-            "actual",
-            $project->getId()
-        );
+        $input = [
+            "project" => [
+                "purchaseOrd" => ucwords($this->sanitizeString($raw['purchaseOrd'])),
+                "awardDate" => ucwords($this->sanitizeString($raw['awardDate'])),
+                "description" => $projectDesc ? strtoupper($projectDesc[0]).strtolower(substr($projectDesc, 1, strlen($projectDesc))) : '',
+                "location" => ucwords($this->sanitizeString($raw['location'])),
+                "buildingNo" => ucwords($this->sanitizeString($raw['buildingNo']))
+            ],
+            "client" => [
+                "company" => ucwords($this->sanitizeString($raw['cmpnyName'])),
+                "representative" => ucwords($this->sanitizeString($raw['cmpnyRepresentative'])),
+                "contact" => $this->sanitizeString($raw['cmpnyContact'])
+            ]
+        ];
 
-        $result = 
-            $this->projectRepository->setProject($project) && 
-            $this->projectRepository->setLegend($planLegend) &&
-            $this->projectRepository->setLegend($actualLegend) &&
-            $this->projectRepository->setProjectPlan($project->getId(), $planLegend->getId());
+        if(!$this->emptyInput($input['project']) && !$this->emptyInput($input['client']))
+        {
+            // Project
+            $project = new Project();
+            $project->create(
+                $input['project']['description'], $input['project']['location'], $input['project']['buildingNo'],
+                $input['project']['purchaseOrd'], $input['project']['awardDate'],
+                $input['client']['company'], $input['client']['representative'], $input['client']['contact']
+            );
 
-        if (!$result) {
-            return false;
-        }
+            $result['statusCode'] = $this->projectRepository->setProject($project) ? 200 : 500;
+            $result['data'] = $project->getId();
 
-        return $project->getId();
-    }
-
-    public function getTimeline(string $id) {
-        $tasks = $this->projectRepository->getTimeline($id);
-        if ($tasks != -1) {
-            $result['data'] = $tasks;
-            $result['statusCode'] = 200;
         } else {
             $result['statusCode'] = 400;
+            $result['message'] = 'Please fill all the required inputs.';
         }
 
-        return $result;
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     public function getTaskActivities($id) {
@@ -206,12 +266,12 @@ class ProjectService extends Service{
             $response['message'] = 'Please fill all the required inputs.';
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function mark($id, $status) {
         if ($id && ($status == 1 || $status == 0)) {
-            $this->projectRepository->mark($id, $status);
+            $this->projectRepository->markAsDone($id, $status);
             $response = true;
         } else {
             $response = false;
@@ -232,7 +292,7 @@ class ProjectService extends Service{
             $result['statusCode'] = 400;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     public function joinProject(string $projId, string $regId)
@@ -240,5 +300,15 @@ class ProjectService extends Service{
         if ($projId && $regId && $this->projectRepository->getProject($projId)) {   
             return $this->projectRepository->joinProject($projId, $regId);
         }
+    }
+
+    //    Company List
+    public function getCompanyList() {
+        return $this->projectRepository->getCompanyList();
+    }
+
+    //    Company List
+    public function getClientList() {
+        return $this->projectRepository->getClientList();
     }
 }

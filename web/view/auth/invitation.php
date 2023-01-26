@@ -7,7 +7,7 @@
     <div class="linear-center container">
         <form class="cover-form p-4" id="verifyForm" action="<?= SITE_URL.'/user/verify' ?>" method="post">
 
-<!--            <?//= var_dump($data) ?>-->
+<!--            --><?//= var_dump($data) ?>
             <?php if (!$data['expired']) { ?>
             <header class="mb-4">
                 <h5>Welcome <?= strtoupper($data['invitation']['name']) ?>!</h5>

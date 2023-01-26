@@ -1,10 +1,16 @@
-import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
+// Local
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
+import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
 
-// Disable form button\
+// Server
+// import * as Utils from '/public/scripts/module/utils.js';
+// import * as Popup from '/public/scripts/module/popup.js';
+
+// Disable form button
 $('[type="submit"]').prop('disabled', true);
 
 // Datatable
+let reloadTimeout;
 let invitationTable = $("#inviteTable").DataTable({
     'dom' : 't<"linear"ip>',
     "autoWidth": false,
@@ -18,7 +24,7 @@ let invitationTable = $("#inviteTable").DataTable({
         'complete' : function () {
             console.log("Complete");
             let table = $('#inviteTable');
-            setTimeout(() => {
+            reloadTimeout = setTimeout(() => {
                 console.log("Reload");
                 table.dataTable().api().ajax.reload(null, false)
             }, 5000);
@@ -51,6 +57,12 @@ let invitationTable = $("#inviteTable").DataTable({
             }
         },
         {'data' : 'email'},
+        {
+            'data' : 'type_id',
+            'render' : function (data, type, row) {
+                return (data === 'PTRCN-TYPE-20222') ? 'Employee' : 'Client';
+            }
+        },
         {
             'defaultContent' : '',
             'render' : function (data, type, row) {
@@ -90,7 +102,8 @@ let invitationTable = $("#inviteTable").DataTable({
                                     deletePopup.find('button[data-dismiss]').trigger('click');
 
                                     // Reload invitations
-                                    datatable.ajax.reload(null, false);
+                                    reloadDatatable(reloadTimeout, datatable)
+                                    // datatable.ajax.reload(null, false);
 
                                     //  Show feedback
                                     Popup.feedback({
@@ -106,6 +119,12 @@ let invitationTable = $("#inviteTable").DataTable({
         });
     }
 });
+
+function reloadDatatable(timeout, datatable) {
+    clearTimeout(timeout);
+    reloadTimeout = null;
+    datatable.ajax.reload(null, false);
+}
 
 // Incrementing number of table rows
 invitationTable.on('order.dt search.dt', function () 
@@ -142,18 +161,11 @@ submitButton.on('custom:clicked', (e) => {
 
 //  Invite submit action
 let inviteForm = $('#inviteForm');
-inviteForm.on('submit', (e) => {
+inviteForm.on('submit', (e) =>
+{
     e.preventDefault();
 
     let form = $(e.target);
-
-    console.log("Form serialize");
-    console.log(form);
-    console.log(e.target);
-    console.log($(e.target).serialize());
-
-    // submitButton.prop('disabled', true);
-    // submitButton.siblings('.cstm-spinner').show();
 
     $.post(
         Settings.base_url + "/people/invite",
@@ -171,7 +183,8 @@ inviteForm.on('submit', (e) => {
                 });
 
                 // Reload table
-                invitationTable.ajax.reload(null, false);
+                reloadDatatable(reloadTimeout, invitationTable);
+                // invitationTable.ajax.reload(null, false);
 
                 //  Show feedback
                 Popup.feedback({
@@ -193,16 +206,28 @@ inviteForm.on('submit', (e) => {
     Utils.toggleForm(form, true);
 });
 
-$('[name="email"]').on('input', (e) => {
+// Email validation
+$('[name="email"]').on('input', (e) =>
+{
     if (e.target.reportValidity() !== false) {
         setTimeout(() => {
-            Utils.valdiateInput(e.target, '#inviteForm', '/user/checkEmail', 'Email is already taken.');
+            Utils.valdiateInput(e.target, '#inviteForm', '/people/valdiateEmail', 'Email is not available.');
         }, 500);
+    } else {
+        submitButton.prop('disabled', true);
     }
 });
 
+// Form validation
 inviteForm.on('custom:inputChange', (e, hasError) => {
-    $('#inviteSubmit').prop('disabled', hasError);
+    console.log(!hasError && e.target.checkValidity())
+    console.log(!hasError)
+    console.log(e.target.checkValidity())
+    submitButton.prop('disabled', !(!hasError && e.target.checkValidity()));
+});
+
+$('select').on('change', () => {
+    submitButton.prop('disabled', !inviteForm[0].checkValidity());
 });
 
 function getFormData(form) {

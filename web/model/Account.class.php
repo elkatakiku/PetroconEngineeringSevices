@@ -4,10 +4,9 @@ namespace Model;
 
 class Account implements Expose {
 
-    const ADMIN_TYPE = "PTRCN-TYPE-20221";
-    const EMPLOYEE_TYPE = "PTRCN-TYPE-20222";
-    const WORKER_TYPE = "PTRCN-TYPE-20223";
-    const CLIENT_TYPE = "PTRCN-TYPE-20224";
+    const ADMIN_TYPE = "PTRCN-TYPE-c821d24e";
+    const EMPLOYEE_TYPE = "PTRCN-TYPE-4b9e178f";
+    const CLIENT_TYPE = "PTRCN-TYPE-18c19c59";
 
     private $id;
     private $typeId;

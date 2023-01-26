@@ -1,16 +1,19 @@
-$('#signupForm').submit(function (e) {
+let signupForm = $('#signupForm');
+
+// Signup Submit
+signupForm.on('submit',function (e)
+{
     e.preventDefault();
-    alert($(e.target).serialize());
 
     $.post(
         Settings.base_url + "/user/newUser", 
         { form : function () {return $(e.target).serialize();} },
-        function (data, textStatus) {
+        function (data) {
             console.log(data);
             let jsonData = JSON.parse(data);
 
             // Shows alert/error message
-            if (jsonData.statusCode != 200) {
+            if (jsonData.statusCode !== 200) {
                 $(e.target).find('.alert-danger')
                     .addClass('show')
                     .text(jsonData.message);
@@ -57,9 +60,10 @@ $('select[name="type"]').on('change', function() {
     }
 });
 
-$('[name="email"]').on('blur', (e) => {valdiateInput(e.target, 'checkEmail', 'Email is already taken');});
-$('[name="username"]').on('blur', (e) => {valdiateInput(e.target, 'checkUserName', 'Username is already taken');});
-$('[name="passwordRepeat"], [name="password"]').on('blur', (e) => {
+$('[name="email"]').on('blur', (e) => {validateInput(e.target, 'checkEmail', 'Email is already taken');});
+$('[name="username"]').on('blur', (e) => {validateInput(e.target, 'checkUserName', 'Username is already taken');});
+$('[name="passwordRepeat"], [name="password"]').on('blur', (e) =>
+{
     let hasError;
     
     if ($('[name="passwordRepeat"]').val() === $('[name="password"]').val()) {
@@ -82,12 +86,13 @@ $('[name="passwordRepeat"], [name="password"]').on('blur', (e) => {
         hasError = true;
     }
 
-    $('#signupForm').trigger('custom:inputChange', [hasError]);
+    signupForm.trigger('custom:inputChange', [hasError]);
 });
 
-function valdiateInput(element, validation, errorMessage) {  
-    if ($(element).val().trim().length !== 0) {
-            
+function validateInput(element, validation, errorMessage)
+{
+    if ($(element).val().trim().length !== 0)
+    {
         $(element).siblings('.loading').show();
         $.get(
             Settings.base_url + "/user/" + validation,
@@ -118,12 +123,12 @@ function valdiateInput(element, validation, errorMessage) {
                 }
 
                 $(element).siblings('.loading').hide();
-                $('#signupForm').trigger('custom:inputChange');
+                signupForm.trigger('custom:inputChange');
             }
         );
     }
 }
 
-$('#signupForm').on('custom:inputChange', (e) => {
+signupForm.on('custom:inputChange', (e) => {
     $('[name="createUser"]').prop('disabled', hasError);
 });

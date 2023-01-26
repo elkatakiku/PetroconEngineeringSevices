@@ -1,6 +1,6 @@
-<pre>
-      <?= var_dump($data) ?>
-  </pre>
+<!--<pre>-->
+<!--    --><?//= var_dump($data) ?>
+<!--</pre>-->
 <main class="content">
   <!-- Profile background -->
   <div class="profile-bg d-block">
@@ -34,7 +34,7 @@
         </h2>
         <p> <?= $data['user']['email'] ?> </p>
         <p class="position"> <?= ucwords($data['accountType']) ?> </p>
-      </div>
+      </div>.
     </div>
     <form action="<?= SITE_URL.'/user/updateUser'?>" method="POST" id="proform"> 
       <?php if (isset($_GET['error'])) { ?>

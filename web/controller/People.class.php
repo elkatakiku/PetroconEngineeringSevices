@@ -66,6 +66,12 @@ class People extends MainController {
         }
     }
 
+    public function valdiateEmail() {
+        if (isset($_GET['input'])) {
+            echo $this->peopleService->validateEmail($_GET['input']);
+        }
+    }
+
     //  User
     public function joinedProjects() {
         if ($_GET['accountId']) {

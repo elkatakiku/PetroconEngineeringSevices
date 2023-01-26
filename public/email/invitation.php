@@ -10,11 +10,7 @@
 <body>
 <!--    <link rel="stylesheet" href="http://localhost/PetroconEngineeringServices/public/styles/styles.css">-->
     <link rel="stylesheet" href="http://localhost/PetroconEngineeringServices/public/styles/email.css">
-    <style>
 
-
-
-    </style>
     <div class="email-container">
         <div class="email">
             <div class="header">

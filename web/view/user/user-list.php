@@ -26,13 +26,9 @@
         <label for="doneStat"><?= ucwords($data['acctTypes'][1]['name']).'s' ?></label>
         <input id="doneStat" class="link-btn" type="radio" name="type" value="<?= $data['acctTypes'][1]['id'] ?>">
       </span>
-      <!-- <span class="filter-tab-item">
-        <label for="ongoingStat">Workers</label>
-        <input id="ongoingStat" class="link-btn" type="radio" name="type" value="2">
-      </span> -->
       <span class="filter-tab-item">
-        <label for="ongoingStat"><?= ucwords($data['acctTypes'][3]['name']).'s'?></label>
-        <input id="ongoingStat" class="link-btn" type="radio" name="type" value="<?= $data['acctTypes'][3]['id'] ?>">
+        <label for="ongoingStat"><?= ucwords($data['acctTypes'][2]['name']).'s'?></label>
+        <input id="ongoingStat" class="link-btn" type="radio" name="type" value="<?= $data['acctTypes'][2]['id'] ?>">
       </span>
     </form>
 
@@ -43,7 +39,7 @@
           <div class="input-prepend">
             <i class="fa fa-search icon" aria-hidden="true"></i>
           </div>
-          <input type="text" name="" id="searchUser" placeholder="Search User">
+          <input type="text" name="" id="searchUser" placeholder="Search user">
         </div>
       </div>
     </div>

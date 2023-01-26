@@ -2,8 +2,9 @@
 <main class="content"> 
   <!-- Header -->
   <div class="page-header">
-    <!-- <div class="linear"> -->
       <h1 class="page-title">Projects</h1>
+
+      <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
 
       <!-- New Projects -->
       <a href="<?= SITE_URL ?>/project/new">
@@ -11,35 +12,9 @@
           Create Project
         </button>
       </a>
-    <!-- </div> -->
 
-    <!-- <div class="dropdown">         
-      <button class="btn btn-sm dropdown-toggle neutral-outline-btn" type="button" data-toggle="dropdown" aria-expanded="false">
-          Filter
-      </button>
+      <?php } ?>
 
-      <div class="dropdown-menu dropdown-menu-right">
-          <span class="dropdown-item">All</span>
-          <span class="dropdown-item">Done</span>
-          <span class="dropdown-item">Ongoing</span>
-      </div>
-    </div> -->
-    <!-- <form id="filterTable" action="" class="linear">
-      <div class="input-container">
-        <select id="statusSelect" class="input-type" name="status" title="Filter projects by status">
-          <option value="" disabled>Select Status</option>
-          <option value="all">All</option>
-          <option value="done">Done</option>
-          <option value="ongoing">Ongoing</option>
-        </select>
-
-        <div class="input-append">
-          <span class="material-icons icon">
-              filter_alt
-          </span>
-        </div>
-      </div>
-    </form> -->
   </div>
 
   <!-- Navigation Tab -->
@@ -78,10 +53,9 @@
       <thead class="mesa-head">
         <tr>
           <th scope="col"></th>
-          <th scope="col" class="tname projectName">Project</th>
-          <th scope="col" class="company">Company</th>
-          <th scope="col">Status</th>
-          <!-- <th scope="col"></th> -->
+          <th scope="col" class="tname projectName"><strong>Project</strong></th>
+          <th scope="col">Progress</th>
+          <th scope="col">Completion Date</th>
         </tr>
       </thead>
     </table>

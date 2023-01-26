@@ -1,17 +1,17 @@
 <main class="content">
     <!-- <pre>
-        <?php var_dump($data) ?>
+        <?php //var_dump($data) ?>
     </pre> -->
     <!-- Header -->
-    <div class="page-header">
+    <div class="page-header pb-1">
         <div class="project-info">
             <div>
                 <h1 class="page-title"><?= $data['project']['description'] ?></h1>
                 <small><?= $data['project']['location'] ?></small>
             </div>
         </div>
-        <button id="projectInfoToggller" type="button" class="btn icon-btn align-self-start" data-toggle="slide" data-target="#projectInfo">
-            <span class="material-icons-outlined">info</span>
+        <button id="projectInfoToggller" type="button" class="btn icon-btn align-self-start p-0" data-toggle="slide" data-target="#projectInfo">
+            <span class="material-icons-outlined" style="font-size: 20px">info</span>
         </button>
     </div>
 
@@ -126,6 +126,9 @@
                 <button class="link-btn" data-toggle="custom-tab" data-target="#projectGanttChart">Gantt Chart</button>
             </li>
             <li class="nav-tab-item">
+                <button class="link-btn" data-toggle="custom-tab" data-target="#projectTasks">Tasks</button>
+            </li>
+            <li class="nav-tab-item">
                 <button class="link-btn" data-toggle="custom-tab" data-target="#projectResources">Resources</button>
             </li>
             <li class="nav-tab-item">
@@ -143,8 +146,8 @@
                 <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
             </div> -->
         <div class="projectDone">
-            <a class="btn sm-btn action-btn" href="invoice-admin.html">Invoice</a>
-            <a class="btn sm-btn action-btn" href="turnover-admin.html">Turn Over</a>
+<!--            <a class="btn sm-btn action-btn" href="invoice-admin.html">Invoice</a>-->
+            <a id="turnover" class="btn sm-btn action-btn" href="turnover-admin.html">Turn Over</a>
         </div>
 
         <div class="projectDone dropdown">
@@ -152,7 +155,7 @@
                 Print
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="invoice-admin.html">Invoice</a>
+<!--                <a class="dropdown-item" href="invoice-admin.html">Invoice</a>-->
                 <a class="dropdown-item" href="turnover-admin.html">Turn Over</a>
             </div>
         </div>
@@ -175,11 +178,6 @@
                 visibility: hidden;
                 width: 100%;
                 overflow: hidden;
-            }
-
-            #tasksTable thead {
-                position: sticky;
-                top: 0;
             }
 
             td .form-input-group {
@@ -208,401 +206,96 @@
         </style>
 
         <!-- Gantt Chart -->
-        <section id="projectGanttChart" class="main-content custom-tab-content show">
-            <div class="slider">
-                <div class="timeline">
-                    <header class="linear">
-                        <!-- <h5>Tasks</h5> -->
-                        
-                        <button id="addTask" data-target="#newTask" type="button" class="btn action-btn sm-btn">
-                            <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
-                            Add a task
-                        </button>
+        <section id="projectGanttChart" class="main-content custom-tab-content chart-container show">
 
-                        <button class="btn icon-btn ml-auto back-btn" type="button">
-                            <span class="material-icons">navigate_before</span>
-                        </button>
-                    </header>
+            <style>
+                .page-header .page-title {
+                    font-size: 16px;
+                }
 
-                    <div class="mesa-container" id="timelineTable">
-                        <table class="mesa mesa-hover" id="tasksTable">
-                            <thead class="mesa-head">
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col" class="taskCell">Task</th>
-                                    <th scope="col">Plan Start</th>
-                                    <th scope="col">Plan Due</th>
-                                    <th scope="col" class="action-cell">
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                #projectGanttChart {
+                    background-color: transparent;
+                    border-radius: 0;
+                    box-shadow: none;
+                }
 
-                    <!-- <div class="mesa-container">
-                        <table class="mesa" id="tasksTable">
-                            <thead class="mesa-head">
-                                <tr>
-                                    <th scope="col"></th>
-                                    <th scope="col" class="taskCell">Task</th>
-                                    <th scope="col">Activities</th>
-                                    <th scope="col" class="action-cell">
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="col"></th>
-                                <td scope="col" class="taskCell">Task</td>
-                                <td scope="col">
-                                    <div class="linear">
-                                        <span style="width: 100px; height: 50px; background-color: red;">
-                                        </span>
-                                    </div>
-                                </td>
-                                <td scope="col" class="action-cell"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> -->
-                </div>
+                .gantt-chart {
+                    background-color: white;
+                }
+            </style>
 
-                <div class="chart-container active">
-                    <div class="gantt-chart">
-                        <div class="chart">
-                            <div class="chart-row chart-header">
-                                <div class="chart-row-item" id="timelineToggler">
-                                    <button type="button" class="btn icon-btn">
-                                        <span class="material-icons">edit_note</span>
-                                    </button>
-                                    Tasks
-                                </div>
-                                <div>
-                                    <div class="chart-months">
-                                        <!-- <span class="startMonth">December</span> -->
-                                        <span class="chart-month"><?= date('F') ?></span>
-                                    </div>
-                                    <div class="chart-days">
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <!-- <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span>
-                                        <span>##</span> -->
-                                    </div>
-                                </div>
+            <div class="completion-graph">
+                <span class="completion-date">
+                    <h5>Completion Date</h5>
+                    <p style="font-size: 10px"><span class="start-date"></span> - <span class="end-date"></span></p>
+                </span>
+                <span class="completion-bar">
+                    <small class="completion-percent">0%</small>
+                </span>
+                <span class="completion-days"></span>
+            </div>
+
+            <div class="gantt-chart">
+                <div class="chart">
+                    <div class="chart-row chart-header">
+                        <div class="chart-row-item" id="timelineToggler">
+                            Task name
+                        </div>
+                        <div>
+                            <div class="chart-months">
+                                <span class="chart-month"><?= date('F') ?></span>
                             </div>
-
-                            <div class="chart-body">
-                                <div class="chart-lines"> 
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <!-- <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span> -->
-                                </div>
-
-                                <!-- <div class="chart-row">
-                                    <div class="chart-row-item">
-                                        <strong>1</strong>
-                                        Procurement
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-one"></li>
-                                    </ul>
-                                </div>
-
-                                <div class="chart-row">
-                                    <div class="chart-row-item">
-                                        <strong>2</strong>
-                                        Tool Box Meeting
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-two-a"></li>
-                                        <li class="actual chart-li-two-b"></li>          
-                                    </ul>
-                                </div>
-
-                                <div class="chart-row">
-                                    <div class="chart-row-item">
-                                        <strong>3</strong>
-                                        Actual visit at site for measurement
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-three"></li>
-                                    </ul>
-                                </div>
-
-                                <div class="chart-row">
-                                    <div class="chart-row-item">
-                                        <strong>4</strong>
-                                        Mobilization
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-four"></li>
-                                    </ul>
-                                </div>
-
-                                <div class="chart-row">
-                                    <div class="chart-row-item">
-                                        <strong>5</strong>
-                                        Repainting of pipe
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-five"></li>
-                                    </ul>
-                                </div>
-
-                                <div class="chart-row">
-                                    <div class="chart-row-item">
-                                        <strong>6</strong>
-                                        Relocation of 2" Distribution line from Handyman's area (removal and Reinstall with 55 meter located at Upper ground)
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-six"></li>
-                                    </ul>
-                                </div>
-                                
-                                <div class="chart-row">
-                                    <div class="chart-row-item">
-                                        <strong>7</strong>
-                                        Modification of 2" B.I. pipe (step-up for x 600mm 10meter long) due to modification of wall from concrete to glass wall at Second floor.
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-seven-t1"></li>
-                                    </ul>
-
-                                    <div class="chart-row-item">
-                                        <strong></strong>
-                                        Modification of 2" Distribution pipe line second floor due to aircon   ducting conflict with 15 meter long.
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-seven-t2"></li>
-                                    </ul>
-                                </div>
-
-                                <div class="chart-row">
-                                    <div class="chart-row-item">
-                                        <strong>8</strong>
-                                        Additional stub-out for 6 tenants and additional pipe line for 12- tenats  from existing stub-outs to meter location inside the tenant area.
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-8-t1"></li>
-                                    </ul>
-
-                                    <div class="chart-row-item">
-                                        <strong></strong>
-                                        Leak Test and commissioning  at 2F, UGF, LGF
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="plan chart-li-8-t2"></li>
-                                    </ul>
-
-                                    <div class="chart-row-item">
-                                        <strong></strong>
-                                        Additional 2-1/2"  LPG mainline and stubouts for Vikings, Tongyang and 3 tenants
-                                    </div>
-                                    <ul class="chart-row-bars">
-                                        <li class="yellow-bar chart-li-8-t3"></li>
-                                    </ul>
-                                </div> -->
-                            </div>
+                            <div class="chart-days"></div>
                         </div>
                     </div>
-                    
-                    <span class="expanding-btn">
-                        <button class="btn action-btn icon-btn" data-toggle="popup" data-target="#viewLegends">
-                            <span class="material-icons">legend_toggle</span>
-                        </button>
-                    </span>
-                    
-                    <!-- View Legends Popup -->
-                    <div id="viewLegends" class="popup popup-contained" tabindex="-1" aria-hidden="true">
-                        <div class="pcontainer popup-sm" data-right="15" data-bottom="35">
-                            <div class="pcontent">
-                                <div class="pheader">
-                                    <h2 class="ptitle">Legends</h2>
-                                    <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
-                                        <span class="material-icons">close</span>
-                                    </button>
-                                </div>
-                    
-                                <div class="pbody">
-                                    <div class="legends-container">
 
-                                        <!-- <div class="task-legend">
-                                            <span class="leg-color" data-color="#026aa7"></span>
-                                            <span class="leg-title">Plan</span>
-                                            <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
-                                                <span class="material-icons">edit</span>
-                                            </button>
-                                        </div>
-
-                                        <div class="task-legend">
-                                            <span class="leg-color" data-color="#5aac44"></span>
-                                            <span class="leg-title">Actual</span>
-                                            <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendId">
-                                                <span class="material-icons">edit</span>
-                                            </button>
-                                        </div>
-
-                                        <div class="task-legend">
-                                            <span class="leg-color" data-color="#f5dd29"></span>
-                                            <span class="leg-title">Sample</span>
-                                            <button class="btn icon-btn leg-edit" data-toggle="legend" data-target="legendID">
-                                                <span class="material-icons">edit</span>
-                                            </button>
-                                        </div> -->
-
-                                    </div>
-                                    <button class="btn light-btn btn-block slim-btn" data-toggle="legend">
-                                        <span class="material-icons btn-icon">label</span>
-                                        Create legend
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="chart-body">
+                        <div class="chart-lines"></div>
                     </div>
                 </div>
+            </div>
 
-                <div class="spinner">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
+            <div class="spinner">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
+            </div>
+        </section>
+
+        <!-- Tasks -->
+        <section id="projectTasks" class="main-content custom-tab-content">
+
+            <?php if ($data['accountType'] != Core\Controller::CLIENT) { ?>
+                <button id="addTask" type="button" class="btn action-btn sm-btn float-right">
+                <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                Add task
+            </button>
+            <?php } ?>
+
+            <div class="mesa-container" id="timelineTable">
+                <table class="mesa" id="taskTable">
+                    <thead class="mesa-head">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col" class="tname" style="width: 80%;"><strong>Task</strong></th>
+                            <th scope="col">Progress</th>
+                            <th scope="col">Last Updated</th>
+                            <th scope="col" class="action-cell">Action</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </section>
 
         <!-- Resources -->
         <section id="projectResources" class="main-content custom-tab-content">
 
-            <!-- <div class="linear-container">
-                <form action="" class="linear" id="itemForm">
-                    <div class="form-group basis-12">
-                        <label for="">Item name</label>
-                        <input type="text" class="form-control" name="">
-                    </div>
-
-                    <div class="form-group basis-4">
-                        <label for="">Quantity</label>
-                        <input type="number" class="form-control" name="" min=0 oninput="validity.valid||(value='');">
-                    </div>
-                    
-                    <div class="form-group basis-4 flex-shrink-0">
-                        <label for="">Price per item (PHP)</label>
-                        <input type="number" class="form-control" name="" min=0 oninput="validity.valid||(value='');">
-                    </div>
-
-                    <div class="form-group basis-4">
-                        <label for="">Total Amount</label>
-                        <input type="number" class="form-control" name="" readonly>
-                    </div>
-
-                    <div class="form-group basis-8">
-                        <label for="">Note</label>
-                        <textarea class="form-control"></textarea>
-                    </div>
-
-                    <button class="basis-2  btn block-btn action-btn">Add</button>
-                </form>
-            </div> -->
-
-            <!-- <header class="linear"> -->
-                <!-- <h5>Materials used</h5> -->
+            <?php if ($data['accountType'] != Core\Controller::CLIENT) { ?>
                 <button id="addResource" type="button" class="btn action-btn sm-btn float-right">
                     <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
                     Add material
                 </button>
-            <!-- </header> -->
-
+            <?php } ?>
 
             <!-- Resources Table -->
             <div class="mesa-container">
@@ -610,79 +303,15 @@
                     <thead class="mesa-head">
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col" class="tname"><strong>Item Name</strong></th>
+                            <th scope="col" class="tname"><strong>Item</strong></th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Price per item (PHP)</th>
                             <th scope="col">Total Amount</th>
                             <th scope="col">Notes</th>
-                            <th scope="col" class="table-action-col"></th>
+                            <th scope="col" class="table-action-col">Action</th>
                         </tr>
                     </thead>
                     <!-- <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><strong>Patatas</strong></td>
-                            <td>8</td>
-                            <td>300</td>
-                            <td>2,400</td>
-                            <td>Mahal lods</td>
-                            <td class="action-cell">
-                                <div class="action-cell-content">
-                                    <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                    <span class="row-action-btns">
-                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><strong>Patatas</strong></td>
-                            <td>8</td>
-                            <td>300</td>
-                            <td>2,400</td>
-                            <td>Mahal lods</td>
-                            <td class="action-cell">
-                                <div class="action-cell-content">
-                                    <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                    <span class="row-action-btns">
-                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><strong>Patatas</strong></td>
-                            <td>8</td>
-                            <td>300</td>
-                            <td>2,400</td>
-                            <td>Mahal lods</td>
-                            <td class="action-cell">
-                                <div class="action-cell-content">
-                                    <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                    <span class="row-action-btns">
-                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><strong>Patatas</strong></td>
-                            <td>8</td>
-                            <td>300</td>
-                            <td>2,400</td>
-                            <td>Mahal lods</td>
-                            <td class="action-cell">
-                                <div class="action-cell-content">
-                                    <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                    <span class="row-action-btns">
-                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
                         <tr>
                             <th scope="row">1</th>
                             <td><strong>Patatas</strong></td>
@@ -706,22 +335,25 @@
         
         <!-- People -->
         <section id="projectPeople" class="main-content custom-tab-content">
-            <div class="linear">
-                <form class="input-container">
-                    <input type="text" id="employeeSearch" name="search" list="employeesList" placeholder="Enter email address of employee">
-                    <datalist id="employeesList">
-<!--                        <option value="Boston">-->
-<!--                        <option value="Cambridge">-->
-                    </datalist>
-                    <div class="input-append">
-                        <button type="submit" class="btn action-btn px-4">Choose from team</button>
-                    </div>
-                </form>
-                or
-                <a href="<?= SITE_URL.'/project/invitation/'.$data['project']['id'] ?>" class="flex-shrink-0">
-                    <button class="btn action-btn">Invite people</button>
-                </a>
-            </div>
+
+            <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
+                <div class="linear">
+                    <form class="input-container">
+                        <input type="text" id="employeeSearch" name="search" list="employeesList" placeholder="Enter email address of employee">
+                        <datalist id="employeesList">
+    <!--                        <option value="Boston">-->
+    <!--                        <option value="Cambridge">-->
+                        </datalist>
+                        <div class="input-append">
+                            <button type="submit" class="btn action-btn px-4 sm-btn">Choose from team</button>
+                        </div>
+                    </form>
+                    or
+                    <a href="<?= SITE_URL.'/project/invitation/'.$data['project']['id'] ?>" class="flex-shrink-0">
+                        <button class="btn action-btn sm-btn">Invite people</button>
+                    </a>
+                </div>
+            <?php } ?>
 
             <!-- People Table -->
             <div class="mesa-container">
@@ -732,35 +364,13 @@
                             <th scope="col" class="tname"><strong>Name</strong></th>
                             <th scope="col">Email</th>
                             <th scope="col">Contact Number</th>
-                            <th scope="col" class="table-action-col"></th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <!-- <tbody>
                         <tr>
                             <td><strong>Eli Lamzon</strong></td>
                             <td>elilamzon@email.com</td>
-                            <td>09xxxxxxxxx</td>
-                            <td>Admin</td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-
-                            <td><strong>Effer Adaza</strong></td>
-                            <td>EfferAdaza@email.com</td>
-                            <td>09xxxxxxxxx</td>
-                            <td>Admin</td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Yva Magno</strong></td>
-                            <td>YvaMagno@email.com</td>
-                            <td>09xxxxxxxxx</td>
-                            <td>Admin</td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Gale Fernandez</strong></td>
-                            <td>GaleFernandez@email.com</td>
                             <td>09xxxxxxxxx</td>
                             <td>Admin</td>
                             <td>Remove</td>
@@ -787,7 +397,7 @@
                             <th scope="col" class="tname"><strong>Description</strong></th>
                             <th scope="col">Payment</th>
                             <th scope="col">Date</th>
-                            <th scope="col">
+                            <th scope="col">Action
                                 <!-- <div> -->
                                 <!-- <div class="action-cell-content">
                                     <span class="row-action-btns">
@@ -809,46 +419,6 @@
                     <!-- <tbody>
                         <tr>
                             <td><strong>Tank Requalification Fire Protection System</strong><br>
-                                <small>Phoenix</small>
-                            </td>
-                            <td>PHP 12,000</td>
-                            <td>dd/mm/YYYY</td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Centralized LPG Pipeline Installation</strong><br>
-                                <small>Phoenix</small>
-                            </td>
-                            <td>PHP 12,000</td>
-                            <td>dd/mm/YYYY</td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-                            <td><strong></strong><br>
-                                <small>Phoenix</small>
-                            </td>
-                            <td>PHP 12,000</td>
-                            <td>dd/mm/YYYY</td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-                            <td><strong></strong><br>
-                                <small>Phoenix</small>
-                            </td>
-                            <td>PHP 12,000</td>
-                            <td>dd/mm/YYYY</td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-                            <td><strong></strong><br>
-                                <small>Phoenix</small>
-                            </td>
-                            <td>PHP 12,000</td>
-                            <td>dd/mm/YYYY</td>
-                            <td>Remove</td>
-                        </tr>
-                        <tr>
-                            <td><strong></strong><br>
                                 <small>Phoenix</small>
                             </td>
                             <td>PHP 12,000</td>
@@ -911,220 +481,118 @@
     </div> -->
 </main>
 
-<style>
-    #taskPopup .pcontent {
-        flex-direction: row;
-    }
-
-    .pmain {
-        flex-basis: 65%;
-        padding: 1rem;
-
-        background-color: #f4f4f4;
-    }
-
-    .pmain .pheader {
-        border: none;
-        padding: 0;
-        margin-bottom: 1rem;
-    }
-
-    .pmain .pfooter {
-        padding: 0;
-        margin-top: 1rem;
-        padding-top: 1rem;
-    }
-
-    .pmain .pheader .close-btn {
-        top: 0;
-        right: 0;
-    }
-
-    .pmain h5 {
-        font-size: 14px;
-        color: #172b4d;
-    }
-
-    .pmain textarea, .pmain input {
-        padding: 5px 10px;
-    }
-
-    .pside {
-        flex-basis: 35%;
-
-        display: flex;
-        flex-direction: column;
-
-        box-shadow: -1px 0 10px rgba(0, 0, 0, 0.15);
-        position: relative;
-    }
-
-    @media (max-width: 992px) {
-        #taskPopup .pcontent {
-            flex-direction: column;
-        }
-
-        #sideCollapse {
-            height: 0;
-        }
-
-        .pmain {
-            background-color: white;
-        }
-    }
-
-    @media (min-width: 992px) {
-        #activityCollapse {
-            display: none;
-        }
-
-        #sideCollapse {
-            height: 100%;
-        }
-    }
-        
-    #activityCollapse {
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        z-index: 2005;
-        transform: translateX(-50%);
-        background: #ffffff;
-        border-radius: 500px;
-        padding: 5px;
-        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.15);
-    }
-
-    #sideCollapse {
-        overflow: hidden;
-    }
-</style>
-
 <!-- Task -->
-<div class="popup" id="taskPopup" tabindex="-1" aria-hidden="true">
-    <div class="pcontainer popup-lg">
+<div class="popup popup-center" id="taskPopup" tabindex="-1" aria-hidden="true">
+    <div class="pcontainer">
         <div class="pcontent">
-            <div class="pmain">
+            <header class="pheader">
+                <h2 class="ptitle">Task 1</h2>
+                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
+                    <span class="material-icons">close</span>
+                </button>
+            </header>
 
-                <header class="pheader">
-                    <h2 class="ptitle">Task 1</h2>
-                    <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
-                        <span class="material-icons">close</span>
-                    </button>
-                </header>
+            <div class="pbody">
 
                 <!-- Alert -->
-                <div class="alert alert-danger mb-0" role="alert">
-                    A simple danger alert—check it out!
-                </div>
+                <div class="alert alert-danger mb-0" role="alert"></div>
                 
                 <form id="taskForm">
-                    <input type="hidden" name="id" value="PTRCN-TSK-63b3fe4123497">
+                    <input type="hidden" name="projectId" value="<?= $data['project']['id'] ?>">
+                    <input type="hidden" name="id" value="">
                     <input type="hidden" name="order" value="1">
 
-                    <h5>Description</h5> 
-                    <div class="form-input-group">
-                        <textarea class="form-control" name="taskDesc" rows="1" placeholder="Type the task description here" style="min-height: 1rem; height: 34px; overflow-y: hidden;"></textarea>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" name="description" rows="1" placeholder="Type the task description here" style="min-height: 1rem; height: 34px; overflow-y: hidden;" required></textarea>
                     </div>
-                    
-                    <h5>Activity</h5>
 
-                    <!-- <div id="taskActivities">
-                        <div class="form-input-group task-activity" id="PTRCN-TSKBR-63b3fe413440f" style="border-color: rgba(2, 106, 167, 0.4); box-shadow: rgba(2, 106, 167, 0.4) 0px 1px 5px;"><span class="linear-label"><label for="" style="color: rgb(2, 82, 129);">Plan</label><button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">
-                            <span class="material-icons">
-                            close
-
-                        </span>
-                    </button>
-                    </span>
-                        <input type="hidden" name="legendId" value="PTRCN-LGND-63b3fe007bff8" style="border-bottom-color: rgb(2, 82, 129);">
-                        <div class="tb-date">
-                            <input type="date" name="start" value="2023-01-03" style="border-bottom-color: rgb(2, 82, 129);">
-                        -
-                        <input type="date" name="end" value="2023-01-06" style="border-bottom-color: rgb(2, 82, 129);">
+                    <div class="form-group">
+                        <label>Duration</label>
+                        <div class="linear">
+                            <input type="date" class="form-control" name="start" required>
+                            -
+                            <input type="date" class="form-control" name="end" required>
+                        </div>
                     </div>
-                    </div>
-                    </div> -->
 
-                    <div id="taskActivities">
-                        <!-- <div class="form-input-group task-activity" id="PTRCN-TSKBR-63b3fe413440f" style="border-color: rgba(2, 106, 167, 0.4); box-shadow: rgba(2, 106, 167, 0.4) 0px 1px 5px;">
-                            <span class="linear-label">
-                                <label for="" style="color: rgb(2, 82, 129);">Plan</label>
-                                <button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">
-                                    <span class="material-icons"> close </span>
-                                </button>
-                            </span>
-                            <input type="hidden" name="legendId" value="PTRCN-LGND-63b3fe007bff8" style="border-bottom-color: rgb(2, 82, 129);">
-                            <div class="tb-date">
-                                <input type="date" name="start" value="2023-01-03" style="border-bottom-color: rgb(2, 82, 129);"> - <input type="date" name="end" value="2023-01-06" style="border-bottom-color: rgb(2, 82, 129);">
+                    <div class="form-group">
+                        <label>Progress</label>
+                        <div class="linear">
+                            <div class="form-group linear mb-0 flex-grow-1">
+                                <input type="number" class="form-control" name="progress" placeholder="Input progress percentage here" min="0" max="100" oninput="validity.valid||(value='');" required>
+                                <span style="font-weight: bold">%</span>
                             </div>
-                        </div> -->
+
+                            or
+
+                            <style>
+                                #haltProgress {
+                                    cursor: pointer;
+                                }
+
+                                #haltProgress:has(#haltToggler:checked) {
+                                    background-color: #dd1d3b !important;
+                                    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, .8);
+                                }
+
+                                #haltToggler {
+                                    display: none;
+                                }
+
+                                #halt {
+                                    background-color: #ffdddd;
+                                    border: 1px solid #ff9baa;
+                                    overflow: hidden;
+                                }
+
+                                #halt > div {
+                                    padding: 10px;
+                                }
+
+                                #halt label {
+                                    display: block;
+                                    margin: 0;
+                                }
+                            </style>
+
+                            <label id="haltProgress" for="haltToggler" class="btn icon-btn danger-btn m-0">
+                                <span class="material-icons btn-icon" style="font-size: 20px">pan_tool</span>
+                                Halt
+                                <input type="checkbox" id="haltToggler" name="isHalted" value="0">
+                            </label>
+                        </div>
                     </div>
 
-                    <div id="newActivities"></div>
+                    <div id="halt" style="display: none">
+                        <input type="hidden" name="haltId">
+                        <div>
+                            <div class="form-group mb-2">
+                                <label>Reason</label>
+                                <textarea class="form-control" name="haltReason" rows="1" placeholder="Type the reason here" style="min-height: 1rem; height: 34px; overflow-y: hidden;"></textarea>
+                            </div>
 
-                    <div id="samp"></div>
+                            <div class="form-group m-0">
+                                <label>Halt Duration</label>
+                                <div class="linear">
+                                    <input type="date" class="form-control" name="haltStart" value="<?= date('Y-m-d') ?>">
+                                    -
+                                    <input type="date" class="form-control" name="haltEnd">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
 
-                <!-- <div class="form-input-group task-activity">
-                    <span class="linear-label">
-                        <label for="">Plan</label>
-                        <button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">
-                            <span class="material-icons">close</span>
-                        </button>
-                    </span>
-                    <div class="tb-date">
-                        <input type="date" name="planStart" id="" value="2023-01-07">
-                        -
-                        <input type="date" name="planEnd" id="" value="2023-01-07">
-                    </div>
-                </div>
-
-                <div class="form-input-group task-activity">
-                    <label for="">Actual</label>
-                    <div class="tb-date">
-                        <input type="date" name="" id="">
-                        -
-                        <input type="date" name="" id="">
-                    </div>
-                </div> -->
             </div>
 
-            <div class="pside">
-                <button class="btn icon-btn" id="activityCollapse" data-target="#sideCollapse">
-                    <span class="material-icons" title="Add activity">
-                        keyboard_double_arrow_up
-                    </span>
+            <footer class="pfooter">
+                <button type="submit" form="taskForm" class="btn action-btn">Save</button>
+                <button type="button" class="btn danger-btn delete-btn">
+                    Delete
                 </button>
-
-                <div id="sideCollapse">
-                    <div class="pheader">
-                        <h2 class="ptitle">Activities</h2>
-                        <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
-                            <span class="material-icons">close</span>
-                        </button>
-                    </div>
-
-                    <div class="pbody">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-
-                        <div id="legends" class="legends-container"><div class="task-legend"><span class="leg-color" data-color="#026aa7" style="background-color: rgb(2, 106, 167);"></span><span class="leg-title" style="background-color: rgb(2, 106, 167);">Plan</span><button class="btn icon-btn leg-edit" data-toggle="legend" data-target="PTRCN-LGND-63b3fe007bff8"><span class="material-icons">edit</span></button></div><div class="task-legend"><span class="leg-color" data-color="#5aac44" style="background-color: rgb(90, 172, 68);"></span><span class="leg-title" style="background-color: rgb(90, 172, 68);">Actual</span><button class="btn icon-btn leg-edit" data-toggle="legend" data-target="PTRCN-LGND-63b3fe007bffc"><span class="material-icons">edit</span></button></div><div class="task-legend"><span class="leg-color" data-color="#ff8ed4" style="background-color: rgb(255, 142, 212);"></span><span class="leg-title" style="background-color: rgb(255, 142, 212);">Penk</span><button class="btn icon-btn leg-edit" data-toggle="legend" data-target="PTRCN-LGND-63b7a3a59a0f9"><span class="material-icons">edit</span></button></div></div>
-
-                        <button class="btn light-btn btn-block slim-btn" data-toggle="legend">
-                            Create legend
-                        </button>
-                    </div>
-
-                </div>
-
-                <div class="pfooter">
-                    <button type="submit" form="taskForm" class="btn action-btn">Save</button>
-                    <button type="button" class="btn danger-btn delete-btn">
-                        Delete
-                    </button>
-                    <button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>
-                </div>
-            </div>
+                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
+            </footer>
         </div>
     </div>
 </div>
@@ -1388,3 +856,11 @@
 <script>
     let projectId = '<?= $data['project']['id'] ?>';
 </script>
+
+<!--<div class="custom_tooltip">-->
+<!--    <small class="tip-legend">Actual</small>-->
+<!--    <h5 class="tip-title">Modification of 2" B.I. pipe (step-up for x 600mm 10meter long) due to modification of wall from concrete to glass wall at Second floor.</h5>-->
+<!--    <p class="tip-date">-->
+<!--        Start: Jan. 2, 2023 <br>-->
+<!--        End: Jan. 2, 2023</p>-->
+<!--</div>-->

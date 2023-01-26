@@ -33,12 +33,23 @@ switch ($data['accountType']) {
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/4de3040dc0.js" crossorigin="anonymous"></script>
 
+    <!-- Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- External JS -->
     <script type="module" src="<?=SCRIPTS_PATH?>index.js"></script>
     
     <script>
       var Settings = {
-        base_url: '<?= SITE_URL ?>'
+          base_url: '<?= SITE_URL ?>',
+          type: '<?= $data['typeId'] ?>'
+      }
+
+      console.log('Type');
+      console.log(Settings.type);
+
+      if (typeof Settings.type === 'undefined' || Settings.type.trim() === "") {
+          alert(Settings.type);
       }
 
       console.log("Footer");

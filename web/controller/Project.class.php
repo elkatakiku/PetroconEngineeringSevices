@@ -3,7 +3,10 @@
 namespace Controller;
 
 use \Core\Controller as MainController;
+use Model\Account;
+use Service\PeopleService;
 use Service\ProjectService;
+use Service\UserService;
 
 class Project extends MainController {
 
@@ -24,8 +27,6 @@ class Project extends MainController {
     public function index() {
         header("Location: ".SITE_URL."/project/list");
         exit();
-        // $this->view("project", "project-list");
-        
     }
 
     public function list()
@@ -39,6 +40,11 @@ class Project extends MainController {
         if (isset($_POST['form'])) {
             echo $this->projectService->getProjectList($_POST['form']);
         }
+    }
+
+    public function gets($status) {
+        var_dump($_SESSION['accID']);
+        $this->projectService->getProjectList('status='.$status);
     }
 
     // Gets a project
@@ -62,56 +68,63 @@ class Project extends MainController {
 
     // New-project view
     public function new() {
-        $this->view("project", "new-project");
+        $this->view(
+            "project",
+            "new-project"
+//            ['companyList' => $this->projectService->getCompanyList(), 'clientList' => $this->projectService->getClientList()]
+        );
     }
 
     // Creates new project
     public function newProject() {
         if (isset($_POST['form'])) {
-            parse_str($_POST['form'], $form);
-
-            $projectDesc = $this->sanitizeString($form['prjDescription']);
-
-            if ($projectDesc) {
-            
-                $input = [
-                    "project" => [
-                        "prjPurchaseOrd" => ucwords($this->sanitizeString($form['prjPurchaseOrd'])),
-                        "prjAwardDate" => ucwords($this->sanitizeString($form['prjAwardDate'])),
-                        "prjDescription" => strtoupper($projectDesc[0]).strtolower(substr($projectDesc, 1, strlen($projectDesc))),
-                        "prjLocation" => ucwords($this->sanitizeString($form['prjLocation'])),
-                        "prjBuildingNo" => ucwords($this->sanitizeString($form['prjBuildingNo']))
-                    ],
-                    "client" => [
-                        "cmpnyName" => ucwords($this->sanitizeString($form['cmpnyName'])),
-                        "cmpnyRepresentative" => ucwords($this->sanitizeString($form['cmpnyRepresentative'])),
-                        "cmpnyContact" => $this->sanitizeString($form['cmpnyContact'])
-                    ]
-                ];
-
-                if(!$this->emptyInput($input['project']) && !$this->emptyInput($input['client'])) {
-
-                    $newProject = $this->projectService->createProject($input);
-
-                    if ($newProject) {
-                        $json_data['statusCode'] = 200;
-                        $json_data['data'] = ['id' => $newProject];
-                        echo json_encode($json_data);
-                        return;
-                    }
-
-                    $json_data['statusCode'] = 500;
-                    $json_data['message'] = 'An error occured. Please try again later.';
-                    echo json_encode($json_data);
-                    return;
-                }
-            }
-
+            echo $this->projectService->createProject($_POST['form']);
         }
 
-        $json_data['statusCode'] = 400;
-        $json_data['message'] = 'Please fill all required inputs.';
-        echo json_encode($json_data);
+//            parse_str($_POST['form'], $form);
+//
+//            $projectDesc = $this->sanitizeString($form['prjDescription']);
+//
+//            if ($projectDesc) {
+//
+//                $input = [
+//                    "project" => [
+//                        "prjPurchaseOrd" => ucwords($this->sanitizeString($form['prjPurchaseOrd'])),
+//                        "prjAwardDate" => ucwords($this->sanitizeString($form['prjAwardDate'])),
+//                        "prjDescription" => strtoupper($projectDesc[0]).strtolower(substr($projectDesc, 1, strlen($projectDesc))),
+//                        "prjLocation" => ucwords($this->sanitizeString($form['prjLocation'])),
+//                        "prjBuildingNo" => ucwords($this->sanitizeString($form['prjBuildingNo']))
+//                    ],
+//                    "client" => [
+//                        "cmpnyName" => ucwords($this->sanitizeString($form['cmpnyName'])),
+//                        "cmpnyRepresentative" => ucwords($this->sanitizeString($form['cmpnyRepresentative'])),
+//                        "cmpnyContact" => $this->sanitizeString($form['cmpnyContact'])
+//                    ]
+//                ];
+//
+//                if(!$this->emptyInput($input['project']) && !$this->emptyInput($input['client'])) {
+//
+//                    $newProject = $this->projectService->createProject($input);
+//
+//                    if ($newProject) {
+//                        $json_data['statusCode'] = 200;
+//                        $json_data['data'] = ['id' => $newProject];
+//                        echo json_encode($json_data);
+//                        return;
+//                    }
+//
+//                    $json_data['statusCode'] = 500;
+//                    $json_data['message'] = 'An error occured. Please try again later.';
+//                    echo json_encode($json_data);
+//                    return;
+//                }
+//            }
+//
+//        }
+//
+//        $json_data['statusCode'] = 400;
+//        $json_data['message'] = 'Please fill all required inputs.';
+//        echo json_encode($json_data);
     }
 
     public function update() {
@@ -125,7 +138,6 @@ class Project extends MainController {
             if($this->projectService->mark($_POST['id'], $_POST['done'])) {
                 header("Location: ".SITE_URL."/project/details/".$_POST['id']);
                 exit();
-                return;
             }
         }
 
@@ -134,9 +146,6 @@ class Project extends MainController {
 
     public function remove() {
         if (isset($_POST['form'])) {
-            // echo "<pre>";
-            // echo "<br>";
-            // echo $_POST['form'];
             echo $this->projectService->remove($_POST['form']);
         }
     }
@@ -147,19 +156,17 @@ class Project extends MainController {
 
         if ($project['statusCode'] == 200) 
         {
-            $this->view("project", "invitations", ['project' => $project['data']]);
-            return;
+            $userService = new UserService();
+            $this->view(
+                "project",
+                "invitations",
+                ['project' => $project['data'], 'accountTypes' => $userService->getAccountTypes()]
+            );
         } 
         else 
         {
             $this->goToIndex();
         }
-    }
-
-    // || Timeline
-    public function timeline($projectId) {
-        $cleanId = $this->sanitizeString($projectId);
-        echo json_encode($this->projectService->getTimeline($cleanId));
     }
 
     private function goToIndex() {

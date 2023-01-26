@@ -21,10 +21,10 @@ class Service {
         // Iterate through each input
         foreach ($inputs as $key => $value) 
         {
-            // echo "<br>";
-            // var_dump($key);
-            // echo "<br>";
-            // var_dump($value);
+//             echo "<br>";
+//             var_dump($key);
+//             echo "<br>";
+//             var_dump($value);
             
             if (is_array($value)) 
             {   // If an array, do recursion
@@ -33,7 +33,7 @@ class Service {
                 }
             }
 
-            if (!$value) 
+            if (!is_int($value) && !$value)
             {   // If simple data and is empty, return true
                 return true;
             }

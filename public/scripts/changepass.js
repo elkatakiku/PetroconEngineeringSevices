@@ -1,4 +1,8 @@
+// Local
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
+
+// Server
+// import * as Utils from '/public/scripts/module/utils.js';
 
 $('[name="oldPass"]').on('blur', (e) => {
     Utils.valdiateInput(e.target, '#changePassForm', '/user/validatePassword', 'Incorrect password');

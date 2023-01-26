@@ -1,40 +1,14 @@
-// Modules
-import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
+// Local
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
+import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
 
-// Collapse Task Legends Popup
-let activityCollapse = $('#activityCollapse');
-activityCollapse.on('click',(e) => {
-    let btn = $(e.target);
-
-    resizeCollapse($(btn.data('target')).hasClass('active'), btn);
-});
-
-function resizeCollapse(isActive, btn = activityCollapse) {
-    if (!isActive) {
-        $(btn.data('target')).addClass('active');
-        btn.find('.material-icons').animate({
-            'rotate' : '180deg'
-        }, 150, 'swing');
-
-        $($(btn.data('target'))).animate({
-            'height' : '100%'
-        }, 300, 'swing');
-    } else {
-        $(btn.data('target')).removeClass('active');
-        btn.find('.material-icons').animate({
-            'rotate' : '0deg'
-        }, 150, 'swing');
-
-        $($(btn.data('target'))).animate({
-            'height' : 0
-        }, 300, 'swing');
-    }
-}
+// Server
+// import * as Utils from '/public/scripts/module/utils.js';
+// import * as Popup from '/public/scripts/module/popup.js';
 
 // || Slide
 function slideAutoHeight() {
-    var topbarHeight = $("#topbar")[0].scrollHeight;
+    let topbarHeight = $("#topbar")[0].scrollHeight;
     let top = (topbarHeight - $(this).scrollTop() <= 0) ? 0 : topbarHeight - $(this).scrollTop();
     $(".slide.slide-fixed")
         .css("top", (top <= 0 ? 0 : top))
@@ -43,255 +17,6 @@ function slideAutoHeight() {
 }
 
 slideAutoHeight();
-
-// Ajax loader
-function loadActivities(id, activities) { 
-    console.log("Load activities");
-    $.get(
-        Settings.base_url + "/activity/list", 
-        {taskId : id},
-        function (data, status) {
-            console.log("Activity response");
-            console.log(data);
-            activities.empty();
-    
-            let jsonResponse = JSON.parse(data);
-            // console.log(typeof jsonResponse);
-            // console.log(jsonResponse);
-
-            if (jsonResponse.hasOwnProperty('data')) {
-                for (let i = 0; i < jsonResponse.data.length; i++) {
-                    const activity = jsonResponse.data[i];
-                    const activityElement = generateTaskActivity(
-                        {
-                            id : activity.legendId,
-                            title : activity.title,
-                            color : activity.color
-                        },
-                        activity.start, 
-                        activity.end,
-                        activity.id
-                    );
-    
-                    if ($.inArray(activity.id, deletedActivities) >= 0) {
-                        activityElement.addClass('hide');
-                    }
-                    activities.append(activityElement);
-                }
-            }
-        }
-    );
-}
-
-function loadLegends(legends, activities = null) {
-    legends.trigger('custom:reload');
-    
-    $.get(
-        Settings.base_url + "/legend/list", 
-        { id : projectId },
-        function (response) {
-            console.log("Legend response");
-            // console.log(response);
-            let jsonResponse = JSON.parse(response);
-            if (jsonResponse.statusCode === 200 && jsonResponse.hasOwnProperty('data'))
-            {
-                legends.empty();
-
-                for (let i = 0; i < jsonResponse.data.length; i++) {
-                    generateLegend(jsonResponse.data[i], legends, activities);
-                }
-            }
-        }
-    );
-}
-
-function generateLegend(legendData, legendsContainer, activities = null) {  
-    const legendElement = $(
-        '<div class="task-legend">' +
-            '<span class="leg-color" data-color="' + legendData.color + '"></span>' +
-            '<span class="leg-title">' + legendData.title + '</span>' +
-            '<button class="btn icon-btn leg-edit" data-toggle="legend" data-target="' + legendData.id + '">' +
-                '<span class="material-icons">edit</span>' +
-            '</button>' +
-        '</div>'
-    );
-
-    legendElement
-        .find('.leg-color, .leg-title')
-        .css('background-color', legendElement.find('.leg-color').data('color'))
-        .on('click', (e) => {
-            let date = new Date();
-            let currentDate =   date.getFullYear() + '-' +
-                                ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + '-' +
-                                (date.getDay() < 10 ? '0' : '') + date.getDay();
-
-            if (activities) {
-                activities.append(generateTaskActivity(
-                    legendData,
-                    currentDate, 
-                    currentDate,
-                    '')
-                );
-            }
-        });
-
-    legendElement
-        .find("button[data-toggle='legend']")
-        .on('click', (e) => {
-            buildLegendForm(legendData);
-        });
-
-    legendsContainer.append(legendElement);
-
-    legendsContainer.on('custom:reload', (e) => {
-        legendElement.find('.leg-color, .leg-title').off('click');
-        legendElement.find('button[data-toggle="legend"]').off('click');
-    });
-
-    return legendElement;
-}
-
-// || Task
-// Timeline datatable settings
-let dtTable = {
-    'dom' : '<"mesa-container"t>p',
-    "autoWidth": false,
-    "lengthChange": false,
-    'paging' : false,
-    'sort' : false,
-    'searching' : false,
-    'info' : false,
-
-    "ajax" : {
-        url : Settings.base_url + "/task/plans",
-        type : 'GET',
-        data : {projId : projectId}
-        ,
-        'complete' : function (data) { 
-            console.log(data);
-        }
-    },
-    "columns" : [
-        {
-            'data' : 'order_no',
-            'render' : function (data, type, row) {  
-                return parseFloat(data);
-            }
-        }, 
-        {'data' : 'description'}, 
-        {'data' : 'plan_start'},
-        {'data' : 'plan_end'},
-        {'defaultContent' : ''}
-    ],
-
-    "columnDefs" : [
-        {
-            "targets": 1,
-            "createdCell": function (td, cellData, rowData, row, col) {
-                // console.log("TD");
-                // console.log(td);
-                // console.log("Cell data");
-                // console.log(cellData);
-                $(td).addClass('taskCell');
-            }
-        }
-    ],
-    
-    order: [
-        [0, 'asc']
-    ],
-
-    initComplete : function () {
-        // Sets click functionality of rows   
-        $(this).find('tbody').on('click', 'tr', (e) => {
-
-            console.log("TR CLICKED");
-
-            let dt = this.api();
-
-            let row = $(e.target).parents('tr');
-            let rowData = dt.row(row).data();
-            let rowDisplay = dt.cells( row, '' ).render( 'display' );    
-            
-            let popup = buildTaskPopup();
-    
-            popup.find('.pmain .ptitle').text('Task ' + rowDisplay[0]);
-            popup.find('.pmain input[name="id"]').val(rowData.id);
-            popup.find('.pmain input[name="order"]').val(rowDisplay[0]);
-            popup.find('.pmain textarea[name="taskDesc"]').val(rowDisplay[1]);
-    
-            let activities = popup.find('#taskActivities');
-            
-            // Gets task activities
-            loadActivities(rowData.id, activities);
-            // Refreshes Activities
-            let taskInterval = setInterval(() => {
-                console.log("Activities reload");
-                loadActivities(rowData.id, activities);
-            }, 3000);
-            
-            // Delete task actions
-            popup.find('.pfooter .btn.delete-btn').show();
-            popup.find('.delete-btn').click(() => {
-                console.log("DELETE CLICKED");
-                console.log("Delete data");
-                console.log(rowData);
-                deleteTask(popup, rowData.id, dt);
-            });
-
-            // Task submit action 
-            popup.find('#taskForm').submit((e) => {
-                e.preventDefault();
-
-                $.post(
-                    Settings.base_url + "/task/update",
-                    {
-                        form : getTaskData($(e.target)),
-                        deleted : JSON.stringify(deletedActivities)
-                    },
-                    function (response, status) {
-                        console.log("Edit Response");
-                        let data = JSON.parse(response);
-                        if (data.statusCode == 200) 
-                        {   // Dismiss legend's form and reload legends list on success
-                            popup.find('button[data-dismiss]').trigger('click');
-
-                            // Reload tasks
-                            dt.ajax.reload(null, false);
-                        }
-                        else
-                        {   // Shows alert on fail
-                            popup.find('.alert-danger')
-                                .addClass('show')
-                                .text(data.message);
-                        }
-
-                        console.log("Response");
-                });
-            });
-    
-            // On dismiss listener
-            popup.on('custom:dismissPopup', (e) => {
-                console.log("Task edit dismissed");
-                
-                // Clears task reload interval
-                clearInterval(taskInterval);
-            });
-
-            popup.find('.pfooter .btn.neutral-outline-btn').css('width', '100%');
-
-            // Finally shows popup
-            Popup.show(popup);
-        });
-
-        // Destroy initialization of datatable on dismiss
-        $('.timeline').on('custom:timelineDismiss', (e) => {
-            console.log("Timeline dismiss");
-            this.api().destroy();
-            $('.timeline').off('custom:timelineDismiss');
-        });
-    }
-}
 
 function deleteTask(taskPopup, taskId, table) {  
     console.log("Delete popup");
@@ -309,7 +34,7 @@ function deleteTask(taskPopup, taskId, table) {
                 console.log("Response delete");
                 console.log(data);
                 let jsonData = JSON.parse(data);
-                if (jsonData.statusCode == 200) 
+                if (jsonData.statusCode === 200)
                 {   // Dismiss delete popup and reload legends list on success
                     console.log("Success delete");
                     deletePopup.find('button[data-dismiss]').trigger('click');
@@ -330,802 +55,31 @@ function deleteTask(taskPopup, taskId, table) {
     Popup.show(deletePopup);
 }
 
-// Shows timeline
-$('#timelineToggler button').click((e) => {
-    clearInterval(ganttChartInterval);
-    resetGanttChart();
-
-    $('.timeline')
-        .show()
-        .animate({
-            'margin-left' : '0'
-        }, 300, "swing");
-
-    // Initializes timeline table to datatable
-    let table = $("#tasksTable").DataTable(dtTable);
-
-    let tableInterval = setInterval(() => {
-        console.log("Table interval");
-        table.ajax.reload(null, false);
-    }, 3000);
-
-
-    $("#tasksTable").on( 'destroy.dt', function ( e, settings ) {
-        console.log("Table Destroy");
-        $(this).find('tbody').off( 'click', 'tr' );
-        clearInterval(tableInterval);
-        $("#tasksTable").off('destroy.dt');
-    });
-});
-
-// Dismisses timeline
-$('.timeline header .back-btn').click((e) => {
-    buildGanttChart();
-
-    $('.timeline').animate({
-        'margin-left' : '-100%'
-    }, 300, "swing", function () {  
-        $('.timeline').hide();
-        // $('.chart-container').show();
-    });
-
-    $('.timeline').trigger('custom:timelineDismiss');
-});
-
-function buildTaskPopup() {
-    console.log("Build popup");
-    let popup = $('#taskPopup');
-
-    // Preps task form
-    resetTaskPopup(popup);
-    
-    let newActivities = popup.find('#newActivities');
-    let legends = popup.find('#legends');
-    
-    // Get project legends
-    loadLegends(legends, newActivities);
-    // Refresh legends
-    let legendsInterval = setInterval(() => {
-        console.log("Legends reload");
-        loadLegends(legends, newActivities);
-    }, 3000);
-    
-
-    // On dismiss listener
-    popup.on('custom:dismissPopup', (e) => {
-        console.log("Project Popup dismissed");
-        
-        // Removes legends reload interval
-        clearInterval(legendsInterval);
-        resetTaskPopup(popup);
-
-        // Removes submit event of task form
-        popup.find('#taskForm').off('submit');
-    });
-
-    popup.on('custom:legendReload', (e) => {
-        console.log("Legends reloaded");
-        loadLegends(legends, newActivities);
-    });
-
-    Popup.initialize(popup);
-
-    return popup;
-}
-
-// Adds new task
-$('#addTask').on('click',(e) => {
-    let popup = buildTaskPopup();
-
-    console.log("Porject id " + projectId);
-    
-    $.get(
-        Settings.base_url + "/task/count",
-        { projId : projectId },
-        function (data, textStatus) {
-            let jsonData = JSON.parse(data);
-            popup.find('.pmain .ptitle').text('Task ' + (jsonData.data + 1));
-        }
-    );
-
-    // Displays task form
-    popup.find('.pfooter .btn.delete-btn').hide();
-    popup.find('.pfooter .btn.neutral-outline-btn').css('width', '');
-    Popup.show(popup);
-
-    // Task submit action
-    popup.find('#taskForm').submit((e) => {
-        e.preventDefault();
-        console.log("Submit form");
-        let form = $(e.target);
-    
-        $.post(
-            Settings.base_url + "/task/new",
-            {form : getTaskData(form)},
-            function (data, textStatus) {
-                console.log("Add Response");
-                let response = JSON.parse(data);
-                console.log(response);
-
-                if (response.statusCode == 200) 
-                {   // Dismiss legend's form and reload legends list on success
-                    popup.find('button[data-dismiss]').trigger('click');
-
-                    // Reload tasks
-                    $("#tasksTable").dataTable().api().ajax.reload(null, false);
-                }
-                else
-                {   // Shows alert on fail
-                    popup.find('.alert-danger')
-                        .addClass('show')
-                        .text(response.message);
-                }
-            }
-        );
-    });
-    
-});
-
-// Collects task's form data
-function getTaskData(form) {
-
-    let formData = {
-        id : form.find('input[name="id"]').val(),
-        projId : projectId,
-        description : form.find('[name="taskDesc"]').val()
-    };
-
-    // Gets old activities data
-    let oldActivities = [];
-
-    form
-        .find('#taskActivities')
-        .children()
-        .each((index, element) => {
-            getActivityData(element, oldActivities);
-        });
-
-    formData['oldActivities'] = oldActivities;
-
-    // Gets new activities data
-    let newActivities = [];
-
-    form
-        .find('#newActivities')
-        .children('div:not(.hide)')
-        .each((index, element) => {
-            getActivityData(element, newActivities, true);
-        });
-    
-    formData['newActivities'] = newActivities;
-
-    // Returs a json format form data
-    return JSON.stringify(formData);
-}
-
-// Scrapes activity details to array
-function getActivityData(element, actsArr, isNew = false) {  
-    let activity = $(element);
-    let actObj = {};
-
-    console.log("Element");
-    console.log(activity);
-    if (!isNew) {
-        actObj['id'] = activity.attr('id');
-    }
-    actObj['legendId'] = activity.find('[name="legendId"]').val();
-    actObj['start'] = activity.find('[name="start"]').val();
-    actObj['end'] = activity.find('[name="end"]').val();
-    console.log(actObj);
-
-    actsArr.push(JSON.stringify(actObj));
-}
-
-$('form[data-row] button[type="submit"]').click((e) => {
-    e.preventDefault();
-    $(e.target).parents('form[data-row]').submit();
-});
-
-// Task Activity
-let deletedActivities = [];
-
-// Resets task form
-function resetTaskPopup(popup) {
-    deletedActivities = [];
-    popup.find('.pmain .ptitle').empty();
-    popup.find('[name="taskDesc"]').val('');
-    popup.find('#taskActivities').empty();
-    popup.find('#newActivities').empty();
-    popup.find('#legends').empty();
-    
-    popup.find('.alert-danger').removeClass('show');
-
-    popup.find('.delete-btn').off('click');
-}
-
-// Generates task activity panel/element
-function generateTaskActivity(legend, start, end, id = '') {  
-    console.log("Generate Task activityi");
-    let activityElement = $('<div class="form-input-group task-activity" id="' + id + '">' +
-                                '<span class="linear-label">' +
-                                    '<label for="">' + legend.title + '</label>' +
-                                    '<button type="button" class="icon-btn close-btn" data-dismiss="activity" aria-label="Close">' +
-                                        '<span class="material-icons">close</span>' +
-                                    '</button>' +
-                                '</span>' +
-                                '<input type="hidden" name="legendId" value="' + legend.id + '">' +
-                                '<div class="tb-date">' +
-                                    '<input type="date" name="start" value="' + start + '">' +
-                                    '-' +
-                                    '<input type="date" name="end" value="' + end + '">' +
-                                '</div>' +
-                            '</div>');
-
-    activityElement.find('.close-btn').click((e) => {
-        if (id && ($.inArray(id, deletedActivities) <= -1)) {
-            deletedActivities.push(id);
-        }
-
-        activityElement.addClass('hide');
-        console.log("DEBUG: Deleted");
-        console.log(deletedActivities);
-    });
-
-    activityElement.css({
-        'border-color' : Utils.hexToRGB ( legend.color, 0.4 ),
-        'box-shadow' : '0 1px 5px ' + Utils.hexToRGB ( legend.color, 0.4 )
-    });
-
-    activityElement.find('label').css('color', Utils.pSBC( -0.4, legend.color ));
-    activityElement.find('input').css('border-bottom-color', Utils.pSBC( -0.4, legend.color ));
-
-    return activityElement;
-}
-
-// || Gantt Chart 
-
-// Even Rows Background
-let chartRows = $(".chart-row");
-
-if (chartRows.length > 0) {
-    for (let i = 0; i < chartRows.length; i++) {
-        if (i % 2===0) {
-            if (i !== 0) {
-                $(chartRows[i]).css("background-color", "#EEF4ED");
-                $(chartRows[i]).find(".chart-row-item").css("background-color", "#EEF4ED");
-            }
-        }
-    }
-}
-
-// || Legend
-
-// Legends form
-function generateLegendForm() {
-    let legend = $(
-        '<div class="popup show popup-center popup-legend" id="legendPopup" data-legend="" tabindex="-1" aria-hidden="true">' +
-            '<div class="pcontainer popup-sm">' +
-                '<div class="pcontent">' +
-                    '<div class="pheader">' +
-                        '<h2 class="ptitle">Legend</h2>' +
-                        '<button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">' +
-                            '<span class="material-icons">close</span>' +
-                        '</button>' +
-                    '</div>' +
-        
-                    '<div class="pbody">' +
-
-                        '<div class="alert alert-danger" role="alert">' +
-                            'A simple danger alert—check it out!' +
-                        '</div>' +
-
-                        '<div class="legend-preview">' +
-                            '<span></span>' +
-                            '<span id="color-preview"></span>' +
-                            '<span></span>' +
-                        '</div>' +
-
-                        '<form id="legendForm">' +
-                            '<div class="form-group">' +
-                            '<label for="">Title</label>' +
-                            '<input type="text"' +
-                                'class="form-control" name="title" aria-describedby="helpId" placeholder="">' +
-                            '</div>' +
-
-                            '<label for="">Select a color</label>' +
-                            '<div class="color-selection">' +
-                                '<label for="row1.1" class="option-box">' +
-                                '<input type="radio" name="color" id="row1.1"  value="#7bc86c" checked>' +
-                                '</label>' +
-                                '<label for="row1.2" class="option-box">' +
-                                '<input type="radio" name="color" id="row1.2"  value="#f5dd29">' +
-                                '</label>' +
-                                '<label for="row1.3" class="option-box">' +
-                                '<input type="radio" name="color" id="row1.3"  value="#ffaf3f">' +
-                                '</label>' +
-                                '<label for="row1.4" class="option-box">' +
-                                '<input type="radio" name="color" id="row1.4"  value="#ef7564">' +
-                                '</label>' +
-                                '<label for="row1.5" class="option-box">' +
-                                '<input type="radio" name="color" id="row1.5"  value="#cd8de5">' +
-                                '</label>' +
-
-                                '<label for="row2.1" class="option-box">' +
-                                    '<input type="radio" name="color" id="row2.1"  value="#5aac44">' +
-                                '</label>' +
-                                '<label for="row2.2" class="option-box">' +
-                                    '<input type="radio" name="color" id="row2.2"  value="#e6c60d">' +
-                                '</label>' +
-                                '<label for="row2.3" class="option-box">' +
-                                    '<input type="radio" name="color" id="row2.3"  value="#e79217">' +
-                                '</label>' +
-                                '<label for="row2.4" class="option-box">' +
-                                    '<input type="radio" name="color" id="row2.4"  value="#cf513d">' +
-                                '</label>' +
-                                '<label for="row2.5" class="option-box">' +
-                                    '<input type="radio" name="color" id="row2.5"  value="#a86cc1">' +
-                                '</label>' +
-
-                                '<label for="row3.1" class="option-box">' +
-                                    '<input type="radio" name="color" id="row3.1"  value="#5ba4cf">' +
-                                '</label>' +
-                                '<label for="row3.2" class="option-box">' +
-                                    '<input type="radio" name="color" id="row3.2"  value="#29cce5">' +
-                                '</label>' +
-                                '<label for="row3.3" class="option-box">' +
-                                    '<input type="radio" name="color" id="row3.3"  value="#6deca9">' +
-                                '</label>' +
-                                '<label for="row3.4" class="option-box">' +
-                                    '<input type="radio" name="color" id="row3.4"  value="#ff8ed4">' +
-                                '</label>' +
-                                '<label for="row3.5" class="option-box">' +
-                                    '<input type="radio" name="color" id="row3.5"  value="#344563">' +
-                                '</label>' +
-
-                                '<label for="row4.1" class="option-box">' +
-                                    '<input type="radio" name="color" id="row4.1"  value="#026aa7">' +
-                                '</label>' +
-                                '<label for="row4.2" class="option-box">' +
-                                    '<input type="radio" name="color" id="row4.2"  value="#00aecc">' +
-                                '</label>' +
-                                '<label for="row4.3" class="option-box">' +
-                                    '<input type="radio" name="color" id="row4.3"  value="#4ed583">' +
-                                '</label>' +
-                                '<label for="row4.4" class="option-box">' +
-                                    '<input type="radio" name="color" id="row4.4"  value="#e568af">' +
-                                '</label>' +
-                                '<label for="row4.5" class="option-box">' +
-                                    '<input type="radio" name="color" id="row4.5"  value="#091e42">' +
-                                '</label>' +
-                            '</div>' +
-                        '</form>' +
-                    '</div>' +
-        
-                    '<div class="pfooter">' +
-                        '<button type="submit" form="legendForm" class="btn action-btn">Save</button>' +
-                        '<button type="button" class="btn danger-btn" data-action="delete" data-toggle="popup" data-type="delete">' +
-                            'Delete' +
-                        '</button>' +
-                        '<button type="button" class="btn neutral-outline-btn" data-dismiss="popup">Cancel</button>' +
-                    '</div>' +
-                '</div>' +
-            '</div>' +
-        '</div>'
-    );
-
-    legend.find('.option-box').each((index, element) => {
-        $(element).css('background-color', $(element).find('input').val());
-        $(element).find('input').on('change', (e) => {
-            console.log("Input change");
-            if (e.target.checked) {
-                legend.find('#color-preview').css('background-color', $(e.target).val());
-            }
-        });
-    });
-
-    Popup.initialize(legend);
-
-    return legend;
-}
-
-function buildLegendForm(legend = null) {  
-    // let btn = $(e.target);
-    let legendForm = generateLegendForm();
-
-    console.log("Legend form");
-
-    if (legend != null) 
-    {   // Generate a legend form to edit
-        console.log("Edit legend");
-        console.log(legend);
-        legendForm
-            .attr('id', legend.id)
-            .attr('data-legend', 'edit')
-            .find('[name="title"]').val(legend.title);
-        legendForm
-            .find('[type="radio"][value="' + legend.color + '"]')
-            .prop('checked', true)
-            .trigger('change');
-
-        // Submit action
-        legendForm.find('#legendForm').on('submit', (e) => {
-            e.preventDefault();
-
-            // Requests to update a legend
-            $.post(
-                // Url
-                Settings.base_url + "/legend/update", 
-                // Data
-                {
-                    id : legend.id,
-                    form : function () {return $(e.target).serialize();}
-                },
-                // On success
-                function (response, textStatus) {
-                    console.log("Update legend");
-                    let jsonResponse = JSON.parse(response);
-                    dimissLegend(legendForm, jsonResponse);
-                }
-            );
-        });
-
-        legendForm.find(".pfooter .btn.danger-btn").on('click', (e) => {
-            // Requests to remove a legend
-            $.post(
-                // Url
-                Settings.base_url + "/legend/remove", 
-                // Data
-                { id : legend.id },
-                // On success
-                function (response, textStatus) {
-                    console.log("Remove legend");
-                    let jsonResponse = JSON.parse(response);
-                    dimissLegend(legendForm, jsonResponse);
-                }
-            );
-        });
-    }
-    else 
-    {   // Prepare a legend form to create
-        console.log("Create legend");
-        legendForm.find(".ptitle").text("Create legend");
-        legendForm.find(".pfooter .btn.danger-btn").remove();
-
-        // Submit action
-        legendForm.find('#legendForm').on('submit', (e) => {
-            e.preventDefault();
-
-            // Requests to create a new legend
-            $.post(
-                // Url
-                Settings.base_url + "/legend/new", 
-                // Data
-                { 
-                    projId : projectId,
-                    form : function () {return $(e.target).serialize();}
-                },
-                // On success
-                function (newLegendResponse, textStatus) {
-                    let jsonResponse = JSON.parse(newLegendResponse);
-
-                    dimissLegend(legendForm, jsonResponse);
-                }
-            );
-        });
-    }
-
-    // On dismiss, removes listeners
-    legendForm.on('custom:dismissPopup', (e) => {
-        console.log("Legend dismiss");
-        legendForm.find('#legendForm').off('submit');
-        legendForm.find('input').off('change');
-        legendForm.find(".pfooter .btn.danger-btn").off('click');
-    });
-
-    $('body').append(legendForm);
-    Popup.show(legendForm);
-}
-
-function dimissLegend(legendForm, response) {
-    if (response.statusCode == 200) 
-    {   // Dismiss legend's form and reload legends list on success
-        legendForm.find('button[data-dismiss]').trigger('click');
-        loadLegends($('.show #legends'), $('.show #taskActivities'));
-        $('#taskPopup').trigger('custom:legendReload');
-    }
-    else
-    {   // Shows alert on fail
-        legendForm.find('.alert-danger')
-            .addClass('show')
-            .text(response.message);
-    }
-}
-
-// Shows legends form
-$("button[data-toggle='legend']").on('click', (e) => {
-    buildLegendForm();
-});
-
-// Closes Menu when clicked anywhere
-$(document).click((e) => {
-    if (!$(e.target).is(".dots-menu")) {
-        console.log("Not menu");
-        closeMenu();
-    }
-
-    console.log("INFO: Clicked element: ");
-    console.log(e.target);
-});
-
-// || Task Menu Functions
-
-// Task Row
-function renderTask(taskID, taskNumber) {
-    return  '<tr id="taskID">' +
-                '<th scope="row">' + taskNumber + '</th>' +
-                '<td class="taskCell">' +
-                    '<div class="form-input-group">' +
-                        '<textarea oninput="autoHeight(this)" name="" rows="1" readonly></textarea>' +
-                    '</div>' +
-                '</td>' +
-                '<td>' +
-                    '<div class="form-input-group">' +
-                        '<input type="date" name="" readonly>' +
-                    '</div>' +
-                '</td>' +
-                '<td>' +
-                    '<div class="form-input-group">' +
-                        '<input type="date" name="" readonly>' +
-                    '</div>' +
-                '</td>' +
-                '<td class="action-cell">' +
-                    '<div class="action-cell-content">' +
-                        '<div class="dots-menu">' +
-                            '<button type="button" class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>' +
-                        '</div>' +
-                    '</div>' +
-                '</td>' +
-            '</tr>';
-}
-
-// Generates new row
-function generateRow(taskID, taskNumber) {
-    let newRow = $(renderTask(taskID, taskNumber));
-
-    // Listeners
-    newRow
-        .on('click', openTask)
-        .find(".dots-menu-btn").on('click', showRowMenu);
-
-    newRow.find(".dots-menu-btn").trigger('click');
-    console.log("addRow");
-    console.log(newRow.find("#editRow").trigger('click'));
-
-    return newRow;
-}
-
-// Row Actions
-function renderRowActions(rowID) {
-    return '<span class="row-action-btns">' +
-                '<button class="btn icon-btn neutral-btn" type="button">' +
-                    '<span class="material-icons">cancel</span>' +
-                '</button>' +
-                '<button class="btn icon-btn" name="editTask" type="submit" value="' + rowID + '">' +
-                    '<span class="material-icons success-text">check_circle</span>' +
-                '</button>' +
-            '</span>';
-}
-
-// Row Menu
-function renderRowMenu(formId, isEdit) {
-    return '<ul class="dots-menu-popup">' + 
-                (
-                    isEdit ? 
-                    '<li id="saveRow" data-form="#' + formId + '">Save</li>' + 
-                    '<li id="cancelRow">Cancel</li>' 
-                    :
-                    '<li id="editRow">Edit</li>' +
-                    '<li id="removeRow">Remove</li>'
-                ) +
-                '<hr>' + 
-                '<li class="add-task" data-position="subtask">Add sub task</li>' + 
-                '<li class="add-task" data-position="top">Add task before</li>' + 
-                '<li class="add-task" data-position="bottom">Add task after</li>' + 
-            '</ul>';
-}
-
-// Closes Menu
-function closeMenu(menu = $("div.dots-menu.active")) {
-    console.log(menu.find(".dots-menu-popup").remove());
-    console.log(menu.removeClass("active"));
-}
-
-// Shows Menu
-function showRowMenu(e) {
-    console.log("Menu");
-    e.preventDefault();
-    let menuBtn = $(e.target);
-    let reClicked = $(".dots-menu.active").is(menuBtn.parent());
-    console.log(menuBtn);
-
-    if ($(".dots-menu.active").length > 0) {
-        console.log("Menu is open");
-        closeMenu();
-    }
-
-    if (!reClicked) {
-        console.log("Parent");
-        menuBtn.parent().addClass("active");
-        menuBtn.after(renderRowMenu(menuBtn.closest("form").attr("id"), menuBtn.closest("tr").hasClass("edit")));
-
-        console.log("Active Menu");
-        let menu = menuBtn.parent();
-        console.log(menu);
-
-        menu.find("#saveRow").on('click', saveTask);
-        menu.find("#cancelRow").on('click', closeEdit);
-        menu.find("#editRow").on('click', editTask);
-        menu.find("#removeRow").on('click', removeTask);
-        menu.find("#saveRow").on('click', saveTask);
-        menu.find('li.add-task').on('click', addTask);
-    }
-
-    e.stopPropagation();
-}
-
-// Add task on row
-function addTask(e) {
-    console.log("Add Task");
-    e.preventDefault();
-    let position = $(e.target).data("position");
-
-    switch(position) {
-        case "top":
-            console.log($(e.target).closest("tr").before(renderTask('taskID', "-1")));
-            break;
-        case "bottom":
-            console.log($(e.target).closest("tr").after(renderTask('taskID', "+1")));
-            break;
-        case "subtask":
-            console.log($(e.target).closest("tr").after(renderTask('taskID', "")));
-            break;
-    }
-
-    closeMenu()
-    e.stopPropagation();
-}
-
-// Edits task
-function editTask(e) {
-    e.preventDefault();
-
-    console.log("Edit row");
-  
-    let row = $(e.target).closest("tr");
-    row.addClass("edit");
-    row.find("textarea, input")
-        .removeAttr("readonly")
-        .click((event) => {event.stopPropagation();});
-
-    row.find(".action-cell-content").append(renderRowActions(row.attr("id")));
-    row.find('.neutral-btn').on('click', closeEdit);
-    
-    closeMenu($(e.target).closest('div.dots-menu.active'));
-    e.stopPropagation();
-}
-
-// Closes task editting
-function closeEdit(e) {
-    console.log("Close edit");
-    console.log(e.target);
-    $(e.target).closest("tr")
-        .removeClass("edit")
-        .find("textarea, input")
-            .off('click')
-            .attr("readonly", true)
-            .removeClass("edit")
-        .closest("tr").find(".row-action-btns")
-            .remove();
-
-    closeMenu();
-    e.stopPropagation();
-}
-
-// Saves task
-function saveTask(e) {
-    console.log("Save task");
-    console.log("Submit using ajax");
-    console.log($($(e.target).data("form")).submit());
-}
-
-// Removes task
-function removeTask(e) {
-    console.log("Remove this element");
-    $(e.target).closest("tr").remove();
-
-    closeMenu();
-    e.stopPropagation();
-}
-
-// Open Task Bar details
-function openTask(e) {
-    console.log("Clicked open task");
-    let selectedRow = $(e.target).closest('tr');
-    let taskBar = $("#taskBar");
-
-    if(!selectedRow.hasClass("active")) {
-        let hasActiveRow = selectedRow.siblings(".active");
-        if (hasActiveRow) {
-            console.log(hasActiveRow.removeClass("active"));
-            console.log("A row is active");
-        }
-
-        if (taskBar.hasClass("hide")) {
-            console.log("Taskbar is inactive");
-            console.log(selectedRow.addClass("active"));
-            taskBar.removeClass("hide");
-        }
-
-        console.log("Showing");
-        // taskBar.load("data.txt", {
-        //     firstName: "Eli",
-        //     lastName: "Lamzon"
-        // }, () => {
-        //     console.log("Open Task/Row Clicked");
-        // });
-        console.log(selectedRow.addClass("active"));
-        
-    } else {
-        console.log("Hiding");
-        console.log(selectedRow.removeClass("active"));
-        taskBar.addClass("hide");
-    }
-}
-
-
-// || Listeners
-$("#tasksTable tbody tr").on('click', openTask);
-$(".dots-menu-btn").on('click', showRowMenu);
-
-// Adds new subtask of last row
-$('#addSubTask').on('click', (e) => {
-    console.log("Add Subtask");
-    $($(e.target).data('target')).append(generateRow("taskID", ""));
-});
-
 
 // || Window
-// Scroll
-$(window).scroll(function(){
+$(window).on('scroll',function(){
     console.log("Scroll");
-    // Slide fixed stuff
     slideAutoHeight();
 });
 
-$(window).on("resize", (e) => {
-    if ($(this).width() >= 992) {
-        resizeCollapse(false);
-        $('#sideCollapse').css('height', ''); 
-    }
-});
+// || Gantt Chart
+let ganttChart = $('.gantt-chart');
+let ganttReload;
+let chartTooltipShown = false;
+let tooltip;
+let showHelp = false;
 
-
-
-
-// || Gannt Chart
 function loadGanttChart() {
     console.log("Load gantt chart");
-    let ganttChart = $('.gantt-chart');
     let chartX = ganttChart.scrollLeft();
     let chartY = ganttChart.scrollTop();
     $.get(
         Settings.base_url + "/task/chart",
         {projId : projectId},
-        function (data, textStatus) {
+        function (data) {
             console.log(data);
 
             let response = JSON.parse(data);
-
               
             resetGanttChart();
             let rowHead = '250px';
@@ -1134,12 +88,19 @@ function loadGanttChart() {
 
             console.log(response.data);
 
+            //  Completion Date
+            $('.start-date').text(new Date(response.data.start).toLocaleString('default', {dateStyle : "medium"}));
+            $('.end-date').text(new Date(response.data.end).toLocaleString('default', {dateStyle : "medium"}));
+            $('.completion-days').text(response.data.total_days + ' days');
+
             // Chart Header
             for (let i = 0; i < response.data.header[0].length; i++) {
                 const days = response.data.header[1][i];
 
+                console.log(days);
+
                 // Months
-                let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long' }) + '</span>');
+                let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long', year : "numeric" }) + '</span>');
                 monthGrid.css('grid-column', monthStart + ' / span ' + days);
                 $('.chart-months').append(monthGrid);
                 
@@ -1155,142 +116,160 @@ function loadGanttChart() {
             // Content
             if (response.data.hasOwnProperty('content'))  
             {
+                let progress = 0;
                 response.data.content.forEach(task => 
                     {
-                    let taskBar = generateGanttRow(task);
-                    let bars = taskBar.find('.chart-row-bars');
+                        let taskBar = generateGanttRow(task);
+                        let bars = taskBar.find('.chart-row-bars');
+                        progress += task.progress;
 
-                    task.activity.forEach(activity => 
-                        {   // Generates gantt charts bars
-                        let bar = $('<li title="' + activity.title + '"></li>');
+                        let bar = $('<li>' +
+                                            '<span class="progress-percent">'+task.progress+'%</span>' +
+                                        '</li>');
+
+                        if (task.stopped === 1) {
+                            bar
+                                .addClass('stopped')
+                                .css('--percent', task.progress + '%')
+                                .find('.progress-percent')
+                                .html('<span class="material-icons help-icon">help</span>');
+                        }
 
                         bar.css({
-                            'grid-column' : activity.grid + ' / span ' + activity.span,
-                            'background-color' : activity.color
+                            'grid-column' : task.grid + ' / span ' + task.span,
+                            'background-image' : 'linear-gradient(to right, var(--palette1), var(--palette1) '+task.progress+'%, #6fcbe0 0, #6fcbe0)'
                         });
 
                         bars.append(bar);
-                    });
 
-                    //     let end = new Date(activity.end);
-                    //     let start = new Date(activity.start);
+                        bar.on('mouseenter', (e) =>
+                        {
+                            tooltip = chartTooltipShown ? $('.custom_tooltip') : createTooltip(task);
 
-                    //     // Span of width of grid item
-                    //     let span = (end - start) / (1000*60*60*24) + 1;
-                        
+                            let element = $(e.target);
+                            let top = e.target.getBoundingClientRect().top;
 
-                    //     if (projectStart === 0) {
-                    //         projectStart = start;
-                    //     }
+                            const showToolTip = (left) => {
+                                if (!chartTooltipShown) {
+                                    $('body').append(tooltip);
+                                }
+                                tooltip.css({
+                                    top : (top - tooltip[0].scrollHeight) - 5,
+                                    left : left - ((tooltip[0].scrollWidth)/2)
+                                });
 
-                    //     projectEnd = end;
+                                chartTooltipShown = true;
+                            }
 
-                    //     if ($.inArray(start.getMonth(), months[0]) < 0) {
-                    //         months[0].push(start.getMonth());
-                    //         months[1].push(start.getFullYear());
-                    //     } else {
-                    //         console.log("Nandun na start");
-                    //     }
+                            element.on('mousemove', (e) =>
+                            {
+                                showToolTip(e.clientX);
+                                chartTooltipShown = true;
+                            });
+                        });
 
-                    //     if ($.inArray(end.getMonth(), months[0]) < 0) {
-                    //         months[0].push(end.getMonth());
-                    //         months[1].push(end.getFullYear());
-                    //     } else {
-                    //         console.log("Nandun na end");
-                    //     }
+                        bar.on('mouseleave', (e) =>
+                        {
+                            chartTooltipShown = false;
+                            let element = $(e.target);
+                            tooltip.remove();
+                            element.off('mousemove');
+                        });
 
-                    //     let grid = (start - projectStart) / (1000*60*60*24);
+                        if (task.stopped === 1)
+                        {
+                            bar.find('.progress-percent').on('mouseenter', (e) =>
+                            {
+                                let element = $(e.target);
+                                let top = e.target.getBoundingClientRect().top;
+                                let left = e.target.getBoundingClientRect().left;
 
-                    //     lastGrid = (grid === 0) ? 1 : grid+1;
+                                showHelp = true;
 
-                    //     let parsedDate = String(lastGrid) + ' / span ' + String(span > 0 ? span : 1);
-                    //     bar.css({
-                    //         'grid-column' : parsedDate,
-                    //         'background-color' : activity.color
-                    //     });
+                                element.css('cursor', 'progress');
 
-                    //     bars.append(bar);
-                    // });
+                                $.get(
+                                    Settings.base_url + "/task/stoppage",
+                                    {taskId : task.id},
+                                    function (data) {
+                                        console.log('Stoppage');
+                                        console.log(data);
 
-                    $('.chart-body').append(taskBar);
-                    
+                                        let response = JSON.parse(data);
+                                        console.log(response);
+                                        if (response.statusCode === 200 && showHelp) {
+                                            tooltip = chartTooltipShown ? $('.custom_tooltip') : createTooltip(response.data, true);
+
+                                            if (!chartTooltipShown) {
+                                                $('body').append(tooltip);
+                                            }
+
+                                            tooltip.css({
+                                                top: (top - tooltip[0].scrollHeight) - 5,
+                                                left : left + ((element.width() - tooltip[0].scrollWidth)/2),
+                                            });
+
+                                            chartTooltipShown = true;
+                                        }
+
+                                        element.css('cursor', 'pointer');
+                                    }
+                                );
+
+                                e.stopPropagation();
+                            });
+
+                            bar.find('.progress-percent').on('mouseleave', (e) =>
+                            {
+                                chartTooltipShown = false;
+                                showHelp = false;
+                                let element = $(e.target);
+                                tooltip.remove();
+                                element.off('mousemove');
+                                e.stopPropagation();
+                            });
+                        }
+
+                        $('.chart-body').append(taskBar);
+
+                        $('.progress-percent').each((index, element) => {
+                            let percent = $(element);
+                            percent.css('right', '-' + (percent.width() + 5) + 'px');
+                        });
                 });
-            } 
-            // else {
-                // while ($(window).width() >= $('#projectGanttChart').width()) {
-                //     console.log("Generate row");
-                //     generateGanttRow();
-                //     $('.chart-body').append(generateGanttRow());
-                // }
-                // console.log($(window).width());
-                // console.log($('#projectGanttChart').width());
-                // console.log($('.chart').width());
-            // }
+
+                //  Completion bar
+                const NUM_OF_TASKS = response.data.content.length;
+                progress = (progress / (100 * NUM_OF_TASKS)) * 100;
+
+                $('.completion-bar').css('background-image', 'linear-gradient(to right, var(--primary), var(--primary) '+progress+'%, transparent 0, #d2d2d2)');
+                $('.completion-percent').text(progress.toFixed(2) + '%');
+            }
 
             // Chart grid settings
             $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css(
-                'grid-template-columns', 'repeat(' + response.data.total_days + ', minmax(var(--chart-grid-width), 1fr))'
+                'grid-template-columns', 'repeat(' + response.data.grid + ', minmax(var(--chart-grid-width), 1fr))'
             );
 
-            $('.chart-lines').css(
-                'grid-template-columns', rowHead + ' repeat(' + response.data.total_days + ', 1fr)'
+            let chartLines = $('.chart-lines');
+            chartLines.css(
+                'grid-template-columns', rowHead + ' repeat(' + response.data.grid + ', 1fr)'
             );
 
             // Chart lines
             let day = new Date(response.data.start).getDay() - 1;
             
-            for (let j = 0; j < response.data.total_days; j++) {
+            for (let j = 0; j < response.data.grid; j++) {
                 let line = $('<span></span>');
 
                 if (day === 0) {line.addClass('sunday');}
-                $('.chart-lines').append(line);
+                chartLines.append(line);
                 
                 day++;
                 if (day === 7) {day = 0;}
             }
 
-            // Chart Header
-            // for (let i = 0; i < headerLength; i++) {
-            //     const days = response.data.header[1][i];
-
-            //     // Months
-            //     let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long' }) + '</span>');
-            //     monthGrid.css('grid-column', monthStart + ' / span ' + days);
-            //     $('.chart-months').append(monthGrid);
-                
-            //     // Days
-            //     for (let j = 1; j <= days; j++) {
-            //         $('.chart-days').append('<span>' + startDate++ + '</span>');
-            //     }
-                
-            //     startDate = 1;
-            //     monthStart += days;
-            // }
-
-            // for (let i = 0; i < response.data.header[0].length; i++) {
-            //     const days = response.data.header[1][i];
-
-            //     // Months
-            //     let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long' }) + '</span>');
-            //     monthGrid.css('grid-column', monthStart + ' / span ' + days);
-            //     $('.chart-months').append(monthGrid);
-                
-            //     // Days
-            //     for (let j = 1; j <= days; j++) {
-            //         $('.chart-days').append('<span>' + startDate++ + '</span>');
-            //     }
-                
-            //     startDate = 1;
-            //     monthStart += days;
-            // }
-
-            // $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css(
-            //     'grid-template-columns', 'repeat(' + response.data.total_days + ', minmax(var(--chart-grid-width), 1fr))'
-            // );
-
-            // $('.chart-lines').css(
-            //     'grid-template-columns', rowHead + ' repeat(' + response.data.total_days + ', 1fr)'
-            // );
+            $('.chart-lines span').first().addClass('chart-row-item');
 
             // Sets scroll position to last scrolls' positions :>
             ganttChart.scrollLeft(chartX);
@@ -1298,12 +277,16 @@ function loadGanttChart() {
             
             ganttChart.trigger('custom:ready');
         }
+    ).then(function()
+        {   // on completion, restart
+            console.log("Reload ganttchart");
+            ganttReload = setTimeout(loadGanttChart, 5000);
+        }
     );
 }
 
 function resetGanttChart() {  
     $('.chart-months, .chart-days, .gantt-chart .chart-row-bars').css('grid-template-columns', '');
-    // $('.chart-lines').css('grid-template-columns', '');
     $('.chart-months').empty();
     $('.chart-days').empty();
     $('.chart-lines').empty();
@@ -1312,36 +295,43 @@ function resetGanttChart() {
         .append('<div class="chart-lines"></div>');
 }
 
-function buildGanttChart() {  
-    loadGanttChart();
-    loadLegends($('.legends-container'));
+loadGanttChart();
 
-    ganttChartInterval = setInterval(() => {
-        loadGanttChart();
-        loadLegends($('.legends-container'));
-    }, 5000);
-}
-
-let ganttChartInterval;
-
-buildGanttChart();
-
-
-//create the function getNumberOfDays with getDate() method
-function getNumberOfDays (month, year) {
-    return new Date(year, month + 1, 0).getDate();
-}
-
-$('.gantt-chart').on('custom:ready', (e) => {
+ganttChart.on('custom:ready', (e) =>
+{
     $('#projectGanttChart .spinner').hide();
     $('.chart-container').css('visibility', 'visible');
 });
 
-function generateGanttRow(task = null) {  
-    // console.log(task.plan_start);
-    // console.log(new Date(task.plan_end) - new Date(task.plan_start));
-    // console.log((new Date(task.plan_end) - new Date(task.plan_start)) / (1000*60*60*24));
-    // console.log((1000*60*60*24));
+function createTooltip(task, help = false)
+{
+    let end = (task.end === "0000-00-00") ? '-' : (new Date(task.end).toLocaleString('default', {dateStyle : "medium"}));
+    let tooltip = $(
+        '<div class="custom_tooltip">' +
+            '<div class="linear">' +
+                '<h5 class="tip-title">'+task.description+'</h5>' +
+            '</div>' +
+            '<p class="tip-date">' +
+                'Start: '+(new Date(task.start).toLocaleString('default', {dateStyle : "medium"}))+' <br>' +
+                'End: '+end+' </p>' +
+        '</div>');
+
+    if (task.stopped === 1 || help) {
+        tooltip
+            .addClass('stopped');
+        if (help) {
+            tooltip
+                .find('.linear')
+                .prepend('<span class="material-icons help-icon">help</span>');
+        }
+    }
+
+    return tooltip;
+
+}
+
+function generateGanttRow(task = null)
+{
     let row = $(
         '<div class="chart-row">' +
             '<div class="chart-row-item task-name">' +
@@ -1355,20 +345,13 @@ function generateGanttRow(task = null) {
         row.find('.task-number').text(parseFloat(task.order_no));
         row.find('.task-name').text(task.description);
     }
-    // return $(
-    //     '<div class="chart-row">' +
-    //         '<div class="chart-row-item task-name">' +
-    //             '<strong class="task-number">' + parseFloat(task.order_no) + '</strong>' +
-    //             task.description +
-    //         '</div>' +
-    //         '<ul class="chart-row-bars"></ul>' +
-    //     '</div>'
-    // );
+
     return row;
 }
 
 
 // || Project info
+let projectInfo = $('#projectDetailForm');
 let infoInterval;
 
 // Gets project info from the server
@@ -1377,23 +360,21 @@ function loadProjectInfo() {
     $.get(
         Settings.base_url + "/project/get",
         {projId : projectId},
-        function (data, textStatus) {
-            console.log(data);
+        function (data) {
             let response = JSON.parse(data);
 
-            if (response.hasOwnProperty('data')) {
-                console.log(response.data);
+            if (response.hasOwnProperty('data'))
+            {
                 let project = response.data;
-                let form = $('#projectDetailForm');
-                form.find('[name="id"]').val(project.id);
-                form.find('[name="purchaseOrd"]').val(project.purchase_ord);
-                form.find('[name="awardDate"]').val(project.award_date);
-                form.find('[name="description"]').val(project.name);
-                form.find('[name="buildingNo"]').val(project.building_number);
-                form.find('[name="location"]').val(project.location);
-                form.find('[name="company"]').val(project.company);
-                form.find('[name="representative"]').val(project.comp_representative);
-                form.find('[name="contact"]').val(project.comp_contact);
+                projectInfo.find('[name="id"]').val(project.id);
+                projectInfo.find('[name="purchaseOrd"]').val(project.purchase_ord);
+                projectInfo.find('[name="awardDate"]').val(project.award_date);
+                projectInfo.find('[name="description"]').val(project.name);
+                projectInfo.find('[name="buildingNo"]').val(project.building_number);
+                projectInfo.find('[name="location"]').val(project.location);
+                projectInfo.find('[name="company"]').val(project.company);
+                projectInfo.find('[name="representative"]').val(project.comp_representative);
+                projectInfo.find('[name="contact"]').val(project.comp_contact);
             }
         }
     );
@@ -1408,7 +389,7 @@ $('#projectInfoToggller').on('click', (e) => {
     }, 5000);
 
     // Removes refresh when editing
-    $('#projectDetailForm').on('custom:edit', (e) => {
+    projectInfo.on('custom:edit', (e) => {
         console.log("Edit event");
         clearInterval(infoInterval);
     });
@@ -1418,7 +399,7 @@ $('#projectInfoToggller').on('click', (e) => {
     });
 
     // Reapply refresh when done editing
-    $('#projectDetailForm').on('custom:readOnly', (e) => {
+    projectInfo.on('custom:readOnly', (e) => {
         console.log("Read only");
         infoInterval = setInterval(() => {
             loadProjectInfo();
@@ -1427,7 +408,7 @@ $('#projectInfoToggller').on('click', (e) => {
 });
 
 // Project details actions
-$('#projectDetailForm').on('submit', (e) => {
+projectInfo.on('submit', (e) => {
     e.preventDefault();
     console.log("Submit project");
 
@@ -1438,7 +419,7 @@ $('#projectDetailForm').on('submit', (e) => {
             console.log("Project Update Response");
             console.log(response);
             let data = JSON.parse(response);
-            if (data.statusCode != 200) 
+            if (data.statusCode !== 200)
             {
                 // Shows alert on fail
                 $(e.target).find('.alert-danger')
@@ -1452,9 +433,8 @@ $('#projectDetailForm').on('submit', (e) => {
 });
 
 // Delete task actions
-$('#projectInfo').find('.delete-btn').click(() => {
+$('#projectInfo').find('.delete-btn').on('click', () => {
     console.log("Delete project");
-    // deleteTask(popup, rowData.id, dt);
     deleteProject(projectId);
 });
 
@@ -1474,7 +454,7 @@ function deleteProject(projId) {
                 console.log("Response delete");
                 console.log(data);
                 let jsonData = JSON.parse(data);
-                if (jsonData.statusCode == 200) 
+                if (jsonData.statusCode === 200)
                 {   // Dismiss delete popup and redirect to projects list on success
                     console.log("Success delete");
                     deletePopup.find('button[data-dismiss]').trigger('click');
@@ -1544,19 +524,316 @@ $('.slide button[data-toggle="form"]').on('click', (e) => {
 });
 
 // || NAV TABS
-// Nav tab datatbles
+let reloadTimeout;
+// Nav tab datatables
+function reloadDatatable(timeout, datatable) {
+    clearTimeout(timeout);
+    reloadTimeout = null;
+    datatable.ajax.reload(null, false);
+}
+
 let datatableSettings = {
+    taskTable : {
+        'dom' : 't',
+        'autoWidth': false,
+        'lengthChange': false,
+        'sort' : false,
+        'paging' : false,
+
+        "ajax" : {
+            url : Settings.base_url + "/task/list",
+            type : 'GET',
+            data : {projId : projectId},
+            'complete' : function (data) {
+                console.log("Complete");
+                let table = $('#taskTable');
+                reloadTimeout = setTimeout(() => {
+                    console.log("Reload");
+                    table.dataTable().api().ajax.reload(null, false)
+                }, 5000);
+
+                table.trigger('custom:reload');
+            }
+        },
+
+        'language' : {
+            'paginate' : {
+                'previous' : '<',
+                    'next' : '>'
+            }
+        },
+
+        "columns" : [
+            {'defaultContent' : ''},
+            {'data' : 'description'},
+            {
+                'data' : 'stopped',
+                'render' : function (data, type, row) {
+                    return data === 0 ? (row.progress + '%') : '<span class="danger-text" style="font-weight: bold;">Paused</span>';
+                }
+            },
+            {'data' : 'last_update'},
+            {
+                'defaultContent' : '',
+                'render' : function (data, type, row) {
+                    return  '<div class="action-cell-content">' +
+                                '<button class="btn action-btn sm-btn edit-btn">Edit</button>' +
+                            '</div>';
+                }
+            }
+        ],
+
+        "columnDefs" : [
+            {
+                targets: 0,
+                searchable: false,
+                orderable: false
+            },
+            {
+                "targets": 1,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    $(td).addClass('taskCell');
+                }
+            },
+            {
+                "targets": 4,
+                "createdCell": function (td, cellData, rowData, rowIndex, colIndex)
+                {
+                    let table = $("#taskTable");
+                    table.find('tbody tr').eq(rowIndex).css('background-color', '#ffdddd');
+
+                    let thisDatatable = table.dataTable().api();
+                    $(td).find('.edit-btn').on('click', (e) =>
+                    {
+                        let popup = $('#taskPopup');
+
+                        Popup.initialize(popup);
+
+                        popup.find('.ptitle').text('Task ' + parseFloat(rowData.order_no));
+                        popup.find('[name="id"]').val(rowData.id);
+                        popup.find('[name="order"]').val(parseFloat(rowData.order_no));
+                        popup.find('[name="description"]').val(rowData.description);
+                        popup.find('[name="start"]').val(rowData.start);
+                        popup.find('[name="end"]').val(rowData.end);
+                        popup.find('[name="progress"]').val(rowData.progress);
+
+                        // Gets and displays stoppage information
+                        if (rowData.stopped === 1)
+                        {
+                            popup.addClass('popup-delete');
+                            popup.find('.pheader').prepend('<span class="material-icons ptitle-icon danger-text">report_problem</span>');
+                            $.get(
+                                Settings.base_url + "/task/stoppage",
+                                {taskId : rowData.id},
+                                function (data) {
+                                    console.log('Stoppage');
+                                    console.log(data);
+
+                                    let response = JSON.parse(data);
+                                    if (response.statusCode === 200) {
+                                        popup.find('[name="haltId"]').val(response.data.id);
+                                        popup.find('[name="haltReason"]').val(response.data.description);
+                                        popup.find('[name="haltStart"]').val(response.data.start);
+                                        popup.find('[name="haltEnd"]').val(response.data.end);
+                                    }
+                                }
+                            );
+
+                            popup.find('[name="isHalted"]').prop('checked', rowData.stopped === 1)
+                                .trigger('change');
+                        }
+
+                        popup.on('custom:dismissPopup', (e) => {
+                            popup.removeClass('popup-delete');
+                            popup.find('.ptitle-icon').remove();
+                            popup.find('.delete-btn').off();
+                        });
+
+                        // Submit action
+                        popup.find('form').on('submit', (event) =>
+                        {
+                            let form = $(event.target);
+                            event.preventDefault();
+
+                            $.post(
+                                Settings.base_url + "/task/update",
+                                {form : form.serialize()},
+                                function (data) {
+                                    console.log("Edit Response");
+                                    console.log(data);
+                                    let response = JSON.parse(data);
+
+                                    if (response.statusCode === 200)
+                                    {
+                                        let turnover = '<a id="turnover" class="btn sm-btn action-btn" href="'+Settings.base_url+'/document/turnover/'+projectId+'">Turn Over</a>';
+                                        $('#turnover').remove();
+
+                                        if (response.done) {
+                                            $('.nav-tab-container').append(turnover);
+                                        }
+
+                                        // Dismiss legend's form and reload legends list on success
+                                        popup.find('button[data-dismiss]').trigger('click');
+
+                                        // Reload tasks
+                                        reloadDatatable(reloadTimeout, thisDatatable);
+                                    }
+                                    else
+                                    {   // Shows alert on fail
+                                        popup.find('.alert-danger')
+                                            .addClass('show')
+                                            .text(response.message);
+                                    }
+
+                                    form.trigger('custom:submitted');
+                                }
+                            );
+
+                            Utils.toggleForm(form, true);
+                        });
+
+                        // Delete task actions
+                        popup.find('.delete-btn').on('click',() =>
+                        {
+                            Popup.promptDelete('task', rowData.id, (deletePopup) => {
+                                $.post(
+                                    Settings.base_url + "/task/remove",
+                                    {form : function () {return deletePopup.find('form').serialize();}},
+                                    function (data) {
+                                        console.log("Response delete");
+                                        console.log(data);
+                                        let jsonData = JSON.parse(data);
+                                        if (jsonData.statusCode === 200)
+                                        {   // Dismiss delete popup and reload legends list on success
+                                            deletePopup.find('button[data-dismiss]').trigger('click');
+
+                                            deletePopup.on('custom:dismissPopup', (e) => {
+                                                popup.find('button[data-dismiss]').trigger('click');
+                                            });
+
+                                            // Reload tasks
+                                            reloadDatatable(reloadTimeout, thisDatatable);
+                                        }
+                                    }
+                                );
+                            }, true);
+                        });
+
+                        // Finally, shows popup
+                        Popup.show(popup);
+                    });
+                }
+            }
+        ],
+
+        order: [
+            [1, 'asc']
+        ],
+
+        //     // Sets click functionality of rows
+        //     $(this).find('tbody').on('click', 'tr', (e) =>
+        //     {
+        //
+        //         console.log("TR CLICKED");
+        //
+        //         let dt = this.api();
+        //         let row = $(e.target).parents('tr');
+        //         let rowData = dt.row(row).data();
+        //         // let rowDisplay = dt.cells( row, '' ).render( 'display' );
+        //
+        //         let popup = buildResourcePopup();
+        //         popup.find('.pfooter .btn.delete-btn').show();
+        //
+        //         popup.find('[name="id"]').val(rowData.id);
+        //         popup.find('[name="item"]').val(rowData.item);
+        //         popup.find('[name="quantity"]').val(rowData.quantity);
+        //         popup.find('[name="price"]').val(rowData.price);
+        //         popup.find('[name="total"]').val(rowData.total);
+        //         popup.find('[name="notes"]').val(rowData.notes);
+        //
+        //         // Delete task actions
+        //         popup.find('.delete-btn').click(() => {
+        //             console.log("DELETE CLICKED");
+        //             Popup.promptDelete('resource', rowData.id, (deletePopup) => {
+        //                 $.post(
+        //                     Settings.base_url + "/resource/remove",
+        //                     {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+        //                     function (data, textStatus) {
+        //                         console.log("Response delete");
+        //                         console.log(data);
+        //                         let jsonData = JSON.parse(data);
+        //                         if (jsonData.statusCode == 200)
+        //                         {   // Dismiss delete popup and reload legends list on success
+        //                             deletePopup.find('button[data-dismiss]').trigger('click');
+        //
+        //                             deletePopup.on('custom:dismissPopup', (e) => {
+        //                                 popup.find('button[data-dismiss]').trigger('click');
+        //                             });
+        //
+        //                             // Reload tasks
+        //                             dt.ajax.reload(null, false);
+        //                         }
+        //                     }
+        //                 );
+        //             }, true);
+        //         });
+        //
+        //         // Submit action
+        //         popup.find('#itemForm').submit((e) => {
+        //             e.preventDefault();
+        //
+        //             $.post(
+        //                 Settings.base_url + "/resource/update",
+        //                 {form : getFormData(e.target)},
+        //                 function (data, textStatus) {
+        //                     console.log(data);
+        //                     console.log("Edit Response");
+        //                     let response = JSON.parse(data);
+        //                     console.log(response);
+        //
+        //                     if (response.statusCode == 200)
+        //                     {   // Dismiss legend's form and reload legends list on success
+        //                         popup.find('button[data-dismiss]').trigger('click');
+        //
+        //                         // Reload resources
+        //                         $("#resourceTable").dataTable().api().ajax.reload(null, false);
+        //                     }
+        //                     else
+        //                     {   // Shows alert on fail
+        //                         popup.find('.alert-danger')
+        //                             .addClass('show')
+        //                             .text(response.message);
+        //                     }
+        //                 }
+        //             );
+        //         });
+        //
+        //         // Finally shows popup
+        //         Popup.show(popup);
+        //     });
+        // }
+    },
     resourceTable : {
         'dom' : 't',
-        "autoWidth": false,
-        "lengthChange": false,
-        // 'paging' : true,
+        'autoWidth': false,
+        'lengthChange': false,
         'sort' : false,
+        'paging' : false,
     
         "ajax" : {
             url : Settings.base_url + "/resource/list",
             type : 'GET',
-            data : {projId : projectId}
+            data : {projId : projectId},
+            'complete' : function (data) {
+                console.log("Complete");
+                let table = $('#resourceTable');
+                reloadTimeout = setTimeout(() => {
+                    console.log("Reload");
+                    table.dataTable().api().ajax.reload(null, false)
+                }, 5000);
+
+                table.trigger('custom:reload');
+            }
         },
     
         'language' : {
@@ -1662,7 +939,7 @@ let datatableSettings = {
                             let response = JSON.parse(data);
                             console.log(response);
 
-                            if (response.statusCode == 200) 
+                            if (response.statusCode === 200)
                             {   // Dismiss legend's form and reload legends list on success
                                 popup.find('button[data-dismiss]').trigger('click');
 
@@ -1686,15 +963,25 @@ let datatableSettings = {
     },
     peopleTable : {
         'dom' : 't',
-        "autoWidth": false,
-        "lengthChange": false,
-        'paging' : true,
+        'autoWidth': false,
+        'lengthChange': false,
         'sort' : false,
+        'paging' : false,
     
         "ajax" : {
             url : Settings.base_url + "/people/list",
             type : 'GET',
-            data : {projId : projectId}
+            data : {projId : projectId},
+            'complete' : function (data) {
+                console.log("Complete");
+                let table = $('#peopleTable');
+                reloadTimeout = setTimeout(() => {
+                    console.log("Reload");
+                    table.dataTable().api().ajax.reload(null, false)
+                }, 5000);
+
+                table.trigger('custom:reload');
+            }
         },
     
         'language' : {
@@ -1821,14 +1108,25 @@ let datatableSettings = {
     },
     paymentTable : {
         'dom' : 't',
-        "autoWidth": false,
-        "lengthChange": false,
+        'autoWidth': false,
+        'lengthChange': false,
         'sort' : false,
+        'paging' : false,
     
         "ajax" : {
             url : Settings.base_url + "/payment/list",
             type : 'GET',
-            data : {projId : projectId}
+            data : {projId : projectId},
+            'complete' : function (data) {
+                console.log("Complete");
+                let table = $('#paymentTable');
+                reloadTimeout = setTimeout(() => {
+                    console.log("Reload");
+                    table.dataTable().api().ajax.reload(null, false)
+                }, 5000);
+
+                table.trigger('custom:reload');
+            }
         },
     
         "columns" : [
@@ -1911,7 +1209,7 @@ let datatableSettings = {
                                     let response = JSON.parse(data);
                                     console.log(response);
 
-                                    if (response.statusCode == 200) 
+                                    if (response.statusCode === 200)
                                     {   // Dismiss legend's form and reload legends list on success
                                         popup.find('button[data-dismiss]').trigger('click');
 
@@ -1944,7 +1242,7 @@ let datatableSettings = {
                                     console.log("Response delete");
                                     console.log(data);
                                     let jsonData = JSON.parse(data);
-                                    if (jsonData.statusCode == 200) 
+                                    if (jsonData.statusCode === 200)
                                     {   // Dismiss delete popup and reload legends list on success
                                         deletePopup.find('button[data-dismiss]').trigger('click');
 
@@ -2053,22 +1351,23 @@ let datatableSettings = {
 };
 
 // When navigation tab change actions
-$('.nav-tab').on('custom:tabChange', (e, tab, target) => {
+$('.nav-tab').on('custom:tabChange', (e, tab, target) =>
+{
     console.log("Tab changed");
 
-    clearInterval(ganttChartInterval);
+    // clearInterval(ganttChartInterval);
     resetGanttChart();
 
     let table = $(target).find('table');
     console.log(table);
     
-    if (target !== '#projectGanttChart') 
-    {   
-        // console.log(table.dataTable('#' + table.attr('id')).api().destroy());
-        // Clears gantt chart settings
-        // console.log("Table id");
-        // console.log('#' + table.attr('id'));
-        // console.log(table.attr('id'));
+    if (target !== '#projectGanttChart' && !DataTable.isDataTable(table))
+    {
+        console.log(ganttReload);
+        if (ganttReload !== null) {
+            clearTimeout(ganttReload);
+            ganttReload = null;
+        }
 
         // Initializes resource table's datatable
         let datatable = table.DataTable(datatableSettings[table.attr('id')]);
@@ -2081,30 +1380,29 @@ $('.nav-tab').on('custom:tabChange', (e, tab, target) => {
             });
         }).draw();
 
-        let dtInterval = setInterval(() => {
-            console.log("General datable interval");
-            datatable.ajax.reload(null, false);
-        }, 3000);
-
-        // On datatable destoy actions
-        datatable.on( 'destroy.dt', function ( e, settings ) {
+        // On datatable destroy actions
+        datatable.on( 'destroy.dt', function ( e, settings )
+        {
             console.log("Datable destroy");
             $(this).find('tbody').off( 'click', 'tr' );
-            clearInterval(dtInterval);
-            datatable.off( 'destroy.dt')
+            datatable.off( 'destroy.dt');
         });
 
         // On tab hide actions
-        $(target).on('custom:hide', (e) => {
+        $(target).on('custom:hide', (e) =>
+        {
             console.log("Hiding");
             datatable.destroy();
+            clearTimeout(reloadTimeout);
             $(target).off('custom:hide')
         });
-    } else {
-        buildGanttChart();
+    } else if (target === '#projectGanttChart') {
+        clearTimeout(reloadTimeout);
+        loadGanttChart();
     }
 });
 
+// Resource
 function buildResourcePopup() {
     console.log("Build resource popup");
     let popup = $('#resourcePopup');
@@ -2147,7 +1445,8 @@ $('#addResource').on('click', (e) => {
     console.log("Add resource");
     let popup = buildResourcePopup();
     
-    popup.find('#itemForm').on('submit', (e) => {
+    popup.find('#itemForm').on('submit', (e) =>
+    {
         e.preventDefault();
         console.log("Submit resource");
 
@@ -2160,7 +1459,7 @@ $('#addResource').on('click', (e) => {
                 let response = JSON.parse(data);
                 console.log(response);
 
-                if (response.statusCode == 200) 
+                if (response.statusCode === 200)
                 {   // Dismiss legend's form and reload legends list on success
                     popup.find('button[data-dismiss]').trigger('click');
 
@@ -2259,11 +1558,6 @@ function disableInputs(form) {
     $('button[form="' + $(form).attr('id') + '"]').prop('disabled', true);
 }
 
-// $('form').on('custom:formSubmitted', (e) => {
-//     console.log("Submitted, result");
-// });
-
-
 //  Choose from team
 $('#employeeSearch').on('input', (e) => {
     console.log("Focus");
@@ -2292,4 +1586,98 @@ $('#employeeSearch').on('input', (e) => {
             }
         }
     );
+});
+
+// || TASK
+
+// Adds new task
+$('#addTask').on('click',(e) =>
+{
+    let popup = $('#taskPopup');
+
+    Popup.initialize(popup);
+
+    //  Gets the latest task number
+    $.get(
+        Settings.base_url + "/task/count",
+        { projId : projectId },
+        function (data) {
+            let jsonData = JSON.parse(data);
+            popup.find('.ptitle').text('Task ' + (jsonData.data + 1));
+        }
+    );
+
+    console.log(popup.find('[type="checkbox"]'));
+    popup.find('[type="checkbox"]').val(false);
+    // Displays task form
+    popup.find('.pfooter .btn.delete-btn').hide();
+    popup.find('.pfooter .btn.neutral-outline-btn').css('width', '');
+    Popup.show(popup);
+
+    console.log('popup');
+    console.log(popup.find('form'));
+
+    // Task submit action
+    popup.find('form').on('submit',(e) =>
+    {
+        e.preventDefault();
+        console.log("Submit form");
+        let form = $(e.target);
+
+        $.post(
+            Settings.base_url + "/task/new",
+            {form : form.serialize()},
+            function (data) {
+                console.log(data);
+                console.log("Add Response");
+                let response = JSON.parse(data);
+                console.log(response);
+
+                if (response.statusCode === 200)
+                {   // Dismiss legend's form and reload legends list on success
+                    popup.find('button[data-dismiss]').trigger('click');
+
+                    // Reload tasks
+                    reloadDatatable(reloadTimeout, $('#taskTable').dataTable().api());
+                    // .ajax.reload(null, false);
+                }
+                else
+                {   // Shows alert on fail
+                    popup.find('.alert-danger')
+                        .addClass('show')
+                        .text(response.message);
+                }
+
+                form.trigger('custom:submitted');
+            }
+        );
+
+        Utils.toggleForm(form, true);
+    });
+
+});
+
+$('#haltToggler').on('change', (e) =>
+{
+    let checked = e.target.checked;
+    let progress = $('#taskPopup [name="progress"]');
+    progress.prop('readonly', checked);
+
+    let checkbox = $(e.target);
+    checkbox.val(checked);
+
+    let halt = $('#halt');
+
+    if (checked) {
+        halt.show();
+        Utils.autoHeight(halt.find('textarea')[0]);
+        halt.find('input:not([name="haltEnd"]), textarea').attr('required', true);
+        halt.parents('.popup').addClass('popup-delete')
+            .find('.pheader').prepend('<span class="material-icons ptitle-icon danger-text">report_problem</span>');
+    } else {
+        halt.hide();
+        halt.find('input, textarea').attr('required', false);
+        halt.parents('.popup').removeClass('popup-delete')
+            .find('.ptitle-icon').remove();
+    }
 });

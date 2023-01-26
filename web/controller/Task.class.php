@@ -20,45 +20,26 @@ class Task extends MainController {
     }
 
     public function new() {
-        // echo __METHOD__;
-        // echo "<br>";
-        // echo "<br>";
         if (isset($_POST['form'])) {
-            // var_dump($_POST['form']);
             echo $this->taskService->createTask($_POST['form']);
         }
     }
 
     public function update() {
-        // echo __METHOD__;
-        // echo "<br>";
-        // echo "<br>";
-
-        if (isset($_POST['form']) && isset($_POST['deleted'])) {
-            // echo "<pre>";
-            // echo "<br>";
-            // echo $_POST['form'];
-            // echo "<br>";
-            // echo $_POST['deleted'];
-            echo $this->taskService->updateTask($_POST['form'], $_POST['deleted']);
+        if (isset($_POST['form'])) {
+            echo $this->taskService->updateTask($_POST['form']);
         }
     }
 
     public function remove() {
-        // echo __METHOD__;
-        // echo "<br>";
-        // echo "<br>";
         if (isset($_POST['form'])) {
-            // echo "<pre>";
-            // echo "<br>";
-            // echo $_POST['form'];
             echo $this->taskService->removeTask($_POST['form']);
         }
     }
 
     public function list() {
         if (isset($_GET['projId'])) {
-            echo $this->taskService->getAllTasks($_GET['projId']);
+            echo $this->taskService->getTasks($_GET['projId']);
         }
     }
 
@@ -82,6 +63,19 @@ class Task extends MainController {
     public function chart() {
         if (isset($_GET['projId'])) {
             echo $this->taskService->getTasksDetails($_GET['projId']);
+        }
+    }
+
+//    DEBUG: Chart
+    public function charts($proj) {
+        echo '<pre>';
+        echo $this->taskService->getTasksDetails($proj);
+    }
+
+//    Stoppage
+    public function stoppage() {
+        if (isset($_GET['taskId'])) {
+            echo $this->taskService->getStoppage($_GET['taskId']);
         }
     }
 

@@ -5,11 +5,13 @@ use \PDO;
 use \PDOException;
 
 class Dbh {
-    // private $host = "atabsecniv.com";
-    // private $user = "u333585264_MagnoPetrocon";
-    // private $password = "MagnoPetrocon123";
-    // private $dbName = "u333585264_MagnoPetrocon";
+//    Server
+//    private $host = "127.0.0.1:3306";
+//    private $user = "u336867898_petrocon";
+//    private $password = "^SjdAD7kj~8";
+//    private $dbName = "u336867898_petrocon";
 
+//    Local
     private $host = "localhost";
     private $user = "root";
     private $password = "";

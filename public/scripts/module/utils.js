@@ -69,21 +69,24 @@ export function valdiateInput(element, form, controller, errorMessage) {
         $.get(
             Settings.base_url + controller,
             {input : $(element).val()},
-            function (data, textStatus) {
+            function (data) {
                 console.log(data);
                 let response = JSON.parse(data);
                 console.log(response);
 
-                if (!response.data) {
+                if (!response.data)
+                {
                     $(element)
                         .removeClass('success-border')
                         .addClass('danger-border')
                         .parents('.loading-input')
                         .siblings('.text-danger')
-                            .text(errorMessage)
+                            .text((response.hasOwnProperty('message')) ? response.message : errorMessage)
                             .show();
                     hasError = true;
-                } else {
+                }
+                else
+                {
                     $(element)
                         .removeClass('danger-border')
                         .addClass('success-border')

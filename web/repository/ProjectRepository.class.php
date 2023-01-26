@@ -14,14 +14,17 @@ use \PDOException;
 
 class ProjectRepository extends Repository {
 
-    private static $tblProject = "tbl_project";
-    private static $tblTask = "tbl_task";
-    private static $tblTaskBar = "tbl_taskbar";
-    private static $tblLegend = "tbl_legend";
-    private static $lnkProjectPlan = "lnk_project_plan";
-    private static $lnkProjectTeam = "lnk_project_team";
+    private static string $tblProject = "tbl_project";
+    private static string $tblTask = "tbl_task";
+    private static string $tblTaskBar = "tbl_taskbar";
+    private static string $tblLegend = "tbl_legend";
+    private static string $lnkProjectPlan = "lnk_project_plan";
+    private static string $lnkProjectTeam = "lnk_project_team";
 
-    public function getProjectCount()
+    private static string $tblCompany = "pltbl_company";
+    private static string $tblClient = "tbl_client";
+
+    public function getAllProjectCount()
     {
         $sql = "SELECT done, COUNT(*) AS count
                 FROM ".self::$tblProject."
@@ -63,7 +66,7 @@ class ProjectRepository extends Repository {
         $stmt = $this->connect()->prepare($sql);
 
         $stmt->bindValue(':id', $project->getId());
-        $stmt->bindValue(':description', $project->getName());
+        $stmt->bindValue(':description', $project->getDescription());
         $stmt->bindValue(':location', $project->getLocation());
         $stmt->bindValue(':building_number', $project->getBuildingNumber());
         $stmt->bindValue(':done', $project->getStatus());
@@ -71,8 +74,8 @@ class ProjectRepository extends Repository {
         $stmt->bindValue(':purchase_ord', $project->getPurchaseOrder());
         $stmt->bindValue(':award_date', $project->getAwardDate());
         $stmt->bindValue(':company', $project->getCompany());
-        $stmt->bindValue(':comp_representative', $project->getCompRepresentative());
-        $stmt->bindValue(':comp_contact', $project->getCompContact());
+        $stmt->bindValue(':comp_representative', $project->getRepresentative());
+        $stmt->bindValue(':comp_contact', $project->getContact());
 
         $result = false;
 
@@ -101,6 +104,7 @@ class ProjectRepository extends Repository {
         return $this->query($sql, $params);
     }
 
+//    List
     public function getProjects($status) {
 
         $params = [':active' => true];
@@ -112,15 +116,29 @@ class ProjectRepository extends Repository {
                 FROM ".self::$tblProject."
                 WHERE active = :active
                 ORDER BY created_at DESC";
-        } else 
+        }
+        else
         {   // Selects all projects with a matching status
             $sql = "SELECT *
                 FROM ".self::$tblProject."
-                WHERE active = :active AND done = :done
+                WHERE active = :active  AND done = :done
                 ORDER BY created_at DESC";
 
             $params[':done'] = $status;
         }
+
+        return $this->query($sql, $params);
+    }
+
+    public function getJoinedProjects(string $accountId, string $status) {
+        $sql = "SELECT p.*, DATE_FORMAT(t.joined_at, '%m/%d/%Y | %h:%i %p') AS 'date'
+                FROM ".self::$lnkProjectTeam." t
+                INNER JOIN tbl_project p ON p.id = t.proj_id
+                WHERE acct_id = :acct_id ".
+                ((($status != 1 && $status != 0) || $status == "all") ? "" : " AND done = " . $status)."
+                ORDER BY p.created_at DESC";
+
+        $params = [':acct_id' => $accountId];
 
         return $this->query($sql, $params);
     }
@@ -157,7 +175,7 @@ class ProjectRepository extends Repository {
         return $this->query($sql, $params);
     }
 
-    public function mark($id, $status) {
+    public function markAsDone($id, $status) {
         $sql = 'UPDATE 
                     '.self::$tblProject.'
                 SET 
@@ -430,13 +448,6 @@ class ProjectRepository extends Repository {
         return $result;
     }
 
-    
-    // Timeline
-    public function getTimeline($projectId) {
-
-        
-    }
-
     private function getTaskBar() {
         $sql = "SELECT 
                     tb.tbar_ID, tb.tbar_start, tb.tbar_end, 
@@ -476,7 +487,7 @@ class ProjectRepository extends Repository {
     }
 
     // Join people to project
-    public function joinProject(string $projId, string $regId)
+    public function joinProject(string $projId, string $acctId)
     {
         $sql = "INSERT INTO ".self::$lnkProjectTeam."
                     (acct_id, proj_id)
@@ -484,7 +495,7 @@ class ProjectRepository extends Repository {
                     (:acct_id, :proj_id)";
         
         $params = [
-            ':acct_id' => $regId,
+            ':acct_id' => $acctId,
             ':proj_id' => $projId
         ];
 
@@ -492,4 +503,17 @@ class ProjectRepository extends Repository {
         return $this->query($sql, $params);
     }
 
+    // Companies List
+    public function getCompanyList() {
+        $sql = "SELECT * FROM ".self::$tblCompany;
+
+        return $this->query($sql);
+    }
+
+    // Companies List
+    public function getClientList() {
+        $sql = "SELECT * FROM ".self::$tblClient;
+
+        return $this->query($sql);
+    }
 }

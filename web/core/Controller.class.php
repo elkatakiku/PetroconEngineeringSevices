@@ -32,7 +32,6 @@ class Controller {
                 case Account::ADMIN_TYPE:
                     $this->setType(Controller::ADMIN);
                     break;
-                case Account::WORKER_TYPE:
                 case Account::EMPLOYEE_TYPE:
                     $this->setType(Controller::EMPLOYEE);
                     break;
@@ -63,6 +62,7 @@ class Controller {
                 ucwords($this->user['firstname'])." ".
                 (!$this->user['middlename'] ? ' ' : ucwords(substr($this->user['middlename'], 0, 1))."."
             );
+            $data['typeId'] = $_SESSION['accType'];
         }
 
         $data['accountType'] = $this->type;

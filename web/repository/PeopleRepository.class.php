@@ -139,9 +139,9 @@ class PeopleRepository extends Repository {
     public function createInvitation(Invitation $invitation)
     {
         $sql = "INSERT INTO ".self::$tblInvitation."
-                    (id, name, email, code, proj_id, used, username, password)
+                    (id, name, email, code, proj_id, used, type_id, username, password)
                 VALUES
-                    (:id, :name, :email, :code, :proj_id, :used, :username, :password)";
+                    (:id, :name, :email, :code, :proj_id, :used, :type_id, :username, :password)";
         
         $params = [
             ':id' => $invitation->getId(),
@@ -150,6 +150,7 @@ class PeopleRepository extends Repository {
             ':code' => $invitation->getCode(),
             ':proj_id' => $invitation->getProjectId(),
             ':used' => $invitation->isUsed(),
+            ':type_id' => $invitation->getType(),
             ':username' => $invitation->getUsername(),
             ':password' => $invitation->getPassword()
         ];
@@ -180,6 +181,20 @@ class PeopleRepository extends Repository {
         ];
 
         return $this->query($sql, $params);
+    }
+
+    public function validateEmail(string $email) {
+        $sql = "SELECT 
+                    email
+                FROM 
+                    ".self::$tblInvitation."
+                WHERE 
+                    email = :email";
+
+        // Binding params
+        $params = [":email" => $email];
+
+        return count($this->query($sql, $params)) == 0;
     }
 
 //    User

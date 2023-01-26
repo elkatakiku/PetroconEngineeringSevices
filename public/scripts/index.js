@@ -1,5 +1,10 @@
+// Local
 import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils.js';
 import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
+
+// Server
+// import * as Utils from '/public/scripts/module/utils.js';
+// import * as Popup from '/public/scripts/module/popup.js';
 
 /*
 Carousel
@@ -351,33 +356,27 @@ $("button[data-dismiss]").on("click", function (e) {
 });
 
 
-
 // Textarea
-let textAreas = document.getElementsByTagName("textarea");
+let textAreas = $("textarea");
 for (let i = 0; i < textAreas.length; i++) {
     Utils.autoHeight(textAreas[i]);
 }
 
-$("textarea").on("input", function() {
+textAreas.on("input", function() {
     Utils.autoHeight(this);
 });
 
 // Image Overlay
-if ($(".image-overlay").length > 0) {   
-    $(".image-overlay").css("backgroundImage", "url(" + Settings.base_url + "/public/images/" + $(".image-overlay").attr("data-image") + ")" );
-    $(".image-overlay").css("height", $(".image-overlay").attr("data-height"));
+let imageOverlay = $(".image-overlay");
+if (imageOverlay.length > 0) {
+    imageOverlay.css("backgroundImage", "url(" + Settings.base_url + "/public/images/" + imageOverlay.attr("data-image") + ")" );
+    imageOverlay.css("height", imageOverlay.attr("data-height"));
 }
 
 // Cover
-$('.cover-background').css('background-image', 'url("' + Settings.base_url + '/public/images/' + $('.cover-background').data('image') + '")');
+let cover = $('.cover-background');
+cover.css('background-image', 'url("' + Settings.base_url + '/public/images/' + cover.data('image') + '")');
 
-
-// || Slider
-// $('.slider').children().each((index, element) => {
-//     console.log(element);
-//     $(element).hide();
-// });
-// $('.slider').find()
 
 let prevText;
 

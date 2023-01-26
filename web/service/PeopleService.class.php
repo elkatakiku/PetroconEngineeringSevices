@@ -48,7 +48,7 @@ class PeopleService extends Service {
             $response['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function update(string $form)
@@ -66,7 +66,7 @@ class PeopleService extends Service {
             $response['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function remove(string $form)
@@ -80,7 +80,7 @@ class PeopleService extends Service {
             $result['statusCode'] = 400;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     public function list(string $projectId)
@@ -101,7 +101,7 @@ class PeopleService extends Service {
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function getInputs(string $form)
@@ -148,20 +148,27 @@ class PeopleService extends Service {
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function invite(string $form)
     {
-        parse_str($form, $input);
+        parse_str($form, $raw);
 
-        if (!$this->emptyInput($input)) 
+        $input = [
+            'name' => $this->sanitizeString($raw['name']),
+            'type' =>  $this->sanitizeString($raw['type']),
+            'email' => filter_var($raw['email'], FILTER_SANITIZE_EMAIL),
+            'projId' => $this->sanitizeString($raw['projId']),
+        ];
+
+        if (!$this->emptyInput($input))
         {
             $username = bin2hex(random_bytes(4));
             $password = bin2hex(random_bytes(4));
 
             if ($input['name']) {
-                $username = explode(' ', $input['name'])[0].'_'.bin2hex(random_bytes(2));
+                $username = explode(',', $input['name'])[0].'_'.bin2hex(random_bytes(2));
             }
 
             // Creates invitation object
@@ -171,18 +178,12 @@ class PeopleService extends Service {
                 $input['email'],
                 bin2hex(random_bytes(32)),
                 $input['projId'],
+                $input['type'],
                 $username,
                 $password
             );
 
-//            // Create account
-//            $userService = new UserService;
-//            $account = $userService->createAccount($input['email'], $input['name']);
-//
-//            // Add to project team
-//            $projectService = new ProjectRepository;
-//            $projectService->joinProject($input['projId'], $account);
-
+            //  Send invitation email
             Mail::sendMail(
                 'Welcome to Petrocon Engineering Services',         // Subject
                 Mail::invitation($invitation),     // Body
@@ -199,7 +200,7 @@ class PeopleService extends Service {
             $response['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function getInvitation(string $code) {
@@ -234,15 +235,11 @@ class PeopleService extends Service {
 
          if (!$this->emptyInput($input))
          {
-//             TODO : Remove login
-//             TODO : Remove to project team
 //             Account is not created when the invitation is not accepted
 //             Accepting the invitation will remove the person in the pending invitation list
 
-             if ($invitation = $this->peopleRepository->getInvitationById($input['id'])) {
-                 var_dump($invitation);
-                 $userRepository = new UserRepository();
-//                 $userRepository->removeUser();
+             if ($invitation = $this->peopleRepository->getInvitationById($input['id']))
+             {
                 $response['statusCode'] = $this->peopleRepository->removeInvitation($invitation[0]['id']) ? 200 : 500;
              }
 
@@ -254,19 +251,21 @@ class PeopleService extends Service {
              $response['message'] = "Fill all the required inputs.";
          }
 
-         return json_encode($response);
+         return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
+//    Processes the invitation
     public function runInvitation(string $code): array
     {
         $cleanCode = $this->sanitizeString($code);
         $response['data'] = [];
 
-
         if ($cleanCode && ($invitation = $this->peopleRepository->getInvitationByCode($cleanCode)))
         {
+            $invitation = $invitation[0];
+
             $TWO_DAYS = 172800;
-            $sent_at = strtotime($invitation[0]['created_at']);
+            $sent_at = strtotime($invitation['created_at']);
 
             $response['data']['expired'] = time() > ($sent_at + $TWO_DAYS);
 
@@ -274,17 +273,17 @@ class PeopleService extends Service {
             {
                 // Create account
                 $userService = new UserService;
-                $account = $userService->createAccount($invitation[0]);
+                $account = $userService->createAccount($invitation);
 
                 // Add to project team
                 $projectService = new ProjectRepository;
-                $projectService->joinProject($invitation[0]['proj_id'], $account);
+                $projectService->joinProject($invitation['proj_id'], $account);
 
                 //  Mark invitation used
-                $this->peopleRepository->invitationUsed($invitation[0]['id']);
+                $this->peopleRepository->invitationUsed($invitation['id']);
 
                 //  Return data
-                $response['data']['invitation'] = $invitation[0];
+                $response['data']['invitation'] = $invitation;
                 $response['statusCode'] = 200;
             } else {
                 $response['statusCode'] = 400;
@@ -296,6 +295,24 @@ class PeopleService extends Service {
         }
 
         return $response;
+    }
+
+    public function validateEmail(string $input)
+    {
+        $userRepository = new UserRepository();
+        $email = filter_var($input, FILTER_SANITIZE_EMAIL);
+        $result['data'] = false;
+
+        if (!$this->peopleRepository->validateEmail($email)) {
+            $result['message'] = 'Invitation is already sent.';
+        } else if ($userRepository->validateEmail($email)) {
+            $result['message'] = 'Email is already taken.';
+        } else {
+            $result['data'] = true;
+        }
+//        return json_encode(['data' => $this->peopleRepository->validateEmail($email), 'data1' => !$userRepository->validateEmail($email)]);
+        return json_encode($result, JSON_NUMERIC_CHECK);
+//        return json_encode(['data' => !$userRepository->validateEmail($email)]);
     }
 
     //    User
@@ -320,7 +337,7 @@ class PeopleService extends Service {
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
 //    Employees
@@ -346,6 +363,6 @@ class PeopleService extends Service {
             $response['statusCode'] = 400;
         }
 
-        return json_encode($response);
+        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 }

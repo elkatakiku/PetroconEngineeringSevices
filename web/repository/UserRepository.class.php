@@ -396,19 +396,12 @@ class UserRepository extends Repository {
         $this->query($sql, $params);
     }
 
-    private static $SELECT = "SELECT %s FROM %s WHERE %s";
-    private static $INSERT = "INSERT INTO %s (%s) VALUES (%s)";
-    private static $UPDATE = "UPDATE %s SET %s WHERE %s";
-
     // || Verification
     public function verifyActivation($uid)
     {
-        $sql = sprintf(
-            self::$SELECT, 
-            '*',    // Selector
-            self::$tblActivation,   // Table
-            'acc_id = :id'  // Parameter
-        );
+        $sql = 'SELECT * 
+                FROM '.self::$tblActivation.' 
+                WHERE acc_id = :id';
 
         $params = [':id' => $uid];
 
@@ -420,14 +413,10 @@ class UserRepository extends Repository {
     public function createActivation(Activation $activation)
     {
         var_dump($activation);
-        $sql = sprintf(
-            self::$INSERT, 
-            self::$tblActivation,   // Table
-            'id, code, acc_id',    // Selector
-            ':id, :code, :acc_id'  // Parameter
-        );
-
-
+        $sql = 'INSERT INTO '.self::$tblActivation.' 
+                    (id, code, acc_id) 
+                VALUES 
+                    (:id, :code, :acc_id)';
 
         $params = [
             ':id' => $activation->getId(),
@@ -470,7 +459,6 @@ class UserRepository extends Repository {
         return $this->query($sql, $params);
     }
 
-
     public function activateAccount($accId)
     {
         $sql ='UPDATE 
@@ -488,6 +476,7 @@ class UserRepository extends Repository {
         return $this->query($sql, $params);
     }
 
+//    Account Types
     public function getAccountTypes()
     {
         $sql = 'SELECT *
@@ -511,10 +500,10 @@ class UserRepository extends Repository {
 
     public function createResetRequest(Reset $reset)
     {
-        $sql = " INSERT INTO ".self::$tblReset." 
-                            (id, log_id)
-                        VALUES 
-                            (:id, :log_id)";
+        $sql = "INSERT INTO ".self::$tblReset." 
+                    (id, log_id)
+                VALUES 
+                    (:id, :log_id)";
 
         $params = [
             ":id" => $reset->getId(),

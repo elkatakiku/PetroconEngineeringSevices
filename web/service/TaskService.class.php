@@ -6,6 +6,8 @@ namespace Service;
 use Core\Service;
 use DateTime;
 // Repository
+use Model\Stopage;
+use Repository\ProjectRepository;
 use Repository\TaskRepository;
 // Models
 use Model\Task;
@@ -21,128 +23,159 @@ class TaskService extends Service{
     }
 
     // Creates a task
-    public function createTask($request) {
-        // echo "<br>";
-        // echo "<br>";
-        // echo "<pre>";
+    public function createTask(string $request)
+    {
+        parse_str($request, $raw);
 
-        // echo __METHOD__;
-        // echo "<br>";
+        $input = [
+            'task' => [
+                'projectId' => $this->sanitizeString($raw['projectId']),
+                'description' =>  $this->sanitizeString($raw['description']),
+                'start' => $this->sanitizeString($raw['start']),
+                'end' => $this->sanitizeString($raw['end']),
+                'progress' => filter_var($raw['progress'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 0, 'max_range' => 100]])
+            ],
+            'halt' => [
+                'haltReason' => $this->sanitizeString($raw['haltReason']),
+                'haltStart' => $this->sanitizeString($raw['haltStart'])
+            ]
+        ];
 
-        $input = $this->parseInput($request);
-        // var_dump($input);
-        unset($input['id']);
-        unset($input['oldActivities']);
-        // var_dump($input);
+        $isHalted = isset($raw['isHalted']) && filter_var($raw['isHalted'],FILTER_VALIDATE_BOOLEAN);
 
         // Validates input
-        if(!$this->emptyInput($input))
+        // Stops process if task is halted and halt information are incomplete
+        if(!$this->emptyInput($input['task']) && (!$isHalted || ($isHalted && !$this->emptyInput($input['halt']))))
         {
             $task = new Task;
             $task->create(
-                $input['description'], 
-                $this->taskRepository->taskCount($input['projId']) + 1,
-                $input['projId']
+                $input['task']['projectId'],
+                $this->taskRepository->taskCount($input['task']['projectId']) + 1,
+                $input['task']['description'],
+                $input['task']['start'],
+                $input['task']['end'],
+                $input['task']['progress'],
             );
 
-            // Result validation
-            if ($this->taskRepository->setTask($task)) {
-                $activityService = new ActivityService;
-                $activityService->createActivities(
-                    $task->getId(), 
-                    $input['newActivities']
-                );
+            $task->setStopped($isHalted);
+
+//            // Result validation
+            if ($this->taskRepository->setTask($task))
+            {
+//                Checks if halted and creates log
+                if ($isHalted) {
+                    $haltEnd = $this->sanitizeString($raw['haltEnd']);
+                    $this->createStoppage($task->getId(), $input['halt'], $haltEnd);
+                }
 
                 $result['statusCode'] = 200;
             } else {
                 $result['statusCode'] = 500;
                 $result['message'] = 'An error occured. Please try again later.';
-
             }
         } else {
             $result['statusCode'] = 400;
             $result['message'] = 'Please fill all the required inputs.';
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     // Updates a task
-    public function updateTask($request, $deleted) {
+    public function updateTask(string $request)
+    {
+        parse_str($request, $raw);
 
-        $input = $this->parseInput($request, true);
-        $deletedActivity = json_decode($deleted);
+        $input = [
+            'task' => [
+                'id' => $this->sanitizeString($raw['id']),
+                'projectId' => $this->sanitizeString($raw['projectId']),
+                'description' =>  $this->sanitizeString($raw['description']),
+                'start' => $this->sanitizeString($raw['start']),
+                'end' => $this->sanitizeString($raw['end']),
+                'progress' => filter_var($raw['progress'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 0, 'max_range' => 100]])
+            ],
+            'halt' => [
+                'haltReason' => $this->sanitizeString($raw['haltReason']),
+                'haltStart' => $this->sanitizeString($raw['haltStart'])
+            ]
+        ];
 
-        // echo "<br>";
-        // var_dump($input);
-        // echo "<br>";
-        // var_dump($deletedActivity);
-
-        $hasNewActs = true;
-
-        if (!$input['newActivities']) {
-            unset($input['newActivities']);
-            $hasNewActs = false;
-        }
+        $isHalted = isset($raw['isHalted']) && filter_var($raw['isHalted'],FILTER_VALIDATE_BOOLEAN);
 
         // Validates input
-        if(!$this->emptyInput($input))
-        {                
-            // Updates task description
-            $this->taskRepository->updateTask($input['id'], $input['description']);
-            
-            $activityService = new ActivityService;
+        // Stops process if task is halted and halt information are incomplete
+        if(!$this->emptyInput($input['task']) && (!$isHalted || ($isHalted && !$this->emptyInput($input['halt']))))
+        {
+            // Result validation
+            $this->taskRepository->updateTask($input['task'], $isHalted);
 
-            // Updates old activities
-            $activityService->updateActivities(
-                $input['oldActivities'], 
-                $deletedActivity
-            );
+//            Checks project progress
+            $COMPLETE = 100;
+            $progress = $this->taskRepository->getProgress($input['task']['projectId'])[0];
+            $projectDone = ((($progress['progress'] / (100 * $progress['count'])) * 100) == $COMPLETE);
 
-            $result['statusCode'] =  200;
+            $projectRepository = new ProjectRepository();
 
-            if ($hasNewActs) 
-            {   // Creates activities
-                if(!$activityService->createActivities($input['id'], $input['newActivities'])) 
-                {   // Result validation
-                    $result['statusCode'] = 500;
+            if ($projectDone) {
+                $projectRepository->markAsDone($input['task']['projectId'], 1);
+            } else {
+                $projectRepository->markAsDone($input['task']['projectId'], 0);
+            }
+
+
+//          Checks if halted and creates log
+            $haltId = $this->sanitizeString($raw['haltId']);
+
+            if ($isHalted) {
+                $haltEnd = $this->sanitizeString($raw['haltEnd']);
+                if ($haltId) {
+                    $this->taskRepository->updateStoppage($haltId, $input['halt'], $haltEnd);
+                } else {
+                    $this->createStoppage($input['task']['id'], $input['halt'], $haltEnd);
+                }
+            } else {
+                if ($haltId) {
+                    $this->taskRepository->updateStoppage($haltId, $input['halt'], date('Y-m-d'));
                 }
             }
 
+            $result['statusCode'] = 200;
+            $result['done'] = $projectDone;
         } else {
             $result['statusCode'] = 400;
+            $result['message'] = 'Please fill all the required inputs.';
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     // Removes a task
-    public function removeTask($request) {
-        // echo "<br>";
-        // echo "<br>";
-        // echo __METHOD__;
-        // echo "<br>";
-        // echo "<br>";
-        parse_str($request, $input);
+    public function removeTask(string $request)
+    {
+        parse_str($request, $raw);
+        $input = [
+            'id' => $this->sanitizeString($raw['id'])
+        ];
 
-        // var_dump($input);
-        
         if (!$this->emptyInput($input)) {
             $cleanId = $this->sanitizeString($input['id']);
-            $result['statusCode'] = $this->taskRepository->deleteTask($cleanId) ? 200 : 500;
+            $result['statusCode'] = $this->taskRepository->removeTask($cleanId) ? 200 : 500;
         } else {
             $result['statusCode'] = 400;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     // Gets all tasks of a project
-    public function getAllTasks($request) {
+    public function getTasks($request) {
         $cleanId = $this->sanitizeString($request);
+        $response['data'] = [];
 
         if ($cleanId) {
             if ($tasks = $this->taskRepository->getActiveTasks($cleanId)) {
+//                var_dump($tasks);
                 $result['data'] = $tasks;
                 $result['statusCode'] = 200;
             } else {
@@ -152,24 +185,22 @@ class TaskService extends Service{
             $result['statusCode'] = 400;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     public function getTasksDetails(string $projectId) {
         $cleanId = $this->sanitizeString($projectId);
 
-        // Default activities time
-        $activities = [time(), strtotime(date("Y-m-t"))];
-        // var_dump($activities);
+        // Default tasks time
+        $tasks = [time(), strtotime(date("Y-m-t"))];
 
         // Default Chart Header
-        $header = $this->getDates($activities, $activities);
-        // var_dump($header);
+        $header = $this->getDates($tasks, $tasks);
 
         // Default Project start
-        $startDate = date('Y-m-j', (min($activities)));
+        $startDate = date('Y-m-j', (min($tasks)));
         // Default Project end
-        $endDate = date('Y-m-j', (max($activities)));
+        $endDate = date('Y-m-j', (max($tasks)));
         
         // Default number of days
         $numDays =  array_sum($header[1]);
@@ -178,70 +209,53 @@ class TaskService extends Service{
         {
             if ($tasks = $this->taskRepository->getActiveTasks($cleanId)) 
             {
+//                Resets dates
                 $startDates = [];
                 $endDates = [];
 
-                $activityRepository = new ActivityRepository;
-                $activities = [];
-
-                for ($i=0; $i < count($tasks); $i++) 
-                {
-                    $tasks[$i]['activity'] = $activityRepository->getActiveActivities($tasks[$i]['id']);
-
-                    $activities = array_merge($activities, $tasks[$i]['activity']);
-                }
-                
-
-                foreach ($activities as $activity) {
-                    $startDates[] = $activity['start'];
-                    $endDates[] = $activity['end'];
+//                Gets start and ends dates of tasks
+                for ($i = 0; $i < count($tasks); $i++) {
+                    $startDates[] = $tasks[$i]['start'];
+                    $endDates[] = $tasks[$i]['end'];
                 }
 
+
+                //  Converts dates to timestamp for easy arrangement
                 $startDates = array_map('strtotime', $startDates);
                 $endDates = array_map('strtotime', $endDates);
+
+//                Gets start date and end date of the project
+                $dStart = new DateTime();
+                $dStart->setTimestamp(min($startDates));
+                $dEnd  = new DateTime();
+                $dEnd->setTimestamp(max($endDates));
+                $dDiff = $dStart->diff($dEnd);
 
                 // Project start
                 $startDate = date('Y-m-j', (min($startDates)));
                 // Project end
                 $endDate = date('Y-m-j', (max($endDates)));
 
-                $dStart = new DateTime($startDate);                         
-                $dEnd  = new DateTime($endDate);
-                $dDiff = $dStart->diff($dEnd);
-
+//                Number of days
                 $numDays = ((int) $dDiff->format('%r%a')) + 1;
+//                Chart header settings
                 $header = $this->getDates($startDates, $endDates);
 
-                // echo "Start diff";
-                for ($i=0; $i < count($tasks); $i++) { 
-                    for ($j=0; $j < count($tasks[$i]['activity']); $j++) { 
-                        
-                        // var_dump($tasks[$i]['activity'][$j]['start']);
-                        // var_dump($tasks[$i]['activity'][$j]['end']);
-                        $actStart = new DateTime($tasks[$i]['activity'][$j]['start']);
-                        $startDiff = $dStart->diff($actStart);
+                //  Sets grid and span of task
+                for ($i=0; $i < count($tasks); $i++) {
 
-                        $actEnd = new DateTime($tasks[$i]['activity'][$j]['end']);
-                        $span = $actStart->diff($actEnd);
+                    //  Sets starting grid of task
+                    $start = new DateTime($tasks[$i]['start']);
+                    $startDiff = $dStart->diff($start);
+                    $tasks[$i]['grid'] = ((int) $startDiff->format('%r%a')) + 1;
 
-                        $tasks[$i]['activity'][$j]['grid'] = ((int) $startDiff->format('%r%a')) + 1;
-                        $tasks[$i]['activity'][$j]['span'] = (int) $span->format('%r%a') + 1;
-                    }
+                    //  Sets ending grid/span of task
+                    $end = new DateTime($tasks[$i]['end']);
+                    $span = $start->diff($end);
+                    $tasks[$i]['span'] = (int) $span->format('%r%a') + 1;
                 }
 
-                // var_dump($tasks);
-
-                // var_dump($endDates);
-                // var_dump($activities);
-
-                // echo "End";
-                // var_dump(end($tasks)['activity']);
-
                 $result['data']['content'] = $tasks;
-                // $result['data']['header'] = $header;
-                // $result['data']['start'] = $startDate;
-                // $result['data']['end'] = $endDate;
-                // $result['data']['total_days'] = $numDays;
 
                 $result['statusCode'] = 200;
             } else {
@@ -255,13 +269,15 @@ class TaskService extends Service{
         $result['data']['start'] = $startDate;
         $result['data']['end'] = $endDate;
         $result['data']['total_days'] = $numDays;
+        $result['data']['grid'] = $numDays + 3;
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     private function getDates(array $startDates, array $endDates) {
         $months = [[], [], []];
-        
+
+//        Months and years
         for ($i=0; $i < count($startDates); $i++) 
         { 
             $start = date("n", $startDates[$i]);
@@ -277,25 +293,27 @@ class TaskService extends Service{
             }
         }
 
-
-
         // echo "Date T";
         // var_dump(date('t', min($startDates)));
         // echo "Date J";
         // var_dump(date('j', min($startDates)));
         // echo "Diff";
         // var_dump(date('j', min($startDates)));
-        
+
+        $EXTRA_SPACE = 3;
+
         if (count($months[0]) > 1) 
         {
+//            var_dump(min($startDates));
             $months[1][] = date('t', min($startDates)) - (date('j', min($startDates)) - 1);
+//            var_dump($months[1]);
 
             for ($i=1; $i < (count($months[0])-1); $i++) { 
                 // echo "Days in month";
                 $months[1][] = cal_days_in_month(CAL_GREGORIAN, $months[0][$i], $months[2][$i]);
             }
 
-            $months[1][] = (int)date('j', max($endDates));
+            $months[1][] = ((int) date('j', max($endDates))) + $EXTRA_SPACE;
         } 
         else if (count($months[0]) === 1)
         {
@@ -305,12 +323,8 @@ class TaskService extends Service{
             $dEnd->setTimestamp(max($endDates));
             $dDiff = $dStart->diff($dEnd);
     
-            $months[1][] = ((int) $dDiff->format('%r%a')) + 1;
-            // echo "Num day";
-            // var_dump($numDays);
+            $months[1][] = ((int) $dDiff->format('%r%a')) + $EXTRA_SPACE;
         }
-
-        // var_dump($months);
 
         return $months;
     }
@@ -331,7 +345,7 @@ class TaskService extends Service{
             $result['statusCode'] = 400;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     // Gets task count of a project
@@ -348,7 +362,7 @@ class TaskService extends Service{
             $result['statusCode'] = 400;
         }
 
-        return json_encode($result);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     // Converts json string activities to arrays
@@ -372,6 +386,38 @@ class TaskService extends Service{
         // var_dump($input);
 
         return $input;
+    }
+
+//    Stoppage
+    public function getStoppage(string $taskId)
+    {
+        $cleanId = $this->sanitizeString($taskId);
+        $response['data'] = [];
+
+        if ($cleanId) {
+            if ($stoppage = $this->taskRepository->getStoppage($cleanId)) {
+                $result['data'] = $stoppage[0];
+                $result['statusCode'] = 200;
+            } else {
+                $result['statusCode'] = 500;
+            }
+        } else {
+            $result['statusCode'] = 400;
+        }
+
+        return json_encode($result, JSON_NUMERIC_CHECK);
+    }
+
+    public function createStoppage(string $taskId, array $halt, $end) {
+        $stoppage = new Stopage();
+        $stoppage->create(
+            $taskId,
+            $halt['haltReason'],
+            $halt['haltStart'],
+            $end
+        );
+
+        $this->taskRepository->createStoppage($stoppage);
     }
 
 }

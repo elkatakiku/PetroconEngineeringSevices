@@ -9,9 +9,6 @@
     --danger: #ff647c;
     --success: #00c48c;
     --information: #0084f4;
-    /* --primary: #5215FC; */
-    /* --secondary: #7070DD; */
-    /* --purple: #FF00FF; */
     --light-blue: #F2F2FF;
     --complementary: #744713;
 
@@ -364,13 +361,13 @@ a.btn {
 }
 
 .success-btn {
-    background-color: var(--success);
-    color: white;
+    background-color: var(--success) !important;
+    color: white !important;
 }
 
 .danger-btn {
-    background-color: var(--danger);
-    color: white;
+    background-color: var(--danger) !important;
+    color: white !important;
 }
 
 .success-text {
@@ -489,26 +486,6 @@ form .row .right {
   border-radius: .25rem;
   transition: all .1s ease-in-out;
   pointer-events: none;
-}
-
-.form-label-group input::-webkit-input-placeholder,
-.form-label-group textarea::-webkit-textarea-placeholder {
-  color: transparent;
-}
-
-.form-label-group input:-ms-input-placeholder,
-.form-label-group textarea:-ms-textarea-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-ms-input-placeholder,
-.form-label-group textarea::-ms-textarea-placeholder {
-  color: transparent;
-}
-
-.form-label-group input::-moz-placeholder,
-.form-label-group textarea::-moz-placeholder {
-  color: transparent;
 }
 
 .form-label-group input::placeholder,
@@ -667,9 +644,9 @@ form .row .right {
     white-space: nowrap;
 }
 
-.mesa-container .mesa th:last-child, .mesa-container .mesa td:last-child {
-    text-align: right;
-}
+/*.mesa-container .mesa th:last-child, .mesa-container .mesa td:last-child {*/
+/*    text-align: right;*/
+/*}*/
 
 .mesa {
     display: table;
@@ -726,26 +703,28 @@ form .row .right {
 .mesa .action-cell {
     vertical-align: top;
     min-width: 100px;
+    text-align: center;
 }
 
 .mesa .action-cell-content {
     display: flex;
-    flex-direction: row-reverse;
+    /*flex-direction: row-reverse;*/
+    justify-content: center;
     align-items: center;
     text-align: right;
     min-width: 100px;
     gap: 1rem;
 }
 
-.mesa-header .action-cell .btn { 
-    display: flex;
-    float: right;
-}
+/*.mesa-header .action-cell .btn { */
+/*    display: flex;*/
+/*    float: right;*/
+/*}*/
 
-.mesa .action-cell .btn {
-    padding: 0;
-    margin: 0;
-}
+/*.mesa .action-cell .btn {*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*}*/
 
 .mesa tbody tr textarea:read-only,
 .mesa tbody tr input:read-only {
@@ -1378,10 +1357,6 @@ body:has(.slide-fixed.active).slide-open {
     overflow: hidden !important;
 }
 
-.text-wrap {
-    white-space: wrap;
-}
-
 .pos-relative {
     position: relative;
 }
@@ -1434,6 +1409,10 @@ body:has(.slide-fixed.active).slide-open {
     overflow: hidden;
 }
 
+.danger-text {
+    color: var(--danger) !important;
+}
+
 
 /* Linear */
 .linear-container {
@@ -1441,7 +1420,7 @@ body:has(.slide-fixed.active).slide-open {
     padding-left: 15px;
 }
 
-.linear-container .linear {
+.linear-container > .linear {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start !important;
@@ -1450,7 +1429,7 @@ body:has(.slide-fixed.active).slide-open {
     margin-right: -15px;
 }
 
-.linear-container .linear > div {
+.linear-container > .linear > div {
     flex-grow: 1;
     flex-shrink: 0;
     padding: 0 15px;
@@ -1506,6 +1485,47 @@ body:has(.slide-fixed.active).slide-open {
         rotate: 360deg;
     }
 }
+
+/* || Completion Bar */
+.completion-graph {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+
+    border: 1px solid var(--border-rgba-color);
+    padding: 4px 0;
+}
+
+.completion-date {
+    padding: 0 1rem;
+}
+
+.completion-date > * {
+    font-size: 12px;
+    margin: 0;
+    text-align: center;
+}
+
+.completion-bar {
+    height: 100%;
+    background-color: #d2d2d2;
+    background-image: linear-gradient(to right, var(--primary), var(--primary) 0%, transparent 0, #d2d2d2);
+}
+
+.completion-percent {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: white;
+}
+
+.completion-days {
+    font-size: 12px;
+    padding: 0 1rem;
+}
+
 
 /* || MEDIA QUERIES */
 /* XS */

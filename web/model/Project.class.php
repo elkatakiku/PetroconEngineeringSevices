@@ -4,24 +4,24 @@ namespace Model;
 
 class Project implements Expose {
 
-    private $id;
-    private $name;
-    private $location;
-    private $buildingNumber;
-    private $purchaseOrder;
-    private $awardDate;
-    private $status;
-    private $active;
-    private $company;
-    private $compRepresentative;
-    private $compContact;
+    private string $id;
+    private string $description;
+    private string $location;
+    private string $buildingNumber;
+    private string $purchaseOrder;
+    private string $awardDate;
+    private bool $status;
+    private bool $active;
+    private string $company;
+    private string $representative;
+    private string $contact;
 
     public function set(
         $id, $name, $location, $buildingNumber, $purchaseOrder, $awardDate, $status, $active,
-        $company, $compRepresentative, $compContact) {
+        $company, $representative, $contact) {
 
         $this->id = $id;
-        $this->name = $name;
+        $this->description = $name;
         $this->location = $location;
         $this->buildingNumber = $buildingNumber;
         $this->purchaseOrder = $purchaseOrder;
@@ -29,17 +29,17 @@ class Project implements Expose {
         $this->status = $status;
         $this->active = $active;
         $this->company = $company;
-        $this->compRepresentative = $compRepresentative;
-        $this->compContact = $compContact;
+        $this->representative = $representative;
+        $this->contact = $contact;
     }
 
     public function create(
         $name, $location, $buildingNumber, $purchaseOrder, $awardDate, 
-        $company, $compRepresentative, $compContact) {
+        $company, $representative, $contact) {
 
         $this->set(
             uniqid("PTRCN-PRJCT-"), $name, $location, $buildingNumber, $purchaseOrder, $awardDate, false, true, 
-            $company, $compRepresentative, $compContact
+            $company, $representative, $contact
         );
     }
 
@@ -51,12 +51,12 @@ class Project implements Expose {
         return $this->id;
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function setDescription($description) {
+        $this->description = $description;
     }
 
-    public function getName() {
-        return $this->name;
+    public function getDescription() {
+        return $this->description;
     }
 
     public function setLocation($location) {
@@ -115,20 +115,20 @@ class Project implements Expose {
         return $this->company;
     }
 
-    public function setCompRepresentative($compRepresentative) {
-        $this->compRepresentative = $compRepresentative;
+    public function setRepresentative($representative) {
+        $this->representative = $representative;
     }
 
-    public function getCompRepresentative() {
-        return $this->compRepresentative;
+    public function getRepresentative() {
+        return $this->representative;
     }
 
-    public function setCompContact($compContact) {
-        $this->compContact = $compContact;
+    public function setContact($contact) {
+        $this->contact = $contact;
     }
 
-    public function getCompContact() {
-        return $this->compContact;
+    public function getContact() {
+        return $this->contact;
     }
 
     public function expose() {

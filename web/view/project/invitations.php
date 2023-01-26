@@ -4,7 +4,7 @@
     </div>
      <!-- Header -->
     <div class="page-header">
-        <span>     
+        <span>
             <a id="backBtn" href="<?= SITE_URL.'/project/details/'.$data['project']['id'] ?>" class="linear link-btn mb-2">
                 <span class="material-icons">
                     arrow_back
@@ -19,34 +19,44 @@
                 <div class="input-prepend">
                     <i class="fa fa-search icon" aria-hidden="true"></i>
                 </div>
-                <input type="text" name="" id="searchInvitations" placeholder="Search people">
+                <input type="text" name="" id="searchInvitations" placeholder="Search person">
             </div>
         </div>
     </div>
+
+    <pre>
+        <?= var_dump($data) ?>
+    </pre>
     
     <div class="main-content mt-0">
         <form class="linear-container mb-3" id="inviteForm">
             <div class="alert alert-danger" role="alert"></div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="name" placeholder="Enter name here">
-            </div>
             <div class="linear basis-12">
-                <div class="form-group basis-10 mb-0">
-<!--                    <label for="">Email</label>-->
+                <div class="form-group basis-9 mb-0">
+                    <input type="text" class="form-control" name="name" placeholder="Lastname, Firstname MI." required>
+                </div>
+                <div class="basis-12 basis-md-3 pl-md-0">
+                    <select name="type" class="custom-select" required>
+                        <option value="" disabled selected>Choose type</option>
+                        <?php foreach ($data['accountTypes'] as $type) {
+                            if ($type['id'] != \Model\Account::ADMIN_TYPE) { ?>
+                                <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
+                        <?php }
+                        } ?>
+                    </select>
+                </div>
+                <div class="form-group basis-9 mb-0">
                     <span class="loading-input">
-                            <input type="email" class="form-control top" name="email" id="email" aria-describedby="helpId" placeholder="Enter email here" required>
-                            <div class="loading" style="display: none;">
-                                <div class="spinner-grow spinner-grow-sm" role="status">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
+                        <input type="email" class="form-control top" name="email" id="email" aria-describedby="helpId" placeholder="address@email.com" required>
+                        <div class="loading" style="display: none;">
+                            <div class="spinner-grow spinner-grow-sm" role="status">
+                                <span class="sr-only">Loading...</span>
                             </div>
-                        </span>
+                        </div>
+                    </span>
                     <small id="helpId" class="form-text text-danger"></small>
                 </div>
-<!--                <div class="form-group">-->
-<!--                    <input type="email" class="form-control" name="email" placeholder="Enter email here" required>-->
-<!--                </div>-->
-                <div class="basis-12 basis-md-2 pl-md-0 pos-relative">
+                <div class="basis-12 basis-md-3 pl-md-0 pos-relative">
                     <button type="submit" class="btn action-btn btn-block" id="inviteSubmit">Invite</button>
                     <span class="cstm-spinner white-border" style="display: none;"></span>
                 </div>
@@ -57,62 +67,13 @@
             <table class="mesa" id="inviteTable">
                 <thead class="mesa-head">
                     <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th></th>
+                        <th scope="col"></th>
+                        <th scope="col" class="tname"><strong>Name</strong></th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <!-- <tbody>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>vana</td>
-                        <td>09152934627</td>
-                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                    </tr>
-                    
-                    <tr>
-                        <th scope="row"></th>
-                        <td>vana</td>
-                        <td>09152934627</td>
-                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                    </tr>
-                    
-                    <tr>
-                        <th scope="row"></th>
-                        <td>vana</td>
-                        <td>09152934627</td>
-                        <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                    </tr>
-                    
-                    <tr>
-                    <th scope="row"></th>
-                    <td>vana</td>
-                    <td>09152934627</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                    </tr>
-                    
-                    <tr>
-                    <th scope="row"></th>
-                    <td>effer</td>
-                    <td>09152934627</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                    </tr>
-                    
-                    <tr>
-                    <th scope="row"></th>
-                    <td>elkatakiki</td>
-                    <td>elimarimae@emailcom</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                    </tr>
-                    
-                    <tr>
-                    <th scope="row"></th>
-                    <td>kath</td>
-                    <td>09152934627</td>
-                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                    </tr>
-                </tbody> -->
             </table>
         </div>
 
