@@ -1,10 +1,6 @@
-<main class="content"> 
-  <pre>
-    <?= var_dump($data) ?>
-  </pre>
+<main class="content">
   <!-- Header -->
   <div class="page-header">
-    <!-- <div class="linear"> -->
       <h1 class="page-title">Users</h1>
 
       <!-- New users -->

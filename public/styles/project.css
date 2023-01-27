@@ -105,306 +105,34 @@ button[data-toggle="form"][data-action="cancel"] {
     color: #5e6c84;
 }
 
-/* || Gantt Chart */
-#projectGanttChart {
-    --chart-row-head: 250px;
-    --chart-grid-width: 25px;
-    --week-days: 7;
-    --chart-header-bg: var(--palette1);
-
-    /*max-height: 100vh;*/
-    padding: 0;
-}
-
-.chart-container {
-    display: grid;
-    grid-template-rows: auto 100fr;
-    grid-template-columns: 1fr;
-    position: relative;
-}
-
-.gantt-chart {  
-    position: relative;
-    overflow-x: auto;
-}
-
-.gantt-chart .chart {
-    height: 100%;
-    display: grid;
-    grid-template-rows: auto 100fr;
-}
-
-.chart-header {
-    background-color:  var(--chart-header-bg) !important;
-    color:  white;
-    position: sticky;
-    top: 0;
-    z-index: 105;
-}
-
-.chart-body {
-    position: relative;
-    background-color: white;
-}
-
-.gantt-chart .chart-row {  
-    display: grid; 
-    grid-template-columns: var(--chart-row-head) 1fr; 
-}
-
-/* || Tooltip */
-.actual .help-icon {
-    color: #353535;
-}
-
-.custom_tooltip {
-    min-width: 100px;
-    width: auto;
-    max-width: 250px;
-    padding: 5px 8px;
-    border: 1px solid var(--palette4);
-    background-color: white;
-    position: fixed;
-    z-index: 1000;
-    /*visibility: hidden;*/
-
-    box-shadow: 2px 2px 5px rgba(0, 0, 0,0.3);
-}
-
-.custom_tooltip:after {
-    content: '';
-    position: absolute;
-    display: block;
-    width: 0;
-    z-index: 1;
-    border-style: solid;
-    border-color: var(--palette4) transparent;
-    border-width: 5px 5px 0;
-    bottom: -5px;
-    left: 50%;
-    translate: -50% 0;
-}
-
-.custom_tooltip.stopped:after {
-    border-color: var(--danger) transparent;
-}
-
-
-.custom_tooltip * {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    margin: 0;
-}
-
-.tip-title {
-    font-size: 12px;
-}
-
-.tip-date {
-    font-size: 10px;
-    color: #424242;
-}
-
-.actual:hover .custom_tooltip {
-    visibility: visible;
-}
-
-.chart-row-bars .stopped {
-    --red : #ff3655;
-    --light-red : #ff9797;
-    background-image: linear-gradient(to right, var(--red), var(--red) var(--percent), var(--light-red) var(--percent), var(--light-red)) !important;
-}
-
-.custom_tooltip.stopped {
-    border-color: var(--danger);
-}
-
-.custom_tooltip .help-icon {
-    display: block;
-    font-size: 14px;
-    overflow: visible;
-}
-
-/* Grid width */
-.chart-lines {
-    display: grid;
-    /* grid-template-columns: var(--chart-row-head) repeat(50, 1fr) !important; */
-}
-
-.chart-months, 
-.chart-days,
-.gantt-chart .chart-row-bars { 
-    display: grid;
-    /* grid-template-columns: repeat(50, minmax(var(--chart-grid-width), 1fr));  */
-}
-
-/* Grid Components */
-#timelineToggler {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    border-right: none;
-    background-color: var(--chart-header-bg);
-    color: white;
-    text-align: center;
-    border-right: 1px solid white;
-}
-
-.chart-months {
-    /*text-transform: uppercase;*/
-    /*font-weight: 500;*/
-    /*border-bottom: 1px solid white;*/
-    font-weight: 500;
-    font-size: 12px;
-    /*color: var(--primary-text);*/
-    color: white;
-    border-bottom: 1px solid rgba(13, 13, 13, 0.4);
-}
-
-
-.chart-month {
-    /* grid-column: 1 / span 22; */
-    justify-self: center;
-    align-self: stretch;
-    width: 100%;
-    /* text-align: center; */
-    padding: 5px 10px;
-    background-color: var(--palette1);
-
-    position: sticky;
-    left: 250px;
-}
-
-.chart-month:last-child {
-    overflow: hidden;
-}
-
-.gantt-chart .chart-days {
-    /*padding: 2px 0;*/
-    /*border-left: 1px solid white;*/
-    font-size: 12px;
-}
-
-.gantt-chart .chart-days > span {
-    font-size: .75rem;  
-    display: block;
-    text-align: center;
-    align-self: center;  
-}
-
-.gantt-chart .chart-lines { 
-    display: grid; 
-    position: absolute;  
-    height: 100%;
-    width: 100%; 
-    background-color: transparent;
-}
-
-.gantt-chart .chart-lines > span {  
-    display: block;  
-    border-right: 1px solid rgba(13, 13, 13, 0.4);
-}
-
-.gantt-chart .chart-days > span, 
-.gantt-chart .chart-lines > span {
-    min-width: var(--chart-grid-width);
-}
-
-/* .gantt-chart .chart-lines > span:nth-child(3),
-.gantt-chart .chart-lines > span:nth-child(10),
-.gantt-chart .chart-lines > span:nth-child(17) {
-    background-color: rgb(255, 70, 70);
-    position: relative;
-    z-index: 50;
-} */
-
-.sunday {
-    background-color: #d2d2d2;
-    /*background-color: rgb(255, 70, 70);*/
-    /*position: relative;*/
-    /*z-index: 50;*/
-}
-
-.gantt-chart .chart-row-item { 
-    align-self: stretch;
-    display: grid;
-    grid-template-columns: minmax(5px, auto) 1fr;
-    gap: 10px;
-    padding: 10px;
-    min-height: 20px;
-    background-color: white;
-    font-size: .75rem;
-    color: var(--primary-text);
-    border-right: 1px solid black !important;
-    border-bottom: 1px solid var(--border-rgba-color);
-
-    position: sticky;
-    left: 0;
-    z-index: 60;
-}
-
-.gantt-chart .chart-row-bars { 
-    list-style: none; 
-    padding: 10px 0;
-    margin: 0;
-    grid-gap: 5px 0;
-    border-bottom: 1px solid var(--border-rgba-color);
-}
-
-.chart-row-bars li .progress-percent {
-    display: block;
-    /*height: 100%;*/
-    margin-left: 5px;
-    /*display: grid;*/
-    /*align-items: center;*/
-    position: absolute;
-    /*right: -100%;*/
-    right: 0;
-    z-index: 60;
-}
-
-.gantt-chart li {
-    min-width: var(--chart-grid-width);
-    min-height: var(--chart-grid-width);
-    max-height: var(--chart-grid-width);
+/* Halt */
+#haltProgress {
     cursor: pointer;
-    /*overflow: hidden;*/
-
-    position: relative;
-    z-index: 40;
 }
 
-#projectGanttChart .expanding-btn {
-    position: absolute;
-    right: 20px;
-    bottom: 40px;
-
-    z-index: 100;
+#haltProgress:has(#haltToggler:checked) {
+    background-color: #dd1d3b !important;
+    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, .8);
 }
 
-#projectGanttChart .expanding-btn button {
-    border-radius: 100px;
-    padding: 5px;
-    transition: all .3s linear;
-}
-
-#projectGanttChart .expanding-btn button::before {
-    content: "Legends";
+#haltToggler {
     display: none;
-    transition: all .3s;
 }
 
-#projectGanttChart .expanding-btn:hover button {
-    padding: 5px 10px;
+#halt {
+    background-color: #ffdddd;
+    border: 1px solid #ff9baa;
+    overflow: hidden;
 }
 
-#projectGanttChart .expanding-btn:hover button::before {
-    display: inline-block;
-    margin: 0 10px;
+#halt > div {
+    padding: 10px;
 }
 
+#halt label {
+    display: block;
+    margin: 0;
+}
 
 /* || Table */
 .row-actions {

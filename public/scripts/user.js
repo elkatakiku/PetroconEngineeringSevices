@@ -153,3 +153,30 @@ let datatableSettings = {
 };
 
 $('#joinedProjectTable').DataTable(datatableSettings.joinedProjectTable);
+
+$('#deleteAccount').on('click', (e) => {
+    Popup.promptDelete('invitation', rowData.id, (deletePopup) => {
+        $.post(
+            Settings.base_url + "/user/remove",
+            {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+            function (data, textStatus) {
+                console.log(data)
+                let jsonData = JSON.parse(data);
+                if (jsonData.statusCode === 200)
+                {   // Dismiss delete popup and reload legends list on success
+                    deletePopup.find('button[data-dismiss]').trigger('click');
+
+                    // Reload invitations
+                    reloadDatatable(reloadTimeout, datatable)
+                    // datatable.ajax.reload(null, false);
+
+                    //  Show feedback
+                    Popup.feedback({
+                        'feedback' : 'success',
+                        'message' : 'Successfully removed invitation.'
+                    });
+                }
+            }
+        );
+    }, true);
+});

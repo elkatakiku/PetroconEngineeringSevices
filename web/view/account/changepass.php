@@ -17,8 +17,8 @@
         <h5 class="form-header">Reset password</h5>
         
         <?= $this->displayResult($_GET, 'Password changed successfully.') ?>
-    
-        <input type="hidden" name="id" value="<?= $data['user']['id'] ?>">
+
+        <input type="hidden" name="id" value="<?= $data['user']['log_id'] ?>">
 
         <div class="form-group">
             <label for="old">Current password</label>

@@ -175,6 +175,7 @@ class UserRepository extends Repository {
         $params = [':id' => $id];
 
         if ($res = $this->query($sql, $params)[0]) {
+
             $res = Login::build(
                 $res['id'],
                 $res['username'],
@@ -547,6 +548,23 @@ class UserRepository extends Repository {
     public function removeUser(string $loginId) {
         $sql = "DELETE FROM ".self::$tblLogin." WHERE id = :id";
         $params = [':id' => $loginId];
+
+        return $this->query($sql, $params);
+    }
+
+    public function remove(string $id)
+    {
+        $sql = 'UPDATE 
+                    '.self::$tblAccount.'
+                SET 
+                    active = :active
+                WHERE
+                    id = :id';
+
+        $params = [
+            ':id' => $id,
+            ':active' => false
+        ];
 
         return $this->query($sql, $params);
     }

@@ -173,4 +173,17 @@ class Project extends MainController {
         header("Location: ".SITE_URL."/project");
         exit();
     }
+
+//    Views
+    public function completion()
+    {
+        if (isset($_GET['project']) && isset($_GET['task'])) {
+            $this->view(
+                "project",
+                "completion"
+            );
+        }
+
+        var_dump($_GET);
+    }
 }

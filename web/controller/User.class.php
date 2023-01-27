@@ -129,8 +129,8 @@ class User extends MainController {
     // Change pass action
     public function changePass()
     {
-        if (isset($_POST['changePassSubmit'])) {
-
+        if (isset($_POST['changePassSubmit']))
+        {
             $result = json_decode($this->userService->changePassword($_POST), true);
             $url = "Location: ".SITE_URL."/account/changepass";
 
@@ -151,41 +151,17 @@ class User extends MainController {
         if ($uid && $key) {
             $this->userService->activateAccount($uid, $key);
         }
-        
-        // if (isset($_POST['verifySubmit'])) 
-        // {
-        //     $inputs = [
-        //         'required' => [
-        //             "id" => ucwords($this->sanitizeString($_POST['id'])), //every first letter of words is capital
-        //             "firstName" => ucwords($this->sanitizeString($_POST['firstName'])), //every first letter of words is capital
-        //             "lastName" => ucwords($this->sanitizeString($_POST['lastName'])),
-        //             "email" => $this->sanitizeString($_POST['email']), //all lower case/upper case
-        //             "address" => ucwords($this->sanitizeString($_POST['address'])),
-        //             "contactNo" => $this->sanitizeString($_POST['contactNo']),
-        //             "birthdate" => ucwords($this->sanitizeString($_POST['birthdate']))
-        //             //"username" => strtoupper($projectDesc[0]).strtolower(substr($projectDesc, 1, strlen($projectDesc))), //first letter first word lang ang capital
-        //         ],
-        //         'notRequired' => [
-        //             "middleName" => ucwords($this->sanitizeString($_POST['middleName']))
-        //         ]
-        //     ];
-
-        //     $result = json_decode($this->userService->updateUser($inputs), true);
-        //     $url = "Location: ".SITE_URL.US."app/profile/".$_SESSION['accID'];
-
-        //     if ($result['statusCode'] != 200) {
-        //         $url .= "?error=".$result['message'];
-        //     }
-
-        //     header($url);
-        // } else {
-        //     $this->goToLogin();
-        // }
     }
 
     private function goToIndex() {
         header("Location: ".SITE_URL."/user");
         exit();
+    }
+
+    public function remove() {
+        if (isset($_POST['id'])) {
+            echo $this->userService->remove($_POST['id']);
+        }
     }
 }
 

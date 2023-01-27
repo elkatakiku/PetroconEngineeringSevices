@@ -1,5 +1,4 @@
 <?php
-
 use Model\Account;
 ?>
 <main class="content">

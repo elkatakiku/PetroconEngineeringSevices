@@ -1,15 +1,6 @@
 <main class="content">
-	<pre>
-		<?php
-		 var_dump($data);
-		// var_dump($data['account']['middlename']);
-		?>
-	</pre>
-	
 	<!-- Header -->
 	<div class="page-header">
-		<!-- <h1 class="page-title">User Management | <small>Client</small> -->
-		<!-- </h1> -->
 		<div>
 			<h1 class="page-title"><?= $this->mergeName($data['account']['lastname'], $data['account']['firstname'], $data['account']['middlename']) ?></h1>
 			<small><?= ucwords($data['account']['type']) ?></small>
@@ -63,7 +54,7 @@
 				<h4>Actions</h4>
 				<div class="text-center">
 					<button type="button" class="btn primary-btn slim-btn " data-toggle="popup" data-target="#resetPass"> Reset Password </button>
-					<button type="button" class="btn primary-btn slim-btn danger-btn " data-toggle="popup" data-target="#deleteAcc"> Delete Account </button>
+					<button type="button" class="btn primary-btn slim-btn danger-btn" id="deleteAccount"> Delete Account </button>
 				</div>
 
 				<!-- Reset Pass Popup -->

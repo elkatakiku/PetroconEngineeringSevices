@@ -431,8 +431,6 @@ $('[data-slider]').on('click', (e) => {
         btn.trigger('custom:clicked', [btn]);
     }
 });
-console.log('Buttons');
-console.log($('button'));
 $('button').on('custom:clicked', (e, btn) => {
     console.log("Disable")
     $(e.target).prop('disabled', false);
@@ -449,4 +447,18 @@ $('input, textarea').on('keydown', (e) => {
 //  Form
 $('form').on('custom:submitted', (e) => {
     Utils.toggleForm($(e.target), false);
+});
+
+
+
+// || Date Duration
+
+// Start
+$('input[data-start]').on('change', (e) => {
+    $('input[data-end="'+e.target.dataset.start+'"]').attr('min', e.target.value);
+});
+
+// End
+$('input[data-end]').on('change', (e) => {
+    $('input[data-start="'+e.target.dataset.end+'"]').attr('max', e.target.value);
 });

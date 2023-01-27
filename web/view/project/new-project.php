@@ -49,20 +49,26 @@
                         <input type="text" class="form-control" name="buildingNo" id="" aria-describedby="helpId" placeholder="Type the building number here" required>
                     </div>
 
-<!--                    <div class="form-group">-->
-<!--                        <label for="" class="basis-12">Completion Date</label>-->
-<!--                        <div class="linear flex-md-nowrap flex-wrap">-->
-<!--                            <span class="flex-grow-1">-->
-<!--                                <input type="date" class="form-control" required >-->
-<!--                            </span>-->
-<!--                            <span>-->
-<!--                                --->
-<!--                            </span>-->
-<!--                            <span class="flex-grow-1">-->
-<!--                                <input type="date" class="form-control" required>-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                    <div class="form-group">
+                        <label for="">Completion Date</label>
+                        <div class="linear">
+                            <input type="date" class="form-control" name="start" data-start="completionDate" required>
+                            -
+                            <input type="date" class="form-control" name="end" data-end="completionDate" required>
+                        </div>
+                    </div>
+
+<!--                    <button type="button" class="btn action-btn btn-block" data-toggle="popup" data-target="#taskPopup">Tasks</button>-->
+
+<!--                    <style>-->
+<!--                        .completion-btn {-->
+<!--                            width: 100%;-->
+<!--                        }-->
+<!--                    </style>-->
+
+<!--                    <a href="--><?//= SITE_URL.'/project/completion' ?><!--" target="_blank" class="">-->
+<!--                        <button type="button" class="btn outline-action-btn btn-block completion-btn">View completion date</button>-->
+<!--                    </a>-->
                 </div>
 
                 <div class="client-form basis-lg-4">
@@ -77,50 +83,26 @@
                     <div class="form-group">
                         <label for="">Company name</label>
                         <input type="text" class="form-control" name="cmpnyName" aria-describedby="helpId" placeholder="Type the company name here" required>
-<!--                        <datalist id="companyList">-->
-<!--                            --><?php //foreach ($data['companyList'] as $company) { ?>
-<!--                                <option value="--><?//= $company['name'] ?><!--" data-company="--><?//= $company['id'] ?><!--"></option>-->
-<!--                            --><?php //} ?>
-<!--                        </datalist>-->
                     </div>
 
                     <div class="form-group">
                         <label for="">Representative</label>
                         <input type="text" class="form-control" name="cmpnyRepresentative" aria-describedby="helpId" placeholder="Type the representative's name here" required>
-<!--                        <datalist id="clientList">-->
-<!--                            --><?php //foreach ($data['clientList'] as $client) { ?>
-<!--                                <option value="--><?//= $client['name'] ?><!--" data-client="--><?//= $client['id'] ?><!--"></option>-->
-<!--                            --><?php //} ?>
-<!--                        </datalist>-->
                     </div>
 
                     <div class="form-group">
                         <label for="">Contact number</label>
                         <input type="text" class="form-control" name="cmpnyContact" id="" aria-describedby="helpId" placeholder="Type the contact number here" required>
                     </div>
-
-<!--                    <div class="form-group">-->
-<!--                        <label for="">Email</label>-->
-<!--                        <input type="email" class="form-control" name="cmpnyEmail" id="" aria-describedby="helpId" placeholder="Type the email here" required>-->
-<!--                    </div>-->
-                </div>
-
-                <style>
-                    .project-actions .btn {
-                        min-width: 100px;
-                        padding: 5px 25px;
-                    }
-                </style>
-
-                <div class="project-actions basis-12 mb-1">
-                    <h5 class="form-header">Others</h5>
-                    <div class="linear">
-                        <button class="btn primary-btn">Completion Date</button>
-<!--                        <button class="btn primary-btn">Tasks</button>-->
-                    </div>
                 </div>
             </div>
 
+<!--            <style>-->
+<!--                .project-actions .btn {-->
+<!--                    min-width: 100px;-->
+<!--                    padding: 5px 25px;-->
+<!--                }-->
+<!--            </style>-->
         </div>
     </form>
 
@@ -130,3 +112,62 @@
     </div>
 </main>
 
+<!-- Task -->
+<!--<div class="popup popup-center" id="taskPopup" tabindex="-1" aria-hidden="true">-->
+<!--    <div class="pcontainer popup-lg">-->
+<!--        <div class="pcontent">-->
+<!--            <header class="pheader">-->
+<!--                <h2 class="ptitle">Tasks</h2>-->
+<!--                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">-->
+<!--                    <span class="material-icons">close</span>-->
+<!--                </button>-->
+<!--            </header>-->
+<!---->
+<!--            <div class="pbody">-->
+<!---->
+<!--                <!-- Alert -->-->
+<!--                <div class="alert alert-danger mb-0" role="alert"></div>-->
+<!---->
+<!--                <form id="taskForm">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="">Task</label>-->
+<!--                        <textarea class="form-control" name="taskDescription" rows="1"  placeholder="Type the task name here" required></textarea>-->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="form-group">-->
+<!--                        <label for="">Duration</label>-->
+<!--                        <div class="linear">-->
+<!--                            <input type="date" class="form-control" name="start" data-start="taskDuration" required>-->
+<!--                            --->
+<!--                            <input type="date" class="form-control" name="end" data-end="taskDuration" required>-->
+<!--                            <button type="button" class="btn action-btn px-lg-5" id="addTask">Add task</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!---->
+<!---->
+<!--                <div class="mesa-container">-->
+<!--                    <table class="mesa mesa-hover" id="tasksTable">-->
+<!--                        <thead class="mesa-head">-->
+<!--                        <tr>-->
+<!--                            <th scope="col" class="taskCell tname" style="width: 80%"><strong>Task</strong></th>-->
+<!--                            <th scope="col">Start</th>-->
+<!--                            <th scope="col">Due</th>-->
+<!--                            <th scope="col"></th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody class="empty-table">-->
+<!--                        <tr class="empty-table">-->
+<!--                            <td colspan="4" class="text-center" style="color: gray">No tasks added.</td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!---->
+<!--            <footer class="pfooter">-->
+<!--                <button type="submit" class="btn action-btn" data-dismiss="popup">Continue</button>-->
+<!--            </footer>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->

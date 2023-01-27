@@ -147,7 +147,7 @@ class ProjectRepository extends Repository {
         $sql = 'UPDATE 
                     '.self::$tblProject.'
                 SET 
-                    name = :name, 
+                    description = :name, 
                     location = :location, 
                     building_number = :building_number, 
                     purchase_ord = :purchase_ord, 

@@ -18,12 +18,9 @@ use Repository\TaskRepository;
 class ProjectService extends Service{ 
 
     private $projectRepository;
-    private string $accountId;
 
     public function __construct() {
         $this->projectRepository = new ProjectRepository;
-
-        $this->accountId = $_SESSION["accType"] != Account::ADMIN_TYPE ? $_SESSION["accID"] : '';
     }
 
     public function getProjectCount()
@@ -50,33 +47,6 @@ class ProjectService extends Service{
     
         return json_encode($response, JSON_NUMERIC_CHECK);
     }
-
-    // Gets project list
-//    public function getProjectList($form) {
-//        parse_str($form, $input);
-//        $response['data'] = [];
-//
-//        if (!$this->emptyInput($input))
-//        {
-//            if ($input['status'] == "done") {
-//                $input['status'] = 1;
-//            } else if ($input['status'] == "ongoing") {
-//                $input['status'] = 0;
-//            }
-//
-//            if ($projects = $this->projectRepository->getProjects($input['status'])) {
-//                $response['data'] = $projects;
-//                $response['statusCode'] = 200;
-//            } else {
-//                $response['statusCode'] = 500;
-//                $response['message'] = 'An error occurred';
-//            }
-//        } else {
-//            $response['statusCode'] = 400;
-//        }
-//
-//        return json_encode($response);
-//    }
 
     public function getProjectList($form)
     {
@@ -255,8 +225,6 @@ class ProjectService extends Service{
 
     public function update($form) {
         parse_str($form, $input);
-
-        // var_dump($input);
 
         if (!$this->emptyInput($input)) {
             $this->projectRepository->update($input);

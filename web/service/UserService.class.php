@@ -540,4 +540,18 @@ class UserService extends Service{
         $diff = $birthdate->diff($currentDate);
         return $diff->y >= 18;
     }
+
+    public function remove(string $form)
+    {
+        parse_str($form, $input);
+
+        if (!$this->emptyInput($input)) {
+            $cleanId = $this->sanitizeString($input['id']);
+            $result['statusCode'] = $this->userRepository->remove($cleanId) ? 200 : 500;
+        } else {
+            $result['statusCode'] = 400;
+        }
+
+        return json_encode($result, JSON_NUMERIC_CHECK);
+    }
 }

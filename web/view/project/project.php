@@ -6,7 +6,7 @@
     <div class="page-header pb-1">
         <div class="project-info">
             <div>
-                <h1 class="page-title"><?= $data['project']['description'] ?></h1>
+                <h1 class="page-title" style="font-size: 16px;"><?= $data['project']['description'] ?></h1>
                 <small><?= $data['project']['location'] ?></small>
             </div>
         </div>
@@ -110,9 +110,9 @@
             </div>
 
             <div class="slide-footer">
-                <button class="btn sm-btn <?= $data['project']['done'] == 1 ? 'outline-action' : 'success' ?>-btn done-btn" data-toggle="popup" data-target="#markDone">
-                    <?= $data['project']['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?>
-                </button>
+<!--                <button class="btn sm-btn --><?//= $data['project']['done'] == 1 ? 'outline-action' : 'success' ?><!---btn done-btn" data-toggle="popup" data-target="#markDone">-->
+<!--                    --><?//= $data['project']['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?>
+<!--                </button>-->
                 <button type="button" class="btn sm-btn danger-btn delete-btn">
                     Remove project
                 </button>
@@ -165,27 +165,10 @@
     <div class="custom-tab-container">
 
         <style>
-            .timeline {
-                display: grid;
-                grid-auto-rows: auto 1fr;
-                /* gap: 10px; */
-                margin-left: -100%;
-                width: 100%;
-                /* overflow-y: auto; */
-            }
-
-            .chart-container {  
+            .chart-container {
                 visibility: hidden;
                 width: 100%;
                 overflow: hidden;
-            }
-
-            td .form-input-group {
-                margin: 0;
-            }
-
-            .timeline header, .timeline footer {
-                padding: 1rem 20px;
             }
 
             #projectGanttChart .spinner {
@@ -199,30 +182,10 @@
                 top: 0;
                 left: 0;
             }
-
-            .main-content header h5 {
-                font-size: 1rem;
-            }
         </style>
 
         <!-- Gantt Chart -->
         <section id="projectGanttChart" class="main-content custom-tab-content chart-container show">
-
-            <style>
-                .page-header .page-title {
-                    font-size: 16px;
-                }
-
-                #projectGanttChart {
-                    background-color: transparent;
-                    border-radius: 0;
-                    box-shadow: none;
-                }
-
-                .gantt-chart {
-                    background-color: white;
-                }
-            </style>
 
             <div class="completion-graph">
                 <span class="completion-date">
@@ -238,9 +201,7 @@
             <div class="gantt-chart">
                 <div class="chart">
                     <div class="chart-row chart-header">
-                        <div class="chart-row-item" id="timelineToggler">
-                            Task name
-                        </div>
+                        <div class="chart-row-item">Task name</div>
                         <div>
                             <div class="chart-months">
                                 <span class="chart-month"><?= date('F') ?></span>
@@ -383,11 +344,13 @@
         <!-- Payment -->
         <section id="projectPayment" class="main-content custom-tab-content">
 
-            <button id="addPayment" type="button" class="btn action-btn sm-btn float-right">
-                <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
-                Add payment
-            </button>
-
+            <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
+                <button id="addPayment" type="button" class="btn action-btn sm-btn float-right">
+                    <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                    Add payment
+                </button>
+            <?php } ?>
+            
             <!-- Payment Table -->
             <div class="mesa-container">
                 <table class="mesa mesa-hover" id="paymentTable">
@@ -431,54 +394,6 @@
         </section>
 
     </div>
-
-    <style>
-        .toast-container {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            height: 100%;
-
-            background-color: red;
-
-            z-index: 2500;
-        }
-
-        .toast {
-            opacity: 1;
-        }
-    </style>
-
-    <!-- Toasts -->
-    <!-- <div class="toast-container">
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="..." class="rounded mr-2" alt="...">
-                <strong class="mr-auto">Bootstrap</strong>
-                <small class="text-muted">just now</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                See? Just like this.
-            </div>
-        </div>
-
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="..." class="rounded mr-2" alt="...">
-                <strong class="mr-auto">Bootstrap</strong>
-                <small class="text-muted">2 seconds ago</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body">
-                Heads up, toasts will stack automatically
-            </div>
-        </div>
-    </div> -->
 </main>
 
 <!-- Task -->
@@ -510,9 +425,9 @@
                     <div class="form-group">
                         <label>Duration</label>
                         <div class="linear">
-                            <input type="date" class="form-control" name="start" required>
+                            <input type="date" class="form-control" name="start" data-start="taskDuration" required>
                             -
-                            <input type="date" class="form-control" name="end" required>
+                            <input type="date" class="form-control" name="end" data-end="taskDuration" required>
                         </div>
                     </div>
 
@@ -525,36 +440,6 @@
                             </div>
 
                             or
-
-                            <style>
-                                #haltProgress {
-                                    cursor: pointer;
-                                }
-
-                                #haltProgress:has(#haltToggler:checked) {
-                                    background-color: #dd1d3b !important;
-                                    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, .8);
-                                }
-
-                                #haltToggler {
-                                    display: none;
-                                }
-
-                                #halt {
-                                    background-color: #ffdddd;
-                                    border: 1px solid #ff9baa;
-                                    overflow: hidden;
-                                }
-
-                                #halt > div {
-                                    padding: 10px;
-                                }
-
-                                #halt label {
-                                    display: block;
-                                    margin: 0;
-                                }
-                            </style>
 
                             <label id="haltProgress" for="haltToggler" class="btn icon-btn danger-btn m-0">
                                 <span class="material-icons btn-icon" style="font-size: 20px">pan_tool</span>
@@ -575,9 +460,9 @@
                             <div class="form-group m-0">
                                 <label>Halt Duration</label>
                                 <div class="linear">
-                                    <input type="date" class="form-control" name="haltStart" value="<?= date('Y-m-d') ?>">
+                                    <input type="date" class="form-control" name="haltStart" data-start="haltDuration" value="<?= date('Y-m-d') ?>">
                                     -
-                                    <input type="date" class="form-control" name="haltEnd">
+                                    <input type="date" class="form-control" name="haltEnd"  data-end="haltDuration" >
                                 </div>
                             </div>
                         </div>
@@ -856,11 +741,3 @@
 <script>
     let projectId = '<?= $data['project']['id'] ?>';
 </script>
-
-<!--<div class="custom_tooltip">-->
-<!--    <small class="tip-legend">Actual</small>-->
-<!--    <h5 class="tip-title">Modification of 2" B.I. pipe (step-up for x 600mm 10meter long) due to modification of wall from concrete to glass wall at Second floor.</h5>-->
-<!--    <p class="tip-date">-->
-<!--        Start: Jan. 2, 2023 <br>-->
-<!--        End: Jan. 2, 2023</p>-->
-<!--</div>-->

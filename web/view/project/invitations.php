@@ -23,10 +23,6 @@
             </div>
         </div>
     </div>
-
-    <pre>
-        <?= var_dump($data) ?>
-    </pre>
     
     <div class="main-content mt-0">
         <form class="linear-container mb-3" id="inviteForm">
@@ -35,6 +31,7 @@
                 <div class="form-group basis-9 mb-0">
                     <input type="text" class="form-control" name="name" placeholder="Lastname, Firstname MI." required>
                 </div>
+
                 <div class="basis-12 basis-md-3 pl-md-0">
                     <select name="type" class="custom-select" required>
                         <option value="" disabled selected>Choose type</option>
