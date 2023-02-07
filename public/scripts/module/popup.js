@@ -115,7 +115,7 @@ export function remove(popup) {
 }
 
 // Initialize popup listeners
-export function initialize(popup) {
+export function initialize(popup, load = false) {
     console.log("Popup.initialize");
     popup.find('button[data-dismiss]').one('click', hide);
     reset(popup);
@@ -132,12 +132,16 @@ export function initialize(popup) {
 
     // On dimiss
     popup.on('custom:dismissPopup', (e, p) => {
-        console.log("Popup dismissed");
-        popup.find('button[data-dismiss]').off('click');
-        popup.find('form').off('submit');
-        popup.off('custom:show');
-        popup.off('custom:dismissPopup');
-        reset(popup);
+        if (load) {
+            popup.empty();
+        } else  {
+            console.log("Popup dismissed");
+            popup.find('button[data-dismiss]').off('click');
+            popup.find('form').off('submit');
+            popup.off('custom:show');
+            popup.off('custom:dismissPopup');
+            reset(popup);
+        }
         e.stopPropagation();
     });
 }
@@ -258,9 +262,10 @@ export function feedback({feedback, title, message}) {
     {
         case 'success':
             if (typeof title === 'undefined' || title.trim() === "") {
-                popup.addClass('success-border');
                 title = "Success";
             }
+
+            popup.addClass('success-border');
             break;
         case 'fail':
             break;

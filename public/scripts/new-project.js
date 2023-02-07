@@ -1,8 +1,9 @@
-$('#newProject').submit(function (e) { 
+$('#newProject').on('submit',function (e)
+{
     e.preventDefault();
 
     $.post(
-        Settings.base_url + "/project/newProject", 
+        Settings.base_url + "/project/newProject",
         { form : function () {return $(e.target).serialize();} },
         function (data) {
             console.log(data);
@@ -26,11 +27,6 @@ let end = $('[name="end"]');
 
 let taskForm = $('#taskForm');
 let tasks = $('#tasksTable');
-
-// start.on('change', (e) =>
-// {
-//     end.attr('min', e.target.value);
-// });
 
 console.log("Validity");
 $('#addTask').on('click', (e) => {

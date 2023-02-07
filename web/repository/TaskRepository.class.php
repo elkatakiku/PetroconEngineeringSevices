@@ -16,17 +16,15 @@ class TaskRepository extends Repository {
     public function setTask(Task $task) {
         // Query string
         $sql = "INSERT INTO ".self::$tblTask."
-                    (id, description, start, end, progress, stopped, order_no, proj_id)
+                    (id, description, start, end, order_no, proj_id)
                 VALUES
-                    (:id, :description, :start, :end, :progress, :stopped, :order_no, :proj_id)";
+                    (:id, :description, :start, :end, :order_no, :proj_id)";
         
         $params = [
             ':id' => $task->getId(),
             ':description' => $task->getDesc(),
             ':start' => $task->getStart(),
             ':end' => $task->getEnd(),
-            ':progress' => $task->getProgress(),
-            ':stopped' => $task->isStopped(),
             ':order_no' => $task->getOrderNo(),
             ':proj_id' => $task->getProjectId()
         ];
@@ -53,6 +51,60 @@ class TaskRepository extends Repository {
             ':id' => $task['id']
         ];
         
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function updateProgress(array $task)
+    {
+        $sql = 'UPDATE 
+                    '.self::$tblTask.'
+                SET 
+                    progress = :progress
+                WHERE 
+                    id = :id';
+
+        $params = [
+            ':progress' => $task['progress'],
+            ':id' => $task['id']
+        ];
+
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function haltTask(string $taskId, bool $stopped)
+    {
+        $sql = 'UPDATE 
+                    '.self::$tblTask.'
+                SET 
+                    stopped = :stopped 
+                WHERE 
+                    id = :id';
+
+        $params = [
+            ':stopped' => $stopped,
+            ':id' => $taskId
+        ];
+
+        // Result
+        return $this->query($sql, $params);
+    }
+
+    public function endStoppage(string $stoppageId, string $end)
+    {
+        $sql = 'UPDATE 
+                    '.self::$tblStoppage.'
+                SET 
+                    end = :end 
+                WHERE 
+                    id = :id';
+
+        $params = [
+            ':end' => $end,
+            ':id' => $stoppageId
+        ];
+
         // Result
         return $this->query($sql, $params);
     }
@@ -107,18 +159,17 @@ class TaskRepository extends Repository {
 
 //    || Stoppage
 //    Creates stopage
-    public function createStoppage(Stopage $stopage) {
+    public function createStoppage(Stopage $stoppage) {
         $sql = "INSERT INTO ".self::$tblStoppage."
-                    (id, task_id, description, start, end)
+                    (id, task_id, description, end)
                 VALUES
-                     (:id, :task_id, :description, :start, :end)";
+                     (:id, :task_id, :description, :end)";
 
         $params = [
-            ':id' => $stopage->getId(),
-            ':task_id' => $stopage->getTaskId(),
-            ':description' => $stopage->getDesc(),
-            ':start' => $stopage->getStart(),
-            ':end' => $stopage->getEnd()
+            ':id' => $stoppage->getId(),
+            ':task_id' => $stoppage->getTaskId(),
+            ':description' => $stoppage->getDesc(),
+            ':end' => $stoppage->getEnd()
         ];
 
         return $this->query($sql, $params);
@@ -131,6 +182,17 @@ class TaskRepository extends Repository {
                     ".self::$tblStoppage."
                 WHERE 
                     task_id  = :task_id";
+
+        $params = [':task_id' => $taskId];
+
+        return $this->query($sql, $params);
+    }
+
+    public function getTaskStoppage(string $taskId) {
+        $sql = "SELECT * 
+                FROM ".self::$tblStoppage." 
+                WHERE task_id = :task_id
+                ORDER BY start DESC";
 
         $params = [':task_id' => $taskId];
 
@@ -165,17 +227,6 @@ class TaskRepository extends Repository {
             ":proj_id" => $projectId,
             ':active' => true
         ];
-
-        return $this->query($sql, $params);
-    }
-
-//    Gets start and end dates of a project
-    public function getCompletionDate(string $projectId) {
-        $sql = "SELECT  DATE_FORMAT(MIN(start), '%Y-%m-%d') AS 'start', DATE_FORMAT(MAX(end), '%Y-%m-%d') AS 'end'
-                FROM tbl_task
-                WHERE proj_id = :proj_id AND active = :active";
-
-        $params = [':proj_id' => $projectId, ':active' => true];
 
         return $this->query($sql, $params);
     }

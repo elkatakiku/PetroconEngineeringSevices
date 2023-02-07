@@ -72,6 +72,10 @@ class Controller {
         require_once 'web/view/structure/footer.php';
     }
 
+    public function load($view, $data = []) {
+        require_once 'web/view/' . $view .'.php';
+    }
+
     protected function getType() {
         return $this->type;
     }

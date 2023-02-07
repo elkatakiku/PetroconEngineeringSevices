@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Project implements Expose {
+class Project {
 
     private string $id;
     private string $description;
@@ -10,22 +10,39 @@ class Project implements Expose {
     private string $buildingNumber;
     private string $purchaseOrder;
     private string $awardDate;
+    private string $start;
+    private string $end;
     private bool $status;
     private bool $active;
     private string $company;
     private string $representative;
     private string $contact;
 
-    public function set(
-        $id, $name, $location, $buildingNumber, $purchaseOrder, $awardDate, $status, $active,
-        $company, $representative, $contact) {
-
+    /**
+     * @param string $id
+     * @param string $description
+     * @param string $location
+     * @param string $buildingNumber
+     * @param string $purchaseOrder
+     * @param string $awardDate
+     * @param string $start
+     * @param string $end
+     * @param bool $status
+     * @param bool $active
+     * @param string $company
+     * @param string $representative
+     * @param string $contact
+     */
+    public function set(string $id, string $description, string $location, string $buildingNumber, string $purchaseOrder, string $awardDate, string $start, string $end, bool $status, bool $active, string $company, string $representative, string $contact)
+    {
         $this->id = $id;
-        $this->description = $name;
+        $this->description = $description;
         $this->location = $location;
         $this->buildingNumber = $buildingNumber;
         $this->purchaseOrder = $purchaseOrder;
         $this->awardDate = $awardDate;
+        $this->start = $start;
+        $this->end = $end;
         $this->status = $status;
         $this->active = $active;
         $this->company = $company;
@@ -34,12 +51,12 @@ class Project implements Expose {
     }
 
     public function create(
-        $name, $location, $buildingNumber, $purchaseOrder, $awardDate, 
+        $name, $location, $buildingNumber, $purchaseOrder, $awardDate, $start, $end,
         $company, $representative, $contact) {
 
         $this->set(
-            uniqid("PTRCN-PRJCT-"), $name, $location, $buildingNumber, $purchaseOrder, $awardDate, false, true, 
-            $company, $representative, $contact
+            uniqid("PTRCN-PRJCT-"), $name, $location, $buildingNumber, $purchaseOrder, $awardDate, $start, $end,
+            false, true, $company, $representative, $contact
         );
     }
 
@@ -91,6 +108,38 @@ class Project implements Expose {
         return $this->awardDate;
     }
 
+    /**
+     * @return string
+     */
+    public function getStart(): string
+    {
+        return $this->start;
+    }
+
+    /**
+     * @param string $start
+     */
+    public function setStart(string $start): void
+    {
+        $this->start = $start;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEnd(): string
+    {
+        return $this->end;
+    }
+
+    /**
+     * @param string $end
+     */
+    public function setEnd(string $end): void
+    {
+        $this->end = $end;
+    }
+
     public function setStatus($status) {
         $this->status = $status;
     }
@@ -129,31 +178,5 @@ class Project implements Expose {
 
     public function getContact() {
         return $this->contact;
-    }
-
-    public function expose() {
-        
-    }
-
-    public static function build(
-        $id, $name, $location, $buildingNumber, $purchaseOrder, $awardDate, $status, $active,
-        $company, $compRepresentative, $compContact) {
-        
-        $project = new self;
-        $project->set(
-            $id, 
-            $name, 
-            $location, 
-            $buildingNumber, 
-            $purchaseOrder, 
-            $awardDate, 
-            $status, 
-            $active, 
-            $company, 
-            $compRepresentative, 
-            $compContact
-        );
-
-        return $project;
     }
 }

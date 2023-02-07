@@ -8,12 +8,8 @@ use Core\Service;
 use Model\Account;
 use Model\Legend;
 use Model\Project;
-use Repository\PeopleRepository;
 use Repository\ProjectRepository;
 use Repository\TaskRepository;
-
-// Models
-
 
 class ProjectService extends Service{ 
 
@@ -85,7 +81,8 @@ class ProjectService extends Service{
                         ''
                     );
 
-                    $completion = $taskRepository->getCompletionDate($project['id'])[0];
+//                    Completion Date
+                    $completion = $this->projectRepository->getCompletionDate($project['id'])[0];
                     $completionDate = date(" M. d, Y", strtotime($completion['start'])) . ' - ' . date(" M. d, Y", strtotime($completion['end']));
                 } else {
                     $percent = 0;
@@ -109,7 +106,55 @@ class ProjectService extends Service{
         return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
-    public function getProjectDetails($id) {
+//    DEBUG: Completion date
+    public function completionDate(string $projectid) {
+//        echo '<pre>';
+//        var_dump($date = $this->projectRepository->getCompletionDate($projectid)[0]);
+//        $dStart = new \DateTime($date['start']);
+//        $dEnd  = new \DateTime($date['end']);
+//        $dDiff = $dStart->diff($dEnd);
+//
+//        $months = ($dDiff->y * 12) + $dDiff->m;
+//        var_dump($months);
+
+        $dStart = new \DateTime();
+//        $dEnd  = new \DateTime(date("Y-m-t"));
+//        $dDiff = $dStart->diff($dEnd);
+
+        echo '<pre>';
+
+//        TODO: Get current date
+//        get the days of cd
+        var_dump((int) $dStart->format('t'));
+        $daysInMonth = (int) $dStart->format('t');
+        var_dump($diff = ($daysInMonth - (int) $dStart->format('j')) + 1);
+        if ($diff < $daysInMonth) {
+            var_dump(30 - $diff);
+            $dStart->modify('+ '.(30 - $diff).' day');
+            var_dump($dStart);
+        }
+
+//        subtract to 30 days
+//        Get date for next month with the subtracted days
+
+        // Default tasks time
+        $tasks = [time(), strtotime(date("Y-m-t"))];
+
+        // Default Project start
+        $startDate = date('Y-m-j', (min($tasks)));
+        // Default Project end
+        $endDate = date('Y-m-j', (max($tasks)));
+
+        // Default number of days
+        $days =  date('t');
+
+        // Default number of months
+        $months = 1;
+
+//        echo $dDiff->format('%r%a') + 1;
+    }
+
+    public function getProjectDetails(string $id) {
         $cleanId = $this->sanitizeString($id);
         $response['data'] = [];
 
@@ -140,7 +185,9 @@ class ProjectService extends Service{
                 "awardDate" => ucwords($this->sanitizeString($raw['awardDate'])),
                 "description" => $projectDesc ? strtoupper($projectDesc[0]).strtolower(substr($projectDesc, 1, strlen($projectDesc))) : '',
                 "location" => ucwords($this->sanitizeString($raw['location'])),
-                "buildingNo" => ucwords($this->sanitizeString($raw['buildingNo']))
+                "buildingNo" => ucwords($this->sanitizeString($raw['buildingNo'])),
+                "start" => $this->sanitizeString($raw['start']),
+                "end" => $this->sanitizeString($raw['end'])
             ],
             "client" => [
                 "company" => ucwords($this->sanitizeString($raw['cmpnyName'])),
@@ -155,7 +202,7 @@ class ProjectService extends Service{
             $project = new Project();
             $project->create(
                 $input['project']['description'], $input['project']['location'], $input['project']['buildingNo'],
-                $input['project']['purchaseOrd'], $input['project']['awardDate'],
+                $input['project']['purchaseOrd'], $input['project']['awardDate'], $input['project']['start'], $input['project']['end'],
                 $input['client']['company'], $input['client']['representative'], $input['client']['contact']
             );
 
@@ -168,59 +215,6 @@ class ProjectService extends Service{
         }
 
         return json_encode($result, JSON_NUMERIC_CHECK);
-    }
-
-    public function getTaskActivities($id) {
-        $activities = $this->projectRepository->getTaskActivities($id);
-        if ($activities != -1) {
-            $result['data'] = $activities;
-            $result['statusCode'] = 200;
-        } else {
-            $result['statusCode'] = 500;
-        }
-
-        return $result;
-    }
-
-    public function getLegends($id) {
-        $legends = $this->projectRepository->getLegends($id);
-        if ($legends != -1) {
-            $result['data'] = $legends;
-            $result['statusCode'] = 200;
-        } else {
-            $result['statusCode'] = 500;
-        }
-
-        return $result;
-    }
-
-    public function createLegend($id, $input) {
-
-        $legend = new Legend();
-        $legend->create(
-            $input['color'],
-            $input['title'],
-            $id
-        );
-
-        if ($this->projectRepository->setLegend($legend)) {
-            $result['statusCode'] = 200;
-        } else {
-            $result['statusCode'] = 500;
-        }
-
-        return $result;
-    }
-
-    public function taskCount($id) {
-        if (($taskCount = $this->projectRepository->getTasksCount($id)) >= 0) {
-            $result['data'] = $taskCount;
-            $result['statusCode'] = 200;
-        } else {
-            $result['statusCode'] = 500;
-        }
-
-        return $result;
     }
 
     public function update($form) {

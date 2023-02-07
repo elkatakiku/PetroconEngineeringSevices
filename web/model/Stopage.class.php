@@ -33,10 +33,10 @@ class Stopage implements Expose {
     }
 
     public function create(
-        string $taskId, string $desc, string $start, string $end) {
+        string $taskId, string $desc) {
 
         $this->set(
-            uniqid("PTRCN-STPG-"), $taskId, $desc, $start, $end, '', ''
+            uniqid("PTRCN-STPG-"), $taskId, $desc, '', '', '', ''
         );
     }
 

@@ -8,6 +8,7 @@
     --primary: #3D3DBB;
     --danger: #ff647c;
     --success: #00c48c;
+    --attention: #f1a630;
     --information: #0084f4;
     --light-blue: #F2F2FF;
     --complementary: #744713;
@@ -365,6 +366,11 @@ a.btn {
     color: white !important;
 }
 
+.attention-btn {
+    background-color: var(--attention) !important;
+    color: white !important;
+}
+
 .danger-btn {
     background-color: var(--danger) !important;
     color: white !important;
@@ -619,6 +625,16 @@ form .row .right {
 .option-box:has(input:checked) {
     background-color: var(--action);
     color: white;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+[name="progress"] {
+    text-align: right;
 }
 
 /* Search Input */

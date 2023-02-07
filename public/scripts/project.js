@@ -18,44 +18,6 @@ function slideAutoHeight() {
 
 slideAutoHeight();
 
-function deleteTask(taskPopup, taskId, table) {  
-    console.log("Delete popup");
-    let deletePopup = Popup.generateDeletePopup('task');
-
-    deletePopup.find('input[name="id"]').val(taskId);
-    deletePopup.find('#deleteForm').submit((e) => {
-        e.preventDefault();
-        console.log("Submit delete");
-
-        $.post(
-            Settings.base_url + "/task/remove",
-            {form : function () {return $(e.target).serialize();}},
-            function (data, textStatus) {
-                console.log("Response delete");
-                console.log(data);
-                let jsonData = JSON.parse(data);
-                if (jsonData.statusCode === 200)
-                {   // Dismiss delete popup and reload legends list on success
-                    console.log("Success delete");
-                    deletePopup.find('button[data-dismiss]').trigger('click');
-
-                    deletePopup.on('custom:dismissPopup', (e) => {
-                        console.log("TaskDelete dismiss");
-                        taskPopup.find('button[data-dismiss]').trigger('click');
-                    });
-                
-
-                    // Reload tasks
-                    table.ajax.reload(null, false);
-                }
-            }
-        );
-    });
-
-    Popup.show(deletePopup);
-}
-
-
 // || Window
 $(window).on('scroll',function(){
     console.log("Scroll");
@@ -89,35 +51,35 @@ function loadGanttChart() {
             console.log(response.data);
 
             //  Completion Date
-            $('.start-date').text(new Date(response.data.start).toLocaleString('default', {dateStyle : "medium"}));
-            $('.end-date').text(new Date(response.data.end).toLocaleString('default', {dateStyle : "medium"}));
+            // $('.start-date').text(new Date(response.data.start).toLocaleString('default', {dateStyle : "medium"}));
+            // $('.end-date').text(new Date(response.data.end).toLocaleString('default', {dateStyle : "medium"}));
             $('.completion-days').text(response.data.total_days + ' days');
 
             // Chart Header
-            for (let i = 0; i < response.data.header[0].length; i++) {
-                const days = response.data.header[1][i];
-
-                console.log(days);
-
-                // Months
-                let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long', year : "numeric" }) + '</span>');
-                monthGrid.css('grid-column', monthStart + ' / span ' + days);
-                $('.chart-months').append(monthGrid);
-                
-                // Days
-                for (let j = 1; j <= days; j++) {
-                    $('.chart-days').append('<span>' + startDate++ + '</span>');
-                }
-                
-                startDate = 1;
-                monthStart += days;
-            }
+            // for (let i = 0; i < response.data.header[0].length; i++) {
+            //     const days = response.data.header[1][i];
+            //
+            //     console.log(days);
+            //
+            //     // Months
+            //     let monthGrid = $('<span class="chart-month">' + (new Date(response.data.header[2][i], response.data.header[0][i], 0)).toLocaleString("default", { month: 'long', year : "numeric" }) + '</span>');
+            //     monthGrid.css('grid-column', monthStart + ' / span ' + days);
+            //     $('.chart-months').append(monthGrid);
+            //
+            //     // Days
+            //     for (let j = 1; j <= days; j++) {
+            //         $('.chart-days').append('<span>' + startDate++ + '</span>');
+            //     }
+            //
+            //     startDate = 1;
+            //     monthStart += days;
+            // }
 
             // Content
-            if (response.data.hasOwnProperty('content'))  
+            if (response.data.hasOwnProperty('content'))
             {
                 let progress = 0;
-                response.data.content.forEach(task => 
+                response.data.content.forEach(task =>
                     {
                         let taskBar = generateGanttRow(task);
                         let bars = taskBar.find('.chart-row-bars');
@@ -264,7 +226,7 @@ function loadGanttChart() {
 
                 if (day === 0) {line.addClass('sunday');}
                 chartLines.append(line);
-                
+
                 day++;
                 if (day === 7) {day = 0;}
             }
@@ -539,6 +501,8 @@ function reloadDatatable(timeout, datatable) {
     datatable.ajax.reload(null, false);
 }
 
+let taskTable = $('#taskTable');
+
 let datatableSettings = {
     taskTable : {
         'dom' : 't',
@@ -553,13 +517,12 @@ let datatableSettings = {
             data : {projId : projectId},
             'complete' : function (data) {
                 console.log("Complete");
-                let table = $('#taskTable');
                 reloadTimeout = setTimeout(() => {
                     console.log("Reload");
-                    table.dataTable().api().ajax.reload(null, false)
+                    taskTable.dataTable().api().ajax.reload(null, false)
                 }, 5000);
 
-                table.trigger('custom:reload');
+                taskTable.trigger('custom:reload');
             }
         },
 
@@ -584,7 +547,17 @@ let datatableSettings = {
                 'defaultContent' : '',
                 'render' : function (data, type, row) {
                     return  '<div class="action-cell-content">' +
-                                '<button class="btn action-btn sm-btn edit-btn">Edit</button>' +
+                                // '<button class="btn action-btn sm-btn edit-btn">Edit</button>' +
+                        ((row.stopped === 0) ?
+                                ('<button class="btn danger-btn sm-btn halt-btn">Halt</button>' +
+                                '<button class="btn attention-btn sm-btn progress-btn">Progress</button>')
+                        :
+                                '<button class="btn success-btn sm-btn resume-btn">Resume</button>') +
+                                '<div class="dots-menu flex-grow-1">' +
+                                    '<button type="button" class="dots-menu-btn">' +
+                                        '<i class="fa-solid fa-ellipsis-vertical"></i>' +
+                                    '</button>' +
+                                '</div>' +
                             '</div>';
                 }
             }
@@ -606,11 +579,13 @@ let datatableSettings = {
                 "targets": 4,
                 "createdCell": function (td, cellData, rowData, rowIndex, colIndex)
                 {
-                    let table = $("#taskTable");
-                    table.find('tbody tr').eq(rowIndex).css('background-color', '#ffdddd');
+                    console.log(rowData);
 
-                    let thisDatatable = table.dataTable().api();
-                    $(td).find('.edit-btn').on('click', (e) =>
+                    taskTable.find('tbody tr').eq(rowIndex).css('background-color', '#ffdddd');
+
+                    let cell = $(td);
+                    let thisDatatable = taskTable.dataTable().api();
+                    cell.find('.edit-btn').on('click', (e) =>
                     {
                         let popup = $('#taskPopup');
 
@@ -729,6 +704,22 @@ let datatableSettings = {
                         // Finally, shows popup
                         Popup.show(popup);
                     });
+
+                    cell.find('.halt-btn').on('click', (e) =>
+                    {
+                        showHaltPopup(rowData);
+                    });
+
+                    cell.find('.progress-btn').on('click', (e) =>
+                    {
+                        showProgressPopup(rowData);
+                    });
+
+                    cell.find('.resume-btn').on('click', (e) =>
+                    {
+                        showResumePopup(rowData);
+                    })
+
                 }
             }
         ],
@@ -1254,7 +1245,7 @@ let datatableSettings = {
                                         deletePopup.find('button[data-dismiss]').trigger('click');
 
                                         deletePopup.on('custom:dismissPopup', (e) => {
-                                            popup.find('button[data-dismiss]').trigger('click');
+                                            popupContainer.find('button[data-dismiss]').trigger('click');
                                         });
                                     
                                         // Reload tasks
@@ -1430,15 +1421,31 @@ $('#addTask').on('click',(e) =>
         }
     );
 
-    console.log(popup.find('[type="checkbox"]'));
+    let start = popup.find('input[name="start"]');
+    let end = popup.find('input[name="end"]');
+
+    let min = start.attr('min');
+    let max = start.attr('max');
+
+    start.on('change', (e) => {
+        if (!e.target.value) {
+            e.target.max = max;
+            end.attr('min', min);
+        }
+    });
+
+    end.on('change', (e) => {
+        if (!e.target.value) {
+            start.attr('max', max);
+        }
+    });
+
     popup.find('[type="checkbox"]').val(false);
+
     // Displays task form
     popup.find('.pfooter .btn.delete-btn').hide();
     popup.find('.pfooter .btn.neutral-outline-btn').css('width', '');
     Popup.show(popup);
-
-    console.log('popup');
-    console.log(popup.find('form'));
 
     // Task submit action
     popup.find('form').on('submit',(e) =>
@@ -1461,7 +1468,7 @@ $('#addTask').on('click',(e) =>
                     popup.find('button[data-dismiss]').trigger('click');
 
                     // Reload tasks
-                    reloadDatatable(reloadTimeout, $('#taskTable').dataTable().api());
+                    reloadDatatable(reloadTimeout, taskTable.dataTable().api());
                     // .ajax.reload(null, false);
                 }
                 else
@@ -1476,6 +1483,9 @@ $('#addTask').on('click',(e) =>
         );
 
         Utils.toggleForm(form, true);
+    });
+    popup.on('custom:dismissPopup', (e) => {
+        popup.find('input[name="start"], input[name="end"]').attr('min', min).attr('max', max);
     });
 
 });
@@ -1691,3 +1701,278 @@ $('#employeeSearch').on('input', (e) => {
         }
     );
 });
+
+
+let popupContainer = $('#popupContainer');
+
+// DEBUG: AJAX Load
+$('#sampbtn').on('click', (e) => {
+    popupContainer.load(
+        Settings.base_url + "/task/taskPopup",
+        {projId : projectId},
+        function () {
+            Popup.initialize(popupContainer, true);
+
+            let start = popupContainer.find('input[name="start"]');
+            let end = popupContainer.find('input[name="end"]');
+
+            let min = start.attr('min');
+            let max = start.attr('max');
+
+            start.on('change', (e) => {
+                if (!e.target.value) {
+                    end.attr('min', min);
+                } else {
+                    $('input[data-end="'+e.target.dataset.start+'"]').attr('min', e.target.value);
+                }
+            });
+
+            end.on('change', (e) => {
+                if (!e.target.value) {
+                    start.attr('max', max);
+                } else {
+                    $('input[data-start="'+e.target.dataset.end+'"]').attr('max', e.target.value);
+                }
+            });
+
+            // Displays task form
+            popupContainer.find('.pfooter .btn.delete-btn').remove();
+            popupContainer.find('.pfooter .btn.neutral-outline-btn').css('width', '');
+            Popup.show(popupContainer);
+
+            // Task submit action
+            popupContainer.find('form').on('submit',(e) =>
+            {
+                e.preventDefault();
+                console.log("Submit form");
+                let form = $(e.target);
+
+                $.post(
+                    Settings.base_url + "/task/new",
+                    {form : form.serialize()},
+                    function (data) {
+                        console.log(data);
+                        console.log("Add Response");
+                        let response = JSON.parse(data);
+                        console.log(response);
+
+                        if (response.statusCode === 200)
+                        {   // Dismiss legend's form and reload legends list on success
+                            popupContainer.find('button[data-dismiss]').trigger('click');
+
+                            // Reload tasks
+                            reloadDatatable(reloadTimeout, taskTable.dataTable().api());
+                        }
+                        else
+                        {   // Shows alert on fail
+                            popup.find('.alert-danger')
+                                .addClass('show')
+                                .text(response.message);
+                        }
+
+                        form.trigger('custom:submitted');
+                    }
+                );
+
+                Utils.toggleForm(form, true);
+            });
+        }
+    );
+});
+
+//  Task
+function showHaltPopup(task) {
+    popupContainer.load(
+        Settings.base_url + "/task/haltPopup",
+        {task : task.description, id : task.id},
+        function () {
+            Popup.initialize(popupContainer, true);
+            Popup.show(popupContainer);
+
+            // Task submit action
+            popupContainer.find('form')
+                .on('submit',(e) =>
+                {
+                    e.preventDefault();
+                    console.log("Submit form");
+                    let form = $(e.target);
+
+                    $.post(
+                        Settings.base_url + "/task/haltTask",
+                        {form : form.serialize()},
+                        function (data) {
+                            console.log(data);
+                            console.log("Add Response");
+                            let response = JSON.parse(data);
+                            console.log(response);
+
+                            if (response.statusCode === 200)
+                            {   // Dismiss legend's form and reload legends list on success
+                                popupContainer.find('button[data-dismiss]').trigger('click');
+
+                                // Reload tasks
+                                reloadDatatable(reloadTimeout, taskTable.dataTable().api());
+
+                                //  Show feedback
+                                Popup.feedback({
+                                    'feedback' : 'success',
+                                    'title' : task.description,
+                                    'message' : response.message
+                                });
+                            }
+                            else
+                            {   // Shows alert on fail
+                                popupContainer.find('.alert-danger')
+                                    .addClass('show')
+                                    .text(response.message);
+                            }
+
+                            form.trigger('custom:submitted');
+                        }
+                    );
+
+                    Utils.toggleForm(form, true);
+                })
+                .on('custom:submitted', (e) =>
+                {
+                    Utils.toggleForm($(e.target), false);
+                });
+
+            popupContainer.on('custom:dismissPopup', (e) =>
+            {
+                popupContainer.removeClass('popup-delete');
+                popupContainer.off();
+            });
+        }
+    );
+}
+
+function showProgressPopup(task) {
+    popupContainer.load(
+        Settings.base_url + "/task/progressPopup",
+        {task : task.description, id : task.id, progress : task.progress},
+        function () {
+            Popup.initialize(popupContainer, true);
+            Popup.show(popupContainer);
+
+            // Task submit action
+            popupContainer.find('form')
+                .on('submit',(e) =>
+                {
+                    e.preventDefault();
+                    let form = $(e.target);
+
+                    console.log(form);
+
+                    $.post(
+                        Settings.base_url + "/task/updateProgress",
+                        {form : form.serialize()},
+                        function (data) {
+                            console.log(data);
+                            let response = JSON.parse(data);
+
+                            if (response.statusCode === 200)
+                            {   // Dismiss legend's form and reload legends list on success
+                                popupContainer.find('button[data-dismiss]').trigger('click');
+
+                                // Reload tasks
+                                reloadDatatable(reloadTimeout, taskTable.dataTable().api());
+
+                                //  Show feedback
+                                Popup.feedback({
+                                    'feedback' : 'success',
+                                    'title' : task.description,
+                                    'message' : response.message
+                                });
+                            }
+                            else
+                            {   // Shows alert on fail
+                                popupContainer.find('.alert-danger')
+                                    .addClass('show')
+                                    .text(response.message);
+                            }
+
+                            form.trigger('custom:submitted');
+                        }
+                    );
+
+                    Utils.toggleForm(form, true);
+                })
+                .on('custom:submitted', (e) =>
+                {
+                    Utils.toggleForm($(e.target), false);
+                });
+
+            popupContainer.on('custom:dismissPopup', (e) =>
+            {
+                popupContainer.removeClass('popup-sucess');
+                popupContainer.off();
+            });
+        }
+    );
+}
+
+function showResumePopup(task) {
+    popupContainer.load(
+        Settings.base_url + "/task/resumePopup",
+        {task : task.description, id : task.id},
+        function () {
+            Popup.initialize(popupContainer, true);
+            Popup.show(popupContainer);
+
+            // Task submit action
+            popupContainer.find('form')
+                .on('submit',(e) =>
+                {
+                    e.preventDefault();
+                    let form = $(e.target);
+
+                    console.log(form);
+
+                    $.post(
+                        Settings.base_url + "/task/resumeTask",
+                        {form : form.serialize()},
+                        function (data) {
+                            console.log(data);
+                            let response = JSON.parse(data);
+
+                            if (response.statusCode === 200)
+                            {   // Dismiss legend's form and reload legends list on success
+                                popupContainer.find('button[data-dismiss]').trigger('click');
+
+                                // Reload tasks
+                                reloadDatatable(reloadTimeout, taskTable.dataTable().api());
+
+                                //  Show feedback
+                                Popup.feedback({
+                                    'feedback' : 'success',
+                                    'title' : task.description,
+                                    'message' : response.message
+                                });
+                            }
+                            else
+                            {   // Shows alert on fail
+                                popupContainer.find('.alert-danger')
+                                    .addClass('show')
+                                    .text(response.message);
+                            }
+
+                            form.trigger('custom:submitted');
+                        }
+                    );
+
+                    Utils.toggleForm(form, true);
+                })
+                .on('custom:submitted', (e) =>
+                {
+                    Utils.toggleForm($(e.target), false);
+                });
+
+            popupContainer.on('custom:dismissPopup', (e) =>
+            {
+                popupContainer.removeClass('popup-sucess');
+                popupContainer.off();
+            });
+        }
+    );
+}

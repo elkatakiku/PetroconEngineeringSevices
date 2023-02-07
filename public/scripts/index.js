@@ -454,11 +454,6 @@ $('form').on('custom:submitted', (e) => {
 // || Date Duration
 
 // Start
-$('input[data-start]').on('change', (e) => {
-    $('input[data-end="'+e.target.dataset.start+'"]').attr('min', e.target.value);
-});
-
+$('input[data-start]').on('change', Utils.startDurationHandler);
 // End
-$('input[data-end]').on('change', (e) => {
-    $('input[data-start="'+e.target.dataset.end+'"]').attr('max', e.target.value);
-});
+$('input[data-end]').on('change', Utils.endDurationHandler);

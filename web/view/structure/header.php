@@ -138,7 +138,7 @@
               <ul class="list-unstyled components">
                 <li id="dashboardMenu">
                   <a class="d-flex align-content-start" href="<?= SITE_URL.'/dashboard' ?>" title="Dashboard">
-                    <span class="material-icons" data-tooltip="Dashboard">dashboard</span>
+                    <span class="material-icons">dashboard</span>
                     <div class="collapsible">
                       <span>Dashboard</span>
                     </div>
@@ -147,28 +147,43 @@
                 </li>
 
                 <li class="item-dropdown" id="projectsMenu">
-                  <div class="dropdown-tile">
-                    <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId" title="Projects">
-                      <span class="material-icons">handyman</span>
-                      <div class="collapsible">
-                        <span>
-                          Projects
-                          <span class="material-icons">arrow_drop_down</span>
-                        </span>
-                      </div>
+                    <a class="d-flex align-content-start" href="<?= SITE_URL.'/project' ?>" title="Projects">
+                        <span class="material-icons">construction</span>
+                        <div class="collapsible">
+                            <span>Projects</span>
+                        </div>
                     </a>
-                  </div>
-                  <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">
-                    <li>
-                      <a href="<?= SITE_URL.'/project/list#all' ?>">All</a>
-                    </li>
-                    <li>
-                      <a href="<?= SITE_URL.'/project/list#done' ?>">Done</a>
-                    </li>
-                    <li>
-                      <a href="<?= SITE_URL.'/project/list#ongoing' ?>">Ongoing</a>
-                    </li>
-                  </ul>
+<!--                  <div class="dropdown-tile">-->
+<!--                    <a class="d-flex align-content-start" data-toggle="collapse" href="#projectsCollapse" aria-expanded="false" aria-controls="contentId" title="Projects">-->
+<!--                      <span class="material-icons">handyman</span>-->
+<!--                      <div class="collapsible">-->
+<!--                        <span>-->
+<!--                          Projects-->
+<!--                          <span class="material-icons">arrow_drop_down</span>-->
+<!--                        </span>-->
+<!--                      </div>-->
+<!--                    </a>-->
+<!--                  </div>-->
+<!--                  <ul class="collapse list-unstyled sub-menu" id="projectsCollapse">-->
+<!--                    <li>-->
+<!--                      <a href="--><?//= SITE_URL.'/project/list#all' ?><!--">All</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a href="--><?//= SITE_URL.'/project/list#done' ?><!--">Done</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a href="--><?//= SITE_URL.'/project/list#ongoing' ?><!--">Ongoing</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+                </li>
+                <li id="dashboardMenu">
+                  <a class="d-flex align-content-start" href="<?= SITE_URL.'/dashboard' ?>" title="Dashboard">
+                      <span class="material-icons">engineering</span>
+                      <div class="collapsible">
+                        <span>Team</span>
+                      </div>
+                    <span class="sr-only">(current)</span>
+                  </a>
                 </li>
 
 <!--                <li id="messagesMenu">-->
@@ -193,28 +208,34 @@
 
                   <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
                     <li class="item-dropdown" id="users">
-                      <div class="dropdown-tile">
-                        <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId" title="Users">
-                          <span class="material-icons">people</span>
-                          <div class="collapsible">
-                            <span>
-                              Users
-                              <span class="material-icons">arrow_drop_down</span>
-                            </span>
-                          </div>
+                        <a class="d-flex align-content-start" href="<?= SITE_URL.'/user' ?>" title="Projects">
+                            <span class="material-icons">people</span>
+                            <div class="collapsible">
+                                <span>Users</span>
+                            </div>
                         </a>
-                      </div>
-                      <ul class="collapse list-unstyled sub-menu" id="teamCollapse">
-                        <li>
-                          <a href="<?= SITE_URL.'/user/list#all' ?>">All</a>
-                        </li>
-                        <li>
-                          <a href="<?= SITE_URL.'/user/list#employees' ?>">Employees</a>
-                        </li>
-                        <li>
-                          <a href="<?= SITE_URL.'/user/list#clients' ?>">Clients</a>
-                        </li>
-                      </ul>
+<!--                      <div class="dropdown-tile">-->
+<!--                        <a class="d-flex align-content-start" data-toggle="collapse" href="#teamCollapse" aria-expanded="false" aria-controls="contentId" title="Users">-->
+<!--                          <span class="material-icons">people</span>-->
+<!--                          <div class="collapsible">-->
+<!--                            <span>-->
+<!--                              Users-->
+<!--                              <span class="material-icons">arrow_drop_down</span>-->
+<!--                            </span>-->
+<!--                          </div>-->
+<!--                        </a>-->
+<!--                      </div>-->
+<!--                      <ul class="collapse list-unstyled sub-menu" id="teamCollapse">-->
+<!--                        <li>-->
+<!--                          <a href="--><?//= SITE_URL.'/user/list#all' ?><!--">All</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                          <a href="--><?//= SITE_URL.'/user/list#employees' ?><!--">Employees</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                          <a href="--><?//= SITE_URL.'/user/list#clients' ?><!--">Clients</a>-->
+<!--                        </li>-->
+<!--                      </ul>-->
                     </li>
                   <?php } ?>
 

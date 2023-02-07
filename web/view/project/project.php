@@ -1,7 +1,7 @@
 <main class="content">
-    <!-- <pre>
-        <?php //var_dump($data) ?>
-    </pre> -->
+<!--    <pre>-->
+<!--        --><?php //var_dump($data) ?>
+<!--    </pre>-->
     <!-- Header -->
     <div class="page-header pb-1">
         <div class="project-info">
@@ -190,7 +190,7 @@
             <div class="completion-graph">
                 <span class="completion-date">
                     <h5>Completion Date</h5>
-                    <p style="font-size: 10px"><span class="start-date"></span> - <span class="end-date"></span></p>
+                    <p style="font-size: 10px"><span class="start-date"><?= date('M. d, Y', strtotime($data["project"]['start'])) ?></span> - <span class="end-date"><?= date('M. d, Y', strtotime($data["project"]['end'])) ?></span></p>
                 </span>
                 <span class="completion-bar">
                     <small class="completion-percent">0%</small>
@@ -228,9 +228,11 @@
 
             <?php if ($data['accountType'] != Core\Controller::CLIENT) { ?>
                 <button id="addTask" type="button" class="btn action-btn sm-btn float-right">
-                <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
-                Add task
-            </button>
+                    <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
+                    Add task
+                </button>
+
+                <button id="sampbtn">asd</button>
             <?php } ?>
 
             <div class="mesa-container" id="timelineTable">
@@ -241,7 +243,7 @@
                             <th scope="col" class="tname" style="width: 80%;"><strong>Task</strong></th>
                             <th scope="col">Progress</th>
                             <th scope="col">Last Updated</th>
-                            <th scope="col" class="action-cell">Action</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -396,6 +398,8 @@
     </div>
 </main>
 
+<div class="popup popup-center" id="popupContainer"></div>
+
 <!-- Task -->
 <div class="popup popup-center" id="taskPopup" tabindex="-1" aria-hidden="true">
     <div class="pcontainer">
@@ -425,9 +429,9 @@
                     <div class="form-group">
                         <label>Duration</label>
                         <div class="linear">
-                            <input type="date" class="form-control" name="start" data-start="taskDuration" required>
+                            <input type="date" class="form-control" name="start" data-start="taskDuration" min="<?= $data["project"]['start'] ?>" max="<?= $data["project"]['end'] ?>" required>
                             -
-                            <input type="date" class="form-control" name="end" data-end="taskDuration" required>
+                            <input type="date" class="form-control" name="end" data-end="taskDuration" min="<?= $data["project"]['start'] ?>" max="<?= $data["project"]['end'] ?>" required>
                         </div>
                     </div>
 
@@ -478,33 +482,6 @@
                 </button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
             </footer>
-        </div>
-    </div>
-</div>
-
-<!-- Mark as done -->
-<div class="popup popup-center popup-prompt" id="markDone" tabindex="-1" aria-hidden="true">
-    <div class="pcontainer popup-sucess popup-sm">
-        <div class="pcontent">
-            <div class="pheader">
-                <h2 class="ptitle"><?= $data['project']['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?></h2>
-                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
-                    <span class="material-icons">close</span>
-                </button>
-            </div>
-
-            <div class="pbody">
-                <form id="doneForm" action="<?= SITE_URL ?>/project/mark" method="POST">
-                    <input type="hidden" name="id" value="<?= $data['project']['id'] ?>">
-                    <input type="hidden" name="done" value="<?= $data['project']['done'] == 0 ? 1 : 0 ?>">
-                </form>
-                <?= $data['project']['done'] == 1 ? 'Unmark' : 'Mark' ?> this project done?
-            </div>
-
-            <div class="pfooter">
-                <button type="submit" name="doneSubmit" form="doneForm" class="btn success-btn">Confirm</button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-            </div>
         </div>
     </div>
 </div>
@@ -609,84 +586,6 @@
             <div class="pfooter">
                 <button type="button" class="btn action-btn">Send Invitation</button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--PENDING INVI-->
-<div class="popup popup-center" id="Pending" tabindex="-1" aria-hidden="true">
-    <div class="pcontainer">
-        <div class="pcontent">
-            <div class="pheader">
-                <h2 class="ptitle">Pending Invitation</h2>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="pbody">
-                <div class="form-group"> 
-                    <label for="">Invitations</label>
-                    <div class="selected" style="overflow: auto;max-height: 250px;">
-                        <table class="table table-hover">
-                            <tbody>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td>vana</td>
-                                    <td>09152934627</td>
-                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                                
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td>vana</td>
-                                    <td>09152934627</td>
-                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                                
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td>vana</td>
-                                    <td>09152934627</td>
-                                    <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                                
-                                <tr>
-                                <th scope="row"></th>
-                                <td>vana</td>
-                                <td>09152934627</td>
-                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                                
-                                <tr>
-                                <th scope="row"></th>
-                                <td>effer</td>
-                                <td>09152934627</td>
-                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                                
-                                <tr>
-                                <th scope="row"></th>
-                                <td>elkatakiki</td>
-                                <td>elimarimae@emailcom</td>
-                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                                
-                                <tr>
-                                <th scope="row"></th>
-                                <td>kath</td>
-                                <td>09152934627</td>
-                                <td><i class="fa-solid fa-ellipsis-vertical"></i></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pfooter">
-                <button type="button" class="btn action-btn" data-dismiss="popup">Okay</button>
             </div>
         </div>
     </div>

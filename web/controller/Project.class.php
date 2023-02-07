@@ -53,7 +53,6 @@ class Project extends MainController {
 
         if ($project['statusCode'] == 200) {
             $this->view("project", "project", ['project' => $project['data']]);
-            return;
         } else {
             $this->goToIndex();
         }
@@ -80,51 +79,11 @@ class Project extends MainController {
         if (isset($_POST['form'])) {
             echo $this->projectService->createProject($_POST['form']);
         }
+    }
 
-//            parse_str($_POST['form'], $form);
-//
-//            $projectDesc = $this->sanitizeString($form['prjDescription']);
-//
-//            if ($projectDesc) {
-//
-//                $input = [
-//                    "project" => [
-//                        "prjPurchaseOrd" => ucwords($this->sanitizeString($form['prjPurchaseOrd'])),
-//                        "prjAwardDate" => ucwords($this->sanitizeString($form['prjAwardDate'])),
-//                        "prjDescription" => strtoupper($projectDesc[0]).strtolower(substr($projectDesc, 1, strlen($projectDesc))),
-//                        "prjLocation" => ucwords($this->sanitizeString($form['prjLocation'])),
-//                        "prjBuildingNo" => ucwords($this->sanitizeString($form['prjBuildingNo']))
-//                    ],
-//                    "client" => [
-//                        "cmpnyName" => ucwords($this->sanitizeString($form['cmpnyName'])),
-//                        "cmpnyRepresentative" => ucwords($this->sanitizeString($form['cmpnyRepresentative'])),
-//                        "cmpnyContact" => $this->sanitizeString($form['cmpnyContact'])
-//                    ]
-//                ];
-//
-//                if(!$this->emptyInput($input['project']) && !$this->emptyInput($input['client'])) {
-//
-//                    $newProject = $this->projectService->createProject($input);
-//
-//                    if ($newProject) {
-//                        $json_data['statusCode'] = 200;
-//                        $json_data['data'] = ['id' => $newProject];
-//                        echo json_encode($json_data);
-//                        return;
-//                    }
-//
-//                    $json_data['statusCode'] = 500;
-//                    $json_data['message'] = 'An error occured. Please try again later.';
-//                    echo json_encode($json_data);
-//                    return;
-//                }
-//            }
-//
-//        }
-//
-//        $json_data['statusCode'] = 400;
-//        $json_data['message'] = 'Please fill all required inputs.';
-//        echo json_encode($json_data);
+//    DEBUG: Completion date
+    public function completiondate($projectId) {
+//        $this->projectService->completionDate($projectId);
     }
 
     public function update() {

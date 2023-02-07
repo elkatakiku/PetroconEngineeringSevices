@@ -48,11 +48,10 @@ class Task implements Expose {
         $this->last_update = $last_update;
     }
 
-    public function create(
-        $projID, $orderNo, $desc, $start, $end, $progress) {
+    public function create($projID, $orderNo, $desc, $start, $end) {
 
         $this->set(
-            uniqid("PTRCN-TSK-"), $desc, $start, $end, $progress, false, $orderNo, '',
+            uniqid("PTRCN-TSK-"), $desc, $start, $end, 0, false, $orderNo, '',
             '', true, $projID, ''
         );
     }
