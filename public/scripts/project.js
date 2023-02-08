@@ -6,6 +6,9 @@ import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup
 // import * as Utils from '/public/scripts/module/utils.js';
 // import * as Popup from '/public/scripts/module/popup.js';
 
+const HTML_BODY = $('body');
+const WINDOW = $(window);
+
 // || Slide
 function slideAutoHeight() {
     let topbarHeight = $("#topbar")[0].scrollHeight;
@@ -104,6 +107,7 @@ function loadGanttChart() {
 
                         bars.append(bar);
 
+                        //  Show tooltip of bar/task on hover
                         bar.on('mouseenter', (e) =>
                         {
                             tooltip = chartTooltipShown ? $('.custom_tooltip') : createTooltip(task);
@@ -113,7 +117,7 @@ function loadGanttChart() {
 
                             const showToolTip = (left) => {
                                 if (!chartTooltipShown) {
-                                    $('body').append(tooltip);
+                                    HTML_BODY.append(tooltip);
                                 }
                                 tooltip.css({
                                     top : (top - tooltip[0].scrollHeight) - 5,
@@ -163,7 +167,7 @@ function loadGanttChart() {
                                             tooltip = chartTooltipShown ? $('.custom_tooltip') : createTooltip(response.data, true);
 
                                             if (!chartTooltipShown) {
-                                                $('body').append(tooltip);
+                                                HTML_BODY.append(tooltip);
                                             }
 
                                             tooltip.css({
@@ -549,8 +553,8 @@ let datatableSettings = {
                     return  '<div class="action-cell-content">' +
                                 // '<button class="btn action-btn sm-btn edit-btn">Edit</button>' +
                         ((row.stopped === 0) ?
-                                ('<button class="btn danger-btn sm-btn halt-btn">Halt</button>' +
-                                '<button class="btn attention-btn sm-btn progress-btn">Progress</button>')
+                                ('<button class="btn attention-btn sm-btn progress-btn">Progress</button>' +
+                                    '<button class="btn danger-btn sm-btn halt-btn">Halt</button>')
                         :
                                 '<button class="btn success-btn sm-btn resume-btn">Resume</button>') +
                                 '<div class="dots-menu flex-grow-1">' +
@@ -719,6 +723,11 @@ let datatableSettings = {
                     {
                         showResumePopup(rowData);
                     })
+
+                    cell.find('.dots-menu-btn').on('click', (e) =>
+                    {
+                        showRowMenu(e, rowData.id);
+                    });
 
                 }
             }
@@ -1405,115 +1414,115 @@ $('.nav-tab').on('custom:tabChange', (e, tab, target) =>
 
 // || TASK
 // Adds new task
-$('#addTask').on('click',(e) =>
-{
-    let popup = $('#taskPopup');
+// $('#addTask').on('click',(e) =>
+// {
+//     let popup = $('#taskPopup');
+//
+//     Popup.initialize(popup);
+//
+//     //  Gets the latest task number
+//     $.get(
+//         Settings.base_url + "/task/count",
+//         { projId : projectId },
+//         function (data) {
+//             let jsonData = JSON.parse(data);
+//             popup.find('.ptitle').text('Task ' + (jsonData.data + 1));
+//         }
+//     );
+//
+//     let start = popup.find('input[name="start"]');
+//     let end = popup.find('input[name="end"]');
+//
+//     let min = start.attr('min');
+//     let max = start.attr('max');
+//
+//     start.on('change', (e) => {
+//         if (!e.target.value) {
+//             e.target.max = max;
+//             end.attr('min', min);
+//         }
+//     });
+//
+//     end.on('change', (e) => {
+//         if (!e.target.value) {
+//             start.attr('max', max);
+//         }
+//     });
+//
+//     popup.find('[type="checkbox"]').val(false);
+//
+//     // Displays task form
+//     popup.find('.pfooter .btn.delete-btn').hide();
+//     popup.find('.pfooter .btn.neutral-outline-btn').css('width', '');
+//     Popup.show(popup);
+//
+//     // Task submit action
+//     popup.find('form').on('submit',(e) =>
+//     {
+//         e.preventDefault();
+//         console.log("Submit form");
+//         let form = $(e.target);
+//
+//         $.post(
+//             Settings.base_url + "/task/new",
+//             {form : form.serialize()},
+//             function (data) {
+//                 console.log(data);
+//                 console.log("Add Response");
+//                 let response = JSON.parse(data);
+//                 console.log(response);
+//
+//                 if (response.statusCode === 200)
+//                 {   // Dismiss legend's form and reload legends list on success
+//                     popup.find('button[data-dismiss]').trigger('click');
+//
+//                     // Reload tasks
+//                     reloadDatatable(reloadTimeout, taskTable.dataTable().api());
+//                     // .ajax.reload(null, false);
+//                 }
+//                 else
+//                 {   // Shows alert on fail
+//                     popup.find('.alert-danger')
+//                         .addClass('show')
+//                         .text(response.message);
+//                 }
+//
+//                 form.trigger('custom:submitted');
+//             }
+//         );
+//
+//         Utils.toggleForm(form, true);
+//     });
+//     popup.on('custom:dismissPopup', (e) => {
+//         popup.find('input[name="start"], input[name="end"]').attr('min', min).attr('max', max);
+//     });
+//
+// });
 
-    Popup.initialize(popup);
-
-    //  Gets the latest task number
-    $.get(
-        Settings.base_url + "/task/count",
-        { projId : projectId },
-        function (data) {
-            let jsonData = JSON.parse(data);
-            popup.find('.ptitle').text('Task ' + (jsonData.data + 1));
-        }
-    );
-
-    let start = popup.find('input[name="start"]');
-    let end = popup.find('input[name="end"]');
-
-    let min = start.attr('min');
-    let max = start.attr('max');
-
-    start.on('change', (e) => {
-        if (!e.target.value) {
-            e.target.max = max;
-            end.attr('min', min);
-        }
-    });
-
-    end.on('change', (e) => {
-        if (!e.target.value) {
-            start.attr('max', max);
-        }
-    });
-
-    popup.find('[type="checkbox"]').val(false);
-
-    // Displays task form
-    popup.find('.pfooter .btn.delete-btn').hide();
-    popup.find('.pfooter .btn.neutral-outline-btn').css('width', '');
-    Popup.show(popup);
-
-    // Task submit action
-    popup.find('form').on('submit',(e) =>
-    {
-        e.preventDefault();
-        console.log("Submit form");
-        let form = $(e.target);
-
-        $.post(
-            Settings.base_url + "/task/new",
-            {form : form.serialize()},
-            function (data) {
-                console.log(data);
-                console.log("Add Response");
-                let response = JSON.parse(data);
-                console.log(response);
-
-                if (response.statusCode === 200)
-                {   // Dismiss legend's form and reload legends list on success
-                    popup.find('button[data-dismiss]').trigger('click');
-
-                    // Reload tasks
-                    reloadDatatable(reloadTimeout, taskTable.dataTable().api());
-                    // .ajax.reload(null, false);
-                }
-                else
-                {   // Shows alert on fail
-                    popup.find('.alert-danger')
-                        .addClass('show')
-                        .text(response.message);
-                }
-
-                form.trigger('custom:submitted');
-            }
-        );
-
-        Utils.toggleForm(form, true);
-    });
-    popup.on('custom:dismissPopup', (e) => {
-        popup.find('input[name="start"], input[name="end"]').attr('min', min).attr('max', max);
-    });
-
-});
-
-$('#haltToggler').on('change', (e) =>
-{
-    let checked = e.target.checked;
-    let progress = $('#taskPopup [name="progress"]');
-    progress.prop('readonly', checked);
-
-    let checkbox = $(e.target);
-    checkbox.val(checked);
-
-    let halt = $('#halt');
-
-    if (checked) {
-        halt.show();
-        Utils.autoHeight(halt.find('textarea')[0]);
-        halt.find('input:not([name="haltEnd"]), textarea').attr('required', true);
-        halt.parents('.popup').addClass('popup-delete')
-            .find('.pheader').prepend('<span class="material-icons ptitle-icon danger-text">report_problem</span>');
-    } else {
-        halt.hide();
-        halt.find('input, textarea').attr('required', false);
-        halt.parents('.popup').removeClass('popup-delete')
-            .find('.ptitle-icon').remove();
-    }
-});
+// $('#haltToggler').on('change', (e) =>
+// {
+//     let checked = e.target.checked;
+//     let progress = $('#taskPopup [name="progress"]');
+//     progress.prop('readonly', checked);
+//
+//     let checkbox = $(e.target);
+//     checkbox.val(checked);
+//
+//     let halt = $('#halt');
+//
+//     if (checked) {
+//         halt.show();
+//         Utils.autoHeight(halt.find('textarea')[0]);
+//         halt.find('input:not([name="haltEnd"]), textarea').attr('required', true);
+//         halt.parents('.popup').addClass('popup-delete')
+//             .find('.pheader').prepend('<span class="material-icons ptitle-icon danger-text">report_problem</span>');
+//     } else {
+//         halt.hide();
+//         halt.find('input, textarea').attr('required', false);
+//         halt.parents('.popup').removeClass('popup-delete')
+//             .find('.ptitle-icon').remove();
+//     }
+// });
 
 // Resource
 function buildResourcePopup() {
@@ -1705,8 +1714,8 @@ $('#employeeSearch').on('input', (e) => {
 
 let popupContainer = $('#popupContainer');
 
-// DEBUG: AJAX Load
-$('#sampbtn').on('click', (e) => {
+//  Task
+$('#addTask').on('click', (e) => {
     popupContainer.load(
         Settings.base_url + "/task/taskPopup",
         {projId : projectId},
@@ -1780,7 +1789,6 @@ $('#sampbtn').on('click', (e) => {
     );
 });
 
-//  Task
 function showHaltPopup(task) {
     popupContainer.load(
         Settings.base_url + "/task/haltPopup",
@@ -1976,3 +1984,56 @@ function showResumePopup(task) {
         }
     );
 }
+
+// Row Menu
+function renderRowMenu(id)
+{
+    return $('<ul class="dots-menu-popup" data-target="'+id+'">' +
+                '<li id="editRow">Edit</li>' +
+                '<li id="removeRow">Remove</li>' +
+            '</ul>');
+}
+
+// Shows Menu
+function showRowMenu(e, id)
+{
+    e.preventDefault();
+    let menuBtn = $(e.target);
+    let activeMenu = $(".dots-menu-popup");
+
+    //  Closes opened menu when other menu clicked
+    if (activeMenu.length > 0) {
+        console.log("Menu is open");
+        activeMenu.remove();
+        activeMenu.off('custom:windowResize');
+    }
+
+    //  Closes menu manually
+    if (activeMenu.data('target') !== id)
+    {
+        let menuPopup = renderRowMenu(id);
+        HTML_BODY.append(menuPopup);
+
+        const positionMenu = function () {
+            menuPopup.css({
+                top : menuBtn.offset().top,
+                left : menuBtn.offset().left - menuPopup.width()
+            });
+        }
+
+        positionMenu();
+        menuPopup.on('custom:windowResize', positionMenu);
+
+        // menu.find("#editRow").on('click', editTask);
+        // menu.find("#removeRow").on('click', removeTask);
+    }
+
+    e.stopPropagation();
+}
+
+
+WINDOW.on('resize', (e) =>
+{
+    console.log('Window resize');
+    $(".dots-menu-popup").trigger('custom:windowResize');
+});

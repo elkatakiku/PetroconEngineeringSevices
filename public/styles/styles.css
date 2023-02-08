@@ -1112,8 +1112,8 @@ body:has(.slide-fixed.active).slide-open {
     box-shadow: 2px 2px 2px 1px rgb(0, 0, 0, .2);
 
     position: absolute;
-    top: 0;
-    right: 15px;
+    /*top: 0;*/
+    /*right: 15px;*/
 }
 
 .dots-menu-popup li {

@@ -77,12 +77,17 @@ $(window).on("resize", (e) => {
 });
 
 // Sidebar Listener
-$("#sidebarCollapseToggler").click(() => {expandSidebar();});
+$("#sidebarCollapseToggler").on('click',() => {expandSidebar();});
 
 // Closes sidebar when clicked anywhere
-$(document).click((e) => {
-    if (!$(e.target).is("#sidebar, #sidebar *, #sidebarCollapseToggler") && $('#sidebar.active').length > 0) {
+$(document).on('click',(e) => {
+    let target = $(e.target);
+    if (!target.is("#sidebar, #sidebar *, #sidebarCollapseToggler") && $('#sidebar.active').length > 0) {
         expandSidebar();
+    }
+
+    if (!target.is('.dots-menu-popup')) {
+        $('.dots-menu-popup').remove();
     }
 });
 
@@ -91,7 +96,7 @@ $(document).click((e) => {
 const POPUP = "popup";
 
 // Dismisses popup when click elsewhere
-$(".popup").click((e) => {
+$(".popup")..on('click',(e) => {
     console.log("Popup clicked");
 
     // Closes popup when clicked outside popup content

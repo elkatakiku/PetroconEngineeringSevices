@@ -232,7 +232,7 @@
                     Add task
                 </button>
 
-                <button id="sampbtn">asd</button>
+<!--                <button id="sampbtn">asd</button>-->
             <?php } ?>
 
             <div class="mesa-container" id="timelineTable">
