@@ -49,7 +49,8 @@ class ProjectService extends Service{
         parse_str($form, $input);
         $response['data'] = [];
 
-        if (!$this->emptyInput($input)) {
+        if (!$this->emptyInput($input))
+        {
             $status = $input['status'];
 
             if ($status == "done") {
@@ -58,42 +59,31 @@ class ProjectService extends Service{
                 $status = 0;
             }
 
-            $projects = [];
-
-    //        Gets respective projects list
+//        Gets respective projects list
             if ($_SESSION['accType'] == Account::ADMIN_TYPE) {
                 $projects = $this->projectRepository->getProjects($status);
             } else {
                 $projects = $this->projectRepository->getJoinedProjects($_SESSION['accID'], $status);
             }
 
-    //        Gets projects completion date progress
+//        Gets projects completion date progress
             $taskRepository = new TaskRepository();
-            foreach ($projects as $project) {
+            foreach ($projects as $project)
+            {
                 $progress = $taskRepository->getProgress($project['id'])[0];
-                $completionDate = '-';
 
                 if ($progress && $progress['count'] > 0) {
-                    $percent = number_format(
-                        (($progress['progress'] / (100 * $progress['count'])) * 100),
-                        2,
-                        '.',
-                        ''
-                    );
-
-//                    Completion Date
-                    $completion = $this->projectRepository->getCompletionDate($project['id'])[0];
-                    $completionDate = date(" M. d, Y", strtotime($completion['start'])) . ' - ' . date(" M. d, Y", strtotime($completion['end']));
+                    $percent = number_format((($progress['progress'] / (100 * $progress['count'])) * 100), 2, '.', '') . '%';
                 } else {
-                    $percent = 0;
+                    $percent = "-";
                 }
 
                 $projectInfo['id'] = $project['id'];
                 $projectInfo['description'] = $project['description'];
                 $projectInfo['location'] = $project['location'];
                 $projectInfo['company'] = $project['company'];
-                $projectInfo['progress'] = $percent . '%';
-                $projectInfo['completion'] = $completionDate;
+                $projectInfo['progress'] = $percent;
+                $projectInfo['completion'] = date(" M. d, Y", strtotime($project['start'])) . ' - ' . date(" M. d, Y", strtotime($project['end']));
 
                 $response['data'][] = $projectInfo;
             }

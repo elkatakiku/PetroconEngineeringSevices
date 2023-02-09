@@ -42,9 +42,10 @@ class Project extends MainController {
         }
     }
 
+//    DEBUG: Project List
     public function gets($status) {
         var_dump($_SESSION['accID']);
-        $this->projectService->getProjectList('status='.$status);
+        echo $this->projectService->getProjectList('status='.$status);
     }
 
     // Gets a project

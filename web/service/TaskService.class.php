@@ -41,7 +41,7 @@ class TaskService extends Service{
                 $input['end']
             );
 
-//            // Result validation
+            // Result validation
             if ($this->taskRepository->setTask($task))
             {
                 $result['statusCode'] = 200;
@@ -95,6 +95,10 @@ class TaskService extends Service{
         if (!$this->emptyInput($input)) {
             $this->taskRepository->updateProgress($input);
             $result['message'] = 'Progress update: '.$input['progress'].'%.';
+
+//            TODO: Update project
+//            (($progress['progress'] / (100 * $progress['count'])) * 100) === 100
+
             $result['statusCode'] = 200;
         } else {
             $result['statusCode'] = 400;
@@ -115,7 +119,6 @@ class TaskService extends Service{
 
         if (!$this->emptyInput($input))
         {
-//            TODO: Create stoppage
             $stoppage = new Stopage();
             $stoppage->create(
                 $input['id'],
@@ -127,8 +130,6 @@ class TaskService extends Service{
             }
 
             $this->taskRepository->createStoppage($stoppage);
-
-//            TODO: Halt task
             $this->taskRepository->haltTask($input['id'], true);
 
             $result['statusCode'] = 200;
@@ -185,7 +186,6 @@ class TaskService extends Service{
 
         if ($cleanId) {
             if ($tasks = $this->taskRepository->getActiveTasks($cleanId)) {
-//                var_dump($tasks);
                 $result['data'] = $tasks;
                 $result['statusCode'] = 200;
             } else {
