@@ -2,16 +2,12 @@
 
 namespace Service;
 
-// Core
 use Core\Service;
 use DateTime;
-// Repository
 use Model\Stopage;
 use Repository\ProjectRepository;
 use Repository\TaskRepository;
-// Models
 use Model\Task;
-use Repository\ActivityRepository;
 
 
 class TaskService extends Service{
@@ -46,64 +42,13 @@ class TaskService extends Service{
             );
 
 //            // Result validation
-            $result['statusCode'] = $this->taskRepository->setTask($task) ? 200 : 500;
-        } else {
-            $result['statusCode'] = 400;
-            $result['message'] = 'Please fill all the required inputs.';
-        }
-
-        return json_encode($result, JSON_NUMERIC_CHECK);
-    }
-
-    public function createTask1(string $request)
-    {
-        parse_str($request, $raw);
-
-        $input = [
-            'task' => [
-                'projectId' => $this->sanitizeString($raw['projectId']),
-                'description' =>  $this->sanitizeString($raw['description']),
-                'start' => $this->sanitizeString($raw['start']),
-                'end' => $this->sanitizeString($raw['end']),
-                'progress' => filter_var($raw['progress'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 0, 'max_range' => 100]])
-            ],
-            'halt' => [
-                'haltReason' => $this->sanitizeString($raw['haltReason']),
-                'haltStart' => $this->sanitizeString($raw['haltStart'])
-            ]
-        ];
-
-        $isHalted = isset($raw['isHalted']) && filter_var($raw['isHalted'],FILTER_VALIDATE_BOOLEAN);
-
-        // Validates input
-        // Stops process if task is halted and halt information are incomplete
-        if(!$this->emptyInput($input['task']) && (!$isHalted || ($isHalted && !$this->emptyInput($input['halt']))))
-        {
-            $task = new Task;
-            $task->create(
-                $input['task']['projectId'],
-                $this->taskRepository->taskCount($input['task']['projectId']) + 1,
-                $input['task']['description'],
-                $input['task']['start'],
-                $input['task']['end'],
-                $input['task']['progress'],
-            );
-
-            $task->setStopped($isHalted);
-
-//            // Result validation
             if ($this->taskRepository->setTask($task))
             {
-//                Checks if halted and creates log
-                if ($isHalted) {
-                    $haltEnd = $this->sanitizeString($raw['haltEnd']);
-                    $this->createStoppage($task->getId(), $input['halt'], $haltEnd);
-                }
-
                 $result['statusCode'] = 200;
+                $result['message'] = 'Task created successfully.';
             } else {
                 $result['statusCode'] = 500;
-                $result['message'] = 'An error occured. Please try again later.';
+                $result['message'] = 'An error occurred.';
             }
         } else {
             $result['statusCode'] = 400;
@@ -114,66 +59,22 @@ class TaskService extends Service{
     }
 
     // Updates a task
-    public function updateTask(string $request)
+    public function updateTask(string $form)
     {
-        parse_str($request, $raw);
+        parse_str($form, $raw);
 
         $input = [
-            'task' => [
-                'id' => $this->sanitizeString($raw['id']),
-                'projectId' => $this->sanitizeString($raw['projectId']),
-                'description' =>  $this->sanitizeString($raw['description']),
-                'start' => $this->sanitizeString($raw['start']),
-                'end' => $this->sanitizeString($raw['end']),
-                'progress' => filter_var($raw['progress'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 0, 'max_range' => 100]])
-            ],
-            'halt' => [
-                'haltReason' => $this->sanitizeString($raw['haltReason']),
-                'haltStart' => $this->sanitizeString($raw['haltStart'])
-            ]
+            'id' => $this->sanitizeString($raw['id']),
+            'description' =>  $this->sanitizeString($raw['description']),
+            'start' => $this->sanitizeString($raw['start']),
+            'end' => $this->sanitizeString($raw['end'])
         ];
 
-        $isHalted = isset($raw['isHalted']) && filter_var($raw['isHalted'],FILTER_VALIDATE_BOOLEAN);
-
-        // Validates input
-        // Stops process if task is halted and halt information are incomplete
-        if(!$this->emptyInput($input['task']) && (!$isHalted || ($isHalted && !$this->emptyInput($input['halt']))))
+        if(!$this->emptyInput($input))
         {
-            // Result validation
-            $this->taskRepository->updateTask($input['task'], $isHalted);
-
-//            Checks project progress
-            $COMPLETE = 100;
-            $progress = $this->taskRepository->getProgress($input['task']['projectId'])[0];
-            $projectDone = ((($progress['progress'] / (100 * $progress['count'])) * 100) == $COMPLETE);
-
-            $projectRepository = new ProjectRepository();
-
-            if ($projectDone) {
-                $projectRepository->markAsDone($input['task']['projectId'], 1);
-            } else {
-                $projectRepository->markAsDone($input['task']['projectId'], 0);
-            }
-
-
-//          Checks if halted and creates log
-            $haltId = $this->sanitizeString($raw['haltId']);
-
-            if ($isHalted) {
-                $haltEnd = $this->sanitizeString($raw['haltEnd']);
-                if ($haltId) {
-                    $this->taskRepository->updateStoppage($haltId, $input['halt'], $haltEnd);
-                } else {
-                    $this->createStoppage($input['task']['id'], $input['halt'], $haltEnd);
-                }
-            } else {
-                if ($haltId) {
-                    $this->taskRepository->updateStoppage($haltId, $input['halt'], date('Y-m-d'));
-                }
-            }
-
+            $this->taskRepository->updateTask($input);
             $result['statusCode'] = 200;
-            $result['done'] = $projectDone;
+            $result['message'] = 'Updated successfully.';
         } else {
             $result['statusCode'] = 400;
             $result['message'] = 'Please fill all the required inputs.';
@@ -264,13 +165,12 @@ class TaskService extends Service{
     public function removeTask(string $request)
     {
         parse_str($request, $raw);
-        $input = [
-            'id' => $this->sanitizeString($raw['id'])
-        ];
+        $input = ['id' => $this->sanitizeString($raw['id'])];
 
         if (!$this->emptyInput($input)) {
             $cleanId = $this->sanitizeString($input['id']);
             $result['statusCode'] = $this->taskRepository->removeTask($cleanId) ? 200 : 500;
+            $result['message'] = 'Removed successfully.';
         } else {
             $result['statusCode'] = 400;
         }
@@ -300,11 +200,6 @@ class TaskService extends Service{
 
     public function getTasksDetails(string $projectId) {
         $cleanId = $this->sanitizeString($projectId);
-
-//        TODO: Get current date
-//        get the days of cd
-//        subtract to 30 days
-//        Get date for next month with the subtracted days
 
         // Default tasks time
 //        $tasks = [time(), strtotime(date("Y-m-t"))];
@@ -345,6 +240,11 @@ class TaskService extends Service{
                 $dStart = new DateTime($startDate);
                 $dEnd  = new DateTime($endDate);
                 $dDiff = $dStart->diff($dEnd);
+
+//                var_dump($dStart);
+//                var_dump($dEnd);
+//                var_dump($dDiff);
+
 
                 // Number of days
                 $days = ((int) $dDiff->format('%r%a')) + 1;
@@ -402,6 +302,17 @@ class TaskService extends Service{
         return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
+    public function getTask(string $taskId) {
+        $cleanId = $this->sanitizeString($taskId);
+        $task = [];
+
+        if ($cleanId) {
+            $task = $this->taskRepository->getActiveTasks($cleanId);
+        }
+
+        return $task;
+    }
+
 //    private function getDates(array $startDates, array $endDates) {
 //        $months = [[], [], []];
 //
@@ -453,25 +364,6 @@ class TaskService extends Service{
 //
 //        return $months;
 //    }
-
-    // Gets all tasks of a project
-    public function getTasksPlan($request) {
-        $cleanId = $this->sanitizeString($request);
-        $result['data'] = [];
-        
-        if ($cleanId) {
-            if ($tasks = $this->taskRepository->getPlans($cleanId)) {
-                $result['data'] = $tasks;
-                $result['statusCode'] = 200;
-            } else {
-                $result['statusCode'] = 500;
-            }
-        } else {
-            $result['statusCode'] = 400;
-        }
-
-        return json_encode($result, JSON_NUMERIC_CHECK);
-    }
 
     // Gets task count of a project
     public function getTaskCount($request) {

@@ -38,7 +38,7 @@ class Task extends MainController {
 
     public function haltPopup() {
         if (isset($_POST['task']) && isset($_POST['id'])) {
-        $this->load('popup/halt', $_POST);
+            $this->load('popup/halt', $_POST);
         } else {
             $this->load('popup/error');
         }
@@ -65,6 +65,7 @@ class Task extends MainController {
         }
     }
 
+//    New
     public function new() {
         if (isset($_POST['form'])) {
             echo $this->taskService->createTask($_POST['form']);
@@ -126,7 +127,7 @@ class Task extends MainController {
 //    DEBUG: Chart
     public function charts($proj) {
         echo '<pre>';
-        echo $this->taskService->getTasksDetails($proj);
+        var_dump(json_decode($this->taskService->getTasksDetails($proj), true));
     }
 
 //    Stoppage

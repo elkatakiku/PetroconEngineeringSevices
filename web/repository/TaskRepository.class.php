@@ -33,12 +33,12 @@ class TaskRepository extends Repository {
     }
 
     // Updates a task
-    public function updateTask(array $task, bool $stopped)
+    public function updateTask(array $task)
     {
         $sql = 'UPDATE 
                     '.self::$tblTask.'
                 SET 
-                    description = :description, start = :start, end = :end, progress = :progress, stopped = :stopped
+                    description = :description, start = :start, end = :end
                 WHERE 
                     id = :id';
 
@@ -46,8 +46,6 @@ class TaskRepository extends Repository {
             ':description' => $task['description'],
             ':start' => $task['start'],
             ':end' => $task['end'],
-            ':progress' => $task['progress'],
-            ':stopped' => $stopped ? 1 : 0,
             ':id' => $task['id']
         ];
         

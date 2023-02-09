@@ -37,11 +37,7 @@
 
             <footer class="pfooter">
                 <button type="submit" form="taskForm" class="btn action-btn">Save</button>
-                <button type="button" class="btn danger-btn delete-btn">
-                    Delete
-                </button>
                 <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
             </footer>
         </div>
     </div>
-<!--</div>-->

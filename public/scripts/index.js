@@ -96,7 +96,7 @@ $(document).on('click',(e) => {
 const POPUP = "popup";
 
 // Dismisses popup when click elsewhere
-$(".popup")..on('click',(e) => {
+$(".popup").on('click',(e) => {
     console.log("Popup clicked");
 
     // Closes popup when clicked outside popup content
@@ -108,7 +108,8 @@ $(".popup")..on('click',(e) => {
 // || Tab
 const TAB = "custom-tab";
 
-function switchTab (btn) {
+function switchTab (btn)
+{
     const activeNavItem = $(".nav-tab-item.active");
     const targetNavItem = btn.parent();
 
