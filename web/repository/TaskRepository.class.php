@@ -125,17 +125,28 @@ class TaskRepository extends Repository {
         return $this->query($sql, $params);
     }
 
-    // Gets all the tasks of a project
-    public function getActiveTasks($id)
+    // Get
+    public function getActiveTasks(string $projectId)
     {
         $sql = "SELECT *, DATE_FORMAT(start, '%Y-%m-%d') AS start, DATE_FORMAT(end, '%Y-%m-%d') AS end, DATE_FORMAT(last_update, '%m/%d/%Y | %h:%i %p') AS last_update
                 FROM ".self::$tblTask." 
                 WHERE proj_id = :proj_id AND active = :active";
 
         $params = [
-            ":proj_id" => $id,
+            ":proj_id" => $projectId,
             ':active' => true
         ];
+
+        return $this->query($sql, $params);
+    }
+
+    public function getTask(string $taskId)
+    {
+        $sql = "SELECT *, DATE_FORMAT(start, '%Y-%m-%d') AS start, DATE_FORMAT(end, '%Y-%m-%d') AS end, DATE_FORMAT(last_update, '%m/%d/%Y | %h:%i %p') AS last_update
+                FROM ".self::$tblTask." 
+                WHERE id = :id";
+
+        $params = [":id" => $taskId];
 
         return $this->query($sql, $params);
     }

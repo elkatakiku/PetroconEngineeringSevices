@@ -86,6 +86,11 @@ class Task extends MainController {
         }
     }
 
+//    DEBUG: progress
+    public function progress($id) {
+        $this->taskService->progress($id);
+    }
+
 //    Halt
     public function haltTask() {
         if (isset($_POST['form'])) {

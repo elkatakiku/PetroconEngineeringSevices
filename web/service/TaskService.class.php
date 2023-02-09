@@ -95,9 +95,22 @@ class TaskService extends Service{
         if (!$this->emptyInput($input)) {
             $this->taskRepository->updateProgress($input);
             $result['message'] = 'Progress update: '.$input['progress'].'%.';
+            
+//          Gets project id through task
+            if ($task = $this->taskRepository->getTask($input['id']))
+            {
+//                Gets projects total progress
+                $progress = $this->taskRepository->getProgress($task[0]['proj_id'])[0];
 
-//            TODO: Update project
-//            (($progress['progress'] / (100 * $progress['count'])) * 100) === 100
+//                Update projects status based on project progress percentage
+                $projectRepo = new ProjectRepository();
+                if ((($progress['progress'] / (100 * $progress['count'])) * 100) == 100)
+                {
+                    $projectRepo->markAsDone($task[0]['proj_id'], 1);
+                } else {
+                    $projectRepo->markAsDone($task[0]['proj_id'], 0);
+                }
+            }
 
             $result['statusCode'] = 200;
         } else {
@@ -106,6 +119,15 @@ class TaskService extends Service{
         }
 
         return json_encode($result, JSON_NUMERIC_CHECK);
+    }
+
+//    DEBUG: Project progress
+    public function progress($id) {
+        if ($task = $this->taskRepository->getTask($id)) {
+            var_dump($task);
+            $progress = $this->taskRepository->getProgress($task[0]['proj_id'])[0];
+            var_dump((($progress['progress'] / (100 * $progress['count'])) * 100));
+        }
     }
 
     public function haltTask(string $form)
