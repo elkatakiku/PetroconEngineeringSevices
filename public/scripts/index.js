@@ -253,15 +253,15 @@ function toggleSlide(isShow, slide, isAnotherSlide = false) {
 }
 
 // || Form
-const FORM = "form";
-
-function editForm (formId) { 
-    console.log($(formId));
-    form = $(formId).find("form");
-
-    form.addClass("edit");
-    console.log(form.attr("action", "./link/submit"));
-}
+// const FORM = "form";
+//
+// function editForm (formId) {
+//     console.log($(formId));
+//     form = $(formId).find("form");
+//
+//     form.addClass("edit");
+//     console.log(form.attr("action", "./link/submit"));
+// }
 
 // || Buttons Listeners
 $("button[data-toggle]").on("click", function (e) {
@@ -463,3 +463,30 @@ $('form').on('custom:submitted', (e) => {
 $('input[data-start]').on('change', Utils.startDurationHandler);
 // End
 $('input[data-end]').on('change', Utils.endDurationHandler);
+
+// || Contact
+
+$('.contact-number').on('keydown keyup change', (e) => {
+    console.log(e)
+    console.log(!isNaN(e.key))
+    console.log(!isNaN(parseInt(e.key)))
+
+    console.log("Match")
+    console.log(!/^\d+$/.test(e.key))
+    if (e.target.value.trim().length >= 10 && !isNaN(e.key) && !isNaN(parseInt(e.key)))
+    {
+
+        console.log("Max")
+        e.preventDefault();
+    }
+
+    // || !(/^\d+$/.test(e.key))
+
+    const mobileNumber = /9\d/;
+    console.log("Pattern")
+    console.log(mobileNumber.test(e.target.value))
+    const mobileNumber1 = /^9\d+$/;
+    console.log(mobileNumber1.test(e.target.value))
+
+    console.log(e.target.value)
+});

@@ -25,28 +25,28 @@
                     <div class="linear flex-md-nowrap flex-wrap" data-gap="5">
                       <div class="form-group basis-12 basis-md-6">
                         <label for="">Purchase order no.</label>
-                        <input type="text" class="form-control" name="purchaseOrd" id="" aria-describedby="helpId" placeholder="Type the purchase order number here" required>
+                        <input type="text" class="form-control" name="purchaseOrd" placeholder="Type the purchase order number here" required>
                       </div>
 
                       <div class="form-group basis-12 basis-md-6">
                         <label for="">Date of award</label>
-                        <input type="date" class="form-control" name="awardDate" id="" aria-describedby="helpId" required>
+                        <input type="date" class="form-control" name="awardDate" required>
                       </div>
                     </div>
 
                     <div class="form-group">
                         <label for="">Description</label>
-                        <textarea class="form-control" name="description" id="" rows="1"  placeholder="Type the project description here"></textarea>
+                        <textarea class="form-control" name="description" rows="1"  placeholder="Type the project description here"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="">Location</label>
-                        <input type="text" class="form-control" name="location" id="" aria-describedby="helpId" placeholder="Type the location here" required>
+                        <input type="text" class="form-control" name="location" placeholder="Type the location here" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Building no.</label>
-                        <input type="text" class="form-control" name="buildingNo" id="" aria-describedby="helpId" placeholder="Type the building number here" required>
+                        <input type="text" class="form-control" name="buildingNo" placeholder="Type the building number here" required>
                     </div>
 
                     <div class="form-group">
@@ -82,17 +82,22 @@
 
                     <div class="form-group">
                         <label for="">Company name</label>
-                        <input type="text" class="form-control" name="cmpnyName" aria-describedby="helpId" placeholder="Type the company name here" required>
+                        <input type="text" class="form-control" name="cmpnyName" placeholder="Type the company name here" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Representative</label>
-                        <input type="text" class="form-control" name="cmpnyRepresentative" aria-describedby="helpId" placeholder="Type the representative's name here" required>
+                        <input type="text" class="form-control" name="cmpnyRepresentative" placeholder="Type the representative's name here" required>
                     </div>
 
                     <div class="form-group">
                         <label for="">Contact number</label>
-                        <input type="text" class="form-control" name="cmpnyContact" id="" aria-describedby="helpId" placeholder="Type the contact number here" required>
+                        <div class="input-container" id="contact">
+                            <div class="input-prepend">
+                                <span class="icon">+63</span>
+                            </div>
+                            <input type="number" class="contact-number" name="cmpnyContact" placeholder="9123456789" required>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,7 +130,7 @@
 <!---->
 <!--            <div class="pbody">-->
 <!---->
-<!--                <!-- Alert -->-->
+                <!-- Alert -->
 <!--                <div class="alert alert-danger mb-0" role="alert"></div>-->
 <!---->
 <!--                <form id="taskForm">-->

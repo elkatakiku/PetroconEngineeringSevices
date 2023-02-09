@@ -95,7 +95,7 @@ class TaskService extends Service{
         if (!$this->emptyInput($input)) {
             $this->taskRepository->updateProgress($input);
             $result['message'] = 'Progress update: '.$input['progress'].'%.';
-            
+
 //          Gets project id through task
             if ($task = $this->taskRepository->getTask($input['id']))
             {

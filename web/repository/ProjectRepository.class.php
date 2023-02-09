@@ -78,7 +78,7 @@ class ProjectRepository extends Repository {
             ':comp_representative' => $project->getRepresentative(),
             ':comp_contact' => $project->getContact()
         ];
-
+        
         return $this->query($sql, $params);
     }
 

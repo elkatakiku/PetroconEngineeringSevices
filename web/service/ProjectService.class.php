@@ -182,7 +182,7 @@ class ProjectService extends Service{
             "client" => [
                 "company" => ucwords($this->sanitizeString($raw['cmpnyName'])),
                 "representative" => ucwords($this->sanitizeString($raw['cmpnyRepresentative'])),
-                "contact" => $this->sanitizeString($raw['cmpnyContact'])
+                "contact" => filter_var($raw['cmpnyContact'], FILTER_SANITIZE_NUMBER_INT, ['options' => ['min_range' => 0]])
             ]
         ];
 

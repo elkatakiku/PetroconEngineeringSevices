@@ -41,7 +41,7 @@
           <div class="input-prepend">
             <i class="fa fa-search icon" aria-hidden="true"></i>
           </div>
-          <input type="text" name="" id="searchProject" placeholder="Search Project">
+          <input type="text" id="searchProject" placeholder="Search Project">
         </div>
       </div>
     </div>
