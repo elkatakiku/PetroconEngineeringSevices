@@ -27,12 +27,12 @@
 
         <div class="form-group">
             <label for="new">New password</label>
-            <input type="password" class="form-control" name="newPass" id="new"  placeholder="Type the new password here">
+            <input type="password" class="form-control" name="newPass" data-validate="password" id="new"  placeholder="Type the new password here">
         </div>
 
         <div class="form-group">
             <label for="new2">Confirm new password</label>
-            <input type="password" class="form-control" name="newPassRepeat" id="new2" placeholder="Confirm new password here">
+            <input type="password" class="form-control" name="newPassRepeat" data-validate="passwordRepeat" id="new2" placeholder="Confirm new password here">
         </div>
     </form>
 

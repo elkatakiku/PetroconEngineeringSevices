@@ -13,23 +13,27 @@
 
             <?= $this->displayResult($_GET, 'Password changed successfully.') ?>
 
+            <?php if (!isset($_GET['success'])) { ?>
+
             <!-- Alert -->
-            <div class="alert alert-danger" role="alert"></div>
+<!--            <div class="alert alert-danger" role="alert"></div>-->
 
             <input type="hidden" name="id" value="<?= $data['resetId'] ?>">
             
             <div class="form-group">
                 <label for="">New password</label>
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password" data-validate="password" required>
             </div>
 
             <div class="form-group">
                 <label for="">Retype new password</label>
-                <input type="password" class="form-control" name="passwordRepeat">
+                <input type="password" class="form-control" name="passwordRepeat" data-validate="passwordRepeat" required>
             </div>
             
             <button type="submit" name="resetSubmit" class="btn btn-block primary-btn mt-4 mb-2">Submit</button>
-            <a href="<?= SITE_URL ?>" class="btn btn-block link-btn">Go to login</a>
+            <?php } ?>
+
+            <a href="<?= SITE_URL ?>" class="btn btn-block <?php echo isset($_GET['success']) ? 'action-btn' : 'link-btn' ;  ?>">Go to login</a>
         </form>
     </div>
 </div>

@@ -61,7 +61,7 @@ export function getUrlVars()
 
 let hasError = false;
 
-export function valdiateInput(element, form, controller, errorMessage) {  
+export function validateInput(element, form, controller, errorMessage) {
     console.log("Validate input");
     if ($(element).val().trim().length !== 0) {
             

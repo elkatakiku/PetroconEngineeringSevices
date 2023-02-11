@@ -36,48 +36,23 @@ switch ($data['accountType']) {
     <!-- Chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<?php //var_dump($data) ?>
+
+    <!-- Internal JS -->
+    <script>
+        var Settings = {
+            base_url: '<?= SITE_URL ?>'
+        }
+
+        <?php if ($data['accountType'] !== 'auth') { ?>
+        Settings.type = '<?= $data['typeId'] ?? "" ?>'
+        $('<?= $data['pageId'] ?>').addClass('active');
+        <?php } ?>
+
+    </script>
+
     <!-- External JS -->
     <script type="module" src="<?=SCRIPTS_PATH?>index.js"></script>
-    
-    <script>
-      var Settings = {
-          base_url: '<?= SITE_URL ?>',
-          type: '<?= $data['typeId'] ?>'
-      }
-
-      console.log('Type');
-      console.log(Settings.type);
-
-      if (typeof Settings.type === 'undefined' || Settings.type.trim() === "") {
-          alert(Settings.type);
-      }
-
-      console.log("Footer");
-
-      <?php //if ($data['accountType'] == Core\Controller::ADMIN) { ?>
-
-      // let sideNavLink = $("#sidebar .components > li");
-      //console.log(<?//= $data['pageId'] ?>//)
-
-      $('<?= $data['pageId'] ?>').addClass('active');
-
-      //for (let i = 0; i < sideNavLink.length; i++) {
-      //  const navLink = sideNavLink[i];
-      //  if (i === <?//= $data['pageNumber'] ?>//) {
-      //    console.log("This is the one");
-      //    $(navLink).addClass("active");
-      //  }
-      //}
-
-      <?php //} else if ($data['accountType'] == Core\Controller::CLIENT) { ?>
-      //   $('.navbar-nav').children().each((index, element) => {
-      //     if ($(element).find('a').text().toLowerCase() === '<?= $this->getPage() ?>'.toLowerCase()) {
-      //       $(element).addClass('active');
-      //     }
-      //   });
-      <?php //} ?>
-    
-    </script>
 
     <script type="module" src="<?=SCRIPTS_PATH.$view?>.js"></script>
   </body>

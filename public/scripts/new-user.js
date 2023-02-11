@@ -26,8 +26,9 @@ signupForm.on('submit',function (e)
 
 let hasError = false;
 
-$('select[name="type"]').on('change', function() {
-    if ($(this).val() == types.employee) {
+$('select[name="type"]').on('change', function()
+{
+    if ($(this).val() === types.employee) {
 
         let positions = $(
         '<div class="form-group">' + 
@@ -60,34 +61,34 @@ $('select[name="type"]').on('change', function() {
     }
 });
 
-$('[name="email"]').on('blur', (e) => {validateInput(e.target, 'checkEmail', 'Email is already taken');});
+// $('[name="email"]').on('blur', (e) => {validateInput(e.target, 'checkEmail', 'Email is already taken');});
 $('[name="username"]').on('blur', (e) => {validateInput(e.target, 'checkUserName', 'Username is already taken');});
-$('[name="passwordRepeat"], [name="password"]').on('blur', (e) =>
-{
-    let hasError;
-    
-    if ($('[name="passwordRepeat"]').val() === $('[name="password"]').val()) {
-        $('[name="passwordRepeat"], [name="password"]')
-            .removeClass('danger-border')
-            .addClass('success-border')
-            .siblings('.text-danger')
-                .text('')
-                .hide();
-        
-        hasError = false;
-    } else {
-        $('[name="passwordRepeat"], [name="password"]')
-            .removeClass('success-border')
-            .addClass('danger-border')
-            .siblings('.text-danger')
-                .text('Password does not match')
-                .show();
-
-        hasError = true;
-    }
-
-    signupForm.trigger('custom:inputChange', [hasError]);
-});
+// $('[name="passwordRepeat"], [name="password"]').on('blur', (e) =>
+// {
+//     let hasError;
+//
+//     if ($('[name="passwordRepeat"]').val() === $('[name="password"]').val()) {
+//         $('[name="passwordRepeat"], [name="password"]')
+//             .removeClass('danger-border')
+//             .addClass('success-border')
+//             .siblings('.text-danger')
+//                 .text('')
+//                 .hide();
+//
+//         hasError = false;
+//     } else {
+//         $('[name="passwordRepeat"], [name="password"]')
+//             .removeClass('success-border')
+//             .addClass('danger-border')
+//             .siblings('.text-danger')
+//                 .text('Password does not match')
+//                 .show();
+//
+//         hasError = true;
+//     }
+//
+//     signupForm.trigger('custom:inputChange', [hasError]);
+// });
 
 function validateInput(element, validation, errorMessage)
 {

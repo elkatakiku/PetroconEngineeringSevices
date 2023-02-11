@@ -27,19 +27,17 @@ class Auth extends MainController {
         $this->goToLogin();
     }
 
-    public function signup()
-    {
-        $this->view("auth", "signup");
-    }
+//    public function signup()
+//    {
+//        $this->view("auth", "signup");
+//    }
 
     // Forgot pass
-    public function forgotpass() 
-    {
+    public function forgotpass() {
         $this->view("auth", "forgot-pass");
     }
 
-    public function sendReset()
-    {
+    public function sendReset() {
         if (isset($_POST['forgotSubmit'])) {
             $result = json_decode($this->userService->forgotPassword($_POST['email']), true);
             if ($result['statusCode'] == 200) {
@@ -53,7 +51,7 @@ class Auth extends MainController {
     // Reset
     public function reset($resetId)
     {
-        if (!$this->userService->isResetUsed($resetId)) {
+        if (!$this->userService->isResetUsed($resetId) || isset($_GET['success']) || isset($_GET['?error'])) {
             $this->view("auth", "reset", ['resetId' => $resetId]);
         } else {
             $this->goToLogin();
@@ -62,15 +60,12 @@ class Auth extends MainController {
 
     public function resetPassword()
     {
-        echo "<pre>";
         if (isset($_POST['resetSubmit'])) {
             $result = json_decode($this->userService->resetPassword($_POST), true);
-            var_dump($result);
-            // $result = json_decode($this->userService->resetPassword($_POST['email']), true);
             if ($result['statusCode'] == 200) {
-                // header("Location: ".SITE_URL."/auth/reset/".$result['resetId']."?success=changed");
+                 header("Location: ".SITE_URL."/auth/reset/".$result['resetId']."?success=changed");
             } else {
-                // header("Location: ".SITE_URL."/auth/reset/".$result['resetId']."?error=".$result['message']);
+                 header("Location: ".SITE_URL."/auth/reset/".$result['resetId']."?error=".$result['message']);
             }
         }
     }

@@ -465,23 +465,159 @@ $('input[data-start]').on('change', Utils.startDurationHandler);
 // End
 $('input[data-end]').on('change', Utils.endDurationHandler);
 
-// || Contact
+// || Validation
+function validateInput(element, controller, errorMessage)
+{
+    $(element).siblings('.loading').show();
 
-$('.contact-number').on('keydown keyup change', (e) => {
-    // console.log(e)
-    // console.log(!isNaN(e.key))
-    // console.log(!isNaN(parseInt(e.key)))
+    element.setCustomValidity("Checking...");
 
-    // console.log("Match")
-    // console.log(!/^\d+$/.test(e.key))
+    $.get(
+        Settings.base_url + controller,
+        {input : $(element).val()},
+        function (data)
+        {
+            let response = JSON.parse(data);
+
+            if (!response.data)
+            {
+                element.setCustomValidity(errorMessage);
+
+                $(element)
+                    .removeClass('success-border')
+                    .addClass('danger-border')
+                    .parents('.loading-input')
+                    .siblings('.text-danger')
+                    .text(element.validationMessage)
+                    .show();
+            }
+            else
+            {
+                element.setCustomValidity("");
+                $(element)
+                    .removeClass('danger-border')
+                    .addClass('success-border')
+                    .parents('.loading-input')
+                    .siblings('.text-danger')
+                    .text(element.validationMessage)
+                    .hide();
+            }
+
+            $(element).siblings('.loading').hide();
+        }
+    );
+}
+
+// Signup Email
+let typeTimer;
+const emailInput = $('[data-validate="userEmail"]');
+
+emailInput.on('input', (e) =>
+{
+    clearTimeout(typeTimer);
+    if (e.target.checkValidity())
+    {
+        e.target.setCustomValidity("Checking...");
+
+        typeTimer = setTimeout(() => {
+            validateInput(e.target, '/user/checkEmail', 'Email is already taken');
+        }, 1000);
+    }
+
+    emailInput
+        .removeClass('success-border')
+        .addClass('danger-border')
+        .parents('.loading-input')
+        .siblings('.text-danger')
+        .text(e.target.validationMessage)
+        .show();
+
+});
+
+// Password
+const password = $('[data-validate="password"]');
+let lowerCaseLetters = /[a-z]/g;
+let upperCaseLetters = /[A-Z]/g;
+let numbers = /[0-9]/g;
+
+password.on('input', (e) =>
+{
+    let element = e.target;
+    let error = "";
+
+    if(!element.value.match(lowerCaseLetters)) {
+        error = "Must contain at least one lowercase letters.";
+    } else if (!element.value.match(upperCaseLetters)) {
+        error = "Must contain at least one uppercase letters.";
+    } else if (!element.value.match(numbers)) {
+        error = "Must contain at least one number.";
+    } else if (element.value.trim().length < 8) {
+        error = "Must have a minimum of 8 characters.";
+    }
+
+    element.setCustomValidity(error);
+
+    if (element.checkValidity()) {
+        password
+            .removeClass('danger-border')
+            .addClass('success-border')
+            .siblings('.text-danger')
+            .text('')
+            .hide();
+    } else {
+        password
+            .removeClass('success-border')
+            .addClass('danger-border')
+            .siblings('.text-danger')
+            .text(error)
+            .show();
+    }
+
+    element.reportValidity();
+})
+
+// Password Repeat
+const passwordRepeat = $('[data-validate="passwordRepeat"]');
+passwordRepeat.on('input', (e) =>
+{
+    if (passwordRepeat.val() === password.val())
+    {
+        passwordRepeat
+            .removeClass('danger-border')
+            .addClass('success-border')
+            .siblings('.text-danger')
+            .text('')
+            .hide();
+
+        e.target.setCustomValidity('');
+    } else {
+        passwordRepeat
+            .removeClass('success-border')
+            .addClass('danger-border')
+            .siblings('.text-danger')
+            .text('Password does not match')
+            .show();
+
+        e.target.setCustomValidity('Password does not match.');
+    }
+
+    e.target.reportValidity();
+});
+
+// Contact Number
+$('.contact-number').on('keydown keyup change', (e) =>
+{
     if (e.target.value.trim().length >= 10 && !isNaN(e.key) && !isNaN(parseInt(e.key)))
     {
-        // console.log("Max")
         e.preventDefault();
     }
 
+    // console.log(e)
+    // console.log(!isNaN(e.key))
+    // console.log(!isNaN(parseInt(e.key)))
+    // console.log("Match")
+    // console.log(!/^\d+$/.test(e.key))
     // || !(/^\d+$/.test(e.key))
-
     // const mobileNumber = /9\d/;
     // console.log("Pattern")
     // console.log(mobileNumber.test(e.target.value))

@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-group basis-9 mb-0">
                     <span class="loading-input">
-                        <input type="email" class="form-control top" name="email" id="email" aria-describedby="helpId" placeholder="address@email.com" required>
+                        <input type="email" class="form-control top" name="email" id="email" data-validate="userEmail" aria-describedby="helpId" placeholder="address@email.com" required>
                         <div class="loading" style="display: none;">
                             <div class="spinner-grow spinner-grow-sm" role="status">
                                 <span class="sr-only">Loading...</span>

@@ -45,31 +45,31 @@
       <input type="hidden" name="id" value="<?= $data['user']['id']?>" readonly>
       <div class="form-group">
         <label for="">First Name</label>
-        <input type="text" value="<?= $data['user']['firstname']?>" class="form-control" name="firstName" id="" aria-describedby="helpId" placeholder="Edit First Name" readonly>
+        <input type="text" value="<?= $data['user']['firstname']?>" class="form-control" name="firstName" aria-describedby="helpId" placeholder="Edit First Name" readonly>
       </div>
       <div class="form-group">
         <label for="">Middle Name</label>
-        <input type="text" value="<?= $data['user']['middlename']?>" class="form-control" name="middleName" id="" aria-describedby="helpId" placeholder="Edit Middle Name" readonly>
+        <input type="text" value="<?= $data['user']['middlename']?>" class="form-control" name="middleName" aria-describedby="helpId" placeholder="Edit Middle Name" readonly>
       </div>
       <div class="form-group">
         <label for="">Last Name</label>
-        <input type="text" value="<?= $data['user']['lastname']?>" class="form-control" name="lastName" id="" aria-describedby="helpId" placeholder="Edit Last Name" readonly>
+        <input type="text" value="<?= $data['user']['lastname']?>" class="form-control" name="lastName" aria-describedby="helpId" placeholder="Edit Last Name" readonly>
       </div>
       <div class="form-group">
         <label for="">Email</label>
-        <input type="text" value="<?= $data['user']['email']?>" class="form-control" name="email" id="" aria-describedby="helpId" placeholder="Edit Email" readonly>
+        <input type="text" value="<?= $data['user']['email']?>" class="form-control" name="email" aria-describedby="helpId" placeholder="Edit Email" readonly>
       </div>
       <div class="form-group">
         <label for="">Address</label>
-        <input type="text" value="<?= $data['user']['address']?>" class="form-control" name="address" id="" aria-describedby="helpId" placeholder="Edit Address" readonly>
+        <input type="text" value="<?= $data['user']['address']?>" class="form-control" name="address" aria-describedby="helpId" placeholder="Edit Address" readonly>
       </div>
       <div class="form-group">
         <label for="">Contact no.</label>
-        <input type="text" value="<?= $data['user']['contact_number']?>" class="form-control" name="contactNo" id="" aria-describedby="helpId" placeholder="Edit Contact no." readonly>
+        <input type="text" value="<?= $data['user']['contact_number']?>" class="form-control" name="contactNo" aria-describedby="helpId" placeholder="Edit Contact no." readonly>
       </div>
       <div class="form-group">
         <label for="">Birthdate</label>
-        <input type="date" value="<?= $data['user']['dob']?>" class="form-control" name="birthdate" id="" aria-describedby="helpId" placeholder="" readonly>
+        <input type="date" value="<?= $data['user']['dob']?>" class="form-control" name="birthdate" aria-describedby="helpId" placeholder="" readonly>
       </div>
     </form>
     <div class="form-group">

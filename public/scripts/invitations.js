@@ -7,7 +7,7 @@ import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup
 // import * as Popup from '/public/scripts/module/popup.js';
 
 // Disable form button
-$('[type="submit"]').prop('disabled', true);
+// $('[type="submit"]').prop('disabled', true);
 
 // Datatable
 let reloadTimeout;
@@ -207,28 +207,28 @@ inviteForm.on('submit', (e) =>
 });
 
 // Email validation
-$('[name="email"]').on('input', (e) =>
-{
-    if (e.target.reportValidity() !== false) {
-        setTimeout(() => {
-            Utils.valdiateInput(e.target, '#inviteForm', '/people/valdiateEmail', 'Email is not available.');
-        }, 500);
-    } else {
-        submitButton.prop('disabled', true);
-    }
-});
+// $('[name="email"]').on('input', (e) =>
+// {
+//     if (e.target.reportValidity() !== false) {
+//         setTimeout(() => {
+//             Utils.validateInput(e.target, '#inviteForm', '/people/valdiateEmail', 'Email is not available.');
+//         }, 500);
+//     } else {
+//         submitButton.prop('disabled', true);
+//     }
+// });
 
 // Form validation
-inviteForm.on('custom:inputChange', (e, hasError) => {
-    console.log(!hasError && e.target.checkValidity())
-    console.log(!hasError)
-    console.log(e.target.checkValidity())
-    submitButton.prop('disabled', !(!hasError && e.target.checkValidity()));
-});
+// inviteForm.on('custom:inputChange', (e, hasError) => {
+//     // console.log(!hasError && e.target.checkValidity())
+//     // console.log(!hasError)
+//     // console.log(e.target.checkValidity())
+//     submitButton.prop('disabled', !(!hasError && e.target.checkValidity()));
+// });
 
-$('select').on('change', () => {
-    submitButton.prop('disabled', !inviteForm[0].checkValidity());
-});
+// $('select').on('change', () => {
+//     submitButton.prop('disabled', !inviteForm[0].checkValidity());
+// });
 
 function getFormData(form) {
     return form.serialize() + "&projId=" + projectId;

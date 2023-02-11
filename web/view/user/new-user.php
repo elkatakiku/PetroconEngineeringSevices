@@ -59,7 +59,7 @@ use Model\Account;
                     <div class="form-group">
                         <label for="">Email</label>
                         <span class="loading-input">
-                            <input type="email" class="form-control top" name="email" id="email" aria-describedby="helpId" placeholder="Enter email" required>
+                            <input type="email" class="form-control top" data-validate="userEmail" name="email" id="email" aria-describedby="helpId" placeholder="Enter email" required>
                             <div class="loading" style="display: none;">
                                 <div class="spinner-grow spinner-grow-sm" role="status">
                                     <span class="sr-only">Loading...</span>
@@ -111,8 +111,8 @@ use Model\Account;
                     
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" class="form-control top" name="password" id="password" aria-describedby="helpId" placeholder="Enter password" required>
-                        <input type="password" class="form-control bottom" name="passwordRepeat" id="password" aria-describedby="helpId" placeholder="Confirm password" required>
+                        <input type="password" class="form-control top" name="password" data-validate="password" id="password" aria-describedby="helpId" placeholder="Enter password" required>
+                        <input type="password" class="form-control bottom" name="passwordRepeat" data-validate="passwordRepeat" id="password" aria-describedby="helpId" placeholder="Confirm password" required>
                         <small id="helpId" class="form-text text-danger"></small>
                     </div>
                 </div>

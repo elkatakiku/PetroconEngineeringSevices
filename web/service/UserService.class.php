@@ -152,7 +152,6 @@ class UserService extends Service{
 
     public function checkEmail(string $email)
     {
-        // echo __METHOD__;
         return json_encode(['data' => !$this->userRepository->validateEmail($email)]);
     }
 
@@ -457,13 +456,16 @@ class UserService extends Service{
 
         $response['resetId'] = $input['resetId'];
 
+        // Checks if any input is empty
         if (!$this->emptyInput($input)) 
-        {   // Checks if any input is empty
+        {
+            // Checks if passwords matched
             if ($this->pwdMatch($input['password'], $input['passwordRepeat'])) 
-            {   // Checks if passwords matched
+            {
+                // Checks if a request has been made
                 $reset = $this->userRepository->getResetRequest($input['resetId']);
-                if ($reset && $reset[0]['used'] != 1) 
-                {   // Checks if a request has been made
+                if ($reset && $reset[0]['used'] != 1)
+                {
                     $this->userRepository->changePassword($input['password'], $reset[0]['log_id']);
                     $this->userRepository->exhaustReset($reset[0]['id']);
                     $response['statusCode'] = 200;

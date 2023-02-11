@@ -5,7 +5,7 @@ import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils
 // import * as Utils from '/public/scripts/module/utils.js';
 
 $('[name="oldPass"]').on('blur', (e) => {
-    Utils.valdiateInput(e.target, '#changePassForm', '/user/validatePassword', 'Incorrect password');
+    Utils.validateInput(e.target, '#changePassForm', '/user/validatePassword', 'Incorrect password');
 });
 
 $('[name="newPassRepeat"], [name="newPass"]').on('blur', (e) => 

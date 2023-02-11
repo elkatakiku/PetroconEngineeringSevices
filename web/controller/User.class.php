@@ -60,18 +60,8 @@ class User extends MainController {
     public function newUser()
     {
         if (isset($_POST['form'])) 
-        {    
-            // $signupResult = $this->userService->signup($_POST['form']);
+        {
             echo $this->userService->signup($_POST['form']);
-            
-            // if ($signupResult->isSuccess()) 
-            // {   // Account creation success
-            //     header("Location: ".SITE_URL."/user/list#all");
-            //     exit();
-            //     return;
-            // } else {
-            //     header("Location: ".SITE_URL."/user?error=".$signupResult->getMessage());
-            // }
         }
     }
 
@@ -85,7 +75,6 @@ class User extends MainController {
 
     public function checkEmail()
     {
-        // echo __METHOD__;
         if (isset($_GET['input'])) {
             echo $this->userService->checkEmail($_GET['input']);
         }
