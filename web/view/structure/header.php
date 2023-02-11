@@ -25,8 +25,8 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="<?=STYLES_PATH?>styles.css">
     <link rel="stylesheet" href="<?=STYLES_PATH?>popup.css">
-    <link rel="stylesheet" href="<?=STYLES_PATH?>navbar.css">
-    <link rel="stylesheet" href="<?=STYLES_PATH?>sidebar.css">
+<!--    <link rel="stylesheet" href="--><?//=STYLES_PATH?><!--navbar.css">-->
+<!--    <link rel="stylesheet" href="--><?//=STYLES_PATH?><!--sidebar.css">-->
     <?php 
       if ($data['accountType'] == Core\Controller::CLIENT && isset($_SESSION['accID'])) {
         echo '<link rel="stylesheet" href="'.STYLES_PATH.'index.css">';

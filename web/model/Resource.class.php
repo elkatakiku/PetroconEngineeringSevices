@@ -13,19 +13,19 @@ class Resource implements Expose {
     private $proj_id;
     private $active;
 
-    public function create($item, $quantity, $price, $total, $notes, $proj_id) {
+    public function create($item, $quantity, $price, $notes, $proj_id) {
         
-        $this->set(uniqid("PTRCN-RSRC-"), $item, $quantity, $price, $total, $notes, $proj_id, true);
+        $this->set(uniqid("PTRCN-RSRC-"), $item, $quantity, $price, $notes, $proj_id, true);
     }
 
     public function set(
-        $id, $item, $quantity, $price, $total, $notes, $proj_id, $active) {
+        $id, $item, $quantity, $price, $notes, $proj_id, $active) {
         
         $this->id = $id;
         $this->item = $item;
         $this->quantity = $quantity;
         $this->price = $price;
-        $this->total = $total;
+        $this->total = $price * $quantity;
         $this->notes = $notes;
         $this->proj_id = $proj_id;
         $this->active = $active;

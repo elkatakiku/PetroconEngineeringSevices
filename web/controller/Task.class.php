@@ -52,19 +52,6 @@ class Task extends MainController {
         }
     }
 
-
-
-    //    Load
-    public function popups($id) {
-        if ($data = $this->taskService->initializePopup($id)) {
-            echo "Has data";
-            $this->load('popup/task', $data);
-        } else {
-            echo "No data";
-            $this->load('popup/error');
-        }
-    }
-
 //    New
     public function new() {
         if (isset($_POST['form'])) {

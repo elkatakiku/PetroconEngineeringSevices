@@ -15,57 +15,97 @@ class ResourceService extends Service {
         $this->resourceRepository = new ResourceRepository;
     }
 
-    public function new(string $form)
+//    Create
+    public function recordResource(string $form)
     {
-        $input = $this->getInputs($form);
-        unset($input['required']['id']);
+        parse_str($form, $raw);
 
-        if (!$this->emptyInput($input['required'])) 
+        $input = [
+            'projectId' => $this->sanitizeString($raw['projectId']),
+            'item' => $this->sanitizeString($raw['item']),
+            'quantity' => filter_var($raw['quantity'], FILTER_SANITIZE_NUMBER_INT),
+            'price' => filter_var($raw['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ),
+        ];
+
+        if (!$this->emptyInput($input))
         {
-            $input['required']['total'] = $input['required']['price'] * $input['required']['quantity'];
 
             // Creates resource object
             $resource = new Resource;
             $resource->create(
-                $input['required']['item'],
-                $input['required']['quantity'],
-                $input['required']['price'],
-                $input['required']['total'],
-                $input['notRequired']['notes'],
-                $input['required']['projId'],
+                $input['item'],
+                $input['quantity'],
+                $input['price'],
+//                $input['price'] * $input['quantity'],
+                $this->sanitizeString($raw['notes']),
+                $input['projectId']
             );
 
             if ($this->resourceRepository->create($resource)) {
-                $response['statusCode'] = 200;
+                $result['statusCode'] = 200;
+                $result['message'] = 'Resource added successfully.';
             } else {
-                $response['statusCode'] = 500;
+                $result['statusCode'] = 500;
+                $result['message'] = 'An error occurred.';
             }
         } else {
-            $response['statusCode'] = 400;
-            $response['message'] = "Fill all the required inputs.";
+            $result['statusCode'] = 400;
+            $result['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response, JSON_NUMERIC_CHECK);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
+//    Update
     public function update(string $form)
     {
-        $input = $this->getInputs($form);
+        parse_str($form, $raw);
 
-        if (!$this->emptyInput($input['required'])) 
+        $input = [
+            'id' => $this->sanitizeString($raw['id']),
+            'item' => $this->sanitizeString($raw['item']),
+            'quantity' => filter_var($raw['quantity'], FILTER_SANITIZE_NUMBER_INT),
+            'price' => filter_var($raw['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ),
+        ];
+
+        if (!$this->emptyInput($input))
         {
-            $input['required']['total'] = $input['required']['price'] * $input['required']['quantity'];
+            $input['total'] = $input['price'] * $input['quantity'];
+            $input['notes'] = $this->sanitizeString($raw['notes']);
 
-            $this->resourceRepository->update(array_merge($input['required'], $input['notRequired']));
-            $response['statusCode'] = 200;
+            $this->resourceRepository->update($input);
+            $result['statusCode'] = 200;
+            $result['message'] = 'Updated successfully.';
         } else {
-            $response['statusCode'] = 400;
-            $response['message'] = "Fill all the required inputs.";
+            $result['statusCode'] = 400;
+            $result['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response, JSON_NUMERIC_CHECK);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
+    public function updateNotes(string $form)
+    {
+        parse_str($form, $raw);
+
+        $input = [
+            'id' => $this->sanitizeString($raw['id']),
+            'notes' => $this->sanitizeString($raw['notes'])
+        ];
+
+        if (!$this->emptyInput($input)) {
+            $this->resourceRepository->updateNotes($input);
+            $result['statusCode'] = 200;
+            $result['message'] = 'Notes updated successfully.';
+        } else {
+            $result['statusCode'] = 400;
+            $result['message'] = 'Please fill all the required inputs.';
+        }
+
+        return json_encode($result, JSON_NUMERIC_CHECK);
+    }
+
+//    Delete
     public function remove(string $form)
     {
         parse_str($form, $input);
@@ -80,6 +120,7 @@ class ResourceService extends Service {
         return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
+//    Read
     public function list(string $projectId)
     {
         $cleanId = $this->sanitizeString($projectId);

@@ -16,19 +16,46 @@ class Resource extends MainController {
         $this->resourceService = new ResourceService;
     }
 
-    public function new()
-    {
-        if (isset($_POST['form'])) {
-            echo $this->resourceService->new($_POST['form']);
+//    Load
+    public function resourcePopup() {
+        if (isset($_POST['projId'])) {
+            $this->load('popup/resource', $_POST);
+        } else {
+            $this->load('popup/error');
         }
     }
 
+    public function notesPopup() {
+        if (isset($_POST['resource']) && isset($_POST['id']) && isset($_POST['notes'])) {
+            $this->load('popup/notes', $_POST);
+        } else {
+            $this->load('popup/error');
+        }
+    }
+
+//    Create
+    public function new()
+    {
+        if (isset($_POST['form'])) {
+            echo $this->resourceService->recordResource($_POST['form']);
+        }
+    }
+
+//    Update
     public function update()
     {
         if (isset($_POST['form'])) {
             echo $this->resourceService->update($_POST['form']);
         }
     }
+
+//    Notes
+    public function updateNotes() {
+        if (isset($_POST['form'])) {
+            echo $this->resourceService->updateNotes($_POST['form']);
+        }
+    }
+
 
     public function remove()
     {

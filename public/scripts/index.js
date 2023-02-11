@@ -437,6 +437,7 @@ $('[data-slider]').on('click', (e) => {
         btn.trigger('custom:clicked', [btn]);
     }
 });
+
 $('button').on('custom:clicked', (e, btn) => {
     console.log("Disable")
     $(e.target).prop('disabled', false);
@@ -467,26 +468,25 @@ $('input[data-end]').on('change', Utils.endDurationHandler);
 // || Contact
 
 $('.contact-number').on('keydown keyup change', (e) => {
-    console.log(e)
-    console.log(!isNaN(e.key))
-    console.log(!isNaN(parseInt(e.key)))
+    // console.log(e)
+    // console.log(!isNaN(e.key))
+    // console.log(!isNaN(parseInt(e.key)))
 
-    console.log("Match")
-    console.log(!/^\d+$/.test(e.key))
+    // console.log("Match")
+    // console.log(!/^\d+$/.test(e.key))
     if (e.target.value.trim().length >= 10 && !isNaN(e.key) && !isNaN(parseInt(e.key)))
     {
-
-        console.log("Max")
+        // console.log("Max")
         e.preventDefault();
     }
 
     // || !(/^\d+$/.test(e.key))
 
-    const mobileNumber = /9\d/;
-    console.log("Pattern")
-    console.log(mobileNumber.test(e.target.value))
-    const mobileNumber1 = /^9\d+$/;
-    console.log(mobileNumber1.test(e.target.value))
-
-    console.log(e.target.value)
+    // const mobileNumber = /9\d/;
+    // console.log("Pattern")
+    // console.log(mobileNumber.test(e.target.value))
+    // const mobileNumber1 = /^9\d+$/;
+    // console.log(mobileNumber1.test(e.target.value))
+    //
+    // console.log(e.target.value)
 });

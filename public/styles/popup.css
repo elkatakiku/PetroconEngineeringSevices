@@ -108,7 +108,7 @@
     color: #5e6c84;
 }
 
-.popup .pcontent .pbody input, .popup .pcontent .pbody .input-options {
+.popup .pcontent .pbody input, .popup .pcontent .pbody textarea, .popup .pcontent .pbody .input-options {
     border: 1px solid var(--input-popup-border-color);
     background-color: white !important;
     font-size: 14px;

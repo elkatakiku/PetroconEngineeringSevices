@@ -1,7 +1,7 @@
-<div class="pcontainer">
+<div class="pcontainer popup-delete">
     <div class="pcontent">
         <header class="pheader">
-            <span class="material-icons ptitle-icon">error</span>
+            <span class="material-icons ptitle-icon danger-text">error</span>
             <h2 class="ptitle">Error!</h2>
             <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
                 <span class="material-icons">close</span>

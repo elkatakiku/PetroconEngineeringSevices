@@ -125,12 +125,18 @@ export function initialize(popup, load = false) {
         console.log("Popup shown");
         popup
             .find('textarea')
-            .each((index, element) => {
+            .each((index, element) =>
+            {
                 Utils.autoHeight(element);
+                if (load) {
+                    $(element).on("input", function() {
+                        Utils.autoHeight(this);
+                    });
+                }
             });
     });
 
-    // On dimiss
+    // On dismiss
     popup.on('custom:dismissPopup', (e, p) => {
         if (load) {
             popup.empty();

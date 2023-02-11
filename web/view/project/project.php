@@ -139,27 +139,27 @@
             </li>
         </ul>
 
-    <?php
-    if ($data['project']['done'] == 1) { ?>
+<!--    --><?php
+//    if ($data['project']['done'] == 1) { ?>
             <!-- <div>
                 <a class="btn action-btn" data-toggle="custom-tab" href="invoice-admin.html">Invoice</a>
-                <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a> 
+                <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a>
             </div> -->
-        <div class="projectDone">
 <!--            <a class="btn sm-btn action-btn" href="invoice-admin.html">Invoice</a>-->
-            <a id="turnover" class="btn sm-btn action-btn" href="turnover-admin.html">Turn Over</a>
-        </div>
-
-        <div class="projectDone dropdown">
-            <button class="btn sm-btn action-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                Print
-            </button>
-            <div class="dropdown-menu">
 <!--                <a class="dropdown-item" href="invoice-admin.html">Invoice</a>-->
-                <a class="dropdown-item" href="turnover-admin.html">Turn Over</a>
-            </div>
-        </div>
-    <?php } ?>  
+<!--        <div class="projectDone">-->
+<!--            <a id="turnover" class="btn sm-btn action-btn" href="turnover-admin.html">Turn Over</a>-->
+<!--        </div>-->
+<!---->
+<!--        <div class="projectDone dropdown">-->
+<!--            <button class="btn sm-btn action-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">-->
+<!--                Print-->
+<!--            </button>-->
+<!--            <div class="dropdown-menu">-->
+<!--                <a class="dropdown-item" href="turnover-admin.html">Turn Over</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    --><?php //} ?><!--  -->
     </nav>
 
     <div class="custom-tab-container">
@@ -262,7 +262,7 @@
 
             <!-- Resources Table -->
             <div class="mesa-container">
-                <table class="mesa mesa-hover" id="resourceTable">
+                <table class="mesa" id="resourceTable">
                     <thead class="mesa-head">
                         <tr>
                             <th scope="col"></th>
@@ -270,7 +270,7 @@
                             <th scope="col">Quantity</th>
                             <th scope="col">Price per item (PHP)</th>
                             <th scope="col">Total Amount</th>
-                            <th scope="col">Notes</th>
+<!--                            <th scope="col">Notes</th>-->
                             <th scope="col" class="table-action-col">Action</th>
                         </tr>
                     </thead>
@@ -401,195 +401,195 @@
 <div class="popup popup-center" id="popupContainer"></div>
 
 <!-- Task -->
-<div class="popup popup-center" id="taskPopup" tabindex="-1" aria-hidden="true">
-    <div class="pcontainer">
-        <div class="pcontent">
-            <header class="pheader">
-                <h2 class="ptitle">Task 1</h2>
-                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
-                    <span class="material-icons">close</span>
-                </button>
-            </header>
-
-            <div class="pbody">
-
+<!--<div class="popup popup-center" id="taskPopup" tabindex="-1" aria-hidden="true">-->
+<!--    <div class="pcontainer">-->
+<!--        <div class="pcontent">-->
+<!--            <header class="pheader">-->
+<!--                <h2 class="ptitle">Task 1</h2>-->
+<!--                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">-->
+<!--                    <span class="material-icons">close</span>-->
+<!--                </button>-->
+<!--            </header>-->
+<!---->
+<!--            <div class="pbody">-->
+<!---->
                 <!-- Alert -->
-                <div class="alert alert-danger mb-0" role="alert"></div>
-                
-                <form id="taskForm">
-                    <input type="hidden" name="projectId" value="<?= $data['project']['id'] ?>">
-                    <input type="hidden" name="id" value="">
-                    <input type="hidden" name="order" value="1">
-
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea class="form-control" name="description" rows="1" placeholder="Type the task description here" style="min-height: 1rem; height: 34px; overflow-y: hidden;" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Duration</label>
-                        <div class="linear">
-                            <input type="date" class="form-control" name="start" data-start="taskDuration" min="<?= $data["project"]['start'] ?>" max="<?= $data["project"]['end'] ?>" required>
-                            -
-                            <input type="date" class="form-control" name="end" data-end="taskDuration" min="<?= $data["project"]['start'] ?>" max="<?= $data["project"]['end'] ?>" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Progress</label>
-                        <div class="linear">
-                            <div class="form-group linear mb-0 flex-grow-1">
-                                <input type="number" class="form-control" name="progress" placeholder="Input progress percentage here" min="0" max="100" oninput="validity.valid||(value='');" required>
-                                <span style="font-weight: bold">%</span>
-                            </div>
-
-                            or
-
-                            <label id="haltProgress" for="haltToggler" class="btn icon-btn danger-btn m-0">
-                                <span class="material-icons btn-icon" style="font-size: 20px">pan_tool</span>
-                                Halt
-                                <input type="checkbox" id="haltToggler" name="isHalted" value="0">
-                            </label>
-                        </div>
-                    </div>
-
-                    <div id="halt" style="display: none">
-                        <input type="hidden" name="haltId">
-                        <div>
-                            <div class="form-group mb-2">
-                                <label>Reason</label>
-                                <textarea class="form-control" name="haltReason" rows="1" placeholder="Type the reason here" style="min-height: 1rem; height: 34px; overflow-y: hidden;"></textarea>
-                            </div>
-
-                            <div class="form-group m-0">
-                                <label>Halt Duration</label>
-                                <div class="linear">
-                                    <input type="date" class="form-control" name="haltStart" data-start="haltDuration" value="<?= date('Y-m-d') ?>">
-                                    -
-                                    <input type="date" class="form-control" name="haltEnd"  data-end="haltDuration" >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-
-            <footer class="pfooter">
-                <button type="submit" form="taskForm" class="btn action-btn">Save</button>
-                <button type="button" class="btn danger-btn delete-btn">
-                    Delete
-                </button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-            </footer>
-        </div>
-    </div>
-</div>
+<!--                <div class="alert alert-danger mb-0" role="alert"></div>-->
+<!--                -->
+<!--                <form id="taskForm">-->
+<!--                    <input type="hidden" name="projectId" value="--><?//= $data['project']['id'] ?><!--">-->
+<!--                    <input type="hidden" name="id" value="">-->
+<!--                    <input type="hidden" name="order" value="1">-->
+<!---->
+<!--                    <div class="form-group">-->
+<!--                        <label>Description</label>-->
+<!--                        <textarea class="form-control" name="description" rows="1" placeholder="Type the task description here" style="min-height: 1rem; height: 34px; overflow-y: hidden;" required></textarea>-->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="form-group">-->
+<!--                        <label>Duration</label>-->
+<!--                        <div class="linear">-->
+<!--                            <input type="date" class="form-control" name="start" data-start="taskDuration" min="--><?//= $data["project"]['start'] ?><!--" max="--><?//= $data["project"]['end'] ?><!--" required>-->
+<!--                            --->
+<!--                            <input type="date" class="form-control" name="end" data-end="taskDuration" min="--><?//= $data["project"]['start'] ?><!--" max="--><?//= $data["project"]['end'] ?><!--" required>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="form-group">-->
+<!--                        <label>Progress</label>-->
+<!--                        <div class="linear">-->
+<!--                            <div class="form-group linear mb-0 flex-grow-1">-->
+<!--                                <input type="number" class="form-control" name="progress" placeholder="Input progress percentage here" min="0" max="100" oninput="validity.valid||(value='');" required>-->
+<!--                                <span style="font-weight: bold">%</span>-->
+<!--                            </div>-->
+<!---->
+<!--                            or-->
+<!---->
+<!--                            <label id="haltProgress" for="haltToggler" class="btn icon-btn danger-btn m-0">-->
+<!--                                <span class="material-icons btn-icon" style="font-size: 20px">pan_tool</span>-->
+<!--                                Halt-->
+<!--                                <input type="checkbox" id="haltToggler" name="isHalted" value="0">-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!---->
+<!--                    <div id="halt" style="display: none">-->
+<!--                        <input type="hidden" name="haltId">-->
+<!--                        <div>-->
+<!--                            <div class="form-group mb-2">-->
+<!--                                <label>Reason</label>-->
+<!--                                <textarea class="form-control" name="haltReason" rows="1" placeholder="Type the reason here" style="min-height: 1rem; height: 34px; overflow-y: hidden;"></textarea>-->
+<!--                            </div>-->
+<!---->
+<!--                            <div class="form-group m-0">-->
+<!--                                <label>Halt Duration</label>-->
+<!--                                <div class="linear">-->
+<!--                                    <input type="date" class="form-control" name="haltStart" data-start="haltDuration" value="--><?//= date('Y-m-d') ?><!--">-->
+<!--                                    --->
+<!--                                    <input type="date" class="form-control" name="haltEnd"  data-end="haltDuration" >-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!---->
+<!--            </div>-->
+<!---->
+<!--            <footer class="pfooter">-->
+<!--                <button type="submit" form="taskForm" class="btn action-btn">Save</button>-->
+<!--                <button type="button" class="btn danger-btn delete-btn">-->
+<!--                    Delete-->
+<!--                </button>-->
+<!--                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>-->
+<!--            </footer>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!-- Resource -->
-<div class="popup" id="resourcePopup" tabindex="-1" aria-hidden="true">
-    <div class="pcontainer">
-        <div class="pcontent">
-            <div class="pheader">
-                <h2 class="ptitle">Add Material</h2>
-                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
-                    <span class="material-icons">close</span>
-                </button>
-            </div>
-
-            <div class="linear-container pbody">
-
+<!--<div class="popup" id="resourcePopup" tabindex="-1" aria-hidden="true">-->
+<!--    <div class="pcontainer">-->
+<!--        <div class="pcontent">-->
+<!--            <div class="pheader">-->
+<!--                <h2 class="ptitle">Add Material</h2>-->
+<!--                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">-->
+<!--                    <span class="material-icons">close</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="linear-container pbody">-->
+<!---->
                 <!-- Alert -->
-                <div class="alert alert-danger mb-0" role="alert"></div>
-
+<!--                <div class="alert alert-danger mb-0" role="alert"></div>-->
+<!---->
                 <!-- Content -->
-                <form action="" class="linear" id="itemForm">
-                    <div class="form-group basis-12">
-                        <label for="">Item name</label>
-                        <input type="text" class="form-control" name="item">
-                    </div>
-
-                    <div class="form-group basis-4">
-                        <label for="">Price per item (PHP)</label>
-                        <input type="number" class="form-control" name="price" step="any" min=0 oninput="validity.valid||(value='');">
-                    </div>
-                    
-                    <div class="form-group basis-4">
-                        <label for="">Quantity</label>
-                        <input type="number" class="form-control" name="quantity" min=0 oninput="validity.valid||(value='');">
-                    </div>
-
-                    <div class="form-group basis-4">
-                        <label for="">Total Amount</label>
-                        <input type="number" class="form-control" name="total" readonly min=0 oninput="validity.valid||(value='');">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Note</label>
-                        <textarea class="form-control" name="notes" rows="1"></textarea>
-                    </div>
-
-                    <input type="hidden" name="id">
-                    <input type="hidden" name="projId" value="<?= $data['project']['id'] ?>">
-                </form>
-            </div>
-
-            <div class="pfooter">
-                <button type="submit" form="itemForm" class="btn action-btn">Save</button>
-                <button type="button" class="btn danger-btn delete-btn">
-                    Delete
-                </button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--                <form action="" class="linear" id="itemForm">-->
+<!--                    <div class="form-group basis-12">-->
+<!--                        <label for="">Item name</label>-->
+<!--                        <input type="text" class="form-control" name="item">-->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="form-group basis-4">-->
+<!--                        <label for="">Price per item (PHP)</label>-->
+<!--                        <input type="number" class="form-control" name="price" step="any" min=0 oninput="validity.valid||(value='');">-->
+<!--                    </div>-->
+<!--                    -->
+<!--                    <div class="form-group basis-4">-->
+<!--                        <label for="">Quantity</label>-->
+<!--                        <input type="number" class="form-control" name="quantity" min=0 oninput="validity.valid||(value='');">-->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="form-group basis-4">-->
+<!--                        <label for="">Total Amount</label>-->
+<!--                        <input type="number" class="form-control" name="total" readonly min=0 oninput="validity.valid||(value='');">-->
+<!--                    </div>-->
+<!---->
+<!--                    <div class="form-group">-->
+<!--                        <label for="">Note</label>-->
+<!--                        <textarea class="form-control" name="notes" rows="1"></textarea>-->
+<!--                    </div>-->
+<!---->
+<!--                    <input type="hidden" name="id">-->
+<!--                    <input type="hidden" name="projId" value="--><?//= $data['project']['id'] ?><!--">-->
+<!--                </form>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="pfooter">-->
+<!--                <button type="submit" form="itemForm" class="btn action-btn">Save</button>-->
+<!--                <button type="button" class="btn danger-btn delete-btn">-->
+<!--                    Delete-->
+<!--                </button>-->
+<!--                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!--POPUP INVITE PEOPLE-->
-<div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">
-    <div class="pcontainer">
-        <div class="pcontent">
-            <div class="pheader">
-                <i class="fa-solid fa-envelope-open-text"></i>
-                <h2 class="ptitle">Invite People</h2>
-                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="pbody">
-                <div class="form-group">
-                    <label for="">Name</label>
-                    <input type="text" class="form-control" name="" id="" placeholder="Type the name here">
-                </div>
-                <div class="form-group">
-                    <label for="">Email / Phone</label>
-                        <div class="input-container">
-                            <input type="text" placeholder="Enter an email address or phone number.">
-                            <div class="input-append">  
-                                <button type="button" class="btn action-btn slim-btn">
-                                    <i class="fa-solid fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>                     
-                </div>
-                <div class="form-group">
-                    
-                    <label for="">Selected Person</label>
-                    
-                        <div class="selected">
-                            <p>Add a person to the list</p>
-                        </div> 
-                </div>
-            </div>
-
-            <div class="pfooter">
-                <button type="button" class="btn action-btn">Send Invitation</button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--<div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">-->
+<!--    <div class="pcontainer">-->
+<!--        <div class="pcontent">-->
+<!--            <div class="pheader">-->
+<!--                <i class="fa-solid fa-envelope-open-text"></i>-->
+<!--                <h2 class="ptitle">Invite People</h2>-->
+<!--                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="pbody">-->
+<!--                <div class="form-group">-->
+<!--                    <label for="">Name</label>-->
+<!--                    <input type="text" class="form-control" name="" id="" placeholder="Type the name here">-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="">Email / Phone</label>-->
+<!--                        <div class="input-container">-->
+<!--                            <input type="text" placeholder="Enter an email address or phone number.">-->
+<!--                            <div class="input-append">  -->
+<!--                                <button type="button" class="btn action-btn slim-btn">-->
+<!--                                    <i class="fa-solid fa-plus"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>                     -->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    -->
+<!--                    <label for="">Selected Person</label>-->
+<!--                    -->
+<!--                        <div class="selected">-->
+<!--                            <p>Add a person to the list</p>-->
+<!--                        </div> -->
+<!--                </div>-->
+<!--            </div>-->
+<!---->
+<!--            <div class="pfooter">-->
+<!--                <button type="button" class="btn action-btn">Send Invitation</button>-->
+<!--                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!-- Payment -->
 <div class="popup" id="paymentPopup" tabindex="-1" aria-hidden="true">

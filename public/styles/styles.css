@@ -60,7 +60,6 @@
     --default-border-radius: .25rem;
 }
 
-
 /* || General styles */
 body {
     background-color: var(--background-color);
@@ -96,6 +95,7 @@ hr {
 }
 
 /* || Containers */
+
 .wrapper {
     display: flex;
     justify-content: flex-start;
@@ -186,6 +186,143 @@ body > div.cover-page {
 }
 
 /* || SITEWIDE  */
+
+/* Navbar */
+.navbar {
+    --topbar-bg: white;
+    --topbar-text: #272727;
+    --topbar-icon: var(--palette4);
+
+    gap: 1rem;
+    padding: .75rem 1rem;
+    align-items: center;
+    background-color: var(--topbar-bg);
+    color: var(--topbar-text);
+    border-bottom: 1px solid var(--border-rgba-color);
+}
+
+.navbar .material-icons {
+    color: var(--topbar-icon);
+    font-size: 1.3rem;
+}
+
+.navbar .user-name {
+    flex-shrink: 0;
+    font-size: .9rem;
+    margin: 0 0 0 30px;
+    padding-left: 30px;
+    padding-right: 20px;
+    border-left: 1px solid var(--border-rgba-color);
+}
+
+#sidebarCollapseToggler {
+    padding: 0;
+}
+
+.navbar .nav-item {
+    padding: 0 2px;
+}
+
+.navbar .nav-link {
+    color: white;;
+}
+
+/* Sidebar */
+#sidebar {
+    --sidebar-bg: #3D3DBB;
+    --sidebar-text: #E2D1FF;
+    --sidebar-text-active: white;
+    --sidebar-active-tab-border: #FF00FF;
+    --sidebar-active-tab-bg: rgba(231,233,236, .2);
+    --sidebar-tab-hover: white;
+    --sidebar-tab-hover-text: var(--sidebar-bg);
+
+    max-width: 250px;
+    transition: all .3s ease-out;
+}
+
+#sidebar a,
+#sidebar a:hover,
+#sidebar a:focus {
+    color: var(--sidebar-text);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    background-color: var(--sidebar-bg);
+    z-index: 100;
+}
+
+#sidebar .sidebar-header i,
+#sidebar .sidebar-header #sidebarExpandToggler.icon-btn,
+#sidebar ul li a .material-icons {
+    color: var(--sidebar-text);
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+}
+
+#sidebar ul li a {
+    display: block;
+    width: 100%;
+    padding: 10px 1rem;
+    font-size: 1rem;
+}
+
+#sidebar ul li a .material-icons {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+#sidebar ul li:not(.active) a:hover, #sidebar ul li:not(.active) a:hover .material-icons {
+    color: var(--sidebar-tab-hover-text) !important;
+}
+
+#sidebar ul li:not(.active) a:hover {
+    background-color: var(--sidebar-tab-hover);
+}
+
+#sidebar ul li.active a .material-icons {
+    color: var(--sidebar-text-active) !important;
+}
+
+#sidebar ul li.active > a,
+#sidebar ul li.active .dropdown-tile a,
+#sidebar ul li a[aria-expanded = "true"] {
+    color: var(--sidebar-text-active) !important;
+    background-color: var(--sidebar-active-tab-bg);
+    border-left: 2px solid var(--sidebar-active-tab-border);
+    font-weight: 600;
+}
+
+a[data-toggle = "collapse"] {
+    position: relative;
+}
+
+#sidebar .sub-menu li a {
+    padding-left: 30px;
+    font-size: 0.9rem;
+}
+
+#sidebar .collapsible {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    transition: width .15s;
+}
+
+#sidebar .collapsible > span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.wrapper #sidebar.active .collapsible {
+    width: 250px;
+}
 
 /* Brand */
 .brand {
@@ -366,9 +503,18 @@ a.btn {
     color: white !important;
 }
 
-.attention-btn {
+.attention-btn, .outline-attention-btn:hover {
     background-color: var(--attention) !important;
     color: white !important;
+}
+
+.outline-attention-btn {
+    color: var(--attention);
+    border-color: var(--attention);
+}
+
+.attention-text {
+    color: var(--attention);
 }
 
 .danger-btn {
@@ -931,6 +1077,7 @@ span.status[data-status = "in-progress"] {
     margin: 0;
 }
 
+
 /* Tabs */
 .custom-tab-container {
     flex: 2;
@@ -960,7 +1107,7 @@ span.status[data-status = "in-progress"] {
     margin: 0;
     width: 100%;
 }
-  
+
 
 /* || Card */
 .custom-card {
@@ -971,6 +1118,7 @@ span.status[data-status = "in-progress"] {
     border-radius: var(--default-border-radius);
     box-shadow: 0 0 10px 1px var(--default-box-shadow-color);
 }
+
 
 /* || Slide element */
 body:has(.slide-fixed.active).slide-open {
@@ -1040,6 +1188,7 @@ body:has(.slide-fixed.active).slide-open {
     padding: .5rem 1rem;
 }
 
+
 /* Slide Componenets */
 .slide-content .icon-btn[data-dismiss] {
     padding: 0;
@@ -1080,6 +1229,7 @@ body:has(.slide-fixed.active).slide-open {
 .slide .mesa tbody {
     background-color: white;
 }
+
 
 /* || Menu */
 .dots-menu {
@@ -1134,8 +1284,8 @@ body:has(.slide-fixed.active).slide-open {
     border: 1px solid #B6B6B6;
 }
 
-/* || Datatable */
 
+/* || Datatable */
 .dataTables_wrapper {
     /* overflow: auto; */
     flex: 1;
@@ -1194,6 +1344,7 @@ body:has(.slide-fixed.active).slide-open {
 .dataTables_empty {
     text-align: center !important;
 }
+
 
 /* || Gantt Chart */
 #projectGanttChart {
@@ -1382,6 +1533,7 @@ body:has(.slide-fixed.active).slide-open {
     z-index: 40;
 }
 
+
 /* || Tooltip */
 .actual .help-icon {
     color: #353535;
@@ -1455,6 +1607,7 @@ body:has(.slide-fixed.active).slide-open {
     overflow: visible;
 }
 
+
 /* Slider */
 .slider {
     max-height: 100%;
@@ -1485,6 +1638,7 @@ body:has(.slide-fixed.active).slide-open {
     }
 }
 
+
 /* || Trail */
 .trailer {
     display: flex;
@@ -1506,6 +1660,7 @@ body:has(.slide-fixed.active).slide-open {
     max-width: 40%;
     display: inline-block;
 }
+
 
 /* || Alert */
 .alert {
@@ -1694,6 +1849,7 @@ body:has(.slide-fixed.active).slide-open {
     justify-content: center;
 }
 
+
 /* Spinner */
 .cstm-spinner {
     display: block;
@@ -1726,6 +1882,7 @@ body:has(.slide-fixed.active).slide-open {
         rotate: 360deg;
     }
 }
+
 
 /* || Completion Bar */
 .completion-graph {
@@ -1837,6 +1994,21 @@ body:has(.slide-fixed.active).slide-open {
 }
 
 @media only screen and (max-width: 768px) {
+    /* Sidebar */
+    #sidebar .collapsible {
+        width: 250px;
+    }
+
+    .wrapper:has(#sidebar.active) {
+        margin-left: 0;
+        animation: none;
+    }
+
+    .wrapper, .wrapper:has(#sidebar:not(.active)) {
+        margin-left: -250px;
+        animation: none;
+    }
+
     /* User Display */
     .user-name, #user-display {
         display: none;
