@@ -184,8 +184,13 @@ class TaskService extends Service{
 
         if (!$this->emptyInput($input)) {
             $cleanId = $this->sanitizeString($input['id']);
-            $result['statusCode'] = $this->taskRepository->removeTask($cleanId) ? 200 : 500;
-            $result['message'] = 'Removed successfully.';
+            if ($this->taskRepository->removeTask($cleanId)) {
+                $result['statusCode'] = 200;
+                $result['message'] = 'Task removed successfully.';
+            } else {
+                $result['statusCode'] = 500;
+                $result['message'] = "An error occurred. Please try again.";
+            }
         } else {
             $result['statusCode'] = 400;
         }

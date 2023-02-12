@@ -52,9 +52,22 @@ class PaymentRepository extends Repository {
         return $this->query($sql, $params);
     }
 
+//    Delete
     public function remove(string $id) 
     {
-        $this->setInactive(self::$tblPayment, $id);
+        $sql = 'UPDATE 
+                    '.self::$tblPayment.'
+                SET 
+                    active = :active
+                WHERE
+                    id = :id';
+
+        $params = [
+            ':id' => $id,
+            ':active' => false
+        ];
+
+        return $this->query($sql, $params);
     }
 
     public function getAll(string $projectId)
@@ -63,10 +76,11 @@ class PaymentRepository extends Repository {
                     pay.id, pay.description, pay.amount,  DATE_FORMAT(pay.sent_at, '%Y-%m-%d') AS sent_at, proj.company
                 FROM ".self::$tblPayment." pay 
                 INNER JOIN tbl_project proj ON pay.proj_id = proj.id
-                WHERE pay.proj_id = :proj_id";
+                WHERE pay.proj_id = :proj_id AND pay.active = :active";
 
         $params = [
-            ':proj_id' => $projectId
+            ':proj_id' => $projectId,
+            ':active' => true
         ];
 
         // Result

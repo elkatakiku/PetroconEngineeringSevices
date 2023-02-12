@@ -17,8 +17,14 @@ class PaymentService extends Service {
 
     public function new(string $form)
     {
-        parse_str($form, $input);
-        unset($input['id']);
+        parse_str($form, $raw);
+
+        $input = [
+            'projectId' => $this->sanitizeString($raw['projectId']),
+            'description' => $this->sanitizeString($raw['description']),
+            'amount' => filter_var($raw['amount'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ),
+            'date' => $this->sanitizeString($raw['date'])
+        ];
 
         if (!$this->emptyInput($input)) 
         {
@@ -28,45 +34,61 @@ class PaymentService extends Service {
                 $input['description'],
                 $input['amount'],
                 $input['date'],
-                $input['projId'],
+                $input['projectId'],
             );
 
             if ($this->paymentRepository->create($payment)) {
-                $response['statusCode'] = 200;
+                $result['statusCode'] = 200;
+                $result['message'] = 'Payment added successfully.';
             } else {
-                $response['statusCode'] = 500;
+                $result['statusCode'] = 500;
+                $result['message'] = "An error occurred. Please try again.";
             }
         } else {
-            $response['statusCode'] = 400;
-            $response['message'] = "Fill all the required inputs.";
+            $result['statusCode'] = 400;
+            $result['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response, JSON_NUMERIC_CHECK);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     public function update(string $form)
     {
-       parse_str($form, $input);
+        parse_str($form, $raw);
+
+        $input = [
+            'id' => $this->sanitizeString($raw['id']),
+            'description' => $this->sanitizeString($raw['description']),
+            'amount' => filter_var($raw['amount'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ),
+            'sent_at' => $this->sanitizeString($raw['date'])
+        ];
 
         if (!$this->emptyInput($input)) 
         {
             $this->paymentRepository->update($input);
-            $response['statusCode'] = 200;
+            $result['statusCode'] = 200;
+            $result['message'] = 'Updated successfully.';
         } else {
-            $response['statusCode'] = 400;
-            $response['message'] = "Fill all the required inputs.";
+            $result['statusCode'] = 400;
+            $result['message'] = "Fill all the required inputs.";
         }
 
-        return json_encode($response, JSON_NUMERIC_CHECK);
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
     public function remove(string $form)
     {
         parse_str($form, $input);
-        
+
         if (!$this->emptyInput($input)) {
             $cleanId = $this->sanitizeString($input['id']);
-            $result['statusCode'] = $this->paymentRepository->remove($cleanId) ? 200 : 500;
+            if ($this->paymentRepository->remove($cleanId)) {
+                $result['statusCode'] = 200;
+                $result['message'] = 'Payment removed successfully.';
+            } else {
+                $result['statusCode'] = 500;
+                $result['message'] = "An error occurred. Please try again.";
+            }
         } else {
             $result['statusCode'] = 400;
         }
@@ -77,40 +99,19 @@ class PaymentService extends Service {
     public function list(string $projectId)
     {
         $cleanId = $this->sanitizeString($projectId);
-        $response['data'] = [];
+        $result['data'] = [];
 
         if ($cleanId) {
             if ($payment = $this->paymentRepository->getAll($cleanId)) {
-                $response['data'] = $payment;
-                $response['statusCode'] = 200;
+                $result['data'] = $payment;
+                $result['statusCode'] = 200;
             } else {
-                $response['statusCode'] = 500;
+                $result['statusCode'] = 500;
             }
         } else {
-            $response['statusCode'] = 400;
+            $result['statusCode'] = 400;
         }
 
-        return json_encode($response, JSON_NUMERIC_CHECK);
-    }
-
-    public function getInputs(string $form)
-    {
-        parse_str($form, $raw);
-
-        $input = [
-            'required' => [
-                'id' => $this->sanitizeString($raw['id']),
-                'item' => $this->sanitizeString($raw['item']),
-                'quantity' => filter_var($raw['quantity'], FILTER_SANITIZE_NUMBER_INT),
-                'price' => filter_var($raw['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ),
-                'projId' => $this->sanitizeString($raw['projId'])
-            ],
-            
-            'notRequired' => [
-                'notes' => (!$this->sanitizeString($raw['notes']) ? '' : $this->sanitizeString($raw['notes'])),
-            ]
-        ];
-
-        return $input;
+        return json_encode($result, JSON_NUMERIC_CHECK);
     }
 }

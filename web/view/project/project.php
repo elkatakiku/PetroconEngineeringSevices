@@ -7,7 +7,7 @@
                 <small><?= $data['project']['location'] ?></small>
             </div>
         </div>
-        <button id="projectInfoToggller" type="button" class="btn icon-btn align-self-start p-0" data-toggle="slide"
+        <button id="projectInfoToggler" type="button" class="btn icon-btn align-self-start p-0" data-toggle="slide"
                 data-target="#projectInfo">
             <span class="material-icons-outlined" style="font-size: 20px">info</span>
         </button>
@@ -249,7 +249,7 @@
                         </div>
                     </form>
                     or
-                    <a href="<?= SITE_URL . '/project/invitation/' . $data['project']['id'] ?>" class="flex-shrink-0">
+                    <a href="<?= SITE_URL . '/project/invitation/' . $data['project']['id'] ?>" class="flex-shrink-0" target="_blank">
                         <button class="btn action-btn sm-btn">Invite people</button>
                     </a>
                 </div>
@@ -287,11 +287,10 @@
                     <thead class="mesa-head">
                     <tr>
                         <th></th>
-                        <th scope="col" class="tname"><strong>Description</strong></th>
+                        <th scope="col" class="tname" style="width: 80%;"><strong>Description</strong></th>
                         <th scope="col">Payment</th>
                         <th scope="col">Date</th>
-                        <th scope="col">Action
-                        </th>
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
                 </table>
@@ -348,53 +347,6 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-
-<!-- Payment -->
-<div class="popup" id="paymentPopup" tabindex="-1" aria-hidden="true">
-    <div class="pcontainer">
-        <div class="pcontent">
-            <div class="pheader">
-                <h2 class="ptitle">Add Payment</h2>
-                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">
-                    <span class="material-icons">close</span>
-                </button>
-            </div>
-
-            <div class="linear-container pbody">
-
-                <!-- Alert -->
-                <div class="alert alert-danger mb-0" role="alert"></div>
-
-                <!-- Content -->
-                <form id="paymentForm">
-                    <input type="hidden" name="id">
-
-                    <div class="form-group">
-                        <label for="">Date</label>
-                        <input type="date" class="form-control" name="date">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Description</label>
-                        <input type="text" class="form-control" name="description">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Amount</label>
-                        <input type="number" class="form-control" name="amount" min=0
-                               oninput="validity.valid||(value='');">
-                    </div>
-
-                </form>
-            </div>
-
-            <div class="pfooter">
-                <button type="submit" form="paymentForm" class="btn action-btn">Create</button>
-                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     let projectId = '<?= $data['project']['id'] ?>';

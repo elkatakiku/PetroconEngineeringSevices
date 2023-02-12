@@ -44,7 +44,7 @@ class ResourceService extends Service {
                 $result['message'] = 'Resource added successfully.';
             } else {
                 $result['statusCode'] = 500;
-                $result['message'] = 'An error occurred.';
+                $response['message'] = "An error occurred. Please try again.";
             }
         } else {
             $result['statusCode'] = 400;
@@ -110,7 +110,13 @@ class ResourceService extends Service {
         
         if (!$this->emptyInput($input)) {
             $cleanId = $this->sanitizeString($input['id']);
-            $result['statusCode'] = $this->resourceRepository->remove($cleanId) ? 200 : 500;
+            if ($this->resourceRepository->remove($cleanId)) {
+                $result['statusCode'] = 200;
+                $result['message'] = 'Item removed successfully.';
+            } else {
+                $result['statusCode'] = 500;
+                $result['message'] = "An error occurred. Please try again.";
+            }
         } else {
             $result['statusCode'] = 400;
         }

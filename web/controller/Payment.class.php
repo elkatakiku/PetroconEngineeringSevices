@@ -27,6 +27,16 @@ class Payment extends MainController {
         $this->view("payment", "payment-list");
     }
 
+//    Load
+    public function paymentPopup() {
+        if (isset($_POST['projId'])) {
+            $this->load('popup/payment', $_POST);
+        } else {
+            $this->load('popup/error');
+        }
+    }
+
+//    Create
     public function new()
     {
         if (isset($_POST['form'])) {
@@ -34,6 +44,17 @@ class Payment extends MainController {
         }
     }
 
+//    Read
+    public function list($id = null)
+    {
+        if (isset($_GET['projId'])) {
+            echo $this->paymentService->list($_GET['projId']);
+        } else {
+            echo $this->paymentService->list($id);
+        }
+    }
+
+//    Update
     public function update()
     {
         if (isset($_POST['form'])) {
@@ -41,19 +62,11 @@ class Payment extends MainController {
         }
     }
 
+//    Delete
     public function remove()
     {
         if (isset($_POST['form'])) {
             echo $this->paymentService->remove($_POST['form']);
-        }
-    }
-
-    public function list($id = null)
-    {
-        if (isset($_GET['projId'])) {
-            echo $this->paymentService->list($_GET['projId']);
-        } else {   
-            echo $this->paymentService->list($id);
         }
     }
 }
