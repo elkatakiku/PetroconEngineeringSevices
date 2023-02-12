@@ -17,13 +17,20 @@ class PeopleService extends Service {
         $this->peopleRepository = new PeopleRepository;
     }
 
+//    Delete
     public function remove(string $form)
     {
         parse_str($form, $input);
-        
+
         if (!$this->emptyInput($input)) {
             $cleanId = $this->sanitizeString($input['id']);
-            $result['statusCode'] = $this->peopleRepository->remove($cleanId) ? 200 : 500;
+            if ($this->peopleRepository->remove($cleanId)) {
+                $result['statusCode'] = 200;
+                $result['message'] = 'Item removed successfully.';
+            } else {
+                $result['statusCode'] = 500;
+                $result['message'] = "An error occurred. Please try again.";
+            }
         } else {
             $result['statusCode'] = 400;
         }

@@ -145,8 +145,9 @@ class UserService extends Service{
         $login->create($invitation['username'], $invitation['password']);
 
         // Create register/user
+        $name = explode(",", $invitation['name']);
         $register = new Register();
-        $register->temp($invitation["email"], $login->getId());
+        $register->temp($name[0], $name[1] ?? "", $invitation["email"], $login->getId());
 
         // Create Account
         $account = new Account();

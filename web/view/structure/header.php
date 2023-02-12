@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="<?= STYLES_PATH ?>styles.css">
     <link rel="stylesheet" href="<?= STYLES_PATH ?>popup.css">
     <?php if ($data['accountType'] == Core\Controller::CLIENT && isset($_SESSION['accID'])) { ?>
-        <link rel="stylesheet" href="<?= STYLES_PATH ?>index.css">;
+        <link rel="stylesheet" href="<?= STYLES_PATH ?>index.css">
     <?php } ?>
     <link rel="stylesheet" href="<?= STYLES_PATH . $view ?>.css">
 </head>
@@ -38,7 +38,7 @@
     <button id="sidebarCollapseToggler" type="button" class="btn icon-btn">
         <span class="material-icons">menu</span>
     </button>
-    <a class="flex-grow-1" href="<?= SITE_URL . '/dashboard' ?>">\
+    <a class="flex-grow-1" href="<?= SITE_URL . '/dashboard' ?>">
         <strong>Petrocon</strong>
         <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
             <small> : Admin</small>

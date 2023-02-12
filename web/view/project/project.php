@@ -239,15 +239,10 @@
         <section id="projectPeople" class="main-content custom-tab-content">
 
             <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
-                <div class="linear">
-                    <form class="input-container">
-                        <input type="text" id="employeeSearch" name="search" list="employeesList"
-                               placeholder="Enter email address of employee" required>
-                        <datalist id="employeesList"></datalist>
-                        <div class="input-append">
-                            <button type="submit" class="btn action-btn px-4 sm-btn">Choose from team</button>
-                        </div>
-                    </form>
+                <div class="linear float-right">
+                    <div class="input-append">
+                        <button id="chooseFromTeam" class="btn action-btn px-4 sm-btn">Choose from team</button>
+                    </div>
                     or
                     <a href="<?= SITE_URL . '/project/invitation/' . $data['project']['id'] ?>" class="flex-shrink-0" target="_blank">
                         <button class="btn action-btn sm-btn">Invite people</button>
@@ -301,52 +296,6 @@
 </main>
 
 <div class="popup popup-center" id="popupContainer"></div>
-
-<!--POPUP INVITE PEOPLE-->
-<!--<div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">-->
-<!--    <div class="pcontainer">-->
-<!--        <div class="pcontent">-->
-<!--            <div class="pheader">-->
-<!--                <i class="fa-solid fa-envelope-open-text"></i>-->
-<!--                <h2 class="ptitle">Invite People</h2>-->
-<!--                <button type="button" class="close-btn" data-dismiss="popup" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!---->
-<!--            <div class="pbody">-->
-<!--                <div class="form-group">-->
-<!--                    <label for="">Name</label>-->
-<!--                    <input type="text" class="form-control" name="" id="" placeholder="Type the name here">-->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    <label for="">Email / Phone</label>-->
-<!--                        <div class="input-container">-->
-<!--                            <input type="text" placeholder="Enter an email address or phone number.">-->
-<!--                            <div class="input-append">  -->
-<!--                                <button type="button" class="btn action-btn slim-btn">-->
-<!--                                    <i class="fa-solid fa-plus"></i>-->
-<!--                                </button>-->
-<!--                            </div>-->
-<!--                        </div>                     -->
-<!--                </div>-->
-<!--                <div class="form-group">-->
-<!--                    -->
-<!--                    <label for="">Selected Person</label>-->
-<!--                    -->
-<!--                        <div class="selected">-->
-<!--                            <p>Add a person to the list</p>-->
-<!--                        </div> -->
-<!--                </div>-->
-<!--            </div>-->
-<!---->
-<!--            <div class="pfooter">-->
-<!--                <button type="button" class="btn action-btn">Send Invitation</button>-->
-<!--                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 <script>
     let projectId = '<?= $data['project']['id'] ?>';

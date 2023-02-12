@@ -23,10 +23,10 @@ class Register {
         );
     }
 
-    public function temp($email, $loginId)
+    public function temp(string $lastname, string $firstname, string $email, string $loginId)
     {
         $this->set(
-            uniqid("PTRCN-RGSTR-"), '', '', '', 
+            uniqid("PTRCN-RGSTR-"), $lastname, $firstname, '',
             '', date('Y-n-j'), $email, $loginId, ''
         );
     }

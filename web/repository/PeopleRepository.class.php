@@ -13,19 +13,10 @@ class PeopleRepository extends Repository {
     private static string $tblAccount = "tbl_account";
     private static string $tblRegister = "tbl_register";
 
-    public function remove(string $id) 
+    public function remove(string $accountId)
     {
-        $sql = 'UPDATE 
-                    '.self::$tblPeople.'
-                SET 
-                    active = :active
-                WHERE
-                    id = :id';
-
-        $params = [
-            ':id' => $id,
-            ':active' => false
-        ];
+        $sql = "DELETE FROM ".self::$tblPeople." WHERE acct_id  = :acct_id";
+        $params = [':acct_id' => $accountId];
 
         return $this->query($sql, $params);
     }

@@ -26,7 +26,6 @@ class ProjectService extends Service{
 
     public function getProjectsCountByYear(string $year)
     {
-        // echo "<pre>";
         $cleanString = $this->sanitizeString($year);
         $response['data'] = [];
 

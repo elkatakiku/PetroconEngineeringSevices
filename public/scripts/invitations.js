@@ -194,3 +194,65 @@ function getFormData(form) {
     return form.serialize() + "&projId=" + projectId;
 }
 
+// Email Validation
+let typeTimer;
+let emailInput = $('[name="email"]');
+emailInput.on('input', (e) =>
+{
+    e.target.setCustomValidity("");
+    clearTimeout(typeTimer);
+
+    if (e.target.checkValidity())
+    {
+        e.target.setCustomValidity("Checking...");
+
+        typeTimer = setTimeout(() => {
+            console.log("Type done")
+            let element = e.target;
+
+            $.get(
+                Settings.base_url + '/people/validateEmail',
+                {input : $(element).val()},
+                function (data)
+                {
+                    console.log(data);
+                    let response = JSON.parse(data);
+
+                    if (!response.data)
+                    {
+                        element.setCustomValidity(response.message);
+
+                        $(element)
+                            .removeClass('success-border')
+                            .addClass('danger-border')
+                            .parents('.loading-input')
+                            .siblings('.text-danger')
+                            .text(element.validationMessage)
+                            .show();
+                    }
+                    else
+                    {
+                        element.setCustomValidity("");
+                        $(element)
+                            .removeClass('danger-border')
+                            .addClass('success-border')
+                            .parents('.loading-input')
+                            .siblings('.text-danger')
+                            .text(element.validationMessage)
+                            .hide();
+                    }
+
+                    $(element).siblings('.loading').hide();
+                }
+            );
+        }, 1000);
+    }
+
+    emailInput
+        .removeClass('success-border')
+        .addClass('danger-border')
+        .parents('.loading-input')
+        .siblings('.text-danger')
+        .text(e.target.validationMessage)
+        .show();
+});

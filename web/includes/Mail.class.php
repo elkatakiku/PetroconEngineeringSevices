@@ -12,7 +12,8 @@ use \PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
 
 class Mail {
-    public static function sendMail($subject, $body, $address) {
+    public static function sendMail($subject, $body, $address): bool
+    {
 
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -58,7 +59,7 @@ class Mail {
         return $result;
     }
 
-    public static function verify($user, $key)
+    public static function verify($user, $key): string
     {
         $url = SITE_URL.'/user/activate/'.$_SESSION['accID'].'/'.$key;
         return 'Welcome '.$user['lastname'].' Thanks for registering.
@@ -73,7 +74,7 @@ class Mail {
                 This Link can only be used within 24 hours since the request of activation. You will need to request activation again when it expires.';
     }
 
-    public static function invitation(Invitation $invitation)
+    public static function invitation(Invitation $invitation): string
     {
         $url = SITE_URL.'/auth/invitation';
         $body = '
@@ -236,7 +237,7 @@ class Mail {
         return $body;
     }
 
-    public static function reset(Reset $reset)
+    public static function reset(Reset $reset): string
     {
         $url = SITE_URL.'/auth/reset/'.$reset->getId();
         $body = '<h1>Forgot your password?</h1>

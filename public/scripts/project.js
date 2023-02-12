@@ -538,6 +538,7 @@ function reloadDatatable(timeout, datatable) {
 
 const taskTable = $('#taskTable');
 const resourceTable = $('#resourceTable');
+const peopleTable = $('#peopleTable');
 const paymentTable = $('#paymentTable');
 
 let datatableSettings = {
@@ -749,14 +750,13 @@ let datatableSettings = {
             type : 'GET',
             data : {projId : projectId},
             'complete' : function (data) {
-                console.log("Complete");
-                let table = $('#peopleTable');
                 reloadTimeout = setTimeout(() => {
-                    console.log("Reload");
-                    table.dataTable().api().ajax.reload(null, false)
+                    if (DataTable.isDataTable(peopleTable)) {
+                        peopleTable.dataTable().api().ajax.reload(null, false)
+                    }
                 }, 5000);
 
-                table.trigger('custom:reload');
+                peopleTable.trigger('custom:reload');
             }
         },
     
@@ -766,14 +766,6 @@ let datatableSettings = {
                 'next' : '>'
             }
         },
-    
-        'columnDefs' : [
-            {
-                targets: 0,
-                searchable: false,
-                orderable: false
-            },
-        ],
     
         "columns" : [
             {'defaultContent' : ''},
@@ -792,95 +784,41 @@ let datatableSettings = {
                     return data.trim().length === 0 ? 'N/A' : data;
                 }
             },
-            {'defaultContent' : ''}
+            {
+                'defaultContent' : '',
+                'render' : function () {
+                    return  '<div class="action-cell-content">' +
+                        '<button class="btn outline-danger-btn icon-btn remove-btn">Remove' +
+                        '</button>' +
+                        '</div>';
+                }
+            }
+        ],
+
+        'columnDefs' : [
+            {
+                targets: 0,
+                searchable: false,
+                orderable: false
+            },
+            {
+                "targets": 4,
+                "createdCell": function (td, cellData, rowData, rowIndex, colIndex)
+                {
+                    console.log(rowData);
+                    let cell = $(td);
+
+                    cell.find('.remove-btn').on('click', (e) =>
+                    {
+                        removePeople(rowData);
+                    });
+                }
+            }
         ],
     
         order: [
             [1, 'asc']
-        ],
-        
-        initComplete : function () {
-            // Sets click functionality of rows   
-            $(this).find('tbody').on('click', 'tr', (e) => {
-    
-                console.log("TR CLICKED");
-    
-                let dt = this.api();
-                let row = $(e.target).parents('tr');
-                let rowData = dt.row(row).data();
-                // let rowDisplay = dt.cells( row, '' ).render( 'display' );    
-                
-                let popup = buildResourcePopup();
-                popup.find('.pfooter .btn.delete-btn').show();
-
-                // popup.find('[name="id"]').val(rowData.id);
-                // popup.find('[name="item"]').val(rowData.item);
-                // popup.find('[name="quantity"]').val(rowData.quantity);
-                // popup.find('[name="price"]').val(rowData.price);
-                // popup.find('[name="total"]').val(rowData.total);
-                // popup.find('[name="notes"]').val(rowData.notes);
-                
-                // Delete task actions
-                // popup.find('.delete-btn').click(() => {
-                //     console.log("DELETE CLICKED");
-                //     Popup.promptDelete('resource', rowData.id, (deletePopup) => {
-                //         $.post(
-                //             Settings.base_url + "/resource/remove",
-                //             {form : function () {return deletePopup.find('#deleteForm').serialize();}},
-                //             function (data, textStatus) {
-                //                 console.log("Response delete");
-                //                 console.log(data);
-                //                 let jsonData = JSON.parse(data);
-                //                 if (jsonData.statusCode == 200) 
-                //                 {   // Dismiss delete popup and reload legends list on success
-                //                     deletePopup.find('button[data-dismiss]').trigger('click');
-
-                //                     deletePopup.on('custom:dismissPopup', (e) => {
-                //                         popup.find('button[data-dismiss]').trigger('click');
-                //                     });
-                                
-                //                     // Reload tasks
-                //                     dt.ajax.reload(null, false);
-                //                 }
-                //             }
-                //         );
-                //     }, true);
-                // });
-    
-                // Submit action 
-                // popup.find('#itemForm').submit((e) => {
-                //     e.preventDefault();
-    
-                //     $.post(
-                //         Settings.base_url + "/resource/update",
-                //         {form : function () {return $(e.target).serialize();}},
-                //         function (data, textStatus) {
-                //             console.log(data);
-                //             console.log("Edit Response");
-                //             let response = JSON.parse(data);
-                //             console.log(response);
-
-                //             if (response.statusCode == 200) 
-                //             {   // Dismiss legend's form and reload legends list on success
-                //                 popup.find('button[data-dismiss]').trigger('click');
-
-                //                 // Reload resources
-                //                 $("#resourceTable").dataTable().api().ajax.reload(null, false);
-                //             }
-                //             else
-                //             {   // Shows alert on fail
-                //                 popup.find('.alert-danger')
-                //                     .addClass('show')
-                //                     .text(response.message);
-                //             }
-                //         }
-                //     );
-                // });
-
-                // Finally shows popup
-                // Popup.show(popup);
-            });
-        }
+        ]
     },
     paymentTable : {
         'dom' : 't',
@@ -894,9 +832,7 @@ let datatableSettings = {
             type : 'GET',
             data : {projId : projectId},
             'complete' : function (data) {
-                console.log("Complete");
                 reloadTimeout = setTimeout(() => {
-                    console.log("Reload");
                     if (DataTable.isDataTable(paymentTable)) {
                         paymentTable.dataTable().api().ajax.reload(null, false)
                     }
@@ -942,8 +878,6 @@ let datatableSettings = {
                 "targets": 4,
                 "createdCell": function (td, cellData, rowData, rowIndex, colIndex)
                 {
-                    console.log(rowData);
-
                     let cell = $(td);
 
                     cell.find('.dots-menu-btn').on('click', (e) =>
@@ -957,89 +891,6 @@ let datatableSettings = {
         order: [
             [1, 'asc']
         ],
-        
-        initComplete : function () {
-            // Sets click functionality of rows   
-            // $(this).find('tbody').on('click', 'tr', (e) => {
-    
-            //     console.log("TR CLICKED");
-    
-            //     let dt = this.api();
-            //     let row = $(e.target).parents('tr');
-            //     let rowData = dt.row(row).data();
-            //     // let rowDisplay = dt.cells( row, '' ).render( 'display' );    
-                
-            //     // let popup = buildResourcePopup();
-            //     // popup.find('.pfooter .btn.delete-btn').show();
-
-            //     // popup.find('[name="id"]').val(rowData.id);
-            //     // popup.find('[name="item"]').val(rowData.item);
-            //     // popup.find('[name="quantity"]').val(rowData.quantity);
-            //     // popup.find('[name="price"]').val(rowData.price);
-            //     // popup.find('[name="total"]').val(rowData.total);
-            //     // popup.find('[name="notes"]').val(rowData.notes);
-                
-            //     // Delete task actions
-            //     // popup.find('.delete-btn').click(() => {
-            //     //     console.log("DELETE CLICKED");
-            //     //     Popup.promptDelete('resource', rowData.id, (deletePopup) => {
-            //     //         $.post(
-            //     //             Settings.base_url + "/resource/remove",
-            //     //             {form : function () {return deletePopup.find('#deleteForm').serialize();}},
-            //     //             function (data, textStatus) {
-            //     //                 console.log("Response delete");
-            //     //                 console.log(data);
-            //     //                 let jsonData = JSON.parse(data);
-            //     //                 if (jsonData.statusCode == 200) 
-            //     //                 {   // Dismiss delete popup and reload legends list on success
-            //     //                     deletePopup.find('button[data-dismiss]').trigger('click');
-
-            //     //                     deletePopup.on('custom:dismissPopup', (e) => {
-            //     //                         popup.find('button[data-dismiss]').trigger('click');
-            //     //                     });
-                                
-            //     //                     // Reload tasks
-            //     //                     dt.ajax.reload(null, false);
-            //     //                 }
-            //     //             }
-            //     //         );
-            //     //     }, true);
-            //     // });
-    
-            //     // Submit action 
-            //     // popup.find('#itemForm').submit((e) => {
-            //     //     e.preventDefault();
-    
-            //     //     $.post(
-            //     //         Settings.base_url + "/resource/update",
-            //     //         {form : function () {return $(e.target).serialize();}},
-            //     //         function (data, textStatus) {
-            //     //             console.log(data);
-            //     //             console.log("Edit Response");
-            //     //             let response = JSON.parse(data);
-            //     //             console.log(response);
-
-            //     //             if (response.statusCode == 200) 
-            //     //             {   // Dismiss legend's form and reload legends list on success
-            //     //                 popup.find('button[data-dismiss]').trigger('click');
-
-            //     //                 // Reload resources
-            //     //                 $("#resourceTable").dataTable().api().ajax.reload(null, false);
-            //     //             }
-            //     //             else
-            //     //             {   // Shows alert on fail
-            //     //                 popup.find('.alert-danger')
-            //     //                     .addClass('show')
-            //     //                     .text(response.message);
-            //     //             }
-            //     //         }
-            //     //     );
-            //     // });
-
-            //     // Finally shows popup
-            //     // Popup.show(popup);
-            // });
-        }
     }
 };
 
@@ -1098,81 +949,11 @@ $('.nav-tab').on('custom:tabChange', (e, tab, target) =>
     }
 });
 
-// Resource
-function buildResourcePopup() {
-    console.log("Build resource popup");
-    let popup = $('#resourcePopup');
-
-    // Preps resource form
-    resetResourcePopup(popup);
-
-    // Computes total
-    popup.find('[name="quantity"], [name="price"]').on('input', (e) =>
-    {
-        popup.find('[name="total"]').val(popup.find('[name="price"]').val() * popup.find('[name="quantity"]').val());
-    });
-    
-    // On dismiss listener
-    popup.on('custom:dismissPopup', (e) => {
-        console.log("Project Resource Popup dismissed");
-
-        // Removes events of resource popup
-        popup.find('#itemForm').off('submit');
-        popup.find('[name="quantity"], [name="price"]').off('keyup');
-        popup.find('.delete-btn').off();
-
-        resetResourcePopup(popup);
-    });
-
-    Popup.initialize(popup);
-
-    return popup;
-}
-
-function resetResourcePopup(popup) {  
-    popup.find('[name="item"]').val('');
-    popup.find('[name="quantity"]').val('');
-    popup.find('[name="price"]').val('');
-    popup.find('[name="total"]').val('');
-    popup.find('[name="notes"]').val('');
-    popup.find('[name="id"]').val('');
-}
-
 // Payment
-function buildPaymentPopup() {  
-    console.log("Build payment popup");
-    let popup = $('#paymentPopup');
-
-    // Preps payment form
-    // Popup.reset(popup);
-    
-    // On dismiss listener
-    popup.on('custom:dismissPopup', (e) => {
-        console.log("Project payment popup dismissed");
-
-        // Removes events of resource popup
-        popup.find('#paymentForm').off('submit');
-        popup.find('.delete-btn').off();
-    });
-
-    Popup.initialize(popup);
-
-    return popup;
-}
-
-function getFormData(form) {  
+function getFormData(form) {
     console.log("get form data");
     console.log(projectId);
     return $(form).serialize() + "&projId=" + projectId;
-}
-
-function disableInputs(form) { 
-    $(form).find('input, textarea').each((index, element) => {
-        console.log(element);
-        $(element).prop('disabled', true);
-    });
-
-    $('button[form="' + $(form).attr('id') + '"]').prop('disabled', true);
 }
 
 //  Choose from team
@@ -1439,7 +1220,7 @@ function removeTask(task)
                 let response = JSON.parse(data);
 
                 if (response.statusCode === 200)
-                {   // Dismiss delete popup and reload legends list on success
+                {   // Dismiss delete popup
                     deletePopup.find('button[data-dismiss]').trigger('click');
 
                     // Reload tasks
@@ -1606,7 +1387,7 @@ function removeResource(resource)
                 let response = JSON.parse(data);
 
                 if (response.statusCode === 200)
-                {   // Dismiss delete popup and reload legends list on success
+                {   // Dismiss delete popup
                     deletePopup.find('button[data-dismiss]').trigger('click');
 
                     // Reload resources
@@ -1622,6 +1403,72 @@ function removeResource(resource)
             }
         );
     }, true);
+}
+
+// || People
+$('#chooseFromTeam').on('click', (e) =>
+{
+    popupContainer.load(
+        Settings.base_url + "/people/teamPopup",
+        {projId : projectId},
+        function ()
+        {
+            Popup.initialize(popupContainer, true);
+            Popup.show(popupContainer);
+
+            // Resource submit action
+            popupContainer.find('form')
+                .on('submit',(e) =>
+                {
+                    e.preventDefault();
+                    let form = $(e.target);
+
+                    $.post(
+                        Settings.base_url + "/resource/new",
+                        {form : form.serialize()},
+                        function (data) {crudResponse(data, form, resourceTable);}
+                    );
+
+                    Utils.toggleForm(form, true);
+                })
+                .on('custom:submitted', (e) =>
+                {
+                    Utils.toggleForm($(e.target), false);
+                });
+        }
+    );
+});
+
+function removePeople(people) {
+    {
+        Popup.promptDelete('person', people.id, (deletePopup) =>
+        {
+            $.post(
+                Settings.base_url + "/people/remove",
+                {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+                function (data)
+                {
+                    console.log(data);
+                    let response = JSON.parse(data);
+
+                    if (response.statusCode === 200)
+                    {   // Dismiss delete popup
+                        deletePopup.find('button[data-dismiss]').trigger('click');
+
+                        // Reload resources
+                        reloadDatatable(reloadTimeout, peopleTable.dataTable().api());
+
+                        //  Show feedback
+                        Popup.feedback({
+                            'feedback' : 'success',
+                            'title' : people.lastname + ', ' + people.firstname,
+                            'message' : response.message
+                        });
+                    }
+                }
+            );
+        }, true);
+    }
 }
 
 // || Payment
@@ -1718,7 +1565,7 @@ function removePayment(payment)
                 let response = JSON.parse(data);
 
                 if (response.statusCode === 200)
-                {   // Dismiss delete popup and reload legends list on success
+                {   // Dismiss delete popup
                     deletePopup.find('button[data-dismiss]').trigger('click');
 
                     // Reload payments

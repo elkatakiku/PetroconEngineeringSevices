@@ -9,11 +9,20 @@ use Service\PeopleService;
 class People extends MainController {
 
     // Service
-    private $peopleService;
+    private PeopleService $peopleService;
 
     
     public function __construct() {
         $this->peopleService = new PeopleService;
+    }
+
+//    Load
+    public function teamPopup() {
+        if (isset($_POST['projId'])) {
+            $this->load('popup/jointeam', $_POST);
+        } else {
+            $this->load('popup/error');
+        }
     }
 
 
@@ -60,7 +69,7 @@ class People extends MainController {
         }
     }
 
-    public function valdiateEmail() {
+    public function validateEmail() {
         if (isset($_GET['input'])) {
             echo $this->peopleService->validateEmail($_GET['input']);
         }

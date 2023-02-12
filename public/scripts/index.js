@@ -400,6 +400,8 @@ const emailInput = $('[data-validate="userEmail"]');
 
 emailInput.on('input', (e) =>
 {
+    e.target.setCustomValidity("");
+
     clearTimeout(typeTimer);
     if (e.target.checkValidity())
     {

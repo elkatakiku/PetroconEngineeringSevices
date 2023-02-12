@@ -513,9 +513,14 @@ a.btn {
     color: var(--attention);
 }
 
-.danger-btn {
+.danger-btn, .outline-danger-btn:hover{
     background-color: var(--danger) !important;
     color: white !important;
+}
+
+.outline-danger-btn {
+    color: var(--danger);
+    border-color: var(--danger);
 }
 
 .success-text {

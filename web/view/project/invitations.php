@@ -31,7 +31,7 @@
             <div class="alert alert-danger" role="alert"></div>
             <div class="linear basis-12">
                 <div class="form-group basis-9 mb-0">
-                    <input type="text" class="form-control" name="name" placeholder="Lastname, Firstname MI." required>
+                    <input type="text" class="form-control" name="name" placeholder="Lastname, Firstname" required>
                 </div>
 
                 <div class="basis-12 basis-md-3 pl-md-0">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group basis-9 mb-0">
                     <span class="loading-input">
-                        <input type="email" class="form-control top" name="email" id="email" data-validate="userEmail"
+                        <input type="email" class="form-control top" name="email" id="email"
                                aria-describedby="helpId" placeholder="address@email.com" required>
                         <div class="loading" style="display: none;">
                             <div class="spinner-grow spinner-grow-sm" role="status">
