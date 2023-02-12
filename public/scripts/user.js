@@ -1,5 +1,20 @@
+// Local
+import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup.js';
+
+// Server
+// import * as Popup from '/public/scripts/module/popup.js';
+
 // || NAV TABS
-// Nav tab datatbles
+let reloadTimeout;
+
+function reloadDatatable(timeout, datatable) {
+    clearTimeout(timeout);
+    reloadTimeout = null;
+    datatable.ajax.reload(null, false);
+}
+
+const joinedProjectTable = $('#joinedProjectTable');
+
 let datatableSettings = {
     joinedProjectTable : {
         'dom' : 't',
@@ -12,13 +27,16 @@ let datatableSettings = {
             url : Settings.base_url + "/people/joinedProjects",
             type : 'GET',
             data : {accountId : ACCOUNT_ID},
-            'complete' : function (data)
-            {
-                let table = $('#joinedProjectTable');
-                setTimeout(() => {
+            'complete' : function (data) {
+                console.log("Complete");
+                reloadTimeout = setTimeout(() => {
                     console.log("Reload");
-                    table.dataTable().api().ajax.reload(null, false)
+                    if (DataTable.isDataTable(joinedProjectTable)) {
+                        joinedProjectTable.dataTable().api().ajax.reload(null, false)
+                    }
                 }, 5000);
+
+                joinedProjectTable.trigger('custom:reload');
             }
         },
 
@@ -35,6 +53,43 @@ let datatableSettings = {
                 searchable: false,
                 orderable: false
             },
+            {
+                "targets": 5,
+                "createdCell": function (td, cellData, rowData, rowIndex, colIndex)
+                {
+                    console.log(rowData);
+                    let cell = $(td);
+
+                    cell.find('.remove-btn').on('click', (e) =>
+                    {
+                        Popup.promptDelete('person', rowData.id, (deletePopup) =>
+                        {
+                            $.post(
+                                Settings.base_url + "/people/remove",
+                                {form : function () {return deletePopup.find('#deleteForm').serialize();}},
+                                function (data)
+                                {
+                                    let response = JSON.parse(data);
+
+                                    if (response.statusCode === 200)
+                                    {   // Dismiss delete popup
+                                        deletePopup.find('button[data-dismiss]').trigger('click');
+
+                                        // Reload resources
+                                        reloadDatatable(reloadTimeout, joinedProjectTable.dataTable().api());
+
+                                        //  Show feedback
+                                        Popup.feedback({
+                                            'feedback' : 'success',
+                                            'message' : response.message
+                                        });
+                                    }
+                                }
+                            );
+                        }, true);
+                    });
+                }
+            }
         ],
 
         "columns" : [
@@ -53,53 +108,55 @@ let datatableSettings = {
                     return (data === 1) ? 'Done' : 'Ongoing';
                 }
             },
-            {'defaultContent' : ''}
+            {
+                'defaultContent' : '',
+                'render' : function () {
+                    return  '<div class="action-cell-content">' +
+                        '<button class="btn outline-danger-btn icon-btn remove-btn">Remove' +
+                        '</button>' +
+                        '</div>';
+                }
+            }
         ],
 
         order: [
             [1, 'asc']
         ],
 
-        initComplete : function () {
-            // Sets click functionality of rows
-            $(this).find('tbody').on('click', 'tr', (e) => {
-
-                console.log("TR CLICKED");
-
-                let dt = this.api();
-                let row = $(e.target).parents('tr');
-                let rowData = dt.row(row).data();
-
-                let popup = buildResourcePopup();
-                popup.find('.pfooter .btn.delete-btn').show();
-            });
-        }
+        // initComplete : function () {
+        //     // Sets click functionality of rows
+        //     $(this).find('tbody').on('click', 'tr', (e) => {
+        //
+        //         console.log("TR CLICKED");
+        //
+        //         let dt = this.api();
+        //         let row = $(e.target).parents('tr');
+        //         let rowData = dt.row(row).data();
+        //
+        //         let popup = buildResourcePopup();
+        //         popup.find('.pfooter .btn.delete-btn').show();
+        //     });
+        // }
     }
 };
 
-$('#joinedProjectTable').DataTable(datatableSettings.joinedProjectTable);
+joinedProjectTable.DataTable(datatableSettings.joinedProjectTable);
 
-$('#deleteAccount').on('click', (e) => {
-    Popup.promptDelete('invitation', rowData.id, (deletePopup) => {
+$('#deleteAccount').on('click', (e) =>
+{
+    Popup.promptDelete('invitation', e.target.dataset.account, (deletePopup) =>
+    {
         $.post(
             Settings.base_url + "/user/remove",
             {form : function () {return deletePopup.find('#deleteForm').serialize();}},
-            function (data, textStatus) {
+            function (data) {
                 console.log(data)
                 let jsonData = JSON.parse(data);
                 if (jsonData.statusCode === 200)
                 {   // Dismiss delete popup and reload legends list on success
                     deletePopup.find('button[data-dismiss]').trigger('click');
 
-                    // Reload invitations
-                    reloadDatatable(reloadTimeout, datatable)
-                    // datatable.ajax.reload(null, false);
-
-                    //  Show feedback
-                    Popup.feedback({
-                        'feedback' : 'success',
-                        'message' : 'Successfully removed invitation.'
-                    });
+                    window.location.href = Settings.base_url + "/user/list#all";
                 }
             }
         );

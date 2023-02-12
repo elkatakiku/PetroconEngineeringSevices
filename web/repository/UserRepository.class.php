@@ -2,8 +2,6 @@
 
 namespace Repository;
 
-/* Imports */
-// Repository
 use Core\Repository as Repository;
 use Model\Account as Account;
 use Model\Activation;
@@ -235,7 +233,7 @@ class UserRepository extends Repository {
                 FROM  ".self::$tblAccount." a
                 LEFT JOIN ".self::$tblRegister." r ON r.id = a.register_id
                 LEFT JOIN ".self::$tblLogin." l ON l.id = a.login_id
-                WHERE NOT a.type_id = 'PTRCN-TYPE-20221'";
+                WHERE NOT a.type_id = '".Account::ADMIN_TYPE."'";
 
         $params = [];
         if (!empty($userType)) {
@@ -471,11 +469,12 @@ class UserRepository extends Repository {
         return $this->query($sql, $params);
     }
 
-//    Account Types
+    // Account Types
     public function getAccountTypes()
     {
-        $sql = 'SELECT *
-                FROM '.self::$tblAcctType;
+        $sql = "SELECT *
+                FROM ".self::$tblAcctType."
+                WHERE NOT id = '".Account::ADMIN_TYPE."'";
 
         return $this->query($sql);
     }
@@ -538,14 +537,7 @@ class UserRepository extends Repository {
         return $this->query($sql, $params);
     }
 
-//    Removes User
-    public function removeUser(string $loginId) {
-        $sql = "DELETE FROM ".self::$tblLogin." WHERE id = :id";
-        $params = [':id' => $loginId];
-
-        return $this->query($sql, $params);
-    }
-
+    // Removes User
     public function remove(string $id)
     {
         $sql = 'UPDATE 

@@ -71,15 +71,6 @@
                     </a>
                 </li>
 
-                <li id="dashboardMenu">
-                    <a class="d-flex align-content-start" href="<?= SITE_URL . '/dashboard' ?>" title="Dashboard">
-                        <span class="material-icons">engineering</span>
-                        <div class="collapsible">
-                            <span>Team</span>
-                        </div>
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
                 <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
                     <li class="item-dropdown" id="users">
                         <a class="d-flex align-content-start" href="<?= SITE_URL . '/user' ?>" title="Projects">
