@@ -101,13 +101,6 @@
                     </div>
                 </div>
             </div>
-
-<!--            <style>-->
-<!--                .project-actions .btn {-->
-<!--                    min-width: 100px;-->
-<!--                    padding: 5px 25px;-->
-<!--                }-->
-<!--            </style>-->
         </div>
     </form>
 

@@ -72,9 +72,9 @@
 							<div class="pbody">
 								<div class="form-group">
 									<label>New Password:</label>
-									<input type="text" name="name" class="form-control" value="">
+									<input type="text" name="name" class="form-control" value="" required>
 									<label>Re-type Password:</label>
-									<input type="text" name="name" class="form-control" value="">
+									<input type="text" name="name" class="form-control" value="" required>
 								</div>
 							</div>
 							<div class="pfooter">

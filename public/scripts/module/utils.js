@@ -121,13 +121,13 @@ export function changeFilter(element) {
 }
 
 
-// || Duration
-// Start
-export function startDurationHandler(e) {
-    $('input[data-end="'+e.target.dataset.start+'"]').attr('min', e.target.value);
-}
-
-//  End
-export function endDurationHandler(e) {
-    $('input[data-start="'+e.target.dataset.end+'"]').attr('max', e.target.value);
-}
+// // || Duration
+// // Start
+// export function startDurationHandler(e) {
+//     $('input[data-end="'+e.target.dataset.start+'"]').attr('min', e.target.value);
+// }
+//
+// //  End
+// export function endDurationHandler(e) {
+//     $('input[data-start="'+e.target.dataset.end+'"]').attr('max', e.target.value);
+// }

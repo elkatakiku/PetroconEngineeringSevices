@@ -15,10 +15,7 @@
 
             <?php if (!isset($_GET['success'])) { ?>
 
-            <!-- Alert -->
-<!--            <div class="alert alert-danger" role="alert"></div>-->
-
-            <input type="hidden" name="id" value="<?= $data['resetId'] ?>">
+            <input type="hidden" name="id" value="<?= $data['resetId'] ?>" required>
             
             <div class="form-group">
                 <label for="">New password</label>

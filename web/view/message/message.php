@@ -120,7 +120,7 @@
 				<button type="button" class="btn icon-btn">
 					<i class="fa-regular fa-image"></i>
 				</button>
-				<input type="text" placeholder="Type a message..">
+				<input type="text" placeholder="Type a message.." required>
 				<ion-icon name="send-sharp"></ion-icon>
 			</div>
 		</div>

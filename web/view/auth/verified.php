@@ -38,7 +38,7 @@
 
                     <div class="form-group">
                     
-                        <input type="password" class="form-control" name="" id="" placeholder="Enter confirmation code">
+                        <input type="password" class="form-control" name="" id="" placeholder="Enter confirmation code" required>
                     </div>
 
                     <button type="button" name="" id="" class="btn btn-lg btn-block primary-btn">Continue</button>

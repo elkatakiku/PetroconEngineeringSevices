@@ -31,12 +31,13 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
 });
 
 // Sidebar
+const sidebar = $("#sidebar");
 function expandSidebar(submenu = false) { 
-    if (submenu && $("#sidebar").hasClass("active")) {
+    if (submenu && sidebar.hasClass("active")) {
         return;
     }
 
-    if ($("#sidebar").hasClass("active")) {
+    if (sidebar.hasClass("active")) {
         // Collapse sidebar
         if($(window).width() > 780) {
             $("#sidebar.active .collapsible").animate({
@@ -301,61 +302,19 @@ $("button[data-toggle]").on("click", function (e) {
               }
             break;
         case TAB:
-            console.log("index.js: Show tab");
             switchTab(btnCLicked);
             break;
-        // case FORM:
-        //     console.log("Form button");
-        //     let form = $("#" + btnCLicked.attr("form"));
-
-        //       switch(btnCLicked.data("action")) {
-
-        //         case "edit":
-                    
-        //             break;
-
-        //         case "submit":
-        //             console.log("Submit");
-        //             // form.find("textarea, input").attr("readonly", true);
-
-        //             // btnCLicked.text("Edit");
-        //             // btnCLicked.data("action", "edit");
-        //             btnCLicked.attr("type", "submit");
-        //             break;
-        //       }
-        //     break;
     }
 });
 
-// function editForm(btn, fun = null) {  
-//     console.log("Edit Form");
-
-//     let form = $("#" + btn.attr("form"));
-
-//     form.find("textarea, input").removeAttr("readonly");
-
-//     btn.text("Done");
-//     btn.data("action", "submit");
-//     btn.attr("type", "button");
-
-//     if (fun != null) {
-//         fun(asdasd);
-//     }
-// }
-
-
-
-$("button[data-dismiss]").on("click", function (e) {
-    console.log("Button dismiss");
-    const btnCLicked = $(this);
+$("button[data-dismiss]").on("click", function (e)
+{
     const dismissElement = $(this).data("dismiss");
-    // console.log(dismissElement);
     switch (dismissElement) {
         case POPUP:
             Popup.hide(e);
             break;
         case SLIDE:
-            console.log("Dismiss slide");
             toggleSlide(false, $(".slide.active"));
             break;
     }
@@ -379,76 +338,14 @@ if (imageOverlay.length > 0) {
     imageOverlay.css("height", imageOverlay.attr("data-height"));
 }
 
-// Cover
+// Background Cover
 let cover = $('.cover-background');
 cover.css('background-image', 'url("' + Settings.base_url + '/public/images/' + cover.data('image') + '")');
 
-
-let prevText;
-
-$('[data-slider]').on('click', (e) => {
-    console.log("Slider");
-
-    $(e.target).prop('disabled', true);
-    let btn = $(e.target);
-    let slider = $(btn.data('slider'));
-    let active = slider.find('div.active');
-    let next = active.next();
-    let prev = active.prev();
-
-    let after = () => {
-        active.removeClass('active');
-        active.css('margin-left', '');
-        btn.trigger('custom:clicked', [btn]);
-    };
-
-    if (btn.data('action') === 'next' && next.index() !== -1) 
-    {
-        $('[data-slider="' + btn.data('slider') +'"][data-action="prev"]').show();
-        next.addClass('active');
-        active.animate({
-            'margin-left' : '-100%'
-        }, after);
-
-        if (next.next() !== -1) {
-            // if (typeof btn.attr('form') != 'undefined') {
-            //     btn.attr('type', 'submit');
-            //     prevText = btn.text();
-            //     btn.text('Submit');
-            // } else {
-                btn.hide();
-            // }
-        }
-    } else if (btn.data('action') === 'prev' && prev.index() !== -1) 
-    {
-        $('[data-slider="' + btn.data('slider') +'"][data-action="next"]')
-            .text(prevText)
-            .show();
-        prev.addClass('active');
-        prev.css('margin-left', '-100%')
-            .animate({
-                'margin-left' : '0'
-            }, after);
-
-        if (prev.prev() !== -1) {
-            btn.hide();
-        }
-    } else {
-        btn.trigger('custom:clicked', [btn]);
-    }
-});
-
-$('button').on('custom:clicked', (e, btn) => {
-    console.log("Disable")
-    $(e.target).prop('disabled', false);
-});
-
 // Nav-item
-$('#navItemBar .nav-item').on('click', (e) => {
-    console.log($(e.target).parent('.nav-item').siblings('.active').removeClass('active'));
-});
-$('input, textarea').on('keydown', (e) => {
-    $('.alert-danger').removeClass('show').text('');
+$('#navItemBar .nav-item').on('click', (e) =>
+{
+    $(e.target).parent('.nav-item').siblings('.active').removeClass('active');
 });
 
 //  Form
@@ -456,16 +353,23 @@ $('form').on('custom:submitted', (e) => {
     Utils.toggleForm($(e.target), false);
 });
 
-
+// Remove alert on form inputs change
+$('input, textarea').on('keydown', (e) => {
+    $('.alert-danger').removeClass('show').text('');
+});
 
 // || Date Duration
 
 // Start
-$('input[data-start]').on('change', Utils.startDurationHandler);
+$('input[data-start]').on('change', (e) => {
+    $('input[data-end="'+e.target.dataset.start+'"]').attr('min', e.target.value);
+});
 // End
-$('input[data-end]').on('change', Utils.endDurationHandler);
+$('input[data-end]').on('change', (e) => {
+    $('input[data-start="'+e.target.dataset.end+'"]').attr('max', e.target.value);
+});
 
-// || Validation
+// || Data Validation
 function validateInput(element, controller, errorMessage)
 {
     $(element).siblings('.loading').show();
@@ -605,24 +509,9 @@ passwordRepeat.on('input', (e) =>
 });
 
 // Contact Number
-$('.contact-number').on('keydown keyup change', (e) =>
+$('.contact-number').on('keyup keydown change', (e) =>
 {
-    if (e.target.value.trim().length >= 10 && !isNaN(e.key) && !isNaN(parseInt(e.key)))
-    {
+    if ((!/\d/.test(e.key) || e.target.value.trim().length >= 10) && e.key !== "Delete" && e.key !== "Backspace") {
         e.preventDefault();
     }
-
-    // console.log(e)
-    // console.log(!isNaN(e.key))
-    // console.log(!isNaN(parseInt(e.key)))
-    // console.log("Match")
-    // console.log(!/^\d+$/.test(e.key))
-    // || !(/^\d+$/.test(e.key))
-    // const mobileNumber = /9\d/;
-    // console.log("Pattern")
-    // console.log(mobileNumber.test(e.target.value))
-    // const mobileNumber1 = /^9\d+$/;
-    // console.log(mobileNumber1.test(e.target.value))
-    //
-    // console.log(e.target.value)
 });

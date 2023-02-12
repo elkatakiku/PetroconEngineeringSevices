@@ -53,7 +53,7 @@
                     <!-- Alert -->
                     <div class="alert alert-danger mb-2" role="alert"></div>
 
-                    <input type="hidden" name="id" value="<?= $data['project']['id'] ?>">
+                    <input type="hidden" name="id" value="<?= $data['project']['id'] ?>" required>
 
                     <h3 class="detail-header">Project</h3>
 
@@ -61,29 +61,29 @@
         
                         <div class="form-input-group">
                             <label for="">Purchase Order #</label>
-                            <input type="text" name="purchaseOrd" value="<?= $data['project']['purchase_ord'] ?>" readonly>
+                            <input type="text" name="purchaseOrd" value="<?= $data['project']['purchase_ord'] ?>" required readonly>
                         </div>
         
                         <div class="form-input-group">
                             <label for="">Date of Award</label>
-                            <input type="date" name="awardDate" value="<?= $data['project']['award_date'] ?>" readonly>
+                            <input type="date" name="awardDate" value="<?= $data['project']['award_date'] ?>" required readonly>
                         </div>
 
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Work Description</label>
-                        <textarea name="description" rows="1" readonly><?= $data['project']['description'] ?></textarea>
+                        <textarea name="description" rows="1" required readonly><?= $data['project']['description'] ?></textarea>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Building no.</label>
-                        <input type="text" name="buildingNo" value="<?= $data['project']['building_number'] ?>" readonly>
+                        <input type="text" name="buildingNo" value="<?= $data['project']['building_number'] ?>" required readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Location</label>
-                        <input type="text" name="location" value="<?= $data['project']['location'] ?>" readonly>
+                        <input type="text" name="location" value="<?= $data['project']['location'] ?>" required readonly>
                     </div>         
                     
 
@@ -91,17 +91,17 @@
 
                     <div class="form-input-group">
                         <label for="">Company</label>
-                        <input type="text" name="company" value="<?= $data['project']['company'] ?>" readonly>
+                        <input type="text" name="company" value="<?= $data['project']['company'] ?>" required readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Representative</label>
-                        <input type="text" name="representative" value="<?= $data['project']['comp_representative'] ?>" readonly>
+                        <input type="text" name="representative" value="<?= $data['project']['comp_representative'] ?>" required readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Contact</label>
-                        <input type="tel" name="contact" value="<?= $data['project']['comp_contact'] ?>" readonly>
+                        <input type="tel" name="contact" value="<?= $data['project']['comp_contact'] ?>" required readonly>
                     </div>
 
 
@@ -302,11 +302,8 @@
             <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
                 <div class="linear">
                     <form class="input-container">
-                        <input type="text" id="employeeSearch" name="search" list="employeesList" placeholder="Enter email address of employee">
-                        <datalist id="employeesList">
-    <!--                        <option value="Boston">-->
-    <!--                        <option value="Cambridge">-->
-                        </datalist>
+                        <input type="text" id="employeeSearch" name="search" list="employeesList" placeholder="Enter email address of employee" required>
+                        <datalist id="employeesList"></datalist>
                         <div class="input-append">
                             <button type="submit" class="btn action-btn px-4 sm-btn">Choose from team</button>
                         </div>
@@ -399,151 +396,6 @@
 </main>
 
 <div class="popup popup-center" id="popupContainer"></div>
-
-<!-- Task -->
-<!--<div class="popup popup-center" id="taskPopup" tabindex="-1" aria-hidden="true">-->
-<!--    <div class="pcontainer">-->
-<!--        <div class="pcontent">-->
-<!--            <header class="pheader">-->
-<!--                <h2 class="ptitle">Task 1</h2>-->
-<!--                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">-->
-<!--                    <span class="material-icons">close</span>-->
-<!--                </button>-->
-<!--            </header>-->
-<!---->
-<!--            <div class="pbody">-->
-<!---->
-                <!-- Alert -->
-<!--                <div class="alert alert-danger mb-0" role="alert"></div>-->
-<!--                -->
-<!--                <form id="taskForm">-->
-<!--                    <input type="hidden" name="projectId" value="--><?//= $data['project']['id'] ?><!--">-->
-<!--                    <input type="hidden" name="id" value="">-->
-<!--                    <input type="hidden" name="order" value="1">-->
-<!---->
-<!--                    <div class="form-group">-->
-<!--                        <label>Description</label>-->
-<!--                        <textarea class="form-control" name="description" rows="1" placeholder="Type the task description here" style="min-height: 1rem; height: 34px; overflow-y: hidden;" required></textarea>-->
-<!--                    </div>-->
-<!---->
-<!--                    <div class="form-group">-->
-<!--                        <label>Duration</label>-->
-<!--                        <div class="linear">-->
-<!--                            <input type="date" class="form-control" name="start" data-start="taskDuration" min="--><?//= $data["project"]['start'] ?><!--" max="--><?//= $data["project"]['end'] ?><!--" required>-->
-<!--                            --->
-<!--                            <input type="date" class="form-control" name="end" data-end="taskDuration" min="--><?//= $data["project"]['start'] ?><!--" max="--><?//= $data["project"]['end'] ?><!--" required>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!---->
-<!--                    <div class="form-group">-->
-<!--                        <label>Progress</label>-->
-<!--                        <div class="linear">-->
-<!--                            <div class="form-group linear mb-0 flex-grow-1">-->
-<!--                                <input type="number" class="form-control" name="progress" placeholder="Input progress percentage here" min="0" max="100" oninput="validity.valid||(value='');" required>-->
-<!--                                <span style="font-weight: bold">%</span>-->
-<!--                            </div>-->
-<!---->
-<!--                            or-->
-<!---->
-<!--                            <label id="haltProgress" for="haltToggler" class="btn icon-btn danger-btn m-0">-->
-<!--                                <span class="material-icons btn-icon" style="font-size: 20px">pan_tool</span>-->
-<!--                                Halt-->
-<!--                                <input type="checkbox" id="haltToggler" name="isHalted" value="0">-->
-<!--                            </label>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!---->
-<!--                    <div id="halt" style="display: none">-->
-<!--                        <input type="hidden" name="haltId">-->
-<!--                        <div>-->
-<!--                            <div class="form-group mb-2">-->
-<!--                                <label>Reason</label>-->
-<!--                                <textarea class="form-control" name="haltReason" rows="1" placeholder="Type the reason here" style="min-height: 1rem; height: 34px; overflow-y: hidden;"></textarea>-->
-<!--                            </div>-->
-<!---->
-<!--                            <div class="form-group m-0">-->
-<!--                                <label>Halt Duration</label>-->
-<!--                                <div class="linear">-->
-<!--                                    <input type="date" class="form-control" name="haltStart" data-start="haltDuration" value="--><?//= date('Y-m-d') ?><!--">-->
-<!--                                    --->
-<!--                                    <input type="date" class="form-control" name="haltEnd"  data-end="haltDuration" >-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!---->
-<!--            </div>-->
-<!---->
-<!--            <footer class="pfooter">-->
-<!--                <button type="submit" form="taskForm" class="btn action-btn">Save</button>-->
-<!--                <button type="button" class="btn danger-btn delete-btn">-->
-<!--                    Delete-->
-<!--                </button>-->
-<!--                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>-->
-<!--            </footer>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!-- Resource -->
-<!--<div class="popup" id="resourcePopup" tabindex="-1" aria-hidden="true">-->
-<!--    <div class="pcontainer">-->
-<!--        <div class="pcontent">-->
-<!--            <div class="pheader">-->
-<!--                <h2 class="ptitle">Add Material</h2>-->
-<!--                <button type="button" class="icon-btn close-btn" data-dismiss="popup" aria-label="Close">-->
-<!--                    <span class="material-icons">close</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!---->
-<!--            <div class="linear-container pbody">-->
-<!---->
-                <!-- Alert -->
-<!--                <div class="alert alert-danger mb-0" role="alert"></div>-->
-<!---->
-                <!-- Content -->
-<!--                <form action="" class="linear" id="itemForm">-->
-<!--                    <div class="form-group basis-12">-->
-<!--                        <label for="">Item name</label>-->
-<!--                        <input type="text" class="form-control" name="item">-->
-<!--                    </div>-->
-<!---->
-<!--                    <div class="form-group basis-4">-->
-<!--                        <label for="">Price per item (PHP)</label>-->
-<!--                        <input type="number" class="form-control" name="price" step="any" min=0 oninput="validity.valid||(value='');">-->
-<!--                    </div>-->
-<!--                    -->
-<!--                    <div class="form-group basis-4">-->
-<!--                        <label for="">Quantity</label>-->
-<!--                        <input type="number" class="form-control" name="quantity" min=0 oninput="validity.valid||(value='');">-->
-<!--                    </div>-->
-<!---->
-<!--                    <div class="form-group basis-4">-->
-<!--                        <label for="">Total Amount</label>-->
-<!--                        <input type="number" class="form-control" name="total" readonly min=0 oninput="validity.valid||(value='');">-->
-<!--                    </div>-->
-<!---->
-<!--                    <div class="form-group">-->
-<!--                        <label for="">Note</label>-->
-<!--                        <textarea class="form-control" name="notes" rows="1"></textarea>-->
-<!--                    </div>-->
-<!---->
-<!--                    <input type="hidden" name="id">-->
-<!--                    <input type="hidden" name="projId" value="--><?//= $data['project']['id'] ?><!--">-->
-<!--                </form>-->
-<!--            </div>-->
-<!---->
-<!--            <div class="pfooter">-->
-<!--                <button type="submit" form="itemForm" class="btn action-btn">Save</button>-->
-<!--                <button type="button" class="btn danger-btn delete-btn">-->
-<!--                    Delete-->
-<!--                </button>-->
-<!--                <button type="button" class="btn link-btn" data-dismiss="popup">Cancel</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 <!--POPUP INVITE PEOPLE-->
 <!--<div class="popup popup-center" id="InvitePeople" tabindex="-1" aria-hidden="true">-->

@@ -18,21 +18,21 @@
         
         <?= $this->displayResult($_GET, 'Password changed successfully.') ?>
 
-        <input type="hidden" name="id" value="<?= $data['user']['log_id'] ?>">
+        <input type="hidden" name="id" value="<?= $data['user']['log_id'] ?>" required>
 
         <div class="form-group">
             <label for="old">Current password</label>
-            <input type="password" class="form-control" name="oldPass" id="old" placeholder="Type the old password here">
+            <input type="password" class="form-control" name="oldPass" id="old" placeholder="Type the old password here" required>
         </div>
 
         <div class="form-group">
             <label for="new">New password</label>
-            <input type="password" class="form-control" name="newPass" data-validate="password" id="new"  placeholder="Type the new password here">
+            <input type="password" class="form-control" name="newPass" data-validate="password" id="new"  placeholder="Type the new password here" required>
         </div>
 
         <div class="form-group">
             <label for="new2">Confirm new password</label>
-            <input type="password" class="form-control" name="newPassRepeat" data-validate="passwordRepeat" id="new2" placeholder="Confirm new password here">
+            <input type="password" class="form-control" name="newPassRepeat" data-validate="passwordRepeat" id="new2" placeholder="Confirm new password here" required>
         </div>
     </form>
 

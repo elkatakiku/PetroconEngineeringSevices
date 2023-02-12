@@ -26,27 +26,20 @@
                         </header>
     
                         <div class="form-group">
-                        <label for="">Username</label>
-                        <input type="text" class="form-control" name="usernameInput" id="" aria-describedby="helpId" placeholder="Username">
+                            <label for="">Username</label>
+                            <input type="text" class="form-control" name="usernameInput" id="" aria-describedby="helpId" placeholder="Username" required>
                         </div>
     
                         
                         <div class="form-group">
                             <label for="">Password</label>
-                            <input type="password" class="form-control" name="passwordInput" id="" placeholder="Password">
+                            <input type="password" class="form-control" name="passwordInput" id="" placeholder="Password" required>
                         </div>
     
                         <button type="submit" name="loginSubmit" id="" class="btn btn-block primary-btn">Login</button>
     
                         <div class="linear-center mt-3">
-                            <!-- <div  -->
-<!--                                <label class="remember">-->
-<!--                                    <input type="checkbox" class="" name="" id="" value="checkedValue">-->
-<!--                                    Remember me-->
-<!--                                </label>-->
-                            <!-- </div> -->
                             <a href="<?= SITE_URL.'/auth/forgotpass' ?>">Forgot Password?</a>
-                            <!-- <button type="button" class="btn btn-link" data-toggle="popup" data-target="#popupforgotPass">Forgot Password?</button> -->
                         </div>
                     </form>
                 </div>

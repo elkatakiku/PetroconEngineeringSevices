@@ -18,23 +18,23 @@
 		<div class="form-container" style="width: 70%; padding-left: 150px;">
 			<div class="form-group">
 				<label for="">Full Name</label>
-				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Kathiana Fernandez" disabled>
+				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" required disabled>
 			</div>
 			<div class="form-group">
 				<label for="">Position/Title</label>
-				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Worker" disabled>
+				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="Worker" required disabled>
 			</div>
 			<div class="form-group">
 				<label for="">Username</label>
-				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="@kath123" disabled>
+				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" required disabled>
 			</div>
 			<div class="form-group">
 				<label for="">Email</label>
-				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="kath@gmail.com" disabled>
+				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="email@gmail.com" required disabled>
 			</div>
 			<div class="form-group">
 				<label for="">Password</label>
-				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" placeholder="****" disabled>
+				<input type="text" class="form-control" name="" id="" aria-describedby="helpId" required disabled>
 			</div>
 		</div>
 		</form>
