@@ -7,7 +7,9 @@ import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils
 // Datatable
 let reloadTimeout;
 let projectTable = $("#projectsTable");
-let projectDatatableSettings = {
+
+let projectDatatableSettings =
+    {
     'dom' : '<"mesa-container"t><"linear"ip>',
     "autoWidth": false,
     "lengthChange": false,
@@ -19,10 +21,7 @@ let projectDatatableSettings = {
         data : {form : function () { return $('#filterTable').serialize();}},
         'complete' : function (data)
         {
-            console.log(data)
-            console.log("Complete");
             reloadTimeout = setTimeout(() => {
-                console.log("Reload");
                 projectTable.dataTable().api().ajax.reload(null, false);
             }, 5000);
         }
@@ -73,10 +72,6 @@ let projectDatatableSettings = {
 };
 
 let projectDatatable = projectTable.DataTable(projectDatatableSettings);
-
-// if (Settings.type === 'PTRCN-TYPE-18c19c59') {
-//     projectDatatable.column( projectTable.find('thead tr th').length - 1 ).visible( false );
-// }
 
 // Incrementing number of table rows
 projectDatatable.on('order.dt search.dt', function () {

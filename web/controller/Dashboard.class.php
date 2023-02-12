@@ -24,26 +24,4 @@ class Dashboard extends MainController {
             'chart' => json_decode($projectService->getProjectsCountByYear(date('Y')), true)['data']
         ]);
     }
-
-    public function projectsCountByYear(string $year)
-    {
-        if ($year) {
-            $projectService = new ProjectService;
-            echo $projectService->getProjectsCountByYear($year);
-        } else {
-            header("Location: ".SITE_URL."/dashboard");
-            exit();
-        }
-    }
-
-    public function getProjects()
-    {
-        if ($_SESSION['accID']) {
-            $peopleService = new PeopleService();
-            $projects = json_decode($peopleService->joinedProjects($_SESSION['accID']), true);
-            if ($projects['statusCode'] == 200) {
-
-            }
-        }
-    }
 }

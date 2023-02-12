@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Invitation implements Expose {
+class Invitation {
 
     private string $id;
     private string $name;
@@ -40,18 +40,6 @@ class Invitation implements Expose {
         $this->username = $username;
         $this->password = $password;
     }
-
-//    public function set($id, $name, $email, $code, $projID, $used, $username, $password) {
-//
-//        $this->id = $id;
-//        $this->name = $name;
-//        $this->email = $email;
-//        $this->code = $code;
-//        $this->projID = $projID;
-//        $this->used = $used;
-//        $this->username = $username;
-//        $this->password = $password;
-//    }
 
     public function create(string $name, string $email, string $code, string $projID,
                            string $type, string $username, string $password) {
@@ -171,9 +159,5 @@ class Invitation implements Expose {
     public function setPassword($password): void
     {
         $this->password = $password;
-    }
-
-    public function expose() {
-        
     }
 }

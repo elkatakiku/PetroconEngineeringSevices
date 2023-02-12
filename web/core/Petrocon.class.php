@@ -15,7 +15,6 @@ class Petrocon {
         session_start();
 
         $url = $this->parseUrl();
-        // var_dump($url);
 
         if(isset($url[0]) && file_exists('web/controller/' . ucwords($url[0]) . '.class.php')) 
         {
@@ -36,8 +35,7 @@ class Petrocon {
         try {
             call_user_func_array(array($this->controller, $this->method), $this->params);
         } catch (\TypeError $e) {
-            echo $e->getMessage();
-            // header("Location: ".SITE_URL);
+             header("Location: ".SITE_URL);
         }
     }
 

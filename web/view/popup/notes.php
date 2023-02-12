@@ -17,7 +17,8 @@
 
                 <div class="form-group">
                     <label for="">Note</label>
-                    <textarea class="form-control" name="notes" rows="2" placeholder="Enter the notes here."><?= $data['notes'] ?></textarea>
+                    <textarea class="form-control" name="notes" rows="2"
+                              placeholder="Enter the notes here."><?= $data['notes'] ?></textarea>
                 </div>
             </form>
 

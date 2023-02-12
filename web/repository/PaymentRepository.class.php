@@ -54,7 +54,7 @@ class PaymentRepository extends Repository {
 
     public function remove(string $id) 
     {
-        $this->inactive(self::$tblPayment, $id);
+        $this->setInactive(self::$tblPayment, $id);
     }
 
     public function getAll(string $projectId)

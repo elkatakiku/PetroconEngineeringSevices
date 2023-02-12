@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Account implements Expose {
+class Account {
 
     const ADMIN_TYPE = "PTRCN-TYPE-c821d24e";
     const EMPLOYEE_TYPE = "PTRCN-TYPE-4b9e178f";
@@ -59,11 +59,8 @@ class Account implements Expose {
         return $this->loginId;
     }
 
-    public function expose() {
-        return get_object_vars($this);
-    }
-
-    public static function build($id, $typeId, $registerId, $loginId) {
+    public static function build($id, $typeId, $registerId, $loginId): Account
+    {
         $account = new self;
         $account->setAccount($id, $typeId, $registerId, $loginId);
         return $account;

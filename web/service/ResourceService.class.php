@@ -9,7 +9,7 @@ use Repository\ResourceRepository;
 
 class ResourceService extends Service {
 
-    private $resourceRepository;
+    private ResourceRepository $resourceRepository;
 
     public function __construct() {
         $this->resourceRepository = new ResourceRepository;
@@ -29,14 +29,12 @@ class ResourceService extends Service {
 
         if (!$this->emptyInput($input))
         {
-
             // Creates resource object
             $resource = new Resource;
             $resource->create(
                 $input['item'],
                 $input['quantity'],
                 $input['price'],
-//                $input['price'] * $input['quantity'],
                 $this->sanitizeString($raw['notes']),
                 $input['projectId']
             );
@@ -138,26 +136,5 @@ class ResourceService extends Service {
         }
 
         return json_encode($response, JSON_NUMERIC_CHECK);
-    }
-
-    public function getInputs(string $form)
-    {
-        parse_str($form, $raw);
-
-        $input = [
-            'required' => [
-                'id' => $this->sanitizeString($raw['id']),
-                'item' => $this->sanitizeString($raw['item']),
-                'quantity' => filter_var($raw['quantity'], FILTER_SANITIZE_NUMBER_INT),
-                'price' => filter_var($raw['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ),
-                'projId' => $this->sanitizeString($raw['projId'])
-            ],
-            
-            'notRequired' => [
-                'notes' => (!$this->sanitizeString($raw['notes']) ? '' : $this->sanitizeString($raw['notes'])),
-            ]
-        ];
-
-        return $input;
     }
 }

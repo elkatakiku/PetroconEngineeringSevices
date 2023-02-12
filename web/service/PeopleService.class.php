@@ -5,68 +5,16 @@ namespace Service;
 use Core\Service;
 use Includes\Mail;
 use Model\Invitation;
-use Model\Resource;
 use Repository\PeopleRepository;
 use Repository\ProjectRepository;
 use Repository\UserRepository;
 
 class PeopleService extends Service {
 
-    private $peopleRepository;
+    private PeopleRepository $peopleRepository;
 
     public function __construct() {
         $this->peopleRepository = new PeopleRepository;
-    }
-
-    public function new(string $form)
-    {
-        $input = $this->getInputs($form);
-        unset($input['id']);
-
-        if (!$this->emptyInput($input)) 
-        {
-            $input['total'] = $input['price'] * $input['quantity'];
-
-            // Creates resource object
-            $resource = new Resource;
-            $resource->create(
-                $input['item'],
-                $input['quantity'],
-                $input['price'],
-                $input['total'],
-                $input['notRequired']['notes'],
-                $input['projId'],
-            );
-
-            if ($this->peopleRepository->create($resource)) {
-                $response['statusCode'] = 200;
-            } else {
-                $response['statusCode'] = 500;
-            }
-        } else {
-            $response['statusCode'] = 400;
-            $response['message'] = "Fill all the required inputs.";
-        }
-
-        return json_encode($response, JSON_NUMERIC_CHECK);
-    }
-
-    public function update(string $form)
-    {
-        $input = $this->getInputs($form);
-
-        if (!$this->emptyInput($input)) 
-        {
-            $input['total'] = $input['price'] * $input['quantity'];
-
-            $this->peopleRepository->update(array_merge($input, $input['notRequired']));
-            $response['statusCode'] = 200;
-        } else {
-            $response['statusCode'] = 400;
-            $response['message'] = "Fill all the required inputs.";
-        }
-
-        return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
     public function remove(string $form)
@@ -85,13 +33,11 @@ class PeopleService extends Service {
 
     public function list(string $projectId)
     {
-//        echo __METHOD__;
         $cleanId = $this->sanitizeString($projectId);
         $response['data'] = [];
 
         if ($cleanId) {
             if ($people = $this->peopleRepository->getPeople($cleanId)) {
-//                var_dump($people);
                 $response['data'] = $people;
                 $response['statusCode'] = 200;
             } else {
@@ -104,27 +50,6 @@ class PeopleService extends Service {
         return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
-    public function getInputs(string $form)
-    {
-        parse_str($form, $raw);
-
-        $input = [
-            'required' => [
-                'id' => $this->sanitizeString($raw['id']),
-                'item' => $this->sanitizeString($raw['item']),
-                'quantity' => filter_var($raw['quantity'], FILTER_SANITIZE_NUMBER_INT),
-                'price' => filter_var($raw['price'], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ),
-                'projId' => $this->sanitizeString($raw['projId'])
-            ],
-            
-            'notRequired' => [
-                'notes' => (!$this->sanitizeString($raw['notes']) ? '' : $this->sanitizeString($raw['notes'])),
-            ]
-        ];
-
-        return $input;
-    }
-
     // || Invitations
     public function invitationList(string $projectId)
     {
@@ -133,18 +58,15 @@ class PeopleService extends Service {
 
         if ($cleanId) 
         {
-            if ($people = $this->peopleRepository->getInvitations($cleanId))
-            {
+            if ($people = $this->peopleRepository->getInvitations($cleanId)) {
                 $response['data'] = $people;
                 $response['statusCode'] = 200;
             } 
-            else 
-            {
+            else {
                 $response['statusCode'] = 500;
             }
         } 
-        else 
-        {
+        else {
             $response['statusCode'] = 400;
         }
 
@@ -235,9 +157,6 @@ class PeopleService extends Service {
 
          if (!$this->emptyInput($input))
          {
-//             Account is not created when the invitation is not accepted
-//             Accepting the invitation will remove the person in the pending invitation list
-
              if ($invitation = $this->peopleRepository->getInvitationById($input['id']))
              {
                 $response['statusCode'] = $this->peopleRepository->removeInvitation($invitation[0]['id']) ? 200 : 500;
@@ -310,9 +229,7 @@ class PeopleService extends Service {
         } else {
             $result['data'] = true;
         }
-//        return json_encode(['data' => $this->peopleRepository->validateEmail($email), 'data1' => !$userRepository->validateEmail($email)]);
         return json_encode($result, JSON_NUMERIC_CHECK);
-//        return json_encode(['data' => !$userRepository->validateEmail($email)]);
     }
 
     //    User

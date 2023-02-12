@@ -4,6 +4,7 @@ namespace Controller;
 
 // Core
 use \Core\Controller as MainController;
+use Service\UserService;
 
 class Signup extends MainController {
 
@@ -11,31 +12,21 @@ class Signup extends MainController {
 
     public function __construct() {
         $this->setType(MainController::AUTH);
-        $this->userService = new \Service\UserService();
+        $this->userService = new UserService();
     }
 
     // Displays login frontend
     public function index() {
-        $this->view("auth", "signup");
+        $this->goToLogin();
     }
 
     // SignUp
     public function run() 
     {
+        echo "Run dis";
         if (isset($_POST['form'])) 
         {
             echo $this->userService->signup($_POST['form']);
-            
-            // $signupResult = $this->userService->signup($_POST);
-            
-            // if ($signupResult->isSuccess()) 
-            // {   // Account creation success
-            //     header("Location: ".SITE_URL."/login?signup=success");
-            //     exit();
-            //     return;
-            // } else {
-            //     header("Location: ".SITE_URL."/signup?error=".$signupResult->getMessage());
-            // }
         }
     }
 }

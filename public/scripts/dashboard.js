@@ -1,28 +1,3 @@
-function loadBarChart()
-{
-    $.get(
-        Settings.base_url + "/dashboard/projectsCountByYear", 
-        { year : function () {return $(e.target).serialize();} },
-        function (data, textStatus) {
-            console.log(data);
-            let jsonData = JSON.parse(data);
-
-            // Shows alert/error message
-            if (jsonData.statusCode != 200) {
-                $(e.target).find('.alert-danger')
-                .addClass('show')
-                .text(jsonData.message);
-            } else {
-                window.location.href = Settings.base_url + "/project/details/" + jsonData.data.id;
-            }
-        }
-    );
-}
-
-$('select[name="projectYear"]').on('change', () => {
-    alert($(this).val());
-});
-
 const ctx = document.getElementById('myChart');
 
 new Chart(ctx, {
@@ -86,8 +61,6 @@ let taskTable = {
     ]
 }
 
-console.log(taskTable);
-
 function datatableAjax(controller, type, data, table) {
     return {
         url : controller,
@@ -104,7 +77,3 @@ function datatableAjax(controller, type, data, table) {
         }
     }
 }
-
-// Projects
-// $('.start-date').text(new Date(response.data.start).toLocaleString('default', {dateStyle : "medium"}));
-// $('.end-date').text(new Date(response.data.end).toLocaleString('default', {dateStyle : "medium"}));

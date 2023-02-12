@@ -16,12 +16,6 @@ class People extends MainController {
         $this->peopleService = new PeopleService;
     }
 
-    public function new()
-    {
-        if (isset($_POST['form'])) {
-            echo $this->peopleService->new($_POST['form']);
-        }
-    }
 
     public function update()
     {

@@ -18,7 +18,8 @@
 
                 <div class="form-group mb-2">
                     <label>Reason</label>
-                    <textarea class="form-control" name="reason" rows="1" placeholder="Type the reason here" style="min-height: 1rem; height: 34px; overflow-y: hidden;"></textarea>
+                    <textarea class="form-control" name="reason" rows="1" placeholder="Type the reason here"
+                              style="min-height: 1rem; height: 34px; overflow-y: hidden;"></textarea>
                 </div>
 
                 <div class="form-group mb-2">

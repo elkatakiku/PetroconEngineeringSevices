@@ -21,7 +21,7 @@ $('#project-carousel').on('slide.bs.carousel', function(e) {
         var it = itemsPerSlide - (totalItems - idx);
         for (var i = 0; i < it; i++) {
             // append slides to end
-            if (e.direction == "left") {
+            if (e.direction === "left") {
                 $('.carousel-item').eq(i).appendTo('.carousel-inner');
             } else {
                 $('.carousel-item').eq(0).appendTo('.carousel-inner');
@@ -120,27 +120,20 @@ function switchTab (btn)
     const targetTabId = btn.data("target");
     const targetTab = $(targetTabId);
 
-    console.log("Button: " + targetTabId);
-    console.log("Tab: " + currentTabId);
-
     $('.nav-tab').trigger('custom:tabChange', [currentTab, targetTabId]);
 
     if (targetTabId !== currentTabId) {
         // Removes active to tab button
-        console.log("removing active to tab nav");
         activeNavItem.removeClass("active");
 
         // Hide current open tab
-        console.log("removing show to tab");
         currentTab.removeClass("show");
         currentTab.trigger('custom:hide');
 
         // Set tab button to active
-        console.log("adding active to tab nav");
         targetNavItem.addClass("active");
 
         // Display target tab
-        console.log("adding show to tab nav");
         targetTab.addClass("show");
     }
 }
@@ -148,8 +141,8 @@ function switchTab (btn)
 // Slide
 const SLIDE = "slide";
 
-function initSlide() {
-    console.log("Initializing slide");
+function initSlide()
+{
     $(".slide-container .slide[data-side='left']").css("margin-left", "-" + $(".slide[data-side='left']").width() + "px");
     $(".slide-container .slide[data-side='right']").css("margin-right", "-" + $(".slide[data-side='right']").width() + "px");
 
@@ -173,18 +166,13 @@ if ($(".slide[data-side]").length > 0) {
     });
 
     initSlide();
-} else {
-    console.log("Info: No slide found.");
 }
 
 function toggleSlide(isShow, slide, isAnotherSlide = false) {
     let side = slide.data("side");
-    console.log("isShow: " + isShow);
-    console.log("side: " + side);
 
-    if (isShow) {
-        console.log("Opening slide");
-
+    if (isShow)
+    {
         $(slide).addClass("active");
 
         if (!isAnotherSlide) {
@@ -203,6 +191,7 @@ function toggleSlide(isShow, slide, isAnotherSlide = false) {
                     break;
             }
         }
+
         // Contained slide
         else {
             let leftPos = (side === "left") ? $(".slide[data-side='left']").width() + "px" : "auto";
@@ -253,16 +242,6 @@ function toggleSlide(isShow, slide, isAnotherSlide = false) {
     }
 }
 
-// || Form
-// const FORM = "form";
-//
-// function editForm (formId) {
-//     console.log($(formId));
-//     form = $(formId).find("form");
-//
-//     form.addClass("edit");
-//     console.log(form.attr("action", "./link/submit"));
-// }
 
 // || Buttons Listeners
 $("button[data-toggle]").on("click", function (e) {
@@ -285,9 +264,10 @@ $("button[data-toggle]").on("click", function (e) {
 
                 let slideToClose = targetSlide;
                 let isAnotherSlide = false;
+                let activeSlide = $('.slide.active');
 
-                if (!$('.slide.active').is(targetSlide)) {
-                    slideToClose = $('.slide.active');
+                if (!activeSlide.is(targetSlide)) {
+                    slideToClose = activeSlide;
                     isAnotherSlide = true;
                     toggleSlide(true, targetSlide, isAnotherSlide);
                 }
@@ -307,6 +287,7 @@ $("button[data-toggle]").on("click", function (e) {
     }
 });
 
+// Button dismiss
 $("button[data-dismiss]").on("click", function (e)
 {
     const dismissElement = $(this).data("dismiss");
@@ -364,6 +345,7 @@ $('input, textarea').on('keydown', (e) => {
 $('input[data-start]').on('change', (e) => {
     $('input[data-end="'+e.target.dataset.start+'"]').attr('min', e.target.value);
 });
+
 // End
 $('input[data-end]').on('change', (e) => {
     $('input[data-start="'+e.target.dataset.end+'"]').attr('max', e.target.value);

@@ -1,11 +1,13 @@
 <main class="content">
     <div class="trailer">
-        <h2 class="trail"><span class="cut-text"><?= $data['project']['description'] ?></span>&nbsp/&nbspInvitations</h2>
+        <h2 class="trail"><span class="cut-text"><?= $data['project']['description'] ?></span>&nbsp/&nbspInvitations
+        </h2>
     </div>
-     <!-- Header -->
+    <!-- Header -->
     <div class="page-header">
         <span>
-            <a id="backBtn" href="<?= SITE_URL.'/project/details/'.$data['project']['id'] ?>" class="linear link-btn mb-2">
+            <a id="backBtn" href="<?= SITE_URL . '/project/details/' . $data['project']['id'] ?>"
+               class="linear link-btn mb-2">
                 <span class="material-icons">
                     arrow_back
                 </span>
@@ -23,7 +25,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="main-content mt-0">
         <form class="linear-container mb-3" id="inviteForm">
             <div class="alert alert-danger" role="alert"></div>
@@ -38,13 +40,14 @@
                         <?php foreach ($data['accountTypes'] as $type) {
                             if ($type['id'] != \Model\Account::ADMIN_TYPE) { ?>
                                 <option value="<?= $type['id'] ?>"><?= $type['name'] ?></option>
-                        <?php }
+                            <?php }
                         } ?>
                     </select>
                 </div>
                 <div class="form-group basis-9 mb-0">
                     <span class="loading-input">
-                        <input type="email" class="form-control top" name="email" id="email" data-validate="userEmail" aria-describedby="helpId" placeholder="address@email.com" required>
+                        <input type="email" class="form-control top" name="email" id="email" data-validate="userEmail"
+                               aria-describedby="helpId" placeholder="address@email.com" required>
                         <div class="loading" style="display: none;">
                             <div class="spinner-grow spinner-grow-sm" role="status">
                                 <span class="sr-only">Loading...</span>
@@ -63,13 +66,13 @@
         <div class="mesa-container">
             <table class="mesa" id="inviteTable">
                 <thead class="mesa-head">
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col" class="tname"><strong>Name</strong></th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Action</th>
-                    </tr>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col" class="tname"><strong>Name</strong></th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Action</th>
+                </tr>
                 </thead>
             </table>
         </div>

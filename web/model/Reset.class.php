@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Reset implements Expose {
+class Reset {
 
     private $id;
     private $logId ;
@@ -56,9 +56,5 @@ class Reset implements Expose {
 
     public function isUsed() {
         return $this->used;
-    }
-
-    public function expose() {
-        
     }
 }

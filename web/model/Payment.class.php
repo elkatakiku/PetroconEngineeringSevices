@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Payment implements Expose {
+class Payment {
 
     private $id;
     private $description;
@@ -77,9 +77,5 @@ class Payment implements Expose {
 
     public function getActive() {
         return $this->active;
-    }
-
-    public function expose() {
-        
     }
 }

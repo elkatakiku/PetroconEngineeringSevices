@@ -4,7 +4,6 @@ namespace Core;
 
 use Model\Account;
 use Repository\UserRepository;
-use User;
 
 class Controller {
 
@@ -85,7 +84,6 @@ class Controller {
     }
 
     protected function setPage($pageId) {
-//        $this->pageNumber = $pageNumber - 1;
         $this->pageId = $pageId;
     }
 
@@ -102,7 +100,7 @@ class Controller {
         }
     }
 
-    public function mergeName($lastname, $firstname, $middlename)
+    public function mergeName($lastname, $firstname, $middlename): string
     {
         $middleInitial = !$middlename ? '' : (ucwords(substr($middlename, 0, 1)).".");
         return ucwords($lastname).", ".ucwords($firstname)." ".$middleInitial;

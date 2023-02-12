@@ -253,14 +253,4 @@ class ProjectService extends Service{
             return $this->projectRepository->joinProject($projId, $regId);
         }
     }
-
-    //    Company List
-    public function getCompanyList() {
-        return $this->projectRepository->getCompanyList();
-    }
-
-    //    Company List
-    public function getClientList() {
-        return $this->projectRepository->getClientList();
-    }
 }

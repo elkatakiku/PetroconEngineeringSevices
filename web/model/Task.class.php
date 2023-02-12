@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Task implements Expose {
+class Task {
 
     private string $id;
     private string $desc;
@@ -206,18 +206,5 @@ class Task implements Expose {
 
     public function getProjectId() {
         return $this->projID;
-    }
-
-    public function expose() {
-        
-    }
-
-    public static function build(
-        $id, $desc, $orderNo, $status, 
-        $createdAt, $active, $projID
-    ) {
-        $task = new self;
-        $task->set($id, $desc, $orderNo, $status, $createdAt, $active, $projID);
-        return $task;
     }
 }

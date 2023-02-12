@@ -4,15 +4,16 @@ namespace Service;
 
 use Core\Service;
 use DateTime;
+use Exception;
 use Model\Stopage;
+use Model\Task;
 use Repository\ProjectRepository;
 use Repository\TaskRepository;
-use Model\Task;
 
 
 class TaskService extends Service{
 
-    private $taskRepository;
+    private TaskRepository $taskRepository;
 
     public function __construct() {
         $this->taskRepository = new TaskRepository;
@@ -121,15 +122,6 @@ class TaskService extends Service{
         return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
-//    DEBUG: Project progress
-    public function progress($id) {
-        if ($task = $this->taskRepository->getTask($id)) {
-            var_dump($task);
-            $progress = $this->taskRepository->getProgress($task[0]['proj_id'])[0];
-            var_dump((($progress['progress'] / (100 * $progress['count'])) * 100));
-        }
-    }
-
     public function haltTask(string $form)
     {
         parse_str($form, $raw);
@@ -220,36 +212,12 @@ class TaskService extends Service{
         return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
+    /**
+     * @throws Exception
+     */
     public function getTasksDetails(string $projectId) {
         $cleanId = $this->sanitizeString($projectId);
 
-        // Default tasks time
-//        $tasks = [time(), strtotime(date("Y-m-t"))];
-
-//        $dStart = new DateTime();
-//
-//        // Default Project start
-//        $startDate = $dStart->format('Y-m-j');
-//
-//        // Default Project end
-//        $endDate = $dStart->format('Y-m-t');
-//
-//        $daysInMonth = (int) $dStart->format('t');
-//        $diff = ($daysInMonth - (int) $dStart->format('j')) + 1;
-
-//        if ($diff < $daysInMonth)
-//        {
-////            New end date
-//            $dStart->modify('+ '.(30 - $diff).' day');
-//            $endDate = $dStart->format('Y-m-j');
-//        }
-//
-//        // Default number of days
-//        $days =  date('t');
-//
-//        // Default number of months
-//        $months = 1;
-        
         if ($cleanId) 
         {
             $projectRepository = new ProjectRepository();
@@ -263,11 +231,6 @@ class TaskService extends Service{
                 $dEnd  = new DateTime($endDate);
                 $dDiff = $dStart->diff($dEnd);
 
-//                var_dump($dStart);
-//                var_dump($dEnd);
-//                var_dump($dDiff);
-
-
                 // Number of days
                 $days = ((int) $dDiff->format('%r%a')) + 1;
                 // Chart header settings
@@ -275,20 +238,6 @@ class TaskService extends Service{
 
                 if ($tasks = $this->taskRepository->getActiveTasks($cleanId))
                 {
-    //                Resets dates
-//                    $startDates = [];
-//                    $endDates = [];
-
-    //                Gets start and ends dates of tasks
-//                    for ($i = 0; $i < count($tasks); $i++) {
-//                        $startDates[] = $tasks[$i]['start'];
-//                        $endDates[] = $tasks[$i]['end'];
-//                    }
-
-                    //  Converts dates to timestamp for easy arrangement
-//                    $startDates = array_map('strtotime', $startDates);
-//                    $endDates = array_map('strtotime', $endDates);
-
                     //  Sets grid and span of task
                     for ($i=0; $i < count($tasks); $i++) {
 
@@ -308,6 +257,12 @@ class TaskService extends Service{
                     $result['statusCode'] = 200;
                 }
 
+                $result['data']['month'] = $months;
+                $result['data']['start'] = $startDate;
+                $result['data']['end'] = $endDate;
+                $result['data']['total_days'] = $days;
+                $result['data']['grid'] = $days + 3;
+
             } else {
                 $result['statusCode'] = 500;
             }
@@ -315,77 +270,8 @@ class TaskService extends Service{
             $result['statusCode'] = 400;
         }
 
-        $result['data']['month'] = $months;
-        $result['data']['start'] = $startDate;
-        $result['data']['end'] = $endDate;
-        $result['data']['total_days'] = $days;
-        $result['data']['grid'] = $days + 3;
-
         return json_encode($result, JSON_NUMERIC_CHECK);
     }
-
-    public function getTask(string $taskId) {
-        $cleanId = $this->sanitizeString($taskId);
-        $task = [];
-
-        if ($cleanId) {
-            $task = $this->taskRepository->getActiveTasks($cleanId);
-        }
-
-        return $task;
-    }
-
-//    private function getDates(array $startDates, array $endDates) {
-//        $months = [[], [], []];
-//
-////        Months and years
-//        for ($i=0; $i < count($startDates); $i++)
-//        {
-//            $start = date("n", $startDates[$i]);
-//            $end = date("n", $endDates[$i]);
-//            if (!in_array($start, $months[0]))
-//            {
-//                $months[0][] = $start;
-//                $months[2][] = date("Y", $startDates[$i]);
-//            } else if(!in_array($end, $months[0]))
-//            {
-//                $months[0][] = $end;
-//                $months[2][] = date("Y", $endDates[$i]);
-//            }
-//        }
-//
-//        // echo "Date T";
-//        // var_dump(date('t', min($startDates)));
-//        // echo "Date J";
-//        // var_dump(date('j', min($startDates)));
-//        // echo "Diff";
-//        // var_dump(date('j', min($startDates)));
-//
-//        $EXTRA_SPACE = 3;
-//
-//        if (count($months[0]) > 1)
-//        {
-//            $months[1][] = date('t', min($startDates)) - (date('j', min($startDates)) - 1);
-//
-//            for ($i=1; $i < (count($months[0])-1); $i++) {
-//                $months[1][] = cal_days_in_month(CAL_GREGORIAN, $months[0][$i], $months[2][$i]);
-//            }
-//
-//            $months[1][] = ((int) date('j', max($endDates))) + $EXTRA_SPACE;
-//        }
-//        else if (count($months[0]) === 1)
-//        {
-//            $dStart = new DateTime();
-//            $dStart->setTimestamp(min($startDates));
-//            $dEnd  = new DateTime();
-//            $dEnd->setTimestamp(max($endDates));
-//            $dDiff = $dStart->diff($dEnd);
-//
-//            $months[1][] = ((int) $dDiff->format('%r%a')) + $EXTRA_SPACE;
-//        }
-//
-//        return $months;
-//    }
 
     // Gets task count of a project
     public function getTaskCount($request) {
@@ -404,34 +290,11 @@ class TaskService extends Service{
         return json_encode($result, JSON_NUMERIC_CHECK);
     }
 
-    // Converts json string activities to arrays
-    private function parseInput($request, $hasOldActs = false) {
-        // Converts json string to an associative array
-        $input = json_decode($request, true);
-
-        // Converts activities' json string to associative array
-        for ($i=0; $i < count($input['newActivities']); $i++) {
-            $jsonString = $input['newActivities'][$i];
-            $input['newActivities'][$i] = json_decode($jsonString, true);
-        }
-
-        if ($hasOldActs) {
-            for ($i=0; $i < count($input['oldActivities']); $i++) {
-                $jsonString = $input['oldActivities'][$i];
-                $input['oldActivities'][$i] = json_decode($jsonString, true);
-            }
-        }
-
-        // var_dump($input);
-
-        return $input;
-    }
-
 //    Stoppage
     public function getStoppage(string $taskId)
     {
         $cleanId = $this->sanitizeString($taskId);
-        $response['data'] = [];
+        $result['data'] = [];
 
         if ($cleanId) {
             if ($stoppage = $this->taskRepository->getStoppage($cleanId)) {
@@ -445,18 +308,6 @@ class TaskService extends Service{
         }
 
         return json_encode($result, JSON_NUMERIC_CHECK);
-    }
-
-    public function createStoppage(string $taskId, array $halt, $end) {
-        $stoppage = new Stopage();
-        $stoppage->create(
-            $taskId,
-            $halt['haltReason'],
-            $halt['haltStart'],
-            $end
-        );
-
-        $this->taskRepository->createStoppage($stoppage);
     }
 
 //    Project Details

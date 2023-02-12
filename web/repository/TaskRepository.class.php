@@ -3,9 +3,8 @@
 namespace Repository;
 
 use Core\Repository;
-
 use Model\Stopage;
-use \Model\Task as Task;
+use Model\Task as Task;
 
 class TaskRepository extends Repository {
 

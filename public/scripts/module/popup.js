@@ -4,9 +4,11 @@ import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils
 // Server
 // import * as Utils from '/public/scripts/module/utils.js';
 
+const HTML_BODY = $('body');
+
 // Animates popup container to center
-export function animate(popup) {
-    console.log("Animating popup");
+export function animate(popup)
+{
     popup.find('.pcontainer')
         .css({
             top: '-' + popup.find('.pcontainer').height() + 'px'
@@ -17,23 +19,19 @@ export function animate(popup) {
 }
 
 // Shows popup
-export function show(popup) {
-    console.log("Popup.show");
-    
+export function show(popup)
+{
     popup.addClass("show");
 
     if (popup.hasClass("popup-center"))
     {
-        console.log("Popup center");
         animate(popup);
-        $("body").addClass("popup-open");
+        HTML_BODY.addClass("popup-open");
     }
     else if (popup.hasClass('feedback'))
     {
-        console.log("Notification");
-
-        const dissolve = () => {
-            console.log("Dissolve");
+        const dissolve = () =>
+        {
             popup.fadeOut(3000, () => {
                 popup.find('button[data-dismiss]').trigger('click');
                 popup.remove();
@@ -44,27 +42,21 @@ export function show(popup) {
 
         let feedbackTimeout = setTimeout(dissolve, 5000);
 
-        popup.on('mouseenter', () => {
-            console.log("Notif hover");
+        popup.on('mouseenter', () =>
+        {
             clearTimeout(feedbackTimeout);
             popup.css('opacity', '1');
             popup.stop().animate({opacity:'100'});
         })
 
-        popup.on('mouseleave', () => {
-            console.log("Mouse leave");
+        popup.on('mouseleave', () =>
+        {
             feedbackTimeout = setTimeout(dissolve, 5000);
         });
 
     }
-    else if(!popup.hasClass("popup-contained"))
-    {
-        console.log("Not popup contained");
-        $("body").addClass("popup-open");
-    }
     else
     {
-        console.log("Popup other");
         let container = popup.find('.pcontainer');
         container.css({
             'top': container.data('top'),
@@ -78,8 +70,8 @@ export function show(popup) {
 }
 
 // Hides popup
-export function hide(e) {
-    console.log("Popup.hide");
+export function hide(e)
+{
     let popup = $(e.target).parents(".popup.show, .feedback");
 
     if (popup.hasClass("popup-center")) {
@@ -95,11 +87,10 @@ export function hide(e) {
 }
 
 // Removes popup
-export function remove(popup) {
-    console.log("Remove popup");
-    
+export function remove(popup)
+{
     if ($('.popup.show').length <= 1) {
-        $("body").removeClass("popup-open");
+        HTML_BODY.removeClass("popup-open");
     }
     
     popup.removeClass("show");
@@ -115,14 +106,14 @@ export function remove(popup) {
 }
 
 // Initialize popup listeners
-export function initialize(popup, load = false) {
-    console.log("Popup.initialize");
+export function initialize(popup, load = false)
+{
     popup.find('button[data-dismiss]').one('click', hide);
     reset(popup);
 
     // On show
-    popup.on('custom:show', () => {
-        console.log("Popup shown");
+    popup.on('custom:show', () =>
+    {
         popup
             .find('textarea')
             .each((index, element) =>
@@ -137,11 +128,11 @@ export function initialize(popup, load = false) {
     });
 
     // On dismiss
-    popup.on('custom:dismissPopup', (e, p) => {
+    popup.on('custom:dismissPopup', (e, p) =>
+    {
         if (load) {
             popup.empty();
         } else  {
-            console.log("Popup dismissed");
             popup.find('button[data-dismiss]').off('click');
             popup.find('form').off('submit');
             popup.off('custom:show');
@@ -152,8 +143,8 @@ export function initialize(popup, load = false) {
     });
 }
 
-export function reset(popup, exempt, callback = null) {
-    console.log("Reset");
+export function reset(popup, exempt, callback = null)
+{
     popup.find('.alert-danger').text('');
     popup.find('.alert-danger').removeClass('show');
 
@@ -198,13 +189,13 @@ export function generateDeletePopup(item) {
         '</div>'
     );
 
-    $('body').append(popup);
+    HTML_BODY.append(popup);
 
     // Listeners
     initialize(popup);
 
-    popup.on('custom:dismissPopup', () => {
-        console.log("Delete dismiss");
+    popup.on('custom:dismissPopup', () =>
+    {
         popup.find('#deleteForm').off('submit');
         popup.remove();
     });
@@ -213,14 +204,13 @@ export function generateDeletePopup(item) {
 }
 
 // Show delete popup
-export function promptDelete(item, id, callback, preventDefault = false) {  
-    console.log("Delete popup");
+export function promptDelete(item, id, callback, preventDefault = false)
+{
     let deletePopup = generateDeletePopup(item);
 
     deletePopup.find('input[name="id"]').val(id);
     deletePopup.find('#deleteForm').on('submit', (e) => {
         if (preventDefault) {e.preventDefault();}
-        console.log("Submit delete");
         callback(deletePopup);
     });
 
@@ -237,13 +227,13 @@ function generateFeedback() {
                             '<p class="feedback-message">Feedback message</p> ' +
                         '</div>');
 
-    $('body').append(feedback);
+    HTML_BODY.append(feedback);
 
     // Listeners
     initialize(feedback);
 
-    feedback.on('custom:dismissPopup', () => {
-        console.log("Feedback dismiss");
+    feedback.on('custom:dismissPopup', () =>
+    {
         feedback.remove();
         removeFeedback();
     });
@@ -252,14 +242,14 @@ function generateFeedback() {
 
 }
 
-export function feedback({feedback, title, message}) {
-    console.log("Show feedback");
+export function feedback({feedback, title, message})
+{
 
     let feedbackContainer = $('.feedback-container');
 
     if (feedbackContainer.length <= 0) {
-        $('body').append('<div class="feedback-container"></div>');
-        feedbackContainer = $('.feedback-container');
+        feedbackContainer = $('<div class="feedback-container"></div>');
+        HTML_BODY.append(feedbackContainer);
     }
 
     let popup = generateFeedback();
@@ -277,14 +267,11 @@ export function feedback({feedback, title, message}) {
             break;
     }
 
-    console.log(popup);
-
     popup.find('.feedback-title').text(title);
     popup.find('.feedback-message').text(message);
 
     feedbackContainer.append(popup);
     show(popup);
-
 }
 
 function removeFeedback() {

@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Stopage implements Expose {
+class Stopage {
 
     private string $id;
     private string $taskId;
@@ -150,10 +150,6 @@ class Stopage implements Expose {
     public function setLastUpdate(string $last_update): void
     {
         $this->last_update = $last_update;
-    }
-
-    public function expose() {
-
     }
 
     public static function build(

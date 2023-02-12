@@ -7,6 +7,7 @@ use \Core\Controller as MainController;
 
 // Model
 use \Model\Account as AccountModel;
+use Service\UserService;
 
 class Login extends MainController {
 
@@ -14,7 +15,7 @@ class Login extends MainController {
 
     public function __construct() {
         $this->setType(MainController::AUTH);
-        $this->userService = new \Service\UserService();
+        $this->userService = new UserService();
 
         if (isset($_SESSION['accID'])) {
             header("Location: ".SITE_URL."/dashboard");
@@ -43,34 +44,16 @@ class Login extends MainController {
         if (!$this->emptyInput($inputs)) 
         {
             if ($this->userService->login($inputs)->isSuccess()) 
-            {   // Redirects user to their respective landing page
-                switch ($_SESSION["accType"]) {
-                    case AccountModel::ADMIN_TYPE:
-                        header("Location: ".SITE_URL."/dashboard");
-                        exit();
-                        break;
-                    case AccountModel::EMPLOYEE_TYPE:
-                        header("Location: ".SITE_URL."/dashboard");
-                        exit();
-                        break;
-                    case AccountModel::CLIENT_TYPE:
-                        header("Location: ".SITE_URL."/home/index");
-                        exit();
-                        break;
-                    default:
-                        echo "Different Account Type";
-                        exit();
-                        break;
-                }
+            {
+                header("Location: ".SITE_URL."/dashboard");
+                exit();
             } else {
                 echo "<h1>Username or password does not match.</h1>";
-                return;
             }
         } 
         else 
         {
-            echo "<br>Please fill all required inputs.";
-            $result =  -101;
+            echo "<br>Please fill all required inputs.</h1>";
         }
     }
 }

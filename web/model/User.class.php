@@ -1,8 +1,8 @@
 <?php
 
-use Model\Expose;
+namespace Model;
 
-class User implements Expose {
+class User {
 
     private $id;
     private $first_name;
@@ -120,9 +120,5 @@ class User implements Expose {
 
     public function getLogId() {
         return $this->log_id;
-    }
-
-    public function expose() {
-        
     }
 }

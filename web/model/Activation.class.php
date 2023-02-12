@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Activation implements Expose {
+class Activation {
 
     private $id;
     private $code;
@@ -53,10 +53,6 @@ class Activation implements Expose {
 
     public function getAccId() {
         return $this->acc_id;
-    }
-
-    public function expose() {
-        return get_object_vars($this);
     }
 
     public static function build($id, $code, $sent_at, $acc_id) {

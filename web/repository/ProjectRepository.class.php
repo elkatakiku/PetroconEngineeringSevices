@@ -3,26 +3,12 @@
 namespace Repository;
 
 use Core\Repository;
-
-use \Model\Project as Project;
-use \Model\Task as Task;
-use \Model\Legend as Legend;
-use \Model\TaskBar as TaskBar;
-
-use \PDO;
-use \PDOException;
+use Model\Project as Project;
 
 class ProjectRepository extends Repository {
 
     private static string $tblProject = "tbl_project";
-    private static string $tblTask = "tbl_task";
-    private static string $tblTaskBar = "tbl_taskbar";
-    private static string $tblLegend = "tbl_legend";
-    private static string $lnkProjectPlan = "lnk_project_plan";
     private static string $lnkProjectTeam = "lnk_project_team";
-
-    private static string $tblCompany = "pltbl_company";
-    private static string $tblClient = "tbl_client";
 
     public function getAllProjectCount()
     {
@@ -219,20 +205,6 @@ class ProjectRepository extends Repository {
 
         // Result
         return $this->query($sql, $params);
-    }
-
-    // Companies List
-    public function getCompanyList() {
-        $sql = "SELECT * FROM ".self::$tblCompany;
-
-        return $this->query($sql);
-    }
-
-    // Companies List
-    public function getClientList() {
-        $sql = "SELECT * FROM ".self::$tblClient;
-
-        return $this->query($sql);
     }
 
     //    Gets start and end dates of a project

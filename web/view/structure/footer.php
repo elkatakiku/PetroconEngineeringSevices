@@ -1,24 +1,8 @@
-<?php
-
-switch ($data['accountType']) {
-  case Core\Controller::AUTH: ?>
-
-          </div>
-      </div>
+<?php if ($data['accountType'] == Core\Controller::AUTH) { ?>
+            </div>
+        </div>
     </div>
-
-    <?php break;
-  case Core\Controller::CLIENT: ?>
-
-
-    <?php break;
-  case Core\Controller::ADMIN: ?>
-
-  
-
-    <?php break;
-}
-?>
+<?php } ?>
 
     </div>
     <!-- Optional JavaScript -->
@@ -36,8 +20,6 @@ switch ($data['accountType']) {
     <!-- Chart -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<?php //var_dump($data) ?>
-
     <!-- Internal JS -->
     <script>
         var Settings = {
@@ -45,15 +27,16 @@ switch ($data['accountType']) {
         }
 
         <?php if ($data['accountType'] !== 'auth') { ?>
+
         Settings.type = '<?= $data['typeId'] ?? "" ?>'
         $('<?= $data['pageId'] ?>').addClass('active');
+
         <?php } ?>
 
     </script>
 
     <!-- External JS -->
     <script type="module" src="<?=SCRIPTS_PATH?>index.js"></script>
-
     <script type="module" src="<?=SCRIPTS_PATH.$view?>.js"></script>
   </body>
 </html>

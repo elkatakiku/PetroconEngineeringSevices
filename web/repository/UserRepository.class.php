@@ -4,18 +4,12 @@ namespace Repository;
 
 /* Imports */
 // Repository
-use \Core\Repository as Repository;
-
-// Model
-use \Model\Login as Login;
-use \Model\Register as Register;
-use \Model\Account as Account;
+use Core\Repository as Repository;
+use Model\Account as Account;
 use Model\Activation;
+use Model\Login as Login;
+use Model\Register as Register;
 use Model\Reset;
-use \Model\Users as Users;
-
-// Tools
-use \PDO;
 
 class UserRepository extends Repository {
 

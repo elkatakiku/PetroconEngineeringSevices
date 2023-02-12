@@ -17,10 +17,8 @@ let userTable = $("#usersTable").DataTable({
         type : 'GET',
         data : {form : function () { return $('#filterTable').serialize();}},
         'complete' : function () {
-            console.log("Complete");
             let table = $('#usersTable');
             setTimeout(() => {
-                console.log("Reload");
                 table.dataTable().api().ajax.reload(null, false)
             }, 5000);
         }
@@ -53,8 +51,6 @@ let userTable = $("#usersTable").DataTable({
         {
           'defaultContent' : '',
           'render' : function (data, type, row) {
-              console.log("render");
-              console.log(row);
               let middleInitial = (row.middlename.trim().length > 0) ? row.middlename.charAt(0) + '.' : '';
               return row.lastname + ', ' + row.firstname + ' ' + middleInitial;
           }
@@ -96,12 +92,10 @@ $('#usersTable tbody').on('click', 'tr', function (e) {
 $('#filterTable')
     .on('submit', function (e) {
         e.preventDefault();
-        console.log("Submit filter");
         userTable.ajax.reload();
     })
     .find('input[name="type"]')
-        .change(function (e) { 
-            console.log("Submit filter");
+        .change(function (e) {
             $('#filterTable').trigger('submit');
 
             $(this).parent('.filter-tab-item')
@@ -113,8 +107,7 @@ $('#filterTable')
         });
 
 // Table search 
-$('#searchUser').on('input', function (e) { 
-    console.log($(this).val());
+$('#searchUser').on('input', function (e) {
     userTable.search($(this).val()).draw();
 });
 

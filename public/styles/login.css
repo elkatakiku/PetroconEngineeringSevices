@@ -1,6 +1,6 @@
 .cover-page {
-    background: rgb(184,160,255);
-    background: linear-gradient(315deg, rgba(184,160,255,1) 0%, rgba(174,174,255,1) 50%, rgba(207,221,255,1) 100%);
+    background: rgb(184, 160, 255);
+    background: linear-gradient(315deg, rgba(184, 160, 255, 1) 0%, rgba(174, 174, 255, 1) 50%, rgba(207, 221, 255, 1) 100%);
 }
 
 .brand-name {
@@ -42,7 +42,7 @@
     font-size: .75rem;
 }
 
-.form-check-label  {
+.form-check-label {
     font-size: .75rem;
 }
 
@@ -68,36 +68,22 @@
 @media (min-width: 576px) {
     .cover-page > div, .container, .container-fluid, .container-sm {
         max-width: 500px;
-    } 
-    
+    }
+
     .login-options, .remember {
         font-size: .8rem;
     }
 }
 
-@media (max-width: 768px) { 
+@media (max-width: 768px) {
     .cover-page {
         padding: 1rem;
     }
-}
-
-@media (min-width: 768px) {
-    /* .cover-page > div, .container, .container-md, .container-sm {
-        max-width: 720px;
-    }  */
 }
 
 @media (min-width: 992px) {
     .form-login {
         min-width: 400px;
     }
-    /* .cover-page > div, .container, .container-lg, .container-md, .container-sm {
-        max-width: 960px;
-    }  */
-}
 
-@media (min-width: 1200px) {
-    /* .cover-page > div, .container, .container-lg, .container-md, .container-sm, .container-xl {
-        max-width: 1140px;
-    } */
 }

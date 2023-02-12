@@ -4,33 +4,21 @@ namespace Controller;
 
 use Core\Controller as MainController;
 use Service\PeopleService;
+use Service\UserService;
 
 
-class Auth extends MainController {
-
-    const LOGIN = "login";
-    const SIGNUP = "signup";
-    const RESET = "reset";
-
-    private $userService;
+class Auth extends MainController
+{
+    private UserService $userService;
 
     public function __construct() {
         $this->setType(MainController::AUTH);
-        $this->userService = new \Service\UserService();
-
-        // if (!isset($_SESSION['accID'])) {
-        //     $this->goToLogin();
-        // }
+        $this->userService = new UserService();
     }
 
     public function index() {
         $this->goToLogin();
     }
-
-//    public function signup()
-//    {
-//        $this->view("auth", "signup");
-//    }
 
     // Forgot pass
     public function forgotpass() {
@@ -73,10 +61,7 @@ class Auth extends MainController {
 
     public function verify($regId) {
         if ($regId) {
-            // $user = json_decode($this->userService->getUserRegister($regId), true);
-            // $this->userService->sendVerification($regId);
             if ($user = json_decode($this->userService->getUserRegister($regId), true)) {
-                // var_dump($user);
                 $this->view("auth", "verify", $user['data']);
             }
         }
@@ -89,7 +74,6 @@ class Auth extends MainController {
                 // Show instruction
                 header('Location: ' .SITE_URL.'/auth/verify/'.$_SESSION['accRegister']);
                 exit();
-                return;
             } else {
                 echo "Error";
             }
@@ -119,10 +103,6 @@ class Auth extends MainController {
             }
 
             $this->view('auth', 'invitation', $data);
-
-//            TODO : Check if the invitation expired
-//            TODO : Create account if not expired
-//            TODO : Show message or go back to login when expired?
         } else {
             $this->goToLogin();
         }

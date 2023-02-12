@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Login implements Expose {
+class Login {
 
     private $id;
     private $username;
@@ -42,10 +42,6 @@ class Login implements Expose {
 
     public function getPassword() {
         return $this->password;
-    }
-
-    public function expose() {
-        return get_object_vars($this);
     }
 
     public static function build($id, $username, $password) {

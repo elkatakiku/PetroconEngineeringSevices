@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Register implements Expose {
+class Register {
 
     private $id;
     private $lastname;
@@ -116,9 +116,5 @@ class Register implements Expose {
 
     public function getAddress() {
         return $this->address;
-    }
-
-    public function expose() {
-        return get_object_vars($this);
     }
 }

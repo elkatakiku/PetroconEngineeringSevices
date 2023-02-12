@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Resource implements Expose {
+class Resource {
 
     private $id;
     private $item;
@@ -93,9 +93,5 @@ class Resource implements Expose {
     
     public function getActive() {
         return $this->active;
-    }
-
-    public function expose() {
-        return get_object_vars($this);
     }
 }

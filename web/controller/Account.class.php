@@ -8,8 +8,7 @@ use Service\UserService;
 class Account extends MainController {
 
     // Service
-    private $userService;
-    private $user;
+    private UserService $userService;
 
     public function __construct() {
         parent::__construct();

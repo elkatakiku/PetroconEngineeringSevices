@@ -18,16 +18,11 @@
                 <div class="form-group">
                     <label>Progress</label>
                     <div class="form-group linear mb-0 flex-grow-1">
-                        <input type="number" class="form-control" name="progress" value="<?= $data['progress'] ?>" min="0" max="100" oninput="validity.valid||(value='');" required>
+                        <input type="number" class="form-control" name="progress" value="<?= $data['progress'] ?>"
+                               min="0" max="100" oninput="validity.valid||(value='');" required>
                         <span style="font-weight: bold">%</span>
                     </div>
                 </div>
-
-<!--                <div class="form-group">-->
-<!--                    <label>Documentation</label>-->
-<!--                    <input type="file" name="" id="" multiple>-->
-<!--                </div>-->
-
             </form>
 
         </div>

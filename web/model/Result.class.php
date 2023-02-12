@@ -3,7 +3,7 @@
 declare(strict_types = 1);
 namespace Model;
 
-class Result implements Expose {
+class Result {
 
     private $status;
     private $message;
@@ -29,9 +29,5 @@ class Result implements Expose {
 
     public function getMessage() {
         return $this->message;
-    }
-
-    public function expose() {
-        return get_object_vars($this);
     }
 }

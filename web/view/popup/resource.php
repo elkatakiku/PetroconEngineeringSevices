@@ -32,18 +32,19 @@
                     <div class="col-4 pr-0 pl-2">
                         <label for="">Amount</label>
                         <div class="form-group">
-<!--                            <label for="">Price per item (PHP)</label>-->
-                            <input type="number" class="form-control" name="price" step="any" min=0 oninput="validity.valid||(value='');" title="Price per item (PHP)" placeholder="Price per item (PHP)">
+                            <input type="number" class="form-control" name="price" step="any" min=0
+                                   oninput="validity.valid||(value='');" title="Price per item (PHP)"
+                                   placeholder="Price per item (PHP)">
                         </div>
 
                         <div class="form-group">
-<!--                            <label for="">Quantity</label>-->
-                            <input type="number" class="form-control" name="quantity" min=0 oninput="validity.valid||(value='');" title="Quantity" placeholder="Quantity">
+                            <input type="number" class="form-control" name="quantity" min=0
+                                   oninput="validity.valid||(value='');" title="Quantity" placeholder="Quantity">
                         </div>
 
                         <div class="form-group">
-<!--                            <label for="">Total Amount</label>-->
-                            <input type="number" class="form-control" name="total" readonly min=0 oninput="validity.valid||(value='');" title="Total" placeholder="Total">
+                            <input type="number" class="form-control" name="total" readonly min=0
+                                   oninput="validity.valid||(value='');" title="Total" placeholder="Total">
                         </div>
                     </div>
                 </div>

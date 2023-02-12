@@ -6,40 +6,9 @@ import * as Utils from '/PetroconEngineeringServices/public/scripts/module/utils
 
 $('[data-action="prev"]').hide();
 
-$('[name="email"]').on('blur', (e) => {
-    Utils.validateInput(e.target, '#signupForm', '/user/checkEmail', 'Email is already taken');
-});
-
 $('[name="username"]').on('blur', (e) => {
     Utils.validateInput(e.target, '#signupForm', '/user/checkUserName', 'Username is already taken');
 });
-
-// $('[name="passwordRepeat"], [name="password"]').on('blur', (e) => {
-//     if ($('[name="passwordRepeat"]').val().length > 0 && $('[name="password"]').val().length > 0) {
-//
-//         if ($('[name="passwordRepeat"]').val() === $('[name="password"]').val()) {
-//             $('[name="passwordRepeat"], [name="password"]')
-//                 .removeClass('danger-border')
-//                 .addClass('success-border')
-//                 .siblings('.text-danger')
-//                     .text('')
-//                     .hide();
-//
-//             hasError = false;
-//         } else {
-//             $('[name="passwordRepeat"], [name="password"]')
-//                 .removeClass('success-border')
-//                 .addClass('danger-border')
-//                 .siblings('.text-danger')
-//                     .text('Password does not match')
-//                     .show();
-//
-//             hasError = true;
-//         }
-//
-//         $('#signupForm').trigger('custom:inputChange');
-//     }
-// });
 
 $('#signupForm').on('custom:inputChange', (e, hasError) => {
     $('[name="signupSubmit"]').prop('disabled', hasError);

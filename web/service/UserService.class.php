@@ -5,28 +5,27 @@ namespace Service;
 // Models
 
 use Core\Service;
-use Model\Invitation;
-use \Model\Result as Result;
-use \Model\Login as Login;
-use \Model\Register as Register;
-use \Model\Account as Account;
-
-// Tools
 use DateTime;
+use Exception;
 use Includes\Mail;
+use Model\Account as Account;
 use Model\Activation;
+use Model\Login as Login;
+use Model\Register as Register;
 use Model\Reset;
+use Model\Result as Result;
+use Repository\UserRepository;
 
 class UserService extends Service{
 
-    private $userRepository;
+    private UserRepository $userRepository;
 
     public function __construct() {
-        $this->userRepository = new \Repository\UserRepository;
+        $this->userRepository = new UserRepository;
     }
 
     // Login
-    public function login($input) 
+    public function login($input): Result
     {
         $result = new Result();
 
@@ -55,7 +54,11 @@ class UserService extends Service{
     }
 
     // Signup
-    public function signup(string $form) 
+
+    /**
+     * @throws Exception
+     */
+    public function signup(string $form)
     {
         parse_str($form, $raw);
         // Gets inputs
@@ -97,6 +100,12 @@ class UserService extends Service{
         } else if (!$this->pwdMatch($input['required']["password"], $input['required']["passwordRepeat"])) {
             $response['statusCode'] = 400;
             $response['message'] = "Password does not match.";
+            return json_encode($response, JSON_NUMERIC_CHECK);
+        }
+        $passValid = $this->validatePassword($input['required']["password"]);
+        if (!$passValid['result']) {
+            $response['statusCode'] = 400;
+            $response['message'] = $passValid['message'];
             return json_encode($response, JSON_NUMERIC_CHECK);
         }
         
@@ -155,7 +164,7 @@ class UserService extends Service{
         return json_encode(['data' => !$this->userRepository->validateEmail($email)]);
     }
 
-    private function setUser($login, $register, $account) 
+    private function setUser($login, $register, $account): Result
     {
         $result = new Result();
         $result->setStatus(true);
@@ -184,24 +193,6 @@ class UserService extends Service{
 
 
     // Get
-    public function getUser($userId) {
-        $cleanId = $this->sanitizeString($userId);
-        $response['data'] = [];
-
-        if ($cleanId) {
-            // Gets the user
-            if ($profile = $this->userRepository->getRegisterByAccount($cleanId)) {
-                $response['data'] = $profile;
-                $response['statusCode'] = 200;
-             } else {
-                $response['statusCode'] = 500;
-            }
-        } else {
-            $response['statusCode'] = 400;
-        }
-        return json_encode($response, JSON_NUMERIC_CHECK);
-    }
-
     public function getUserRegister(string $regId)
     {
         $cleanId = $this->sanitizeString($regId);
@@ -222,7 +213,10 @@ class UserService extends Service{
         return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
-    public function sendVerification()
+    /**
+     * @throws Exception
+     */
+    public function sendVerification(): bool
     {
         if ($request = $this->userRepository->verifyActivation($_SESSION['accID']))
         {
@@ -258,7 +252,6 @@ class UserService extends Service{
                 bin2hex(random_bytes(32)),
                 $_SESSION['accID']
             );
-            // var_dump($activation);
 
             $this->userRepository->createActivation($activation);
 
@@ -277,28 +270,22 @@ class UserService extends Service{
 
     public function activateAccount($uid, $key)
     {
-        echo "<pre>";
         $cleanUid = $this->sanitizeString($uid);
         $cleanKey = $this->sanitizeString($key);
-
-        var_dump($cleanUid, $cleanKey);
 
         if ($cleanUid && $cleanKey) {
             if ($activation = $this->userRepository->matchActivation($cleanUid, $cleanKey)) {
                 echo "Match";
                 if ($this->userRepository->activateAccount($activation[0]['acc_id'])) {
-                    echo "Redirect";
                     header("Location: ".SITE_URL."/account?account=activated");
                     exit();
-                    return;
                 } else {
                     header("Location: ".SITE_URL);
                 }
             }
         }
 
-        echo "An error occured";
-
+//        Error occurred
     }
 
     
@@ -381,7 +368,7 @@ class UserService extends Service{
                 $response['statusCode'] = 200;
             } else {
                 $response['statusCode'] = 500;
-                $response['message'] = 'An error occured';
+                $response['message'] = 'An error occurred';
             }
         } else {
             $response['statusCode'] = 400;
@@ -491,7 +478,7 @@ class UserService extends Service{
         return json_encode($response, JSON_NUMERIC_CHECK);
     }
 
-    public function isResetUsed(string $resetId)
+    public function isResetUsed(string $resetId): bool
     {
         if ($reset = $this->userRepository->getResetRequest($resetId)) {
             return $reset[0]['used'] == 1;
@@ -502,18 +489,17 @@ class UserService extends Service{
 
     // Inputs validation
     private function validUsername($username) {
-        return preg_match("/^[a-zA-Z0-9]*$/", $username);
+        return preg_match("/^[a-zA-Z\d]*$/", $username);
     }
 
-    public function validatePassword(string $password)
+    public function validatePassword(string $password): array
     {
-        $result = [];
         $result['result'] = false;
 
         if (strlen($password) <= 8) {
             $result['message'] = "Your password must contain at least 8 characters!";
         }
-        elseif(!preg_match("/[0-9]+/",$password)) {
+        elseif(!preg_match("/\d+/",$password)) {
             $result['message'] = "Your password must contain at least 1 number!";
         }
         elseif(!preg_match("/[A-Z]+/",$password)) {
@@ -528,15 +514,21 @@ class UserService extends Service{
         return $result;
     }
 
-    private function pwdMatch($password, $passwordRepeat) {
+    private function pwdMatch($password, $passwordRepeat): bool
+    {
         return $password === $passwordRepeat;
     }
 
-    private function checkUser($username, $email) {
+    private function checkUser($username, $email): bool
+    {
         return $this->userRepository->checkUser($username, $email);
     }
 
-    private function isOldEnough($birthdate) {
+    /**
+     * @throws Exception
+     */
+    private function isOldEnough($birthdate): bool
+    {
         $birthdate = new DateTime($birthdate);
         $currentDate =  new DateTime(date('Y-m-d'));
         $diff = $birthdate->diff($currentDate);

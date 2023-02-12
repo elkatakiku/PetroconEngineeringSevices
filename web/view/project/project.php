@@ -1,7 +1,4 @@
 <main class="content">
-<!--    <pre>-->
-<!--        --><?php //var_dump($data) ?>
-<!--    </pre>-->
     <!-- Header -->
     <div class="page-header pb-1">
         <div class="project-info">
@@ -10,7 +7,8 @@
                 <small><?= $data['project']['location'] ?></small>
             </div>
         </div>
-        <button id="projectInfoToggller" type="button" class="btn icon-btn align-self-start p-0" data-toggle="slide" data-target="#projectInfo">
+        <button id="projectInfoToggller" type="button" class="btn icon-btn align-self-start p-0" data-toggle="slide"
+                data-target="#projectInfo">
             <span class="material-icons-outlined" style="font-size: 20px">info</span>
         </button>
     </div>
@@ -23,13 +21,13 @@
                     <button class="btn icon-btn" data-dismiss="slide">
                         <span class="material-icons">navigate_next</span>
                     </button>
-                    
+
                     <button
-                        type="button"
-                        class="link-btn"
-                        data-toggle="form"
-                        data-action="cancel"
-                        form="projectDetailForm"
+                            type="button"
+                            class="link-btn"
+                            data-toggle="form"
+                            data-action="cancel"
+                            form="projectDetailForm"
                     >
                         Cancel
                     </button>
@@ -38,11 +36,11 @@
                 <h2 class="slide-title">Details</h2>
 
                 <button
-                    type="button"
-                    class="link-btn" 
-                    form="projectDetailForm"
-                    data-toggle="form" 
-                    data-action="edit"
+                        type="button"
+                        class="link-btn"
+                        form="projectDetailForm"
+                        data-toggle="form"
+                        data-action="edit"
                 >
                     Edit
                 </button>
@@ -58,34 +56,39 @@
                     <h3 class="detail-header">Project</h3>
 
                     <div class="linear">
-        
+
                         <div class="form-input-group">
                             <label for="">Purchase Order #</label>
-                            <input type="text" name="purchaseOrd" value="<?= $data['project']['purchase_ord'] ?>" required readonly>
+                            <input type="text" name="purchaseOrd" value="<?= $data['project']['purchase_ord'] ?>"
+                                   required readonly>
                         </div>
-        
+
                         <div class="form-input-group">
                             <label for="">Date of Award</label>
-                            <input type="date" name="awardDate" value="<?= $data['project']['award_date'] ?>" required readonly>
+                            <input type="date" name="awardDate" value="<?= $data['project']['award_date'] ?>" required
+                                   readonly>
                         </div>
 
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Work Description</label>
-                        <textarea name="description" rows="1" required readonly><?= $data['project']['description'] ?></textarea>
+                        <textarea name="description" rows="1" required
+                                  readonly><?= $data['project']['description'] ?></textarea>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Building no.</label>
-                        <input type="text" name="buildingNo" value="<?= $data['project']['building_number'] ?>" required readonly>
+                        <input type="text" name="buildingNo" value="<?= $data['project']['building_number'] ?>" required
+                               readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Location</label>
-                        <input type="text" name="location" value="<?= $data['project']['location'] ?>" required readonly>
-                    </div>         
-                    
+                        <input type="text" name="location" value="<?= $data['project']['location'] ?>" required
+                               readonly>
+                    </div>
+
 
                     <h3 class="detail-header">Client</h3>
 
@@ -96,23 +99,19 @@
 
                     <div class="form-input-group">
                         <label for="">Representative</label>
-                        <input type="text" name="representative" value="<?= $data['project']['comp_representative'] ?>" required readonly>
+                        <input type="text" name="representative" value="<?= $data['project']['comp_representative'] ?>"
+                               required readonly>
                     </div>
 
                     <div class="form-input-group">
                         <label for="">Contact</label>
-                        <input type="tel" name="contact" value="<?= $data['project']['comp_contact'] ?>" required readonly>
+                        <input type="tel" name="contact" value="<?= $data['project']['comp_contact'] ?>" required
+                               readonly>
                     </div>
-
-
-
                 </form>
             </div>
 
             <div class="slide-footer">
-<!--                <button class="btn sm-btn --><?//= $data['project']['done'] == 1 ? 'outline-action' : 'success' ?><!---btn done-btn" data-toggle="popup" data-target="#markDone">-->
-<!--                    --><?//= $data['project']['done'] == 1 ? 'Unmark as done' : 'Mark as done' ?>
-<!--                </button>-->
                 <button type="button" class="btn sm-btn danger-btn delete-btn">
                     Remove project
                 </button>
@@ -138,51 +137,9 @@
                 <button class="link-btn" data-toggle="custom-tab" data-target="#projectPayment">Payment</button>
             </li>
         </ul>
-
-<!--    --><?php
-//    if ($data['project']['done'] == 1) { ?>
-            <!-- <div>
-                <a class="btn action-btn" data-toggle="custom-tab" href="invoice-admin.html">Invoice</a>
-                <a class="btn action-btn" data-toggle="custom-tab" href="turnover-admin.html">Turn Over</a>
-            </div> -->
-<!--            <a class="btn sm-btn action-btn" href="invoice-admin.html">Invoice</a>-->
-<!--                <a class="dropdown-item" href="invoice-admin.html">Invoice</a>-->
-<!--        <div class="projectDone">-->
-<!--            <a id="turnover" class="btn sm-btn action-btn" href="turnover-admin.html">Turn Over</a>-->
-<!--        </div>-->
-<!---->
-<!--        <div class="projectDone dropdown">-->
-<!--            <button class="btn sm-btn action-btn dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">-->
-<!--                Print-->
-<!--            </button>-->
-<!--            <div class="dropdown-menu">-->
-<!--                <a class="dropdown-item" href="turnover-admin.html">Turn Over</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    --><?php //} ?><!--  -->
     </nav>
 
     <div class="custom-tab-container">
-
-        <style>
-            .chart-container {
-                visibility: hidden;
-                width: 100%;
-                overflow: hidden;
-            }
-
-            #projectGanttChart .spinner {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: var(--palette1);
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-        </style>
 
         <!-- Gantt Chart -->
         <section id="projectGanttChart" class="main-content custom-tab-content chart-container show">
@@ -190,7 +147,9 @@
             <div class="completion-graph">
                 <span class="completion-date">
                     <h5>Completion Date</h5>
-                    <p style="font-size: 10px"><span class="start-date"><?= date('M. d, Y', strtotime($data["project"]['start'])) ?></span> - <span class="end-date"><?= date('M. d, Y', strtotime($data["project"]['end'])) ?></span></p>
+                    <p style="font-size: 10px"><span
+                                class="start-date"><?= date('M. d, Y', strtotime($data["project"]['start'])) ?></span> - <span
+                                class="end-date"><?= date('M. d, Y', strtotime($data["project"]['end'])) ?></span></p>
                 </span>
                 <span class="completion-bar">
                     <small class="completion-percent">0%</small>
@@ -231,20 +190,18 @@
                     <i class="fa fa-plus btn-icon" aria-hidden="true"></i>
                     Add task
                 </button>
-
-<!--                <button id="sampbtn">asd</button>-->
             <?php } ?>
 
             <div class="mesa-container" id="timelineTable">
                 <table class="mesa" id="taskTable">
                     <thead class="mesa-head">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col" class="tname" style="width: 80%;"><strong>Task</strong></th>
-                            <th scope="col">Progress</th>
-                            <th scope="col">Last Updated</th>
-                            <th scope="col">Action</th>
-                        </tr>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" class="tname" style="width: 80%;"><strong>Task</strong></th>
+                        <th scope="col">Progress</th>
+                        <th scope="col">Last Updated</th>
+                        <th scope="col">Action</th>
+                    </tr>
                     </thead>
                 </table>
             </div>
@@ -264,52 +221,35 @@
             <div class="mesa-container">
                 <table class="mesa" id="resourceTable">
                     <thead class="mesa-head">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col" class="tname"><strong>Item</strong></th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Price per item (PHP)</th>
-                            <th scope="col">Total Amount</th>
-<!--                            <th scope="col">Notes</th>-->
-                            <th scope="col" class="table-action-col">Action</th>
-                        </tr>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" class="tname"><strong>Item</strong></th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price per item (PHP)</th>
+                        <th scope="col">Total Amount</th>
+                        <!--                            <th scope="col">Notes</th>-->
+                        <th scope="col" class="table-action-col">Action</th>
+                    </tr>
                     </thead>
-                    <!-- <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td><strong>Patatas</strong></td>
-                            <td>8</td>
-                            <td>300</td>
-                            <td>2,400</td>
-                            <td>Mahal lods</td>
-                            <td class="action-cell">
-                                <div class="action-cell-content">
-                                    <button class="dots-menu-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                                    <span class="row-action-btns">
-                                        <button class="btn icon-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody> -->
                 </table>
             </div>
         </section>
-        
+
         <!-- People -->
         <section id="projectPeople" class="main-content custom-tab-content">
 
             <?php if ($data['accountType'] == Core\Controller::ADMIN) { ?>
                 <div class="linear">
                     <form class="input-container">
-                        <input type="text" id="employeeSearch" name="search" list="employeesList" placeholder="Enter email address of employee" required>
+                        <input type="text" id="employeeSearch" name="search" list="employeesList"
+                               placeholder="Enter email address of employee" required>
                         <datalist id="employeesList"></datalist>
                         <div class="input-append">
                             <button type="submit" class="btn action-btn px-4 sm-btn">Choose from team</button>
                         </div>
                     </form>
                     or
-                    <a href="<?= SITE_URL.'/project/invitation/'.$data['project']['id'] ?>" class="flex-shrink-0">
+                    <a href="<?= SITE_URL . '/project/invitation/' . $data['project']['id'] ?>" class="flex-shrink-0">
                         <button class="btn action-btn sm-btn">Invite people</button>
                     </a>
                 </div>
@@ -319,23 +259,14 @@
             <div class="mesa-container">
                 <table class="mesa mesa-hover" id="peopleTable">
                     <thead class="mesa-head">
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col" class="tname"><strong>Name</strong></th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Contact Number</th>
-                            <th scope="col">Action</th>
-                        </tr>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" class="tname"><strong>Name</strong></th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Action</th>
+                    </tr>
                     </thead>
-                    <!-- <tbody>
-                        <tr>
-                            <td><strong>Eli Lamzon</strong></td>
-                            <td>elilamzon@email.com</td>
-                            <td>09xxxxxxxxx</td>
-                            <td>Admin</td>
-                            <td>Remove</td>
-                        </tr>
-                    </tbody> -->
                 </table>
             </div>
         </section>
@@ -349,45 +280,20 @@
                     Add payment
                 </button>
             <?php } ?>
-            
+
             <!-- Payment Table -->
             <div class="mesa-container">
                 <table class="mesa mesa-hover" id="paymentTable">
                     <thead class="mesa-head">
-                        <tr>
-                            <th></th>
-                            <th scope="col" class="tname"><strong>Description</strong></th>
-                            <th scope="col">Payment</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Action
-                                <!-- <div> -->
-                                <!-- <div class="action-cell-content">
-                                    <span class="row-action-btns">
-                                        <button class="btn">
-                                        <span class="material-icons">
-                                                edit
-                                            </span>
-                                        </button>
-                                        <button class="btn">
-                                            <span class="material-icons">
-                                                delete
-                                            </span>
-                                        </button>
-                                    </span>
-                                </div> -->
-                            </th>
-                        </tr>
+                    <tr>
+                        <th></th>
+                        <th scope="col" class="tname"><strong>Description</strong></th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Action
+                        </th>
+                    </tr>
                     </thead>
-                    <!-- <tbody>
-                        <tr>
-                            <td><strong>Tank Requalification Fire Protection System</strong><br>
-                                <small>Phoenix</small>
-                            </td>
-                            <td>PHP 12,000</td>
-                            <td>dd/mm/YYYY</td>
-                            <td>Remove</td>
-                        </tr>
-                    </tbody> -->
                 </table>
             </div>
         </section>
@@ -475,7 +381,8 @@
 
                     <div class="form-group">
                         <label for="">Amount</label>
-                        <input type="number" class="form-control" name="amount" min=0 oninput="validity.valid||(value='');">
+                        <input type="number" class="form-control" name="amount" min=0
+                               oninput="validity.valid||(value='');">
                     </div>
 
                 </form>

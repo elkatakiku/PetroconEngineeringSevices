@@ -9,7 +9,7 @@ use Repository\PaymentRepository;
 
 class PaymentService extends Service {
 
-    private $paymentRepository;
+    private PaymentRepository $paymentRepository;
 
     public function __construct() {
         $this->paymentRepository = new PaymentRepository;

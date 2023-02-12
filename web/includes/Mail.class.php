@@ -60,7 +60,6 @@ class Mail {
 
     public static function verify($user, $key)
     {
-        // var_dump($_SESSION);
         $url = SITE_URL.'/user/activate/'.$_SESSION['accID'].'/'.$key;
         return 'Welcome '.$user['lastname'].' Thanks for registering.
                 <br>
@@ -235,20 +234,6 @@ class Mail {
             </html>';
 
         return $body;
-        // TODO: Create an email that will greet the user with their name 
-        // and a clickable link that will activate their account in the server
-        
-        // $url = SITE_URL.'/user/activate/'.$key;
-        // return 'Welcome '.$user['lastname'].' Thanks for registering.
-        //         <br>
-        //         <br>
-        //         Please Click on the Link below to activate your account.
-        //         <br>
-        //         <br>
-        //         <a href='' .$url. '">' .SITE_URL.'/user/activate/'.$_SESSION['accID']. '</a>
-        //         <br>
-        //         <br>
-        //         This Link can only be used within 24 hours since the request of activation. You will need to request activation again when it expires.';
     }
 
     public static function reset(Reset $reset)
