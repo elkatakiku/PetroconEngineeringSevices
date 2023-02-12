@@ -2,16 +2,12 @@
 
 namespace Controller;
 
-// Core
-use \Core\Controller as MainController;
-
-// Model
-use \Model\Account as AccountModel;
+use Core\Controller as MainController;
 use Service\UserService;
 
 class Login extends MainController {
 
-    private $userService;
+    private UserService $userService;
 
     public function __construct() {
         $this->setType(MainController::AUTH);
@@ -29,31 +25,19 @@ class Login extends MainController {
 
     // Login
     public function run() {
-        // Redirect to login if not logging in
-        if (!isset($_POST['loginSubmit'])) {
-            $this->view("auth", "login");
-            return;
-        }
-
-        // Gets the inputs
-        $inputs = [
-            "username" => $this->sanitizeString($_POST['usernameInput']),
-            "password" => $this->sanitizeString($_POST['passwordInput'])
-        ];
-
-        if (!$this->emptyInput($inputs)) 
+        // Redirect to log in if not logging in
+        if (isset($_POST['loginSubmit']))
         {
-            if ($this->userService->login($inputs)->isSuccess()) 
-            {
-                header("Location: ".SITE_URL."/dashboard");
+            $result = $this->userService->loginUser($_POST);
+            if ($result->isSuccess()) {
+                header("Location: " . SITE_URL . "/dashboard");
                 exit();
             } else {
-                echo "<h1>Username or password does not match.</h1>";
+                header("Location: " . SITE_URL . "?error=".$result->getMessage());
+                exit();
             }
-        } 
-        else 
-        {
-            echo "<br>Please fill all required inputs.</h1>";
+        } else {
+            $this->goToLogin();
         }
     }
 }

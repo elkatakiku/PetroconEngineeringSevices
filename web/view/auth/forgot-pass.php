@@ -13,9 +13,6 @@
 
             <?= $this->displayResult($_GET, 'Email sent successfully.') ?>
 
-            <!-- Alert -->
-            <div class="alert alert-danger" role="alert"></div>
-
             <div class="form-group">
                 <label for="">Enter your email address below, and we'll send you instructions on how to reset your
                     password.</label>

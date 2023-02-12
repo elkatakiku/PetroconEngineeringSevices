@@ -25,16 +25,21 @@ class UserService extends Service{
     }
 
     // Login
-    public function login($input): Result
+    public function loginUser(array $form): Result
     {
-        $result = new Result();
+        $input = [
+            "username" => $this->sanitizeString($form['usernameInput']),
+            "password" => $this->sanitizeString($form['passwordInput'])
+        ];
 
-        if ($login = $this->userRepository->getLogin($input['username']))
-        {
-            if (password_verify($input['password'], $login->getPassword())) 
+        $result = new Result();
+        $result->setStatus(false);
+
+        if (!$this->emptyInput($input)) {
+            $login = $this->userRepository->getLogin($input['username']);
+            if ($login && password_verify($input['password'], $login->getPassword()))
             {
                 $account = $this->userRepository->getAccountByLogin($login->getId());
-                var_dump($account);
 
                 $_SESSION["accID"] = $account->getId();
                 $_SESSION["accType"] = $account->getTypeId();
@@ -42,12 +47,10 @@ class UserService extends Service{
 
                 $result->setStatus(true);
             } else {
-                $result->setStatus(false);
-                $result->setMessage("Password does not match");
+                $result->setMessage("Username or password does not match.");
             }
         } else {
-            $result->setStatus(false);
-            $result->setMessage("User not found");
+            $result->setMessage("Please fill all required inputs.");
         }
 
         return $result;

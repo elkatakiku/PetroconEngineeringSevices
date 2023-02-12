@@ -146,11 +146,11 @@ class UserRepository extends Repository {
         $params = [':username' => $username];
 
         $result = false;
-        if ($row = $this->query($sql, $params)[0]) {
+        if ($row = $this->query($sql, $params)) {
             $result = Login::build(
-                $row['id'],
-                $row['username'],
-                $row['password']
+                $row[0]['id'],
+                $row[0]['username'],
+                $row[0]['password']
             );
         }
 

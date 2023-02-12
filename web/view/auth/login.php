@@ -11,6 +11,8 @@
                 <h2>Login</h2>
             </header>
 
+            <?= $this->displayResult($_GET, 'Login successfully.') ?>
+
             <div class="form-group">
                 <label for="">Username</label>
                 <input type="text" class="form-control" name="usernameInput" id="" aria-describedby="helpId"

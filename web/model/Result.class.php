@@ -14,7 +14,7 @@ class Result {
 
     public function setStatus(bool $status) {
         if (!$status) {
-            $this->message = "An error occured. Please try again later.";
+            $this->message = "An error occurred. Please try again later.";
         }
         $this->status = $status;
     }
