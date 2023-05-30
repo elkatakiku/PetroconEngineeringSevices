@@ -69,9 +69,9 @@ class People extends MainController {
         }
     }
 
-    public function validateEmail() {
+    public function validateInvitationEmail() {
         if (isset($_GET['input'])) {
-            echo $this->peopleService->validateEmail($_GET['input']);
+            echo $this->peopleService->validateInvitationEmail($_GET['input']);
         }
     }
 
@@ -86,6 +86,23 @@ class People extends MainController {
     public function searchEmployees() {
         if ($_GET['form']) {
             echo $this->peopleService->searchEmployees($_GET['form']);
+        }
+    }
+
+//    Add to team
+    public function searchPeople() {
+        if ($_GET['searchStr']) {
+            echo $this->peopleService->searchPeople($_GET['searchStr']);
+        }
+    }
+
+    public function addToTeam()
+    {
+//        echo  __METHOD__;
+//        var_dump($_POST);
+        if (isset($_POST['projId']) && isset($_POST['email'])) {
+//            echo 'Add to team';
+            echo $this->peopleService->addToTeam($_POST);
         }
     }
 }

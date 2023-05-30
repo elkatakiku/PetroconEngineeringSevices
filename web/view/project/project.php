@@ -227,7 +227,6 @@
                         <th scope="col">Quantity</th>
                         <th scope="col">Price per item (PHP)</th>
                         <th scope="col">Total Amount</th>
-                        <!--                            <th scope="col">Notes</th>-->
                         <th scope="col" class="table-action-col">Action</th>
                     </tr>
                     </thead>

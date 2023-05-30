@@ -14,20 +14,18 @@
     <!-- Navigation Tab -->
     <nav class="nav-tab-container">
         <form id="filterTable" action="" class="filter-tab">
-            <span class="filter-tab-item active">
+            <div class="filter-tab-item active">
                 <label for="allStat">All</label>
                 <input id="allStat" class="link-btn" type="radio" name="type" value="all" checked>
-            </span>
-            <span class="filter-tab-item">
-                <label for="doneStat"><?= ucwords($data['acctTypes'][0]['name']) . 's' ?></label>
-                <input id="doneStat" class="link-btn" type="radio" name="type"
-                       value="<?= $data['acctTypes'][0]['id'] ?>">
-            </span>
-            <span class="filter-tab-item">
-                <label for="ongoingStat"><?= ucwords($data['acctTypes'][1]['name']) . 's' ?></label>
-                <input id="ongoingStat" class="link-btn" type="radio" name="type"
-                       value="<?= $data['acctTypes'][1]['id'] ?>">
-            </span>
+            </div>
+            <?php
+            foreach ($data['acctTypes'] as $acctType) { ?>
+                <div class="filter-tab-item">
+                    <label for="<?= $acctType['name'] ?>"><?= ucwords($acctType['name']) . 's' ?></label>
+                    <input id="<?= $acctType['name'] ?>" class="link-btn" type="radio" name="type"
+                           value="<?= $acctType['id'] ?>">
+                </div>
+            <?php } ?>
         </form>
 
         <!-- Search -->

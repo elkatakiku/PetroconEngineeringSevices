@@ -2,11 +2,16 @@
 
 namespace Controller;
 
+use Cassandra\Date;
 use \Core\Controller as MainController;
+use Faker\Factory;
 use Model\Account;
+use Repository\ProjectRepository;
 use Service\PeopleService;
 use Service\ProjectService;
 use Service\UserService;
+
+//require_once 'vendor/autoload.php';
 
 class Project extends MainController {
 
@@ -40,6 +45,38 @@ class Project extends MainController {
         if (isset($_POST['form'])) {
             echo $this->projectService->getProjectList($_POST['form']);
         }
+
+    }
+
+    public function generate() {
+        echo 'Generate';
+        $faker = Factory::create();
+
+        echo 'Generate before';
+        $project = new \Model\Project();
+
+        $now = getdate();
+
+        echo $now['year'] . '-' . $now['mon'] . '-' . $now['mday'];
+
+        $project->create(
+            $faker->paragraph(rand(1, 3)),
+            $faker->words(rand(1, 3), true),
+            $faker->buildingNumber(),
+            $faker->date,
+            \date('Y-m-d', rand(strtotime('1 January 2023'), strtotime('+1 week'))),
+            \date('Y-m-d', rand(strtotime('1 March 2023'), strtotime('+1 week'))),
+            $now['year'] . '-' . $now['mon'] . '-' . $now['mday'],
+            $faker->company,
+            $faker->name,
+            $faker->phoneNumber
+        );
+
+        echo 'Generate stuff';
+        $projectRepository = new ProjectRepository();
+        echo 'Generate stuff';
+
+        return $projectRepository->setProject($project);
     }
 
 //    DEBUG: Project List

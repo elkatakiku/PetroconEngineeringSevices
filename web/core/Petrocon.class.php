@@ -35,7 +35,8 @@ class Petrocon {
         try {
             call_user_func_array(array($this->controller, $this->method), $this->params);
         } catch (\TypeError $e) {
-             header("Location: ".SITE_URL);
+            $e->getMessage();
+//             header("Location: ".SITE_URL);
         }
     }
 

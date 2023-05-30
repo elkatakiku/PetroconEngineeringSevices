@@ -14,6 +14,7 @@ use Model\Login as Login;
 use Model\Register as Register;
 use Model\Reset;
 use Model\Result as Result;
+use Repository\RoleRepository;
 use Repository\UserRepository;
 
 class UserService extends Service{
@@ -119,6 +120,12 @@ class UserService extends Service{
         // Create login
         $login->create($input['required']["username"], $input['required']["password"]);
 
+        $roleRepo = new RoleRepository();
+
+        if (!$role = $roleRepo->find($input['required']['type'])) {
+            $role = $roleRepo->get('client')->first();
+        }
+
         // // Create register/user
         $register->create(
             $input['required']["lastname"], $input['required']["firstname"], $input['required']["contactNumber"], 
@@ -130,7 +137,7 @@ class UserService extends Service{
         
         // // Create Account
         $account->createAccount(
-            Account::CLIENT_TYPE, $register->getId(), $login->getId()
+            $role['id'], $register->getId(), $login->getId()
         );
 
         $response['statusCode']  = $this->setUser($login, $register, $account)->isSuccess() ? 200 : 500;
@@ -165,10 +172,10 @@ class UserService extends Service{
 
     public function checkEmail(string $email)
     {
-        return json_encode(['data' => !$this->userRepository->validateEmail($email)]);
+        return json_encode(['data' => !$this->userRepository->isEmailTaken($email)]);
     }
 
-    private function setUser($login, $register, $account): Result
+    public function setUser($login, $register, $account): Result
     {
         $result = new Result();
         $result->setStatus(true);
@@ -204,7 +211,7 @@ class UserService extends Service{
 
         if ($cleanId) 
         {
-            if ($user = $this->userRepository->getUserByRegister($cleanId)) {
+            if ($user = $this->userRepository->getRegister($cleanId)) {
                 $response['data'] = $user;
                 $response['statusCode'] = 200;
              } else {
@@ -233,7 +240,7 @@ class UserService extends Service{
                 
                 if ($this->userRepository->updateActivationCode($request[0]['id'], $code)) 
                 {
-                    $user = $this->userRepository->getUserByRegister($_SESSION['accRegister']);
+                    $user = $this->userRepository->getRegister($_SESSION['accRegister']);
 
                     return Mail::sendMail(
                         'Account Verification',         // Subject
@@ -259,7 +266,7 @@ class UserService extends Service{
 
             $this->userRepository->createActivation($activation);
 
-            $user = $this->userRepository->getUserByRegister($_SESSION['accRegister']);
+            $user = $this->userRepository->getRegister($_SESSION['accRegister']);
             var_dump($user);
 
             return Mail::sendMail(

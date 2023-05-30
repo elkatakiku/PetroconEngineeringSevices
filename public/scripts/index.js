@@ -6,30 +6,6 @@ import * as Popup from '/PetroconEngineeringServices/public/scripts/module/popup
 // import * as Utils from '/public/scripts/module/utils.js';
 // import * as Popup from '/public/scripts/module/popup.js';
 
-/*
-Carousel
-*/
-console.log("JS Connected");
-$('#project-carousel').on('slide.bs.carousel', function(e) {
-    /*
-        CC 2.0 License Iatek LLC 2018 - Attribution required
-    */
-    var idx = $(e.relatedTarget).index(); 
-    var itemsPerSlide = 5;
-    var totalItems = $('.carousel-item').length; 
-    if (idx >= totalItems - (itemsPerSlide - 1)) {
-        var it = itemsPerSlide - (totalItems - idx);
-        for (var i = 0; i < it; i++) {
-            // append slides to end
-            if (e.direction === "left") {
-                $('.carousel-item').eq(i).appendTo('.carousel-inner');
-            } else {
-                $('.carousel-item').eq(0).appendTo('.carousel-inner');
-            }
-        }
-    }
-});
-
 // Sidebar
 const sidebar = $("#sidebar");
 function expandSidebar(submenu = false) { 
@@ -499,3 +475,60 @@ $('.contact-number').on('keyup keydown change', (e) =>
         e.preventDefault();
     }
 });
+
+
+// Search
+let searchTimer;
+$.fn.Search = function ({url})
+{
+    console.log("Search bar")
+    console.log(this);
+    const suggestion = $('[data-search="#' + this.attr('id') + '"]');
+    const searchInput = this.find('input[type="search"]');
+
+    const search = function ()
+    {
+        $.getJSON(
+            url,
+            {searchStr : searchInput.val()},
+            function (response)
+            {
+                console.log(response.data)
+                if (response.statusCode === 200) {
+                    response.data.forEach(person =>
+                    {
+                        let suggested = $(
+                            '<div class="ps">' +
+                                '<span class="ps-name">'+person.name+'</span>' +
+                                '<span class="ps-email">'+person.email+'</span>' +
+                            '</div>'
+                        );
+
+                        suggestion.append(suggested);
+
+                        suggested.on('click', (e) =>
+                        {
+                            searchInput.val(person.email);
+                            suggestion.empty();
+                        });
+                    });
+                }
+            }
+        );
+    }
+
+    if (this.hasClass('search-bar'))
+    {
+        searchInput.on('input', (e) =>
+        {
+            suggestion.empty();
+
+            clearTimeout(searchTimer);
+            if (searchInput.val().trim().length !== 0) {
+                searchTimer = setTimeout(search, 1000);
+            }
+        });
+
+    }
+    return this;
+}

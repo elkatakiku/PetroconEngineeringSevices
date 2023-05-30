@@ -22,7 +22,7 @@ class Controller {
         if (isset($_SESSION["accID"])) {
             $this->isLogin = true;
 
-            $this->user = (new UserRepository())->getUserByRegister($_SESSION["accRegister"]);
+            $this->user = (new UserRepository())->getRegister($_SESSION["accRegister"]);
 
             switch ($_SESSION["accType"]) {
                 case Account::CLIENT_TYPE:

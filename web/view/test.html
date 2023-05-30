@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: orange;
+        }
+
+        .header {
+            grid-area: header;
+            background-color: red;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+            background-color: blue;
+            transition: all 1s;
+        }
+
+        .main {
+            grid-area: main;
+            background-color: aliceblue;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: minmax(auto, 250px) 1fr;
+            grid-template-rows: auto 1fr;
+            grid-template-areas: 
+                "header header"
+                "sidebar main";
+            gap: 0;
+            background-color: red;
+            min-height: 100vh;
+
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid" id="container">
+        <header class="header">
+            asdasdfa-stack-2x
+            <button id="sidebarToggle">
+                Expand
+            </button>
+        </header>
+
+        <nav class="sidebar" id="sidebar" data-state="expanded">
+            <div>
+                asdasdsad
+            </div>
+        </nav>
+
+        <main class="main">
+            asdasdasdsadasdasdsad
+            <div id="content">
+                Content here
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const SIDEBAR = document.getElementById('sidebar');
+        const CONTENT = document.getElementById('container');
+
+        document.getElementById('sidebarToggle').addEventListener('click', (e) => {
+            SIDEBAR.style.backgroundColor = "violet";
+            // console.log(this);
+            // console.log(e.target);
+            console.log(SIDEBAR.dataset.state);
+            // console.log(sidebarState === "expanded");
+
+            let sidebarState = SIDEBAR.dataset.state;
+            let newSidebarState = sidebarState === "expanded" ? "collapse" : "expanded";
+
+            SIDEBAR.dataset.state = newSidebarState;
+
+            // if (sidebarState == "collapse") {
+            CONTENT.style.gridTemplateColumns = (newSidebarState === "expanded" ? "minmax(auto, 250px)" : "0px") + " 1fr";
+            // }
+        });
+    </script>
+</body>
+</html>

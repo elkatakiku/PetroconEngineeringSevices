@@ -34,7 +34,7 @@ class UserRepository extends Repository {
         return $this->validateInput('username', self::$tblLogin, $username);
     }
 
-    public function validateEmail(string $email)
+    public function isEmailTaken(string $email)
     {
         return $this->validateInput('email', self::$tblRegister, $email);
     }
@@ -226,24 +226,23 @@ class UserRepository extends Repository {
         return $result;
     }
 
-    public function getUsers($userType)
+    public function getUsers(string $userType)
     {
 
         $sql = "SELECT a.id, r.firstname, r.lastname, r.middlename, r.email, l.username, l.password
                 FROM  ".self::$tblAccount." a
                 LEFT JOIN ".self::$tblRegister." r ON r.id = a.register_id
-                LEFT JOIN ".self::$tblLogin." l ON l.id = a.login_id
-                WHERE NOT a.type_id = '".Account::ADMIN_TYPE."'";
+                LEFT JOIN ".self::$tblLogin." l ON l.id = a.login_id";
+//                WHERE NOT a.type_id = '".Account::ADMIN_TYPE."'";
 
         $params = [];
-        if (!empty($userType)) {
-            $sql .= "AND a.type_id = :userType";
+        if (strlen(trim($userType)) > 0) {
+            $sql .= " WHERE a.type_id = :userType";
             $params = [':userType' => $userType];
         }
 
         $sql .= " ORDER BY created_at DESC";
 
-        //  AND a.type_id = 'PTRCN-TYPE-20222' ";
         return $this->query($sql, $params);
 
 
@@ -304,7 +303,7 @@ class UserRepository extends Repository {
         return $this->query($sql, $params)[0];
     }
 
-    public function getUserByRegister(string $regId)
+    public function getRegister(string $regId)
     {
         $sql = 'SELECT * 
                 FROM '.self::$tblRegister.'
@@ -330,6 +329,16 @@ class UserRepository extends Repository {
         $params = [':id' => $acctId];
 
         return $this->query($sql, $params)[0];
+    }
+
+    public function getRegisterByEmail(string $email) {
+        $sql = "SELECT * 
+                FROM ".self::$tblRegister."
+                WHERE email = :email";
+
+        $params = [':email' => $email];
+
+        return $this->query($sql, $params);
     }
 
     // Updates user's password
@@ -473,8 +482,8 @@ class UserRepository extends Repository {
     public function getAccountTypes()
     {
         $sql = "SELECT *
-                FROM ".self::$tblAcctType."
-                WHERE NOT id = '".Account::ADMIN_TYPE."'";
+                FROM ".self::$tblAcctType;
+//                WHERE NOT id = '".Account::ADMIN_TYPE."'";
 
         return $this->query($sql);
     }

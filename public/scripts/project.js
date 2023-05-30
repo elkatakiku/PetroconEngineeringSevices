@@ -89,7 +89,9 @@ function loadGanttChart() {
 
             //  Add first month
             console.log(monthLastDate)
-            HTML_MONTHS.append(createMonth(monthLastDate, {grid : 1, span : monthLastDate.getDate() - daysCounter + 1}));
+            HTML_MONTHS.append(createMonth(monthLastDate, {
+                grid : 1, span : monthLastDate.getDate() - daysCounter + 1
+            }));
 
             for (let i = 0; i < response.data.grid; i++)
             {   //  Adds every other months
@@ -750,6 +752,7 @@ let datatableSettings = {
             type : 'GET',
             data : {projId : projectId},
             'complete' : function (data) {
+                console.log("People ajax complete");
                 reloadTimeout = setTimeout(() => {
                     if (DataTable.isDataTable(peopleTable)) {
                         peopleTable.dataTable().api().ajax.reload(null, false)
@@ -772,6 +775,7 @@ let datatableSettings = {
             {
                 'defaultContent' : '',
                 'render' : function (data, type, row) {
+                    console.log("Name")
                     console.log(row);
                     let middlename = row.middlename.trim().length > 0 ? (row.middlename.trim() + '.') : '';
                     return row.lastname + ', ' + row.firstname + middlename;
@@ -781,6 +785,8 @@ let datatableSettings = {
             {
                 'data' : 'contact_number',
                 'render' : function (data, type, row) {
+                    console.log("Contact")
+                    console.log(row);
                     return data.trim().length === 0 ? 'N/A' : data;
                 }
             },
@@ -788,9 +794,9 @@ let datatableSettings = {
                 'defaultContent' : '',
                 'render' : function () {
                     return  '<div class="action-cell-content">' +
-                        '<button class="btn outline-danger-btn icon-btn remove-btn">Remove' +
-                        '</button>' +
-                        '</div>';
+                                '<button class="btn outline-danger-btn icon-btn remove-btn">Remove' +
+                                '</button>' +
+                            '</div>';
                 }
             }
         ],
@@ -805,7 +811,6 @@ let datatableSettings = {
                 "targets": 4,
                 "createdCell": function (td, cellData, rowData, rowIndex, colIndex)
                 {
-                    console.log(rowData);
                     let cell = $(td);
 
                     cell.find('.remove-btn').on('click', (e) =>
@@ -818,7 +823,11 @@ let datatableSettings = {
     
         order: [
             [1, 'asc']
-        ]
+        ],
+
+        initComplete: function () {
+            console.log("People Complete")
+        }
     },
     paymentTable : {
         'dom' : 't',
@@ -1406,6 +1415,7 @@ function removeResource(resource)
 }
 
 // || People
+// Join Team
 $('#chooseFromTeam').on('click', (e) =>
 {
     popupContainer.load(
@@ -1414,6 +1424,41 @@ $('#chooseFromTeam').on('click', (e) =>
         function ()
         {
             Popup.initialize(popupContainer, true);
+
+            let searchBar = popupContainer.find('.search-bar');
+            searchBar.Search({'url' : Settings.base_url + '/people/searchPeople'});
+
+            const searchInput = searchBar.find('input[type="search"]');
+            searchBar.find('#addPerson').on('click', (e) =>
+            {
+                console.log("Add person");
+
+                $.post(
+                    Settings.base_url + "/people/addToTeam",
+                    {projId : projectId, email: searchInput.val()},
+                    function (data) {
+                        console.log(data);
+                        let response = JSON.parse(data);
+
+                        if (response.statusCode === 200)
+                        {
+                        //    TODO: Add to table
+                        }
+                        else
+                        {   // TODO: Show error message
+                            popupContainer.find('.alert-danger')
+                                .addClass('show')
+                                .text(response.message);
+                        }
+                    }
+                );
+
+            //    Check if email belong to someone
+
+            //    Check if person is already in the project
+
+            });
+
             Popup.show(popupContainer);
 
             // Resource submit action

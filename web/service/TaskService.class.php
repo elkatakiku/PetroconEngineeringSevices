@@ -241,6 +241,8 @@ class TaskService extends Service{
                 // Chart header settings
                 $months = ($dDiff->y * 12) + $dDiff->m;
 
+//                var_dump($days);
+
                 if ($tasks = $this->taskRepository->getActiveTasks($cleanId))
                 {
                     //  Sets grid and span of task
@@ -262,6 +264,7 @@ class TaskService extends Service{
                     $result['statusCode'] = 200;
                 }
 
+                $result['data']['extra'] = [$startDate, $endDate, $projectId];
                 $result['data']['month'] = $months;
                 $result['data']['start'] = $startDate;
                 $result['data']['end'] = $endDate;

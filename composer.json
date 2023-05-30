@@ -2,6 +2,7 @@
     "require": {
         "phpmailer/phpmailer": "^6.7",
       "ext-json": "*",
-      "ext-calendar": "*"
+      "ext-calendar": "*",
+        "fakerphp/faker": "^1.22"
     }
 }

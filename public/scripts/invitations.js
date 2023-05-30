@@ -211,7 +211,7 @@ emailInput.on('input', (e) =>
             let element = e.target;
 
             $.get(
-                Settings.base_url + '/people/validateEmail',
+                Settings.base_url + '/people/validateInvitationEmail',
                 {input : $(element).val()},
                 function (data)
                 {

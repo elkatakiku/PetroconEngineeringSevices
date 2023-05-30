@@ -3,6 +3,7 @@
 namespace Repository;
 
 use Core\Repository;
+use Model\Account;
 use Model\Invitation;
 use Model\Resource;
 
@@ -127,7 +128,8 @@ class PeopleRepository extends Repository {
         return $this->query($sql, $params);
     }
 
-    public function validateEmail(string $email) {
+    public function isEmailSent(string $email): bool
+    {
         $sql = "SELECT 
                     email
                 FROM 
@@ -165,6 +167,33 @@ class PeopleRepository extends Repository {
                     CONCAT(r.lastname, ' ', r.firstname, ', ', r.middlename) LIKE  CONCAT('%', :searchName, '%'))";
 
         $params = [':searchEmail' => $searchStr, ':searchName' => $searchStr];
+
+        return $this->query($sql, $params);
+    }
+
+//    Search people
+    public function searchPeople(string $searchStr) {
+        $sql = "SELECT r.id, CONCAT(lastname, ',', firstname, ' ', middlename) AS name, email
+                FROM tbl_register r INNER JOIN tbl_account a ON r.id = a.register_id
+                WHERE 
+                    (email LIKE :search OR CONCAT(lastname, ',', firstname, ' ', middlename) LIKE :search) 
+                  AND 
+                    a.type_id != :type";
+
+        $params = [':search' => '%'.$searchStr.'%', ':type' => Account::ADMIN_TYPE];
+
+        return $this->query($sql, $params);
+    }
+
+    public function hasJoinedProject(string $projectId, string $regId) {
+        $sql = "SELECT * 
+                FROM ".self::$tblPeople." t INNER JOIN ".self::$tblAccount." a ON t.acct_id = a.id 
+                WHERE a.register_id = :regId AND t.proj_id = :projectId";
+
+        $params = [
+            ':projectId' => $projectId,
+            ':regId' => $regId
+        ];
 
         return $this->query($sql, $params);
     }

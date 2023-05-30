@@ -4,32 +4,38 @@ namespace Controller;
 
 // Core
 use \Core\Controller as MainController;
+use Faker\Factory;
+use Model\Account as Account;
+use Model\Register;
+use Repository\ProjectRepository;
 use \Service\UserService;
 
-class User extends MainController {
+class User extends MainController
+{
 
     private $userService;
 
-    public function __construct() 
+    public function __construct()
     {
         parent::__construct();
         $this->setPage('#users');
 
         $this->userService = new UserService;
-        
+
         if (!isset($_SESSION['accID'])) {
             $this->goToLogin();
         }
     }
 
     // || Views
-    public function index() {
-        header("Location: ".SITE_URL."/user/list#all");
-        exit();   
+    public function index()
+    {
+        header("Location: " . SITE_URL . "/user/list#all");
+        exit();
     }
 
     public function list()
-    {        
+    {
         $this->view("user", "user-list", ['acctTypes' => $this->userService->getAccountTypes()]);
     }
 
@@ -44,7 +50,8 @@ class User extends MainController {
         }
     }
 
-    public function new() {
+    public function new()
+    {
         $this->view("user", "new-user", ['acctTypes' => $this->userService->getAccountTypes()]);
     }
 
@@ -59,16 +66,14 @@ class User extends MainController {
 
     public function newUser()
     {
-        if (isset($_POST['form'])) 
-        {
+        if (isset($_POST['form'])) {
             echo $this->userService->signup($_POST['form']);
         }
     }
 
     public function checkUserName()
     {
-        if (isset($_GET['input'])) 
-        {    
+        if (isset($_GET['input'])) {
             echo $this->userService->checkUsername($_GET['input']);
         }
     }
@@ -84,8 +89,7 @@ class User extends MainController {
     // || Profile
     public function updateUser()
     {
-        if (isset($_POST['modifyProfile'])) 
-        {
+        if (isset($_POST['modifyProfile'])) {
             $inputs = [
                 'required' => [
                     "id" => ucwords($this->sanitizeString($_POST['id'])), //every first letter of words is capital
@@ -103,10 +107,10 @@ class User extends MainController {
             ];
 
             $result = json_decode($this->userService->updateUser($inputs), true);
-            $url = "Location: ".SITE_URL."/account/profile";
+            $url = "Location: " . SITE_URL . "/account/profile";
 
             if ($result['statusCode'] != 200) {
-                $url .= "?error=".$result['message'];
+                $url .= "?error=" . $result['message'];
             }
 
             header($url);
@@ -118,15 +122,14 @@ class User extends MainController {
     // Change pass action
     public function changePass()
     {
-        if (isset($_POST['changePassSubmit']))
-        {
+        if (isset($_POST['changePassSubmit'])) {
             $result = json_decode($this->userService->changePassword($_POST), true);
-            $url = "Location: ".SITE_URL."/account/changepass";
+            $url = "Location: " . SITE_URL . "/account/changepass";
 
             if ($result['statusCode'] == 200) {
                 $url .= "?success=password changed";
             } else {
-                $url .= "?error=".$result['message'];
+                $url .= "?error=" . $result['message'];
             }
 
             header($url);
@@ -142,15 +145,49 @@ class User extends MainController {
         }
     }
 
-    private function goToIndex() {
-        header("Location: ".SITE_URL."/user");
+    private function goToIndex()
+    {
+        header("Location: " . SITE_URL . "/user");
         exit();
     }
 
-    public function remove() {
+    public function remove()
+    {
         if (isset($_POST['id'])) {
             echo $this->userService->remove($_POST['id']);
         }
+    }
+
+    public function generate()
+    {
+        echo 'Generate';
+        $faker = Factory::create();
+
+        echo 'Generate before';
+
+        // Create login
+        $login = new \Model\Login();
+        $login->create($faker->userName, password_hash('123', PASSWORD_DEFAULT));
+
+        // // Create register/user
+        $register = new Register();
+        $register->create(
+            $faker->lastName, $faker->firstName, $faker->phoneNumber,
+            $faker->date, $faker->safeEmail, $login->getId(), $faker->address
+        );
+
+        $register->setMiddlename($faker->firstName);
+
+        // // Create Account
+        $account = new Account();
+        $account->createAccount(
+            Account::EMPLOYEE_TYPE, $register->getId(), $login->getId()
+        );
+
+        echo 'Generating';
+        $userService = new UserService();
+
+        return $userService->setUser($login, $register, $account)->isSuccess();
     }
 }
 
